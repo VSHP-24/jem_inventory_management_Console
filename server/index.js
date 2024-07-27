@@ -3,6 +3,7 @@ import morgan from "morgan";
 
 import brandRouter from "./routes/brandRoutes.js";
 import bikeRouter from "./routes/bikeRoutes.js";
+import partRouter from "./routes/partRoutes.js";
 
 const app = express();
 
@@ -21,5 +22,6 @@ app.use(express.json());
 
 app.use("/api/v1/brands", brandRouter);
 app.use("/api/v1/bikes", bikeRouter);
+app.use("/api/v1/parts", partRouter);
 
 export default app;
