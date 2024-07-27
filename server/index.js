@@ -5,6 +5,7 @@ import brandRouter from "./routes/brandRoutes.js";
 import bikeRouter from "./routes/bikeRoutes.js";
 import partRouter from "./routes/partRoutes.js";
 import productRouter from "./routes/productRoutes.js";
+import categoryRouter from "./routes/categoryRoutes.js";
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use("/api/v1/brands", brandRouter);
 app.use("/api/v1/bikes", bikeRouter);
 app.use("/api/v1/parts", partRouter);
 app.use("/api/v1/products", productRouter);
+app.use("/api/v1/category", categoryRouter);
 
 export default app;
