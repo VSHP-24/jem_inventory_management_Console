@@ -9,6 +9,11 @@ const brandSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    trim: true,
+  },
+  brandLogo: {
+    type: String,
+    required: [true, "A brand must have a brand image"],
   },
 });
 
