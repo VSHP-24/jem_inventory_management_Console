@@ -6,6 +6,7 @@ import bikeRouter from "./routes/bikeRoutes.js";
 import partRouter from "./routes/partRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import categoryRouter from "./routes/categoryRoutes.js";
+import subCategoryRouter from "./routes/subCategoryRoutes.js";
 
 const app = express();
 
@@ -27,5 +28,6 @@ app.use("/api/v1/bikes", bikeRouter);
 app.use("/api/v1/parts", partRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/subcategory", subCategoryRouter);
 
 export default app;

@@ -15,3 +15,5 @@ router
   .get(getCategory)
   .patch(updateCategory)
   .delete(deleteCategory);
+
+export default router;
