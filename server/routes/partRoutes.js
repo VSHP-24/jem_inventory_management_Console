@@ -5,7 +5,7 @@ import {
   createPart,
   updatePart,
   deletePart,
-} from "../controllers/partController";
+} from "../controllers/partController.js";
 
 const router = express.Router();
 
