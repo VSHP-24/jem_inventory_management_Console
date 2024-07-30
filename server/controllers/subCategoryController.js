@@ -2,6 +2,7 @@
 
 import SubCategory from "./../models/subCategoryModel.js";
 import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
 
 /////////////////////////////////////////////////
 //         FETCHES ALL THE SUBCATEGORIES
@@ -24,6 +25,16 @@ export const getAllSubCategories = catchAsync(async (req, res, next) => {
 
 export const getSubCategory = catchAsync(async (req, res, next) => {
   const subCategory = await SubCategory.findById(req.params.id);
+
+  if (!subCategory) {
+    return next(
+      new AppError(
+        "No SubCategory was found with that ID. Please check the ID again",
+        404
+      )
+    );
+  }
+
   res.status(200).json({
     status: "success",
     data: {
@@ -59,6 +70,16 @@ export const updateSubCategory = catchAsync(async (req, res, next) => {
       runValidators: true,
     }
   );
+
+  if (!subCategory) {
+    return next(
+      new AppError(
+        "No SubCategory was found with that ID. Please check the ID again",
+        404
+      )
+    );
+  }
+
   res.status(200).json({
     status: "success",
     data: {
@@ -72,7 +93,17 @@ export const updateSubCategory = catchAsync(async (req, res, next) => {
 /////////////////////////////////////////////////
 
 export const deleteSubCategory = catchAsync(async (req, res, next) => {
-  await SubCategory.findByIdAndDelete(req.params.id);
+  const subCategory = await SubCategory.findByIdAndDelete(req.params.id);
+
+  if (!subCategory) {
+    return next(
+      new AppError(
+        "No SubCategory was found with that ID. Please check the ID again",
+        404
+      )
+    );
+  }
+
   res.status(204).json({
     status: "success",
     data: null,

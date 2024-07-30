@@ -2,6 +2,7 @@
 
 import Category from "./../models/categoryModel.js";
 import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
 
 /////////////////////////////////////////////////
 //           FETCHES ALL THE CATEGORIES
@@ -24,6 +25,16 @@ export const getAllCategories = catchAsync(async (req, res, next) => {
 
 export const getCategory = catchAsync(async (req, res, next) => {
   const category = await Category.findById(req.params.id);
+
+  if (!category) {
+    return next(
+      new AppError(
+        "No category was found with that ID. Please check the ID again",
+        404
+      )
+    );
+  }
+
   res.status(200).json({
     status: "success",
     data: {
@@ -55,6 +66,16 @@ export const updateCategory = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+
+  if (!category) {
+    return next(
+      new AppError(
+        "No category was found with that ID. Please check the ID again",
+        404
+      )
+    );
+  }
+
   res.status(200).json({
     status: "success",
     data: {
@@ -68,7 +89,17 @@ export const updateCategory = catchAsync(async (req, res, next) => {
 /////////////////////////////////////////////////
 
 export const deleteCategory = catchAsync(async (req, res, next) => {
-  await Category.findByIdAndDelete(req.params.id);
+  const category = await Category.findByIdAndDelete(req.params.id);
+
+  if (!category) {
+    return next(
+      new AppError(
+        "No category was found with that ID. Please check the ID again",
+        404
+      )
+    );
+  }
+
   res.status(204).json({
     status: "success",
     data: null,

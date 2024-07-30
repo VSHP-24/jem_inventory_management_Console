@@ -2,6 +2,7 @@
 
 import Product from "./../models/productModel.js";
 import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
 
 /////////////////////////////////////////////////
 //           FETCHES ALL THE PRODUCTS
@@ -24,6 +25,16 @@ export const getAllProducts = catchAsync(async (req, res, next) => {
 
 export const getProduct = catchAsync(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(
+      new AppError(
+        "No product was found with that ID. Please check the ID again",
+        404
+      )
+    );
+  }
+
   res.status(200).json({
     status: "success",
     data: {
@@ -55,6 +66,16 @@ export const updateProduct = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+
+  if (!product) {
+    return next(
+      new AppError(
+        "No product was found with that ID. Please check the ID again",
+        404
+      )
+    );
+  }
+
   res.status(200).json({
     status: "success",
     data: {
@@ -68,7 +89,17 @@ export const updateProduct = catchAsync(async (req, res, next) => {
 /////////////////////////////////////////////////
 
 export const deleteProduct = catchAsync(async (req, res, next) => {
-  await Product.findByIdAndDelete(req.params.id);
+  const product = await Product.findByIdAndDelete(req.params.id);
+
+  if (!product) {
+    return next(
+      new AppError(
+        "No product was found with that ID. Please check the ID again",
+        404
+      )
+    );
+  }
+
   res.status(204).json({
     status: "success",
     data: null,
