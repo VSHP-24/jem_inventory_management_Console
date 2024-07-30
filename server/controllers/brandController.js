@@ -1,112 +1,77 @@
 /*eslint no-unused-vars: ["error", { "argsIgnorePattern": "req|res|next|val" }]*/
 
 import Brand from "./../models/brandModel.js";
+import catchAsync from "../utils/catchAsync.js";
 
 /////////////////////////////////////////////////
 //           FETCHES ALL THE BRANDS
 /////////////////////////////////////////////////
 
-export async function getAllBrands(req, res) {
-  try {
-    const brands = await Brand.find();
-    res.status(200).json({
-      status: "success",
-      results: brands.length,
-      data: {
-        brands,
-      },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: "fail",
-      message: err,
-    });
-  }
-}
+export const getAllBrands = catchAsync(async (req, res, next) => {
+  const brands = await Brand.find();
+  res.status(200).json({
+    status: "success",
+    results: brands.length,
+    data: {
+      brands,
+    },
+  });
+});
 
 /////////////////////////////////////////////////
 //           FETCHES SPECIFIC BRAND
 /////////////////////////////////////////////////
 
-export async function getBrand(req, res) {
-  try {
-    const brand = await Brand.findById(req.params.id);
-    res.status(200).json({
-      status: "success",
-      data: {
-        brand,
-      },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: "fail",
-      message: err,
-    });
-  }
-}
+export const getBrand = catchAsync(async (req, res, next) => {
+  const brand = await Brand.findById(req.params.id);
+  res.status(200).json({
+    status: "success",
+    data: {
+      brand,
+    },
+  });
+});
 
 /////////////////////////////////////////////////
 //           CREATE NEW BRAND
 /////////////////////////////////////////////////
 
-export async function createBrand(req, res) {
-  try {
-    const brand = await Brand.create(req.body);
+export const createBrand = catchAsync(async (req, res, next) => {
+  const brand = await Brand.create(req.body);
 
-    res.status(201).json({
-      status: "success",
-      data: {
-        brand,
-      },
-    });
-  } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-}
+  res.status(201).json({
+    status: "success",
+    data: {
+      brand,
+    },
+  });
+});
 
 /////////////////////////////////////////////////
 //           UPDATE SPECIFIC BRAND
 /////////////////////////////////////////////////
 
-export async function updateBrand(req, res) {
-  try {
-    const brand = await Brand.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    res.status(200).json({
-      status: "success",
-      data: {
-        brand,
-      },
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: "fail",
-      message: err,
-    });
-  }
-}
+export const updateBrand = catchAsync(async (req, res, next) => {
+  const brand = await Brand.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(200).json({
+    status: "success",
+    data: {
+      brand,
+    },
+  });
+});
 
 /////////////////////////////////////////////////
 //           DELETE SPECIFIC BRAND
 /////////////////////////////////////////////////
 
-export async function deleteBrand(req, res) {
-  try {
-    await Brand.findByIdAndDelete(req.params.id);
-    res.status(204).json({
-      status: "success",
-      data: null,
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: "fail",
-      message: err,
-    });
-  }
-}
+export const deleteBrand = catchAsync(async (req, res, next) => {
+  await Brand.findByIdAndDelete(req.params.id);
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
+});
