@@ -3,6 +3,7 @@
 import Part from "./../models/partModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
+import { createOne, deleteOne, updateOne } from "./handlerFactory.js";
 
 /////////////////////////////////////////////////
 //           FETCHES ALL THE PARTS
@@ -43,63 +44,6 @@ export const getPart = catchAsync(async (req, res, next) => {
   });
 });
 
-/////////////////////////////////////////////////
-//           CREATE NEW PART
-/////////////////////////////////////////////////
-
-export const createPart = catchAsync(async (req, res, next) => {
-  const part = await Part.create(req.body);
-  res.status(201).json({
-    status: "success",
-    data: {
-      part,
-    },
-  });
-});
-
-/////////////////////////////////////////////////
-//           UPDATE SPECIFIC PART
-/////////////////////////////////////////////////
-
-export const updatePart = catchAsync(async (req, res, next) => {
-  const part = await Part.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
-  if (!part) {
-    return next(
-      new AppError(
-        "No part was found with that ID. Please check the ID again",
-        404
-      )
-    );
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: { part },
-  });
-});
-
-/////////////////////////////////////////////////
-//           DELETE SPECIFIC PART
-/////////////////////////////////////////////////
-
-export const deletePart = catchAsync(async (req, res, next) => {
-  const part = await Part.findByIdAndDelete(req.params.id);
-
-  if (!part) {
-    return next(
-      new AppError(
-        "No part was found with that ID. Please check the ID again",
-        404
-      )
-    );
-  }
-
-  res.status(204).json({
-    status: "success",
-    data: null,
-  });
-});
+export const createPart = createOne(Part);
+export const updatePart = updateOne(Part);
+export const deletePart = deleteOne(Part);

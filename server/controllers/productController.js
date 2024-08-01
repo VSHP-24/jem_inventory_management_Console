@@ -3,6 +3,7 @@
 import Product from "./../models/productModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
+import { createOne, deleteOne, updateOne } from "./handlerFactory.js";
 
 /////////////////////////////////////////////////
 //           FETCHES ALL THE PRODUCTS
@@ -43,65 +44,6 @@ export const getProduct = catchAsync(async (req, res, next) => {
   });
 });
 
-/////////////////////////////////////////////////
-//           CREATE NEW PRODUCT
-/////////////////////////////////////////////////
-
-export const createProduct = catchAsync(async (req, res, next) => {
-  const product = await Product.create(req.body);
-  res.status(201).json({
-    status: "success",
-    data: {
-      product,
-    },
-  });
-});
-
-/////////////////////////////////////////////////
-//           UPDATE SPECIFIC PRODUCT
-/////////////////////////////////////////////////
-
-export const updateProduct = catchAsync(async (req, res, next) => {
-  const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
-  if (!product) {
-    return next(
-      new AppError(
-        "No product was found with that ID. Please check the ID again",
-        404
-      )
-    );
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      product,
-    },
-  });
-});
-
-/////////////////////////////////////////////////
-//           DELETE SPECIFIC PRODUCT
-/////////////////////////////////////////////////
-
-export const deleteProduct = catchAsync(async (req, res, next) => {
-  const product = await Product.findByIdAndDelete(req.params.id);
-
-  if (!product) {
-    return next(
-      new AppError(
-        "No product was found with that ID. Please check the ID again",
-        404
-      )
-    );
-  }
-
-  res.status(204).json({
-    status: "success",
-    data: null,
-  });
-});
+export const createProduct = createOne(Product);
+export const updateProduct = updateOne(Product);
+export const deleteProduct = deleteOne(Product);
