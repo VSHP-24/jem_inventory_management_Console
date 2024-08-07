@@ -1,39 +1,36 @@
 /*eslint no-unused-vars: ["error", { "argsIgnorePattern": "req|res|next|val" }]*/
 
-import Brand from "./../models/brandModel.js";
+import Product from "./../models/productModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
 import { createOne, deleteOne, updateOne } from "./handlerFactory.js";
 
 /////////////////////////////////////////////////
-//           FETCHES ALL THE BRANDS
+//           FETCHES ALL THE PRODUCTS
 /////////////////////////////////////////////////
 
-export const getAllBrands = catchAsync(async (req, res, next) => {
-  const brands = await Brand.find();
+export const getAllProducts = catchAsync(async (req, res, next) => {
+  const products = await Product.find();
   res.status(200).json({
     status: "success",
-    results: brands.length,
+    results: products.length,
     data: {
-      brands,
+      products,
     },
   });
 });
 
 /////////////////////////////////////////////////
-//           FETCHES SPECIFIC BRAND
+//           FETCHES SPECIFIC PRODUCT
 /////////////////////////////////////////////////
 
-export const getBrand = catchAsync(async (req, res, next) => {
-  const brand = await Brand.findById(req.params.id).populate([
-    "products",
-    "models",
-  ]);
+export const getProduct = catchAsync(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
 
-  if (!brand) {
+  if (!product) {
     return next(
       new AppError(
-        "No brand was found with that ID. Please check the ID again",
+        "No product was found with that ID. Please check the ID again",
         404
       )
     );
@@ -42,11 +39,11 @@ export const getBrand = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: {
-      brand,
+      product,
     },
   });
 });
 
-export const createBrand = createOne(Brand);
-export const updateBrand = updateOne(Brand);
-export const deleteBrand = deleteOne(Brand);
+export const createProduct = createOne(Product);
+export const updateProduct = updateOne(Product);
+export const deleteProduct = deleteOne(Product);

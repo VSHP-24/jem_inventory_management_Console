@@ -1,39 +1,36 @@
 /*eslint no-unused-vars: ["error", { "argsIgnorePattern": "req|res|next|val" }]*/
 
-import Brand from "./../models/brandModel.js";
+import Bike from "./../models/bikeModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
 import { createOne, deleteOne, updateOne } from "./handlerFactory.js";
 
 /////////////////////////////////////////////////
-//           FETCHES ALL THE BRANDS
+//           FETCHES ALL THE BIKES
 /////////////////////////////////////////////////
 
-export const getAllBrands = catchAsync(async (req, res, next) => {
-  const brands = await Brand.find();
+export const getAllBikes = catchAsync(async (req, res, next) => {
+  const bikes = await Bike.find();
   res.status(200).json({
     status: "success",
-    results: brands.length,
+    results: bikes.length,
     data: {
-      brands,
+      bikes,
     },
   });
 });
 
 /////////////////////////////////////////////////
-//           FETCHES SPECIFIC BRAND
+//           FETCHES SPECIFIC BIKE
 /////////////////////////////////////////////////
 
-export const getBrand = catchAsync(async (req, res, next) => {
-  const brand = await Brand.findById(req.params.id).populate([
-    "products",
-    "models",
-  ]);
+export const getBike = catchAsync(async (req, res, next) => {
+  const bike = await Bike.findById(req.params.id).populate("products");
 
-  if (!brand) {
+  if (!bike) {
     return next(
       new AppError(
-        "No brand was found with that ID. Please check the ID again",
+        "No bike was found with that ID. Please check the ID again",
         404
       )
     );
@@ -42,11 +39,11 @@ export const getBrand = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: {
-      brand,
+      bike,
     },
   });
 });
 
-export const createBrand = createOne(Brand);
-export const updateBrand = updateOne(Brand);
-export const deleteBrand = deleteOne(Brand);
+export const createBike = createOne(Bike);
+export const updateBike = updateOne(Bike);
+export const deleteBike = deleteOne(Bike);

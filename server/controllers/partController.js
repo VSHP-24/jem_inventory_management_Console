@@ -1,39 +1,36 @@
 /*eslint no-unused-vars: ["error", { "argsIgnorePattern": "req|res|next|val" }]*/
 
-import Brand from "./../models/brandModel.js";
+import Part from "./../models/partModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
 import { createOne, deleteOne, updateOne } from "./handlerFactory.js";
 
 /////////////////////////////////////////////////
-//           FETCHES ALL THE BRANDS
+//           FETCHES ALL THE PARTS
 /////////////////////////////////////////////////
 
-export const getAllBrands = catchAsync(async (req, res, next) => {
-  const brands = await Brand.find();
+export const getAllParts = catchAsync(async (req, res, next) => {
+  const parts = await Part.find();
   res.status(200).json({
     status: "success",
-    results: brands.length,
+    results: parts.length,
     data: {
-      brands,
+      parts,
     },
   });
 });
 
 /////////////////////////////////////////////////
-//           FETCHES SPECIFIC BRAND
+//           FETCHES SPECIFIC PART
 /////////////////////////////////////////////////
 
-export const getBrand = catchAsync(async (req, res, next) => {
-  const brand = await Brand.findById(req.params.id).populate([
-    "products",
-    "models",
-  ]);
+export const getPart = catchAsync(async (req, res, next) => {
+  const part = await Part.findById(req.params.id);
 
-  if (!brand) {
+  if (!part) {
     return next(
       new AppError(
-        "No brand was found with that ID. Please check the ID again",
+        "No part was found with that ID. Please check the ID again",
         404
       )
     );
@@ -42,11 +39,11 @@ export const getBrand = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: {
-      brand,
+      part,
     },
   });
 });
 
-export const createBrand = createOne(Brand);
-export const updateBrand = updateOne(Brand);
-export const deleteBrand = deleteOne(Brand);
+export const createPart = createOne(Part);
+export const updatePart = updateOne(Part);
+export const deletePart = deleteOne(Part);
