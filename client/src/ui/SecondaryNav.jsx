@@ -1,27 +1,21 @@
-import { NavLink } from "react-router-dom";
-
 import styled from "styled-components";
 import secondaryNavList from "./../utils/secondaryNavList";
+import StyledNavLink from "./StyledNavLink";
 
 const StyledNav = styled.nav`
   display: flex;
   gap: 4.8rem;
 `;
 
-const StyledNavLink = styled(NavLink)`
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const StyledNavLinks = styled(StyledNavLink)`
   color: var(--color-gold-100);
-  line-height: 1;
 `;
 
 const StyledIcon = styled.div`
   font-size: 3rem;
 `;
 
-const StyledIconLabel = styled.div`
+const StyledIconLabel = styled.span`
   font-size: 1rem;
 `;
 
@@ -29,12 +23,12 @@ function SecondaryNav() {
   return (
     <StyledNav>
       {secondaryNavList.map((el) => (
-        <StyledNavLink to={el.name} key={el.name}>
+        <StyledNavLinks to={el.name} key={el.name}>
           <StyledIcon>
             <el.icon />
           </StyledIcon>
           <StyledIconLabel>{el.name}</StyledIconLabel>
-        </StyledNavLink>
+        </StyledNavLinks>
       ))}
     </StyledNav>
   );

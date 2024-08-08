@@ -1,10 +1,9 @@
-import { NavLink } from "react-router-dom";
-
 import styled from "styled-components";
 import mainNavList from "./../utils/mainNavList.js";
+import StyledNavLink from "./StyledNavLink.jsx";
 
 const StyledAside = styled.aside`
-  font-size: 1 rem;
+  font-size: 1rem;
   display: flex;
   flex-direction: column;
   background-color: var(--color-gold-500);
@@ -12,21 +11,15 @@ const StyledAside = styled.aside`
   padding: 0.4rem 1.2rem 2.4rem;
 `;
 
-const StyledNavLink = styled(NavLink)`
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+const StyledNavLinks = styled(StyledNavLink)`
   color: var(--color-grey-900);
-  font-size: 1.2rem;
-  font-weight: 500;
 `;
 
 const StyledIcon = styled.div`
   font-size: 2rem;
 `;
 
-const StyledIconLabel = styled.div`
+const StyledIconLabel = styled.span`
   font-size: 1.2rem;
 `;
 
@@ -34,12 +27,12 @@ function MainNav() {
   return (
     <StyledAside>
       {mainNavList.map((el) => (
-        <StyledNavLink to={el.name} key={el.name}>
+        <StyledNavLinks type="vertical" to={el.name} key={el.name}>
           <StyledIcon>
             <el.icon />
           </StyledIcon>
           <StyledIconLabel>{el.name}</StyledIconLabel>
-        </StyledNavLink>
+        </StyledNavLinks>
       ))}
     </StyledAside>
   );

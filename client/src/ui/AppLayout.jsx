@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 
 const StyledAppLayout = styled.div`
   display: grid;
-  grid-template-columns: 12rem 1fr;
+  grid-template-columns: 11rem 1fr;
   grid-template-rows: 5.2rem 1fr;
   height: 100vh;
 `;
