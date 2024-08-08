@@ -9,7 +9,7 @@ const StyledAside = styled.aside`
   flex-direction: column;
   background-color: var(--color-gold-500);
   justify-content: space-around;
-  padding: 1.6rem;
+  padding: 0.4rem 1.2rem 2.4rem;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -22,9 +22,13 @@ const StyledNavLink = styled(NavLink)`
   font-weight: 500;
 `;
 
-const StyledIcon = styled.div``;
+const StyledIcon = styled.div`
+  font-size: 2rem;
+`;
 
-const StyledIconLabel = styled.div``;
+const StyledIconLabel = styled.div`
+  font-size: 1.2rem;
+`;
 
 function MainNav() {
   return (
