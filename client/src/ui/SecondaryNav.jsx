@@ -4,11 +4,33 @@ import StyledNavLink from "./StyledNavLink";
 
 const StyledNav = styled.nav`
   display: flex;
-  gap: 4.8rem;
+  gap: 3.2rem;
 `;
 
 const StyledNavLinks = styled(StyledNavLink)`
   color: var(--color-gold-100);
+  &:hover,
+  &:active,
+  &.active:link,
+  &.active:visited {
+    color: var(--color-grey-900);
+    background-color: var(--color-gold-700);
+    border-radius: var(--border-radius-sm);
+  }
+
+  & svg {
+    width: 2.4rem;
+    height: 2.4rem;
+    color: var(--color-gold-100);
+    transition: all 0.3s;
+  }
+
+  &:hover svg,
+  &:active svg,
+  &.active:link svg,
+  &.active:visited svg {
+    color: var(--color-grey-900);
+  }
 `;
 
 const StyledIcon = styled.div`

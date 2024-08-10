@@ -1,5 +1,14 @@
+import Heading from "../ui/Heading";
+import Row from "../ui/Row";
+
 function Dashboard() {
-  return <p>Dashboard</p>;
+  return (
+    <>
+      <Row>
+        <Heading as="h2">Dashboard</Heading>
+      </Row>
+    </>
+  );
 }
 
 export default Dashboard;

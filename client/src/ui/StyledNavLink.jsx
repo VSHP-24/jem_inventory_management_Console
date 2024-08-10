@@ -21,6 +21,7 @@ const StyledNavLink = styled(NavLink)`
 
   text-decoration: none;
   display: flex;
+  padding: 0.8rem;
 `;
 
 StyledNavLink.defaultProps = {
