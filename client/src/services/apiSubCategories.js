@@ -1,4 +1,4 @@
-const SUBCATEGORIES_URL = `http://127.0.0.1:8000/api/v1/subcategory`;
+import { SUBCATEGORIES_URL } from "./apiLinks";
 
 /////////////////////////////////////////////////
 //           FETCHES ALL THE SUBCATEGORIES

@@ -14,6 +14,7 @@ dist-ssr
 dev-data
 *.env
 DesignSystem
+apiLinks.js
 
 # Editor directories and files
 .vscode/*

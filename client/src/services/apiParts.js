@@ -1,4 +1,4 @@
-const PARTS_URL = `http://127.0.0.1:8000/api/v1/parts`;
+import { PARTS_URL } from "./apiLinks";
 
 /////////////////////////////////////////////////
 //           FETCHES ALL THE PARTS

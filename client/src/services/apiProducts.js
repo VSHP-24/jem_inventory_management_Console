@@ -1,4 +1,4 @@
-const PRODUCTS_URL = `http://127.0.0.1:8000/api/v1/products`;
+import { PRODUCTS_URL } from "./apiLinks";
 
 /////////////////////////////////////////////////
 //           FETCHES ALL THE PRODUCTS
