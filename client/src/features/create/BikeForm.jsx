@@ -20,7 +20,7 @@ function BikeForm() {
     mutationFn: createModel,
     onSuccess: () => {
       toast.success(` New Bike Model successfully created `);
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["models"] });
       reset();
     },
     onError: (err) => toast.error(err.message),
