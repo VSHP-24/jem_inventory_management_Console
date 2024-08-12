@@ -23,6 +23,5 @@ export async function createProduct(newProduct) {
     body: JSON.stringify(newProduct),
   });
   const data = await res.json();
-  console.log(data);
   if (!res.ok) throw new Error(data.message);
 }

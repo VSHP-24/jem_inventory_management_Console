@@ -9,13 +9,14 @@ import { createProduct } from "../../services/apiProducts";
 import Select from "../../ui/Select";
 import SelectBrands from "../brands/SelectBrands";
 import SelectModels from "../models/SelectModels";
+import SelectCategories from "../categories/SelectCategories";
 import SelectSubCategories from "../subCategories/SelectSubCategories";
 import SelectParts from "../parts/SelectParts";
 
 import Textarea from "../../ui/Textarea";
 
 function ProductForm() {
-  const { register, handleSubmit, formState, getValues } = useForm();
+  const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
 
   const queryClient = useQueryClient();
@@ -24,12 +25,13 @@ function ProductForm() {
     onSuccess: () => {
       toast.success(` New Product successfully created `);
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      reset();
     },
     onError: (err) => toast.error(err.message),
   });
 
   function onSubmit(data) {
-    console.log(data);
+    // console.log(data);
     mutate(data);
   }
 
@@ -80,6 +82,21 @@ function ProductForm() {
           </Select>
         </FormRow>
 
+        <FormRow label="Category" error={errors?.Category?.message}>
+          <Select
+            name="category"
+            id="category"
+            {...register("category", {
+              required: "*This field is required",
+              validate: (value) => {
+                if (!value) return "*This field is required";
+              },
+            })}
+          >
+            <SelectCategories />
+          </Select>
+        </FormRow>
+
         <FormRow label="SubCategory" error={errors?.subCategory?.message}>
           <Select
             name="subCategory"
@@ -125,13 +142,11 @@ function ProductForm() {
           <Input type="text" id="combo" {...register("combo")} />
         </FormRow>
 
-        <FormRow label="Main Image">
+        <FormRow label="Main Image" error={errors?.mainImage?.message}>
           <Input
             type="text"
             id="mainImage"
-            {...register("mainImage", {
-              required: "*This field is required",
-            })}
+            {...register("mainImage", { required: "*This field is required" })}
           />
         </FormRow>
 
@@ -147,7 +162,7 @@ function ProductForm() {
           <Textarea type="text" id="description" {...register("description")} />
         </FormRow>
 
-        <FormRow label="Included Parts">
+        <FormRow label="Included Parts" error={errors?.includedParts?.message}>
           <Select
             name="includedParts"
             id="includedParts"

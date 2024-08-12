@@ -9,3 +9,19 @@ export async function getBrands() {
   const data = await res.json();
   return data.data.brands;
 }
+
+/////////////////////////////////////////////////
+//           CREATE NEW BRAND
+/////////////////////////////////////////////////
+
+export async function createBrand(newBrand) {
+  const res = await fetch(BRANDS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newBrand),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message);
+}

@@ -9,3 +9,19 @@ export async function getModels() {
   const data = await res.json();
   return data.data.bikes;
 }
+
+/////////////////////////////////////////////////
+//           CREATE NEW MODEL
+/////////////////////////////////////////////////
+
+export async function createModel(newModel) {
+  const res = await fetch(MODELS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newModel),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message);
+}
