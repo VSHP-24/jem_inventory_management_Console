@@ -1,12 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { getParts } from "../../services/apiParts";
+import { useGetParts } from "./useGetParts";
 
 function SelectParts() {
-  const { isPending, data: parts } = useQuery({
-    queryKey: ["parts"],
-    queryFn: getParts,
-  });
-
+  const { isPending, parts } = useGetParts();
   if (isPending) return parts;
 
   return (

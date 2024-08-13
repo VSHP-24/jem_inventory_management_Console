@@ -1,38 +1,26 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import { createProduct } from "../../services/apiProducts";
 import Select from "../../ui/Select";
 import SelectBrands from "../brands/SelectBrands";
 import SelectModels from "../models/SelectModels";
 import SelectCategories from "../categories/SelectCategories";
 import SelectSubCategories from "../subCategories/SelectSubCategories";
 import SelectParts from "../parts/SelectParts";
-
 import Textarea from "../../ui/Textarea";
+
+import { useCreateProduct } from "../products/useCreateProduct";
 
 function ProductForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
 
-  const queryClient = useQueryClient();
-  const { mutate, isPending: isCreating } = useMutation({
-    mutationFn: createProduct,
-    onSuccess: () => {
-      toast.success(` New Product successfully created `);
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isCreating, createProduct } = useCreateProduct();
 
   function onSubmit(data) {
-    // console.log(data);
-    mutate(data);
+    createProduct({ ...data }, { onSuccess: (data) => reset() });
   }
 
   function onError(errors) {

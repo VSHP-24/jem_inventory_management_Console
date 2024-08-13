@@ -1,11 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { getModels } from "../../services/apiModels";
+import { useGetModels } from "./useGetModels";
 
 function SelectModels() {
-  const { isPending, data: models } = useQuery({
-    queryKey: ["models"],
-    queryFn: getModels,
-  });
+  const { isPending, models } = useGetModels();
 
   if (isPending) return models;
 

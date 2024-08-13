@@ -1,9 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../../services/apiProducts";
-
 import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import ProductRow from "./ProductRow";
+
+import { useGetProducts } from "./useGetProducts";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-600);
@@ -28,10 +27,7 @@ const TableHeader = styled.div`
 `;
 
 function ProductTable() {
-  const { isPending, data: products } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
-  });
+  const { isPending, products } = useGetProducts();
 
   if (isPending) return <Spinner />;
 

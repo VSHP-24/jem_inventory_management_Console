@@ -1,6 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
@@ -9,26 +7,17 @@ import Select from "../../ui/Select";
 import SelectBrands from "../brands/SelectBrands";
 
 import Textarea from "../../ui/Textarea";
-import { createModel } from "../../services/apiModels";
+
+import { useCreateModel } from "../models/useCreateModel";
 
 function BikeForm() {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
 
-  const queryClient = useQueryClient();
-  const { mutate, isPending: isCreating } = useMutation({
-    mutationFn: createModel,
-    onSuccess: () => {
-      toast.success(` New Bike Model successfully created `);
-      queryClient.invalidateQueries({ queryKey: ["models"] });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isCreating, createModel } = useCreateModel();
 
   function onSubmit(data) {
-    // console.log(data);
-    mutate(data);
+    createModel({ ...data }, { onSuccess: (data) => reset() });
   }
 
   function onError(errors) {

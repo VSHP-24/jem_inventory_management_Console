@@ -1,12 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { getBrands } from "../../services/apiBrands";
+import { useGetBrands } from "./useGetBrands";
 
 function SelectBrands() {
-  const { isPending, data: brands } = useQuery({
-    queryKey: ["brands"],
-    queryFn: getBrands,
-  });
-
+  const { isPending, brands } = useGetBrands();
   if (isPending) return brands;
 
   return (

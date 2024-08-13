@@ -1,32 +1,21 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Select from "../../ui/Select";
 import SelectCategories from "../categories/SelectCategories";
-import { createSubCategory } from "../../services/apiSubCategories";
+
+import { useCreateSubCategory } from "../subCategories/useCreateSubCategory";
 
 function SubCategoryForm() {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
 
-  const queryClient = useQueryClient();
-  const { mutate, isPending: isCreating } = useMutation({
-    mutationFn: createSubCategory,
-    onSuccess: () => {
-      toast.success(` New SubCategory successfully created `);
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isCreating, createSubCategory } = useCreateSubCategory();
 
   function onSubmit(data) {
-    // console.log(data);
-    mutate(data);
+    createSubCategory({ ...data }, { onSuccess: (data) => reset() });
   }
 
   function onError(errors) {

@@ -1,11 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { getSubCategories } from "../../services/apiSubCategories";
+import { useGetSubCategories } from "./useGetSubCategories";
 
 function SelectSubCategories() {
-  const { isPending, data: subCategories } = useQuery({
-    queryKey: ["subCategories"],
-    queryFn: getSubCategories,
-  });
+  const { isPending, subCategories } = useGetSubCategories();
 
   if (isPending) return subCategories;
 

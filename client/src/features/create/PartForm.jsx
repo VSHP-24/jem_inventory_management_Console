@@ -1,30 +1,19 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import { createPart } from "../../services/apiParts";
+
+import { useCreatePart } from "../parts/useCreatePart";
 
 function PartForm() {
   const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
 
-  const queryClient = useQueryClient();
-  const { mutate, isPending: isCreating } = useMutation({
-    mutationFn: createPart,
-    onSuccess: () => {
-      toast.success(` New Part successfully created `);
-      queryClient.invalidateQueries({ queryKey: ["parts"] });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isCreating, createPart } = useCreatePart();
 
   function onSubmit(data) {
-    // console.log(data);
-    mutate(data);
+    createPart({ ...data }, { onSuccess: (data) => reset() });
   }
 
   function onError(errors) {
