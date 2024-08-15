@@ -24,7 +24,6 @@ function SubCategoryForm() {
   }
   return (
     <>
-      <p>New SubCategory </p>
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <FormRow label="SubCategory Name" error={errors?.name?.message}>
           <Input

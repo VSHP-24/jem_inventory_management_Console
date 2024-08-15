@@ -29,7 +29,6 @@ function ProductForm() {
   }
   return (
     <>
-      <p>New Product </p>
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <FormRow label="Product Name" error={errors?.name?.message}>
           <Input

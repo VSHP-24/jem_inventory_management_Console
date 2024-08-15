@@ -22,7 +22,6 @@ function CategoryForm() {
   }
   return (
     <>
-      <p>New Category </p>
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <FormRow label="Category Name" error={errors?.name?.message}>
           <Input

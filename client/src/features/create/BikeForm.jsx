@@ -26,7 +26,6 @@ function BikeForm() {
   }
   return (
     <>
-      <p>New Bike </p>
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <FormRow label="Bike Model Name" error={errors?.name?.message}>
           <Input

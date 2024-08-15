@@ -22,7 +22,6 @@ function PartForm() {
   }
   return (
     <>
-      <p>New Part </p>
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <FormRow label="Part Name" error={errors?.name?.message}>
           <Input

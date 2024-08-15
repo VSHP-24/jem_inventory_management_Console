@@ -15,6 +15,7 @@ dev-data
 *.env
 DesignSystem
 apiLinks.js
+ManageTableNavTabs.jsx
 
 # Editor directories and files
 .vscode/*

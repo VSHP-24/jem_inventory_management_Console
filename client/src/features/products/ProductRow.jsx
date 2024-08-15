@@ -1,30 +1,38 @@
-import styled from "styled-components";
-
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: 0.1fr 2fr 0.2fr 0.4fr 0.2fr 1fr 1fr;
-  column-gap: 2.4rem;
-  align-items: center;
-  font-size: 1.2rem;
-  padding: 0.2rem 1.2rem;
-
-  &:not(:last-child) {
-    border-bottom: 0.1rem solid var(--color-grey-600);
-  }
-`;
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import Menus from "../../ui/Menus";
+import Table from "../../ui/Table";
 
 function ProductRow({ product, index }) {
-  const { name, brand, model, category, subCategory } = product;
+  const { brand, model, category, subCategory } = product;
   return (
-    <TableRow role="row">
-      <div>{index + 1}</div>
-      <div>{name}</div>
+    <Table.Row>
+      <div>
+        {(index <= 8 && `0${index + 1}`) ||
+          (index === 9 && `${index + 1}`) ||
+          index + 1}
+      </div>
       <div>{brand.name}</div>
       <div>{model.name}</div>
       <div>{category.name}</div>
       <div>{subCategory.name}</div>
-      <button>View Details</button>
-    </TableRow>
+
+      <Menus.Menu>
+        <Menus.Toggle id={product.id} />
+        <Menus.List id={product.id}>
+          <Menus.Button icon={<HiSquare2Stack />} onClick={"hello"}>
+            Duplicate
+          </Menus.Button>
+
+          <Menus.Button icon={<HiPencil />} onClick={"hello"}>
+            Edit
+          </Menus.Button>
+
+          <Menus.Button icon={<HiTrash />} onClick={"hello"}>
+            Delete
+          </Menus.Button>
+        </Menus.List>
+      </Menus.Menu>
+    </Table.Row>
   );
 }
 

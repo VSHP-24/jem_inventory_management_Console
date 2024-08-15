@@ -22,7 +22,6 @@ function BrandForm() {
   }
   return (
     <>
-      <p>New Brand </p>
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <FormRow label="Brand Name" error={errors?.name?.message}>
           <Input
