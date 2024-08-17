@@ -1,4 +1,3 @@
-// import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import ProductRow from "./ProductRow";
 import Table from "../../ui/Table";
@@ -13,8 +12,7 @@ function ProductTable() {
 
   return (
     <Menus>
-      {/* <Table columns="0.1fr .75fr 0.75fr 1fr 0.2fr 2fr .2fr"> */}
-      <Table columns=".1fr .75fr .75fr .75fr 1fr .1fr">
+      <Table columns="1fr 1.5fr 1.5fr 1.5fr 2fr .001fr">
         <Table.Header>
           <div>Sl No.</div>
           <div>Brand</div>

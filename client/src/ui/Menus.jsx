@@ -31,7 +31,7 @@ const StyledToggle = styled.button`
 
 const StyledList = styled.ul`
   position: fixed;
-  padding-left: 0.2rem;
+  padding-left: 0.1rem;
 
   background-color: var(--color-gold-500);
   box-shadow: var(--shadow-md);
@@ -46,13 +46,13 @@ const StyledButton = styled.button`
   text-align: left;
   background: none;
   border: none;
-  padding: 1.2rem 2.4rem;
+  padding: 1rem;
   font-size: 1.4rem;
   transition: all 0.2s;
 
   display: flex;
   align-items: center;
-  gap: 1.6rem;
+  gap: 1rem;
 
   & svg {
     width: 1.6rem;

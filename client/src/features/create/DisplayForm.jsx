@@ -1,11 +1,10 @@
 import { useSearchParams } from "react-router-dom";
-
-import BrandForm from "./BrandForm";
-import BikeForm from "./BikeForm";
-import CategoryForm from "./CategoryForm";
-import PartForm from "./PartForm";
-import ProductForm from "./ProductForm";
-import SubCategoryForm from "./SubCategoryForm";
+import BrandForm from "../brands/BrandForm";
+import BikeForm from "../models/BikeForm";
+import CategoryForm from "../categories/CategoryForm";
+import SubCategoryForm from "../subCategories/SubCategoryForm";
+import PartForm from "../parts/PartForm";
+import ProductForm from "../products/ProductForm";
 
 function DisplayForm() {
   const [searchParmas] = useSearchParams();

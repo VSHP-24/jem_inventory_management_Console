@@ -6,7 +6,7 @@ import Input from "../../ui/Input";
 import Select from "../../ui/Select";
 import SelectCategories from "../categories/SelectCategories";
 
-import { useCreateSubCategory } from "../subCategories/useCreateSubCategory";
+import { useCreateSubCategory } from "./useCreateSubCategory";
 
 function SubCategoryForm() {
   const { register, handleSubmit, formState, reset } = useForm();

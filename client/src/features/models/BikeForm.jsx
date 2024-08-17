@@ -8,7 +8,7 @@ import SelectBrands from "../brands/SelectBrands";
 
 import Textarea from "../../ui/Textarea";
 
-import { useCreateModel } from "../models/useCreateModel";
+import { useCreateModel } from "./useCreateModel";
 
 function BikeForm() {
   const { register, handleSubmit, formState, reset } = useForm();

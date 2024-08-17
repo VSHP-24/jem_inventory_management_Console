@@ -8,11 +8,11 @@ const StyledNav = styled.nav`
   background-color: var(--color-gold-200);
   box-shadow: var(--shadow-sm);
   border-radius: var(--border-radius-sm);
-  padding: 0.4rem;
+  padding: 0.2rem;
   display: flex;
   gap: 0.4rem;
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 
 function NavTabs({ fieldComponent, options }) {

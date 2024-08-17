@@ -4,7 +4,7 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
-import { useCreateBrand } from "../brands/useCreateBrand";
+import { useCreateBrand } from "./useCreateBrand";
 
 function BrandForm() {
   const { register, handleSubmit, formState, reset } = useForm();

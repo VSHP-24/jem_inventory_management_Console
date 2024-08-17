@@ -11,7 +11,7 @@ import SelectSubCategories from "../subCategories/SelectSubCategories";
 import SelectParts from "../parts/SelectParts";
 import Textarea from "../../ui/Textarea";
 
-import { useCreateProduct } from "../products/useCreateProduct";
+import { useCreateProduct } from "./useCreateProduct";
 
 function ProductForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();

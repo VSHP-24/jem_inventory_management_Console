@@ -1,3 +1,4 @@
+import DisplayManageTable from "../features/manage/DisplayManageTable";
 import ManageTableNavTabs from "../features/manage/ManageTableNavTabs";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
@@ -11,6 +12,8 @@ function Manage() {
       <Row>
         <ManageTableNavTabs />
       </Row>
+
+      <DisplayManageTable />
     </>
   );
 }

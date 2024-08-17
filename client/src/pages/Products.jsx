@@ -12,9 +12,8 @@ function Products() {
       <Row>
         <ProductTableOperations />
       </Row>
-      <Row>
-        <ProductTable />
-      </Row>
+
+      <ProductTable />
     </>
   );
 }

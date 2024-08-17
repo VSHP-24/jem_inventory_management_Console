@@ -3,24 +3,27 @@ import styled from "styled-components";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-700);
+  align-self: center;
+  justify-self: center;
 
   font-size: 1.4rem;
   background-color: var(--color-gold-200);
   border-radius: 7px;
   overflow: hidden;
-  align-items: center;
+  width: 100%;
 `;
 
 const CommonRow = styled.div`
   display: grid;
   grid-template-columns: ${(props) => props.columns};
-  column-gap: 2.4rem;
-  align-items: center;
+  /* column-gap: 1.2rem; */
   transition: none;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
 `;
 
 const StyledHeader = styled(CommonRow)`
-  padding: 1.6rem 2.4rem;
+  /* padding: 0.75rem 1.6rem; */
 
   background-color: var(--color-gold-400);
   border-bottom: 1px solid var(--color-grey-700);
@@ -31,10 +34,9 @@ const StyledHeader = styled(CommonRow)`
 `;
 
 const StyledRow = styled(CommonRow)`
-  padding: 1.2rem 2.4rem;
-
+  /* padding: 1.2rem 2.4rem; */
   &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-500);
+    border-bottom: 1px solid var(--color-grey-600);
   }
 `;
 
