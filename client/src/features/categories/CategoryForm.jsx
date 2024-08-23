@@ -17,7 +17,6 @@ function CategoryForm() {
   }
 
   function onError(errors) {
-    // console.log(errors);
     return null;
   }
   return (

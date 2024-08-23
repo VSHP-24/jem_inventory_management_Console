@@ -24,7 +24,6 @@ function ProductForm() {
   }
 
   function onError(errors) {
-    // console.log(errors);
     return null;
   }
   return (

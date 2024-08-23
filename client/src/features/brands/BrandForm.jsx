@@ -5,6 +5,8 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useCreateBrand } from "./useCreateBrand";
+import FileInput from "../../ui/FileInput";
+import supabase, { supabaseUrl } from "../../services/supabase";
 
 function BrandForm() {
   const { register, handleSubmit, formState, reset } = useForm();
@@ -12,12 +14,28 @@ function BrandForm() {
 
   const { isCreating, createBrand } = useCreateBrand();
 
-  function onSubmit(data) {
-    createBrand({ ...data }, { onSuccess: (data) => reset() });
+  async function onSubmit(data) {
+    const imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
+      "/",
+      ""
+    );
+    const imagePath = `${supabaseUrl}/storage/v1/object/public/brandLogos/${imageName}`;
+
+    const { error: storageError } = await supabase.storage
+      .from("brandLogos")
+      .upload(imageName, data.brandLogo[0]);
+
+    if (storageError)
+      throw new Error(
+        "Brand Logo could not be uploaded and the brand was not created"
+      );
+    createBrand(
+      { ...data, brandLogo: imagePath },
+      { onSuccess: (data) => reset() }
+    );
   }
 
   function onError(errors) {
-    // console.log(errors);
     return null;
   }
   return (
@@ -33,8 +51,8 @@ function BrandForm() {
         </FormRow>
 
         <FormRow label="Brand Logo" error={errors?.brandLogo?.message}>
-          <Input
-            type="text"
+          <FileInput
+            accept="image/*"
             id="brandLogo"
             {...register("brandLogo", { required: "*This field is required" })}
           />

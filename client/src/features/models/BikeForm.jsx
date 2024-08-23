@@ -21,7 +21,6 @@ function BikeForm() {
   }
 
   function onError(errors) {
-    // console.log(errors);
     return null;
   }
   return (

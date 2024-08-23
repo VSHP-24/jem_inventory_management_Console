@@ -4,6 +4,7 @@ import Table from "../../ui/Table";
 
 function BrandRow({ brand, index }) {
   const { name, brandLogo } = brand;
+
   return (
     <Table.Row>
       <div>
@@ -11,7 +12,7 @@ function BrandRow({ brand, index }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
-      <div>{brandLogo}</div>
+      <img src={brandLogo} alt={name} />
       <div>{name}</div>
 
       <Menus.Menu>
