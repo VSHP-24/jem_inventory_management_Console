@@ -34,10 +34,6 @@ const Error = styled.span`
   font-weight: 800;
 `;
 
-// const Required = styled.span`
-//   color: var(--color-red-800);
-// `;
-
 function FormRow({ label, error, children }) {
   return (
     <StyledFormRow>

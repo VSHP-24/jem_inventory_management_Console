@@ -12,6 +12,8 @@ import SelectParts from "../parts/SelectParts";
 import Textarea from "../../ui/Textarea";
 
 import { useCreateProduct } from "./useCreateProduct";
+import supabase, { supabaseUrl } from "../../services/supabase";
+import FileInput from "../../ui/FileInput";
 
 function ProductForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
@@ -19,8 +21,52 @@ function ProductForm() {
 
   const { isCreating, createProduct } = useCreateProduct();
 
-  function onSubmit(data) {
-    createProduct({ ...data }, { onSuccess: (data) => reset() });
+  async function onSubmit(data) {
+    const imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
+      "/",
+      ""
+    );
+    const imagePath = `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
+
+    const { error: storageError } = await supabase.storage
+      .from("productImages")
+      .upload(imageName, data.mainImage[0]);
+
+    if (storageError)
+      throw new Error(
+        "Product Image could not be uploaded and the product was not created"
+      );
+
+    const additionalImageNames = [];
+    const additionalImagePaths = [];
+    const additionalImages = [...data.additionalImage];
+    await additionalImages.map((image, i) => {
+      let imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
+        "/",
+        ""
+      );
+      imageName = `${imageName}--${i + 1}`;
+      const imagePath = `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
+
+      const { error: storageError } = supabase.storage
+        .from("productImages")
+        .upload(imageName, data.additionalImage[i]);
+
+      if (storageError)
+        throw new Error(
+          "Product Image could not be uploaded and the product was not created"
+        );
+
+      return (
+        additionalImageNames.push(imageName),
+        additionalImagePaths.push(imagePath)
+      );
+    });
+
+    createProduct(
+      { ...data, mainImage: imagePath, additionalImages: additionalImagePaths },
+      { onSuccess: (data) => reset() }
+    );
   }
 
   function onError(errors) {
@@ -129,18 +175,21 @@ function ProductForm() {
         </FormRow>
 
         <FormRow label="Main Image" error={errors?.mainImage?.message}>
-          <Input
-            type="text"
+          <FileInput
+            accept="image/*"
             id="mainImage"
             {...register("mainImage", { required: "*This field is required" })}
           />
         </FormRow>
 
         <FormRow label="Additional Images">
-          <Input
-            type="text"
+          <FileInput
+            accept="image/*"
+            multiple
             id="additionalImage"
-            {...register("additionalImage")}
+            {...register("additionalImage", {
+              required: "*This field is required",
+            })}
           />
         </FormRow>
 
