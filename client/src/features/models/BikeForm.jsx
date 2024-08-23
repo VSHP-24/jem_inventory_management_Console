@@ -9,6 +9,8 @@ import SelectBrands from "../brands/SelectBrands";
 import Textarea from "../../ui/Textarea";
 
 import { useCreateModel } from "./useCreateModel";
+import FileInput from "../../ui/FileInput";
+import supabase, { supabaseUrl } from "../../services/supabase";
 
 function BikeForm() {
   const { register, handleSubmit, formState, reset } = useForm();
@@ -16,8 +18,26 @@ function BikeForm() {
 
   const { isCreating, createModel } = useCreateModel();
 
-  function onSubmit(data) {
-    createModel({ ...data }, { onSuccess: (data) => reset() });
+  async function onSubmit(data) {
+    const imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
+      "/",
+      ""
+    );
+
+    const imagePath = `${supabaseUrl}/storage/v1/object/public/bikeModelImages/${imageName}`;
+
+    const { error: storageError } = await supabase.storage
+      .from("bikeModelImages")
+      .upload(imageName, data.bikeImage[0]);
+
+    if (storageError)
+      throw new Error(
+        "Bike Image could not be uploaded and the bike model was not created"
+      );
+    createModel(
+      { ...data, bikeImage: imagePath },
+      { onSuccess: (data) => reset() }
+    );
   }
 
   function onError(errors) {
@@ -69,8 +89,8 @@ function BikeForm() {
         </FormRow>
 
         <FormRow label="Bike Image" error={errors?.bikeImage?.message}>
-          <Input
-            type="text"
+          <FileInput
+            accept="image/*"
             id="bikeImage"
             {...register("bikeImage", { required: "*This field is required" })}
           />
