@@ -7,7 +7,7 @@ function SelectParts() {
   return (
     <>
       <option value="" itemType="String">
-        ----- Select All the Parts -----
+        ----- Select a Part -----
       </option>
       {parts.map((part) => (
         <option key={part.id} value={part.id}>

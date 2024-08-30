@@ -16,6 +16,7 @@ dev-data
 DesignSystem
 apiLinks.js
 supabase.js
+Button.jsx
 
 
 # Editor directories and files

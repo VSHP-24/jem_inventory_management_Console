@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
@@ -8,20 +8,71 @@ import SelectBrands from "../brands/SelectBrands";
 import SelectModels from "../models/SelectModels";
 import SelectCategories from "../categories/SelectCategories";
 import SelectSubCategories from "../subCategories/SelectSubCategories";
-import SelectParts from "../parts/SelectParts";
 import Textarea from "../../ui/Textarea";
 
 import { useCreateProduct } from "./useCreateProduct";
 import supabase, { supabaseUrl } from "../../services/supabase";
 import FileInput from "../../ui/FileInput";
+import SelectParts from "../parts/SelectParts";
+import FormRowIncludedParts from "../../ui/FormRowIncludedParts";
+import styled from "styled-components";
+
+const StyledUl = styled.ul`
+  padding: 0;
+`;
+
+const StyledLi = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+`;
+
+const StyledInputQuantity = styled(Input)`
+  width: 5rem;
+`;
+const StyledSelect = styled(Select)`
+  width: 75%;
+`;
 
 function ProductForm() {
-  const { register, handleSubmit, formState, getValues, reset } = useForm();
-  const { errors } = formState;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    reset,
+    control,
+  } = useForm({
+    defaultValues: {
+      includedParts: [{ quantity: 1, parts: "" }],
+    },
+    mode: "onChange",
+  });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "includedParts",
+    rules: {
+      required: "*This field is required",
+      validate: (value) => {
+        let message = "";
+
+        value.forEach((part) => {
+          if (Number(part.quantity) < 1)
+            return (message = "*Quantity cannot be less than 1");
+          if (!part.parts) return (message = "*Minimum 1 part should be added");
+        });
+        if (message) return message;
+      },
+    },
+  });
 
   const { isCreating, createProduct } = useCreateProduct();
 
   async function onSubmit(data) {
+    const parts = data.includedParts.map((part) => ({
+      quantity: part.quantity,
+      part: part.parts,
+    }));
     const imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
       "/",
       ""
@@ -64,7 +115,12 @@ function ProductForm() {
     });
 
     createProduct(
-      { ...data, mainImage: imagePath, additionalImages: additionalImagePaths },
+      {
+        ...data,
+        includedParts: parts,
+        mainImage: imagePath,
+        additionalImages: additionalImagePaths,
+      },
       { onSuccess: (data) => reset() }
     );
   }
@@ -80,6 +136,7 @@ function ProductForm() {
             type="text"
             id="name"
             disabled={isCreating}
+            placeholder="Type a Product Name"
             {...register("name", { required: "*This field is required" })}
           />
         </FormRow>
@@ -114,7 +171,7 @@ function ProductForm() {
           </Select>
         </FormRow>
 
-        <FormRow label="Category" error={errors?.Category?.message}>
+        <FormRow label="Category" error={errors?.category?.message}>
           <Select
             name="category"
             id="category"
@@ -161,7 +218,7 @@ function ProductForm() {
             {...register("discountPrice", {
               validate: (value) =>
                 Number(value) < Number(getValues().price) ||
-                "Discount Price is greater than or equal to regular price",
+                "*Discount Price is greater than or equal to regular price",
             })}
           />
         </FormRow>
@@ -187,9 +244,7 @@ function ProductForm() {
             accept="image/*"
             multiple
             id="additionalImage"
-            {...register("additionalImage", {
-              required: "*This field is required",
-            })}
+            {...register("additionalImage")}
           />
         </FormRow>
 
@@ -197,20 +252,38 @@ function ProductForm() {
           <Textarea type="text" id="description" {...register("description")} />
         </FormRow>
 
-        <FormRow label="Included Parts" error={errors?.includedParts?.message}>
-          <Select
-            name="includedParts"
-            id="includedParts"
-            {...register("includedParts", {
-              required: "*This field is required",
-              validate: (value) => {
-                if (!value) return "*This field is required";
-              },
-            })}
+        <FormRowIncludedParts
+          label="Included Parts"
+          error={errors?.includedParts?.root.message}
+        >
+          <StyledUl>
+            {fields.map((item, index) => (
+              <StyledLi key={item.id}>
+                <StyledInputQuantity
+                  {...register(`includedParts.${index}.quantity`)}
+                />
+                <Controller
+                  render={({ field }) => (
+                    <StyledSelect {...field}>
+                      <SelectParts />
+                    </StyledSelect>
+                  )}
+                  name={`includedParts.${index}.parts`}
+                  control={control}
+                />
+                <button type="button" onClick={() => remove(index)}>
+                  &times;
+                </button>
+              </StyledLi>
+            ))}
+          </StyledUl>
+          <button
+            type="button"
+            onClick={() => append({ quantity: 1, parts: "" })}
           >
-            <SelectParts />
-          </Select>
-        </FormRow>
+            Add Part
+          </button>
+        </FormRowIncludedParts>
 
         <FormRow label="Additional Information">
           <Input

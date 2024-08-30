@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const StyledFormRow = styled.div`
   display: grid;
+  grid-template-columns: 24rem 30rem 7rem;
   align-items: center;
-  grid-template-columns: 24rem 1fr;
   gap: 0.5rem;
 
   padding: 1.2rem 0;
@@ -15,10 +15,7 @@ const StyledFormRow = styled.div`
   &:last-child {
     padding-bottom: 0;
   }
-
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
+  &:button {
     gap: 1.2rem;
   }
 `;
@@ -34,7 +31,7 @@ const Error = styled.span`
   font-weight: 800;
 `;
 
-function FormRow({ label, error, children }) {
+function FormRowIncludedParts({ label, error, children }) {
   return (
     <StyledFormRow>
       {label && <Label htmlFor={children.props?.id}>{label}</Label>}
@@ -44,4 +41,4 @@ function FormRow({ label, error, children }) {
   );
 }
 
-export default FormRow;
+export default FormRowIncludedParts;
