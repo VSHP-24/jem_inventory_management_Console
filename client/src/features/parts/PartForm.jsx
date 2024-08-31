@@ -5,10 +5,16 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useCreatePart } from "./useCreatePart";
+import Button from "../../ui/Button";
 
 function PartForm() {
-  const { register, handleSubmit, formState, reset } = useForm();
-  const { errors } = formState;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+
+    reset,
+  } = useForm();
 
   const { isCreating, createPart } = useCreatePart();
 
@@ -26,6 +32,7 @@ function PartForm() {
           <Input
             type="text"
             id="name"
+            placeholder="Enter a Part Name"
             disabled={isCreating}
             {...register("name", { required: "*This field is required" })}
           />
@@ -149,8 +156,12 @@ function PartForm() {
         </FormRow>
 
         <FormRow>
-          <button type="reset">Cancel</button>
-          <button disabled={isCreating}>Create</button>
+          <Button size="medium" variation="secondary" type="reset">
+            Cancel
+          </Button>
+          <Button size="large" variation="primary" disabled={isCreating}>
+            Create
+          </Button>
         </FormRow>
       </Form>
     </>

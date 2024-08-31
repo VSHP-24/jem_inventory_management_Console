@@ -11,10 +11,16 @@ import Textarea from "../../ui/Textarea";
 import { useCreateModel } from "./useCreateModel";
 import FileInput from "../../ui/FileInput";
 import supabase, { supabaseUrl } from "../../services/supabase";
+import Button from "../../ui/Button";
 
 function BikeForm() {
-  const { register, handleSubmit, formState, reset } = useForm();
-  const { errors } = formState;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+
+    reset,
+  } = useForm();
 
   const { isCreating, createModel } = useCreateModel();
 
@@ -50,6 +56,7 @@ function BikeForm() {
           <Input
             type="text"
             id="name"
+            placeholder="Enter a Bike Model"
             disabled={isCreating}
             {...register("name", { required: "*This field is required" })}
           />
@@ -74,6 +81,7 @@ function BikeForm() {
           <Input
             type="text"
             id="version"
+            placeholder="Enter the Bike Version e.g. v1"
             disabled={isCreating}
             {...register("version")}
           />
@@ -83,6 +91,7 @@ function BikeForm() {
           <Input
             type="text"
             id="year"
+            placeholder="Enter the Bike Model Year e.g.2024"
             disabled={isCreating}
             {...register("year", { required: "*This field is required" })}
           />
@@ -97,12 +106,21 @@ function BikeForm() {
         </FormRow>
 
         <FormRow label="Description">
-          <Textarea type="text" id="description" {...register("description")} />
+          <Textarea
+            type="text"
+            placeholder="Enter a brief description about the Bike Model"
+            id="description"
+            {...register("description")}
+          />
         </FormRow>
 
         <FormRow>
-          <button type="reset">Cancel</button>
-          <button disabled={isCreating}>Create</button>
+          <Button size="medium" variation="secondary" type="reset">
+            Cancel
+          </Button>
+          <Button size="large" variation="primary" disabled={isCreating}>
+            Create
+          </Button>
         </FormRow>
       </Form>
     </>

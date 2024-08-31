@@ -7,10 +7,15 @@ import Input from "../../ui/Input";
 import { useCreateBrand } from "./useCreateBrand";
 import FileInput from "../../ui/FileInput";
 import supabase, { supabaseUrl } from "../../services/supabase";
+import Button from "../../ui/Button";
 
 function BrandForm() {
-  const { register, handleSubmit, formState, reset } = useForm();
-  const { errors } = formState;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const { isCreating, createBrand } = useCreateBrand();
 
@@ -45,6 +50,7 @@ function BrandForm() {
           <Input
             type="text"
             id="name"
+            placeholder="Enter a Brand Name"
             disabled={isCreating}
             {...register("name", { required: "*This field is required" })}
           />
@@ -54,13 +60,19 @@ function BrandForm() {
           <FileInput
             accept="image/*"
             id="brandLogo"
-            {...register("brandLogo", { required: "*This field is required" })}
+            {...register("brandLogo", {
+              required: "*Brand Logo is required",
+            })}
           />
         </FormRow>
 
         <FormRow>
-          <button type="reset">Cancel</button>
-          <button disabled={isCreating}>Create</button>
+          <Button size="medium" variation="secondary" type="reset">
+            Cancel
+          </Button>
+          <Button size="large" variation="primary" disabled={isCreating}>
+            Create
+          </Button>
         </FormRow>
       </Form>
     </>

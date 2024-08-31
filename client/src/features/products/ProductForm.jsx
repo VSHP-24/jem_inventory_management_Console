@@ -16,6 +16,7 @@ import FileInput from "../../ui/FileInput";
 import SelectParts from "../parts/SelectParts";
 import FormRowIncludedParts from "../../ui/FormRowIncludedParts";
 import styled from "styled-components";
+import Button from "../../ui/Button";
 
 const StyledUl = styled.ul`
   padding: 0;
@@ -59,7 +60,8 @@ function ProductForm() {
         value.forEach((part) => {
           if (Number(part.quantity) < 1)
             return (message = "*Quantity cannot be less than 1");
-          if (!part.parts) return (message = "*Minimum 1 part should be added");
+          if (!part.parts)
+            return (message = "*Minimum 1 part should be selected");
         });
         if (message) return message;
       },
@@ -136,7 +138,7 @@ function ProductForm() {
             type="text"
             id="name"
             disabled={isCreating}
-            placeholder="Type a Product Name"
+            placeholder="Enter a Product Name"
             {...register("name", { required: "*This field is required" })}
           />
         </FormRow>
@@ -205,6 +207,7 @@ function ProductForm() {
           <Input
             type="number"
             id="price"
+            placeholder="Enter Price of the Product"
             {...register("price", {
               required: "*This field is required",
             })}
@@ -215,6 +218,7 @@ function ProductForm() {
           <Input
             type="number"
             id="discountPrice"
+            placeholder="Enter Discount Price"
             {...register("discountPrice", {
               validate: (value) =>
                 Number(value) < Number(getValues().price) ||
@@ -224,11 +228,21 @@ function ProductForm() {
         </FormRow>
 
         <FormRow label="Size">
-          <Input type="text" id="size" {...register("size")} />
+          <Input
+            type="text"
+            placeholder="Enter Size of the Product"
+            id="size"
+            {...register("size")}
+          />
         </FormRow>
 
         <FormRow label="Combo">
-          <Input type="text" id="combo" {...register("combo")} />
+          <Input
+            type="text"
+            placeholder="Enter Combo of the Products"
+            id="combo"
+            {...register("combo")}
+          />
         </FormRow>
 
         <FormRow label="Main Image" error={errors?.mainImage?.message}>
@@ -249,7 +263,12 @@ function ProductForm() {
         </FormRow>
 
         <FormRow label="Description">
-          <Textarea type="text" id="description" {...register("description")} />
+          <Textarea
+            type="text"
+            placeholder="Enter a brief description about the Product"
+            id="description"
+            {...register("description")}
+          />
         </FormRow>
 
         <FormRowIncludedParts
@@ -271,18 +290,25 @@ function ProductForm() {
                   name={`includedParts.${index}.parts`}
                   control={control}
                 />
-                <button type="button" onClick={() => remove(index)}>
+                <Button
+                  size="small"
+                  variation="secondary"
+                  type="button"
+                  onClick={() => remove(index)}
+                >
                   &times;
-                </button>
+                </Button>
               </StyledLi>
             ))}
           </StyledUl>
-          <button
+          <Button
+            size="medium"
+            variation="primary"
             type="button"
             onClick={() => append({ quantity: 1, parts: "" })}
           >
             Add Part
-          </button>
+          </Button>
         </FormRowIncludedParts>
 
         <FormRow label="Additional Information">
@@ -294,11 +320,20 @@ function ProductForm() {
         </FormRow>
 
         <FormRow label="Video">
-          <Input type="text" id="video" {...register("video")} />
+          <Input
+            type="text"
+            placeholder="Enter video link for the Product"
+            id="video"
+            {...register("video")}
+          />
         </FormRow>
         <FormRow>
-          <button type="reset">Cancel</button>
-          <button disabled={isCreating}>Create</button>
+          <Button size="medium" variation="secondary" type="reset">
+            Cancel
+          </Button>
+          <Button size="large" variation="primary" disabled={isCreating}>
+            Create
+          </Button>
         </FormRow>
       </Form>
     </>
