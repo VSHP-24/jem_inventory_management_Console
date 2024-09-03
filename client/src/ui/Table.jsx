@@ -16,15 +16,12 @@ const StyledTable = styled.div`
 const CommonRow = styled.div`
   display: grid;
   grid-template-columns: ${(props) => props.columns};
-  /* column-gap: 1.2rem; */
   transition: none;
   align-items: center;
   padding: 0.5rem 1.2rem;
 `;
 
 const StyledHeader = styled(CommonRow)`
-  /* padding: 0.75rem 1.6rem; */
-
   background-color: var(--color-gold-400);
   border-bottom: 1px solid var(--color-grey-700);
   text-transform: uppercase;
@@ -34,7 +31,6 @@ const StyledHeader = styled(CommonRow)`
 `;
 
 const StyledRow = styled(CommonRow)`
-  /* padding: 1.2rem 2.4rem; */
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-600);
   }

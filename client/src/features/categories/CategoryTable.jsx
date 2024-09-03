@@ -1,7 +1,7 @@
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import CategoryRow from "./CategoryRow";
-import Menus from "../../ui/Menus";
+// import Menus from "../../ui/Menus";
 
 import { useGetCategories } from "./useGetCategories";
 
@@ -11,21 +11,19 @@ function CategoryTable() {
   if (isPending) return <Spinner />;
 
   return (
-    <Menus>
-      <Table columns=".25fr 1fr .5fr">
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Name</div>
-        </Table.Header>
+    <Table columns=".5fr 1fr  .5fr">
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Name</div>
+      </Table.Header>
 
-        <Table.Body
-          data={categories}
-          render={(category, i) => (
-            <CategoryRow category={category} index={i} key={category.id} />
-          )}
-        />
-      </Table>
-    </Menus>
+      <Table.Body
+        data={categories}
+        render={(category, i) => (
+          <CategoryRow category={category} index={i} key={category.id} />
+        )}
+      />
+    </Table>
   );
 }
 

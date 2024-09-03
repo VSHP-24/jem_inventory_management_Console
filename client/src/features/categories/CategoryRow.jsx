@@ -1,9 +1,17 @@
-import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
-import Menus from "../../ui/Menus";
 import Table from "../../ui/Table";
+import TableMenus from "../../ui/TableMenus";
 
 function CategoryRow({ category, index }) {
   const { name } = category;
+  function handleViewDetails() {
+    console.log(`handleViewDetails in CategoryTable`);
+  }
+  function handleEdit() {
+    console.log(`handleEdit in CategoryTable`);
+  }
+  function handleDelete() {
+    console.log(`handleDelete in CategoryTable`);
+  }
   return (
     <Table.Row>
       <div>
@@ -13,22 +21,11 @@ function CategoryRow({ category, index }) {
       </div>
       <div>{name}</div>
 
-      <Menus.Menu>
-        <Menus.Toggle id={category.id} />
-        <Menus.List id={category.id}>
-          <Menus.Button icon={<HiSquare2Stack />} onClick={"hello"}>
-            Duplicate
-          </Menus.Button>
-
-          <Menus.Button icon={<HiPencil />} onClick={"hello"}>
-            Edit
-          </Menus.Button>
-
-          <Menus.Button icon={<HiTrash />} onClick={"hello"}>
-            Delete
-          </Menus.Button>
-        </Menus.List>
-      </Menus.Menu>
+      <TableMenus
+        onHandleViewDetails={handleViewDetails}
+        onHandleEdit={handleEdit}
+        onHandleDelete={handleDelete}
+      />
     </Table.Row>
   );
 }

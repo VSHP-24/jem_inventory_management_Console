@@ -42,6 +42,7 @@ function PartForm() {
           <Input
             type="number"
             id="length"
+            placeholder="Enter the dimension in mm"
             disabled={isCreating}
             {...register("length")}
           />
@@ -54,6 +55,7 @@ function PartForm() {
           <Input
             type="number"
             id="insideDiameter"
+            placeholder="Enter the dimension in mm"
             disabled={isCreating}
             {...register("insideDiameter")}
           />
@@ -66,6 +68,7 @@ function PartForm() {
           <Input
             type="number"
             id="outsideDiameter"
+            placeholder="Enter the dimension in mm"
             disabled={isCreating}
             {...register("outsideDiameter")}
           />
@@ -78,6 +81,7 @@ function PartForm() {
           <Input
             type="number"
             id="threadDiameter"
+            placeholder="Enter the dimension in mm"
             disabled={isCreating}
             {...register("threadDiameter")}
           />
@@ -87,6 +91,7 @@ function PartForm() {
           <Input
             type="number"
             id="threadPitch"
+            placeholder="Enter the dimension in mm"
             disabled={isCreating}
             {...register("threadPitch")}
           />
@@ -96,6 +101,7 @@ function PartForm() {
           <Input
             type="number"
             id="shankLength"
+            placeholder="Enter the dimension in mm"
             disabled={isCreating}
             {...register("shankLength")}
           />
@@ -105,6 +111,7 @@ function PartForm() {
           <Input
             type="number"
             id="headHeight"
+            placeholder="Enter the dimension in mm"
             disabled={isCreating}
             {...register("headHeight")}
           />
@@ -114,6 +121,7 @@ function PartForm() {
           <Input
             type="number"
             id="headDiameter"
+            placeholder="Enter the dimension in mm"
             disabled={isCreating}
             {...register("headDiameter")}
           />
@@ -122,6 +130,7 @@ function PartForm() {
         <FormRow label="Allen Key Size" error={errors?.allenKeySize?.message}>
           <Input
             type="number"
+            placeholder="Enter the dimension in mm"
             id="allenKeySize"
             disabled={isCreating}
             {...register("allenKeySize")}
@@ -132,6 +141,7 @@ function PartForm() {
           <Input
             type="number"
             id="width"
+            placeholder="Enter the dimension in mm"
             disabled={isCreating}
             {...register("width")}
           />
@@ -141,6 +151,7 @@ function PartForm() {
           <Input
             type="number"
             id="thickness"
+            placeholder="Enter the dimension in mm"
             disabled={isCreating}
             {...register("thickness")}
           />
@@ -150,6 +161,7 @@ function PartForm() {
           <Input
             type="text"
             id="material"
+            placeholder="Enter the type of Material"
             disabled={isCreating}
             {...register("material")}
           />
