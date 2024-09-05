@@ -1,11 +1,18 @@
+import { useState } from "react";
+
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
-// import Menus from "../../ui/Menus";
 import SubCategoryRow from "./SubCategoryRow";
 
 import { useGetSubCategories } from "./useGetSubCategories";
 
 function SubCategoryTable() {
+  const [openId, setOpenId] = useState("");
+  const [position, setPosition] = useState(null);
+
+  const close = () => setOpenId("");
+  const open = (id) => setOpenId(id);
+
   const { isPending, subCategories } = useGetSubCategories();
 
   if (isPending) return <Spinner />;
@@ -25,6 +32,12 @@ function SubCategoryTable() {
             subCategory={subCategory}
             index={i}
             key={subCategory.id}
+            openId={openId}
+            close={close}
+            open={open}
+            id={subCategory.id}
+            position={position}
+            setPosition={setPosition}
           />
         )}
       />

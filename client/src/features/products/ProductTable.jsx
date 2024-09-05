@@ -3,8 +3,15 @@ import ProductRow from "./ProductRow";
 import Table from "../../ui/Table";
 
 import { useGetProducts } from "./useGetProducts";
+import { useState } from "react";
 
 function ProductTable() {
+  const [openId, setOpenId] = useState("");
+  const [position, setPosition] = useState(null);
+
+  const close = () => setOpenId("");
+  const open = (id) => setOpenId(id);
+
   const { isPending, products } = useGetProducts();
 
   if (isPending) return <Spinner />;
@@ -22,7 +29,17 @@ function ProductTable() {
       <Table.Body
         data={products}
         render={(product, i) => (
-          <ProductRow product={product} index={i} key={product.id} />
+          <ProductRow
+            product={product}
+            index={i}
+            key={product.id}
+            openId={openId}
+            close={close}
+            open={open}
+            id={product.id}
+            position={position}
+            setPosition={setPosition}
+          />
         )}
       />
     </Table>

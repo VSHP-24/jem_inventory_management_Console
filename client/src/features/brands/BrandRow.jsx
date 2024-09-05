@@ -1,16 +1,29 @@
 import Table from "../../ui/Table";
-import TableMenus from "../../ui/TableMenus";
+import TableMenuButton from "../../ui/TableMenuButton";
+import TableMenuList from "../../ui/TableMenuList";
 
-function BrandRow({ brand, index }) {
+function BrandRow({
+  brand,
+  index,
+  openId,
+  close,
+  open,
+  setPosition,
+  position,
+  id,
+}) {
   const { name } = brand;
   function handleViewDetails() {
     console.log(`handleViewDetails in BrandTable`);
+    close();
   }
   function handleEdit() {
     console.log(`handleEdit in BrandTable`);
+    close();
   }
   function handleDelete() {
     console.log(`handleDelete in BrandTable`);
+    close();
   }
 
   return (
@@ -22,11 +35,23 @@ function BrandRow({ brand, index }) {
       </div>
       <div>{name}</div>
 
-      <TableMenus
-        onHandleViewDetails={handleViewDetails}
-        onHandleEdit={handleEdit}
-        onHandleDelete={handleDelete}
+      <TableMenuButton
+        id={id}
+        openId={openId}
+        close={close}
+        open={open}
+        setPosition={setPosition}
       />
+      {openId === id && (
+        <TableMenuList
+          id={id}
+          openId={openId}
+          position={position}
+          onHandleViewDetails={handleViewDetails}
+          onHandleEdit={handleEdit}
+          onHandleDelete={handleDelete}
+        />
+      )}
     </Table.Row>
   );
 }

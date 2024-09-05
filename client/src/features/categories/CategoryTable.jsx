@@ -1,11 +1,18 @@
+import { useState } from "react";
+
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import CategoryRow from "./CategoryRow";
-// import Menus from "../../ui/Menus";
 
 import { useGetCategories } from "./useGetCategories";
 
 function CategoryTable() {
+  const [openId, setOpenId] = useState("");
+  const [position, setPosition] = useState(null);
+
+  const close = () => setOpenId("");
+  const open = (id) => setOpenId(id);
+
   const { isPending, categories } = useGetCategories();
 
   if (isPending) return <Spinner />;
@@ -20,7 +27,17 @@ function CategoryTable() {
       <Table.Body
         data={categories}
         render={(category, i) => (
-          <CategoryRow category={category} index={i} key={category.id} />
+          <CategoryRow
+            category={category}
+            index={i}
+            key={category.id}
+            openId={openId}
+            close={close}
+            open={open}
+            id={category.id}
+            position={position}
+            setPosition={setPosition}
+          />
         )}
       />
     </Table>

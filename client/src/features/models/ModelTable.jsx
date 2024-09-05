@@ -1,11 +1,18 @@
+import { useState } from "react";
+
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
-// import Menus from "../../ui/Menus";
 import ModelRow from "./ModelRow";
 
 import { useGetModels } from "./useGetModels";
 
 function ModelTable() {
+  const [openId, setOpenId] = useState("");
+  const [position, setPosition] = useState(null);
+
+  const close = () => setOpenId("");
+  const open = (id) => setOpenId(id);
+
   const { isPending, models } = useGetModels();
 
   if (isPending) return <Spinner />;
@@ -23,7 +30,17 @@ function ModelTable() {
       <Table.Body
         data={models}
         render={(model, i) => (
-          <ModelRow model={model} index={i} key={model.id} />
+          <ModelRow
+            model={model}
+            index={i}
+            key={model.id}
+            openId={openId}
+            close={close}
+            open={open}
+            id={model.id}
+            position={position}
+            setPosition={setPosition}
+          />
         )}
       />
     </Table>
