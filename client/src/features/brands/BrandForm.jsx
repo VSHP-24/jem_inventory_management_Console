@@ -34,10 +34,7 @@ function BrandForm() {
       throw new Error(
         "Brand Logo could not be uploaded and the brand was not created"
       );
-    createBrand(
-      { ...data, brandLogo: imagePath },
-      { onSuccess: (data) => reset() }
-    );
+    createBrand({ ...data, brandLogo: imagePath }, { onSuccess: reset() });
   }
 
   function onError(errors) {

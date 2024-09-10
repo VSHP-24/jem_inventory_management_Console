@@ -123,7 +123,7 @@ function ProductForm() {
         mainImage: imagePath,
         additionalImages: additionalImagePaths,
       },
-      { onSuccess: (data) => reset() }
+      { onSuccess: () => reset() }
     );
   }
 

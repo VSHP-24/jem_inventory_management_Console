@@ -26,3 +26,18 @@ export async function createBrand(newBrand) {
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }
+
+/////////////////////////////////////////////////
+//           DELETE A BRAND
+/////////////////////////////////////////////////
+
+export async function deleteBrand(id) {
+  const res = await fetch(`${BRANDS_URL}/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) throw new Error(res.statusText);
+}

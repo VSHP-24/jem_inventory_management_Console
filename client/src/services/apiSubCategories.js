@@ -25,3 +25,18 @@ export async function createSubCategory(newSubCategory) {
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }
+
+/////////////////////////////////////////////////
+//           DELETE A SUBCATEGORY
+/////////////////////////////////////////////////
+
+export async function deleteSubCategory(id) {
+  const res = await fetch(`${SUBCATEGORIES_URL}/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) throw new Error(res.statusText);
+}

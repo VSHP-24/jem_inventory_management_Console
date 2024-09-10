@@ -1,6 +1,7 @@
 import Table from "../../ui/Table";
 import TableMenuButton from "../../ui/TableMenuButton";
 import TableMenuList from "../../ui/TableMenuList";
+import { useDeleteProduct } from "./useDeleteProduct";
 
 function ProductRow({
   product,
@@ -13,6 +14,8 @@ function ProductRow({
   id,
 }) {
   const { brand, model, category, subCategory } = product;
+  const { isDeleting, deleteProduct } = useDeleteProduct();
+
   function handleViewDetails() {
     console.log(`handleViewDetails in ProductTable`);
     close();
@@ -22,7 +25,7 @@ function ProductRow({
     close();
   }
   function handleDelete() {
-    console.log(`handleDelete in ProductTable`);
+    deleteProduct(id);
     close();
   }
   return (
@@ -52,6 +55,7 @@ function ProductRow({
           onHandleViewDetails={handleViewDetails}
           onHandleEdit={handleEdit}
           onHandleDelete={handleDelete}
+          isDeleting={isDeleting}
         />
       )}
     </Table.Row>

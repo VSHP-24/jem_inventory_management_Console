@@ -1,6 +1,7 @@
 import Table from "../../ui/Table";
 import TableMenuButton from "../../ui/TableMenuButton";
 import TableMenuList from "../../ui/TableMenuList";
+import { useDeleteModel } from "./useDeleteModel";
 
 function ModelRow({
   model,
@@ -13,6 +14,8 @@ function ModelRow({
   id,
 }) {
   const { name, brand, version, year } = model;
+  const { isDeleting, deleteModel } = useDeleteModel();
+
   function handleViewDetails() {
     console.log(`handleViewDetails in ModelTable`);
     close();
@@ -22,7 +25,7 @@ function ModelRow({
     close();
   }
   function handleDelete() {
-    console.log(`handleDelete in ModelTable`);
+    deleteModel(id);
     close();
   }
   return (
@@ -52,6 +55,7 @@ function ModelRow({
           onHandleViewDetails={handleViewDetails}
           onHandleEdit={handleEdit}
           onHandleDelete={handleDelete}
+          isDeleting={isDeleting}
         />
       )}
     </Table.Row>

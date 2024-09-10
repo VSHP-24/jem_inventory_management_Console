@@ -18,7 +18,7 @@ function CategoryForm() {
   const { isCreating, createCategory } = useCreateCategory();
 
   function onSubmit(data) {
-    createCategory({ ...data }, { onSuccess: (data) => reset() });
+    createCategory({ ...data }, { onSuccess: () => reset() });
   }
 
   function onError(errors) {

@@ -1,6 +1,7 @@
 import Table from "../../ui/Table";
 import TableMenuButton from "../../ui/TableMenuButton";
 import TableMenuList from "../../ui/TableMenuList";
+import { useDeleteSubCategory } from "./useDeleteSubCategory";
 
 function SubCategoryRow({
   subCategory,
@@ -13,6 +14,8 @@ function SubCategoryRow({
   id,
 }) {
   const { name, category } = subCategory;
+  const { isDeleting, deleteSubCategory } = useDeleteSubCategory();
+
   function handleViewDetails() {
     console.log(`handleViewDetails in SubCategoryTable`);
     close();
@@ -22,7 +25,7 @@ function SubCategoryRow({
     close();
   }
   function handleDelete() {
-    console.log(`handleDelete in SubCategoryTable`);
+    deleteSubCategory(id);
     close();
   }
   return (
@@ -50,6 +53,7 @@ function SubCategoryRow({
           onHandleViewDetails={handleViewDetails}
           onHandleEdit={handleEdit}
           onHandleDelete={handleDelete}
+          isDeleting={isDeleting}
         />
       )}
     </Table.Row>

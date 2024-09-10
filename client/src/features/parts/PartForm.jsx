@@ -19,7 +19,7 @@ function PartForm() {
   const { isCreating, createPart } = useCreatePart();
 
   function onSubmit(data) {
-    createPart({ ...data }, { onSuccess: (data) => reset() });
+    createPart({ ...data }, { onSuccess: () => reset() });
   }
 
   function onError(errors) {

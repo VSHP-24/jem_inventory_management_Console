@@ -20,7 +20,7 @@ function SubCategoryForm() {
   const { isCreating, createSubCategory } = useCreateSubCategory();
 
   function onSubmit(data) {
-    createSubCategory({ ...data }, { onSuccess: (data) => reset() });
+    createSubCategory({ ...data }, { onSuccess: () => reset() });
   }
 
   function onError(errors) {

@@ -25,3 +25,18 @@ export async function createPart(newPart) {
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }
+
+/////////////////////////////////////////////////
+//           DELETE A PART
+/////////////////////////////////////////////////
+
+export async function deletePart(id) {
+  const res = await fetch(`${PARTS_URL}/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) throw new Error(res.statusText);
+}

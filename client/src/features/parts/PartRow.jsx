@@ -1,6 +1,7 @@
 import Table from "../../ui/Table";
 import TableMenuButton from "../../ui/TableMenuButton";
 import TableMenuList from "../../ui/TableMenuList";
+import { useDeletePart } from "./useDeletePart";
 
 function PartRow({
   part,
@@ -13,6 +14,8 @@ function PartRow({
   id,
 }) {
   const { name } = part;
+  const { isDeleting, deletePart } = useDeletePart();
+
   function handleViewDetails() {
     console.log(`handleViewDetails in PartTable`);
     close();
@@ -22,7 +25,7 @@ function PartRow({
     close();
   }
   function handleDelete() {
-    console.log(`handleDelete in PartTable`);
+    deletePart(id);
     close();
   }
   return (
@@ -49,6 +52,7 @@ function PartRow({
           onHandleViewDetails={handleViewDetails}
           onHandleEdit={handleEdit}
           onHandleDelete={handleDelete}
+          isDeleting={isDeleting}
         />
       )}
     </Table.Row>

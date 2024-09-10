@@ -25,3 +25,18 @@ export async function createProduct(newProduct) {
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }
+
+/////////////////////////////////////////////////
+//           DELETE A PRODUCT
+/////////////////////////////////////////////////
+
+export async function deleteProduct(id) {
+  const res = await fetch(`${PRODUCTS_URL}/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) throw new Error(res.statusText);
+}

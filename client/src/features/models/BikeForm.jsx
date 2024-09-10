@@ -42,7 +42,7 @@ function BikeForm() {
       );
     createModel(
       { ...data, bikeImage: imagePath },
-      { onSuccess: (data) => reset() }
+      { onSuccess: () => reset() }
     );
   }
 

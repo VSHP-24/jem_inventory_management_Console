@@ -43,6 +43,7 @@ function TableMenuList({
   onHandleDelete,
   id,
   openId,
+  isDeleting,
 }) {
   if (openId !== id) {
     return null;
@@ -61,7 +62,7 @@ function TableMenuList({
         </div>
         <span>Edit</span>
       </StyledButton>
-      <StyledButton onClick={onHandleDelete}>
+      <StyledButton onClick={onHandleDelete} disabled={isDeleting}>
         <div>
           <HiTrash />
         </div>
