@@ -28,6 +28,7 @@ function ProductRow({
     deleteProduct(id);
     close();
   }
+
   return (
     <Table.Row>
       <div>

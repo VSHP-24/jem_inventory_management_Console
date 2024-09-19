@@ -31,12 +31,16 @@ export async function createProduct(newProduct) {
 /////////////////////////////////////////////////
 
 export async function deleteProduct(id) {
+  const updateDeletedStatus = {
+    isDeleted: true,
+  };
   const res = await fetch(`${PRODUCTS_URL}/${id}`, {
-    method: "DELETE",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(updateDeletedStatus),
   });
-
-  if (!res.ok) throw new Error(res.statusText);
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message);
 }
