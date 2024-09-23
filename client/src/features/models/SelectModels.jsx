@@ -10,11 +10,13 @@ function SelectModels() {
       <option value="" itemType="String">
         ----- Select a Model -----
       </option>
-      {models.map((model) => (
-        <option key={model.id} value={model.id}>
-          {model.name}
-        </option>
-      ))}
+      {models
+        .filter((model) => !model.isDeleted && !model.brand.isDeleted)
+        .map((model) => (
+          <option key={model.id} value={model.id}>
+            {model.name}
+          </option>
+        ))}
     </>
   );
 }

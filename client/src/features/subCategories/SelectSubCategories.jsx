@@ -10,11 +10,16 @@ function SelectSubCategories() {
       <option value="" itemType="String">
         ----- Select a SubCategory -----
       </option>
-      {subCategories.map((subCategory) => (
-        <option key={subCategory.id} value={subCategory.id}>
-          {subCategory.name}
-        </option>
-      ))}
+      {subCategories
+        .filter(
+          (subCategory) =>
+            !subCategory.isDeleted && !subCategory.category.isDeleted
+        )
+        .map((subCategory) => (
+          <option key={subCategory.id} value={subCategory.id}>
+            {subCategory.name}
+          </option>
+        ))}
     </>
   );
 }

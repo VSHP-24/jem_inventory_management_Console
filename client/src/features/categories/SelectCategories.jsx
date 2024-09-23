@@ -9,11 +9,13 @@ function SelectCategories() {
       <option value="" itemType="String">
         ----- Select a Category -----
       </option>
-      {categories.map((category) => (
-        <option key={category.id} value={category.id}>
-          {category.name}
-        </option>
-      ))}
+      {categories
+        .filter((category) => !category.isDeleted)
+        .map((category) => (
+          <option key={category.id} value={category.id}>
+            {category.name}
+          </option>
+        ))}
     </>
   );
 }

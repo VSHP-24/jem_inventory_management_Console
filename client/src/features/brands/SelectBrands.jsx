@@ -9,11 +9,13 @@ function SelectBrands() {
       <option value="" itemType="String">
         ----- Select a Brand -----
       </option>
-      {brands.map((brand) => (
-        <option key={brand.id} value={brand.id}>
-          {brand.name}
-        </option>
-      ))}
+      {brands
+        .filter((brand) => !brand.isDeleted)
+        .map((brand) => (
+          <option key={brand.id} value={brand.id}>
+            {brand.name}
+          </option>
+        ))}
     </>
   );
 }

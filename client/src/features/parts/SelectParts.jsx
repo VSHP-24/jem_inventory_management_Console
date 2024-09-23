@@ -9,11 +9,13 @@ function SelectParts() {
       <option value="" itemType="String">
         ----- Select a Part -----
       </option>
-      {parts.map((part) => (
-        <option key={part.id} value={part.id}>
-          {part.name}
-        </option>
-      ))}
+      {parts
+        .filter((part) => !part.isDeleted)
+        .map((part) => (
+          <option key={part.id} value={part.id}>
+            {part.name}
+          </option>
+        ))}
     </>
   );
 }
