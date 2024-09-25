@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createBrand as createBrandApi } from "../../services/apiBrands";
+import { createEditBrand as createBrandApi } from "../../services/apiBrands";
 import toast from "react-hot-toast";
 
 export function useCreateBrand() {

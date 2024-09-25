@@ -10,6 +10,7 @@ import Products from "./pages/Products";
 import PageNotFound from "./pages/PageNotFound";
 import Create from "./pages/Create";
 import Manage from "./pages/Manage";
+import Purchase from "./pages/Purchase";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,6 +33,7 @@ function App() {
             <Route path="manage" element={<Manage />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="products" element={<Products />} />
+            <Route path="purchases" element={<Purchase />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

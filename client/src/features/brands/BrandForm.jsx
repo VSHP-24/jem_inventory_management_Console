@@ -3,41 +3,64 @@ import { useForm } from "react-hook-form";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-
-import { useCreateBrand } from "./useCreateBrand";
 import FileInput from "../../ui/FileInput";
-import supabase, { supabaseUrl } from "../../services/supabase";
 import Button from "../../ui/Button";
 
-function BrandForm() {
+import { useCreateBrand } from "./useCreateBrand";
+import supabase, { supabaseUrl } from "../../services/supabase";
+import { useEditBrand } from "./useEditBrand";
+import toast from "react-hot-toast";
+
+function BrandForm({ brandToEdit = {}, setShowForm }) {
+  const { id: editId, ...editValues } = brandToEdit;
+  const isEditSession = Boolean(editId);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  });
 
   const { isCreating, createBrand } = useCreateBrand();
+  const { isEditing, editBrand } = useEditBrand();
+
+  const isWorking = isCreating || isEditing;
 
   async function onSubmit(data) {
+    const hasImagePath = data.brandLogo?.startsWith?.(supabaseUrl);
+
     const imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
       "/",
       ""
     );
-    const imagePath = `${supabaseUrl}/storage/v1/object/public/brandLogos/${imageName}`;
+    const imagePath = hasImagePath
+      ? data.brandLogo
+      : `${supabaseUrl}/storage/v1/object/public/brandLogos/${imageName}`;
 
-    const { error: storageError } = await supabase.storage
-      .from("brandLogos")
-      .upload(imageName, data.brandLogo[0]);
+    if (!hasImagePath) {
+      const { error: storageError } = await supabase.storage
+        .from("brandLogos")
+        .upload(imageName, data.brandLogo[0]);
 
-    if (storageError)
-      throw new Error(
-        "Brand Logo could not be uploaded and the brand was not created"
+      if (storageError)
+        toast.error(
+          "Brand Logo could not be uploaded and the brand was not created"
+        );
+    }
+    if (isEditSession) {
+      editBrand(
+        { ...data, brandLogo: imagePath },
+        { onSuccess: setShowForm((show) => !show) }
       );
-    createBrand({ ...data, brandLogo: imagePath }, { onSuccess: reset() });
+    } else
+      createBrand({ ...data, brandLogo: imagePath }, { onSuccess: reset() });
   }
 
   function onError(errors) {
+    toast.error(errors);
     return null;
   }
   return (
@@ -48,7 +71,7 @@ function BrandForm() {
             type="text"
             id="name"
             placeholder="Enter a Brand Name"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("name", { required: "*This field is required" })}
           />
         </FormRow>
@@ -58,17 +81,21 @@ function BrandForm() {
             accept="image/*"
             id="brandLogo"
             {...register("brandLogo", {
-              required: "*Brand Logo is required",
+              required: isEditSession ? false : "*Brand Logo is required",
             })}
           />
         </FormRow>
 
         <FormRow>
-          <Button size="medium" variation="secondary" type="reset">
+          <Button
+            size="medium"
+            variation="secondary"
+            type={isEditSession ? "button" : "reset"}
+          >
             Cancel
           </Button>
-          <Button size="large" variation="primary" disabled={isCreating}>
-            Create
+          <Button size="large" variation="primary" disabled={isWorking}>
+            {isEditSession ? "Edit Brand" : "Create Brand"}
           </Button>
         </FormRow>
       </Form>

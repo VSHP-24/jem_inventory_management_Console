@@ -11,17 +11,38 @@ export async function getBrands() {
 }
 
 /////////////////////////////////////////////////
-//           CREATE NEW BRAND
+//           CREATE / EDIT BRAND
 /////////////////////////////////////////////////
 
-export async function createBrand(newBrand) {
-  const res = await fetch(BRANDS_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newBrand),
-  });
+export async function createEditBrand(newBrand) {
+  let res;
+
+  ///////////////////////////
+  //      CREATE BRAND
+  ///////////////////////////
+
+  if (!newBrand._id) {
+    res = await fetch(BRANDS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newBrand),
+    });
+  }
+
+  ///////////////////////////
+  //      EDIT BRAND
+  ///////////////////////////
+  else {
+    res = await fetch(`${BRANDS_URL}/${newBrand._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newBrand),
+    });
+  }
 
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);

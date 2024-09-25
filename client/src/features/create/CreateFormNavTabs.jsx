@@ -5,12 +5,13 @@ function CreateFormTabs() {
     <NavTabs
       fieldComponent="formType"
       options={[
-        { value: "new-brand", label: "New Brand" },
-        { value: "new-bike", label: "New Bike" },
-        { value: "new-category", label: "New Category" },
-        { value: "new-subCategory", label: "New SubCategory" },
-        { value: "new-part", label: "New Part" },
-        { value: "new-product", label: "New Product" },
+        { value: "new-brand", label: "Brand" },
+        { value: "new-bike", label: "Bike" },
+        { value: "new-category", label: "Category" },
+        { value: "new-subCategory", label: "SubCategory" },
+        { value: "new-part", label: "Part" },
+        { value: "new-product", label: "Product" },
+        { value: "new-purchase", label: "Purchase" },
       ]}
     />
   );

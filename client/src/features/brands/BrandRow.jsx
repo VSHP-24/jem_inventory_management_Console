@@ -1,7 +1,9 @@
+import { useState } from "react";
 import Table from "../../ui/Table";
 import TableMenuButton from "../../ui/TableMenuButton";
 import TableMenuList from "../../ui/TableMenuList";
 import { useDeleteBrand } from "./useDeleteBrand";
+import BrandForm from "./BrandForm";
 
 function BrandRow({
   brand,
@@ -13,6 +15,8 @@ function BrandRow({
   position,
   id,
 }) {
+  const [showForm, setShowForm] = useState(false);
+
   const { name } = brand;
   const { isDeleting, deleteBrand } = useDeleteBrand();
 
@@ -21,7 +25,7 @@ function BrandRow({
     close();
   }
   function handleEdit() {
-    console.log(`handleEdit in BrandTable`);
+    setShowForm((show) => !show);
     close();
   }
   function handleDelete() {
@@ -30,33 +34,36 @@ function BrandRow({
   }
 
   return (
-    <Table.Row>
-      <div>
-        {(index <= 8 && `0${index + 1}`) ||
-          (index === 9 && `${index + 1}`) ||
-          index + 1}
-      </div>
-      <div>{name}</div>
+    <>
+      <Table.Row>
+        <div>
+          {(index <= 8 && `0${index + 1}`) ||
+            (index === 9 && `${index + 1}`) ||
+            index + 1}
+        </div>
+        <div>{name}</div>
 
-      <TableMenuButton
-        id={id}
-        openId={openId}
-        close={close}
-        open={open}
-        setPosition={setPosition}
-      />
-      {openId === id && (
-        <TableMenuList
+        <TableMenuButton
           id={id}
           openId={openId}
-          position={position}
-          onHandleViewDetails={handleViewDetails}
-          onHandleEdit={handleEdit}
-          onHandleDelete={handleDelete}
-          isDeleting={isDeleting}
+          close={close}
+          open={open}
+          setPosition={setPosition}
         />
-      )}
-    </Table.Row>
+        {openId === id && (
+          <TableMenuList
+            id={id}
+            openId={openId}
+            position={position}
+            onHandleViewDetails={handleViewDetails}
+            onHandleEdit={handleEdit}
+            onHandleDelete={handleDelete}
+            isDeleting={isDeleting}
+          />
+        )}
+      </Table.Row>
+      {showForm && <BrandForm brandToEdit={brand} setShowForm={setShowForm} />}
+    </>
   );
 }
 

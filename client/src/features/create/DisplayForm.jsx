@@ -5,6 +5,7 @@ import CategoryForm from "../categories/CategoryForm";
 import SubCategoryForm from "../subCategories/SubCategoryForm";
 import PartForm from "../parts/PartForm";
 import ProductForm from "../products/ProductForm";
+import PurchaseForm from "../purchases/PurchaseForm";
 
 function DisplayForm() {
   const [searchParmas] = useSearchParams();
@@ -17,6 +18,7 @@ function DisplayForm() {
   if (showForm === "new-subCategory") return <SubCategoryForm />;
   if (showForm === "new-part") return <PartForm />;
   if (showForm === "new-product") return <ProductForm />;
+  if (showForm === "new-purchase") return <PurchaseForm />;
 }
 
 export default DisplayForm;
