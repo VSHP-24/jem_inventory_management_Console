@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCategory as createCategoryApi } from "../../services/apiCategories";
+import { createEditCategory as createCategoryApi } from "../../services/apiCategories";
 import toast from "react-hot-toast";
 
 export function useCreateCategory() {

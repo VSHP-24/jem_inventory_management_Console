@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createPart as createPartApi } from "../../services/apiParts";
+import { createEditPart as createPartApi } from "../../services/apiParts";
 import toast from "react-hot-toast";
 
 export function useCreatePart() {

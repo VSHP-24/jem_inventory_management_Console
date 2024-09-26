@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createModel as createModelApi } from "../../services/apiModels";
+import { createEditModel as createModelApi } from "../../services/apiModels";
 import toast from "react-hot-toast";
 
 export function useCreateModel() {

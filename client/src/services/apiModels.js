@@ -11,17 +11,37 @@ export async function getModels() {
 }
 
 /////////////////////////////////////////////////
-//           CREATE NEW MODEL
+//           CREATE / EDIT MODEL
 /////////////////////////////////////////////////
 
-export async function createModel(newModel) {
-  const res = await fetch(MODELS_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newModel),
-  });
+export async function createEditModel(newModel) {
+  let res;
+
+  ///////////////////////////
+  //    CREATE MODEL
+  ///////////////////////////
+  if (!newModel._id) {
+    res = await fetch(MODELS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newModel),
+    });
+  }
+
+  ///////////////////////////
+  //    EDIT MODEL
+  ///////////////////////////
+  else {
+    res = await fetch(`${MODELS_URL}/${newModel._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newModel),
+    });
+  }
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }

@@ -9,14 +9,16 @@ import SelectModels from "../models/SelectModels";
 import SelectCategories from "../categories/SelectCategories";
 import SelectSubCategories from "../subCategories/SelectSubCategories";
 import Textarea from "../../ui/Textarea";
-
-import { useCreateProduct } from "./useCreateProduct";
-import supabase, { supabaseUrl } from "../../services/supabase";
 import FileInput from "../../ui/FileInput";
 import SelectParts from "../parts/SelectParts";
 import FormRowIncludedParts from "../../ui/FormRowIncludedParts";
 import styled from "styled-components";
 import Button from "../../ui/Button";
+
+import { useCreateProduct } from "./useCreateProduct";
+import supabase, { supabaseUrl } from "../../services/supabase";
+import { useEditProduct } from "./useEditProduct";
+import toast from "react-hot-toast";
 
 const StyledUl = styled.ul`
   padding: 0;
@@ -35,7 +37,19 @@ const StyledSelect = styled(Select)`
   width: 75%;
 `;
 
-function ProductForm() {
+function ProductForm({ productToEdit = {}, setShowForm }) {
+  const {
+    id: editId,
+    brand,
+    model,
+    category,
+    subCategory,
+    includedParts,
+    additionalImages: additionalImagesLinks,
+    ...editValues
+  } = productToEdit;
+  const isEditSession = Boolean(editId);
+
   const {
     register,
     handleSubmit,
@@ -44,10 +58,16 @@ function ProductForm() {
     reset,
     control,
   } = useForm({
-    defaultValues: {
-      includedParts: [{ quantity: 1, parts: "" }],
-    },
-    mode: "onChange",
+    defaultValues: isEditSession
+      ? {
+          brand: brand.id,
+          model: model.id,
+          category: category.id,
+          subCategory: subCategory.id,
+          includedParts: includedParts,
+          ...editValues,
+        }
+      : { includedParts: [{ quantity: 1, parts: "" }] },
   });
   const { fields, append, remove } = useFieldArray({
     control,
@@ -69,8 +89,17 @@ function ProductForm() {
   });
 
   const { isCreating, createProduct } = useCreateProduct();
+  const { isEditing, editProduct } = useEditProduct();
+
+  const isWorking = isCreating || isEditing;
 
   async function onSubmit(data) {
+    const hasMainImagePath = data.mainImage?.startsWith?.(supabaseUrl);
+
+    const hasAdditionalImagePaths = isEditSession
+      ? additionalImagesLinks.length !== 0 && data.additionalImages.length === 0
+      : false;
+
     const parts = data.includedParts.map((part) => ({
       quantity: part.quantity,
       part: part.parts,
@@ -79,52 +108,72 @@ function ProductForm() {
       "/",
       ""
     );
-    const imagePath = `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
+    const imagePath = hasMainImagePath
+      ? data.mainImage
+      : `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
 
-    const { error: storageError } = await supabase.storage
-      .from("productImages")
-      .upload(imageName, data.mainImage[0]);
-
-    if (storageError)
-      throw new Error(
-        "Product Image could not be uploaded and the product was not created"
-      );
-
-    const additionalImageNames = [];
-    const additionalImagePaths = [];
-    const additionalImages = [...data.additionalImage];
-    await additionalImages.map((image, i) => {
-      let imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
-        "/",
-        ""
-      );
-      imageName = `${imageName}--${i + 1}`;
-      const imagePath = `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
-
-      const { error: storageError } = supabase.storage
+    if (!hasMainImagePath) {
+      const { error: storageError } = await supabase.storage
         .from("productImages")
-        .upload(imageName, data.additionalImage[i]);
+        .upload(imageName, data.mainImage[0]);
 
       if (storageError)
-        throw new Error(
+        toast.error(
           "Product Image could not be uploaded and the product was not created"
         );
+    }
 
-      return (
-        additionalImageNames.push(imageName),
-        additionalImagePaths.push(imagePath)
+    let additionalImagePaths;
+
+    if (hasAdditionalImagePaths) {
+      data.additionalImages = additionalImagesLinks;
+    } else {
+      const additionalImageNames = [];
+      additionalImagePaths = [];
+      const additionalImages = [...data.additionalImages];
+      await additionalImages.map((image, i) => {
+        let imageName = `${
+          data.name
+        }-${Math.random()}-${Date.now()}`.replaceAll("/", "");
+        imageName = `${imageName}--${i + 1}`;
+        const imagePath = `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
+
+        const { error: storageError } = supabase.storage
+          .from("productImages")
+          .upload(imageName, data.additionalImages[i]);
+
+        if (storageError)
+          toast.error(
+            "Product Image could not be uploaded and the product was not created"
+          );
+
+        return (
+          additionalImageNames.push(imageName),
+          additionalImagePaths.push(imagePath)
+        );
+      });
+    }
+
+    if (isEditSession) {
+      editProduct(
+        {
+          ...data,
+          includedParts: parts,
+          mainImage: imagePath,
+          additionalImages: additionalImagePaths,
+        },
+        { onSuccess: setShowForm((show) => !show) }
       );
-    });
-
-    createProduct(
-      {
-        ...data,
-        includedParts: parts,
-        mainImage: imagePath,
-        additionalImages: additionalImagePaths,
-      },
-      { onSuccess: () => reset() }
-    );
+    } else
+      createProduct(
+        {
+          ...data,
+          includedParts: parts,
+          mainImage: imagePath,
+          additionalImages: additionalImagePaths,
+        },
+        { onSuccess: () => reset() }
+      );
   }
 
   function onError(errors) {
@@ -137,7 +186,7 @@ function ProductForm() {
           <Input
             type="text"
             id="name"
-            disabled={isCreating}
+            disabled={isWorking}
             placeholder="Enter a Product Name"
             {...register("name", { required: "*This field is required" })}
           />
@@ -249,16 +298,38 @@ function ProductForm() {
           <FileInput
             accept="image/*"
             id="mainImage"
-            {...register("mainImage", { required: "*This field is required" })}
+            {...register("mainImage", {
+              required: isEditSession ? false : "*This field is required",
+              validate: (value) => {
+                if (
+                  !value.startsWith?.(supabaseUrl) &&
+                  !value[0]?.type.startsWith("image")
+                )
+                  return "*Product Picture should be an image";
+              },
+            })}
           />
         </FormRow>
 
-        <FormRow label="Additional Images">
+        <FormRow
+          label="Additional Images"
+          error={errors?.additionalImages?.message}
+        >
           <FileInput
             accept="image/*"
             multiple
-            id="additionalImage"
-            {...register("additionalImage")}
+            id="additionalImages"
+            {...register("additionalImages", {
+              validate: (value) => {
+                for (let i = 0; i < value.length; i++) {
+                  if (
+                    !value[i].startsWith?.(supabaseUrl) &&
+                    !value[i].type.startsWith("image")
+                  )
+                    return "*Additional Pictures should be an image";
+                }
+              },
+            })}
           />
         </FormRow>
 
@@ -288,6 +359,7 @@ function ProductForm() {
                     </StyledSelect>
                   )}
                   name={`includedParts.${index}.parts`}
+                  defaultValue={isEditSession && includedParts[index]?.part}
                   control={control}
                 />
                 <Button
@@ -328,11 +400,15 @@ function ProductForm() {
           />
         </FormRow>
         <FormRow>
-          <Button size="medium" variation="secondary" type="reset">
+          <Button
+            size="medium"
+            variation="secondary"
+            type={isEditSession ? "button" : "reset"}
+          >
             Cancel
           </Button>
-          <Button size="large" variation="primary" disabled={isCreating}>
-            Create
+          <Button size="large" variation="primary" disabled={isWorking}>
+            {isEditSession ? "Edit Product" : "Create Product"}
           </Button>
         </FormRow>
       </Form>

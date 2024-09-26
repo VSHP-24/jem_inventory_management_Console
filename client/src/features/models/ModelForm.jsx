@@ -12,38 +12,59 @@ import { useCreateModel } from "./useCreateModel";
 import FileInput from "../../ui/FileInput";
 import supabase, { supabaseUrl } from "../../services/supabase";
 import Button from "../../ui/Button";
+import { useEditModel } from "./useEditSubCategory";
+import toast from "react-hot-toast";
 
-function BikeForm() {
+function ModelForm({ modelToEdit = {}, setShowForm }) {
+  const { id: editId, brand, ...editValues } = modelToEdit;
+  const isEditSession = Boolean(editId);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: isEditSession ? { brand: brand.id, ...editValues } : {},
+  });
 
   const { isCreating, createModel } = useCreateModel();
+  const { isEditing, editModel } = useEditModel();
+
+  const isWorking = isCreating || isEditing;
 
   async function onSubmit(data) {
+    const hasImagePath = data.bikeImage?.startsWith?.(supabaseUrl);
+
     const imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
       "/",
       ""
     );
 
-    const imagePath = `${supabaseUrl}/storage/v1/object/public/bikeModelImages/${imageName}`;
+    const imagePath = hasImagePath
+      ? data.bikeImage
+      : `${supabaseUrl}/storage/v1/object/public/bikeModelImages/${imageName}`;
 
-    const { error: storageError } = await supabase.storage
-      .from("bikeModelImages")
-      .upload(imageName, data.bikeImage[0]);
+    if (!hasImagePath) {
+      const { error: storageError } = await supabase.storage
+        .from("bikeModelImages")
+        .upload(imageName, data.bikeImage[0]);
 
-    if (storageError)
-      throw new Error(
-        "Bike Image could not be uploaded and the bike model was not created"
+      if (storageError)
+        toast.error(
+          "Bike Image could not be uploaded and the bike model was not created"
+        );
+    }
+    if (isEditSession) {
+      editModel(
+        { ...data, bikeImage: imagePath },
+        { onSuccess: setShowForm((show) => !show) }
       );
-    createModel(
-      { ...data, bikeImage: imagePath },
-      { onSuccess: () => reset() }
-    );
+    } else
+      createModel(
+        { ...data, bikeImage: imagePath },
+        { onSuccess: () => reset() }
+      );
   }
 
   function onError(errors) {
@@ -57,7 +78,7 @@ function BikeForm() {
             type="text"
             id="name"
             placeholder="Enter a Bike Model"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("name", { required: "*This field is required" })}
           />
         </FormRow>
@@ -82,7 +103,7 @@ function BikeForm() {
             type="text"
             id="version"
             placeholder="Enter the Bike Version e.g. v1"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("version")}
           />
         </FormRow>
@@ -92,7 +113,7 @@ function BikeForm() {
             type="text"
             id="year"
             placeholder="Enter the Bike Model Year e.g.2024"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("year", { required: "*This field is required" })}
           />
         </FormRow>
@@ -101,7 +122,13 @@ function BikeForm() {
           <FileInput
             accept="image/*"
             id="bikeImage"
-            {...register("bikeImage", { required: "*This field is required" })}
+            {...register("bikeImage", {
+              required: isEditSession ? false : "*This field is required",
+              validate: (value) => {
+                if (!value[0].type.startsWith("image"))
+                  return "*Bike Picture should be an image";
+              },
+            })}
           />
         </FormRow>
 
@@ -115,11 +142,15 @@ function BikeForm() {
         </FormRow>
 
         <FormRow>
-          <Button size="medium" variation="secondary" type="reset">
+          <Button
+            size="medium"
+            variation="secondary"
+            type={isEditSession ? "button" : "reset"}
+          >
             Cancel
           </Button>
-          <Button size="large" variation="primary" disabled={isCreating}>
-            Create
+          <Button size="large" variation="primary" disabled={isWorking}>
+            {isEditSession ? "Edit Model" : "Create Model"}
           </Button>
         </FormRow>
       </Form>
@@ -127,4 +158,4 @@ function BikeForm() {
   );
 }
 
-export default BikeForm;
+export default ModelForm;

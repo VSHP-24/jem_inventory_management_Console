@@ -11,17 +11,38 @@ export async function getCategories() {
 }
 
 /////////////////////////////////////////////////
-//           CREATE NEW CATEGORIES
+//           CREATE / EDIT CATEGORIES
 /////////////////////////////////////////////////
 
-export async function createCategory(newCategory) {
-  const res = await fetch(CATEGORIES_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newCategory),
-  });
+export async function createEditCategory(newCategory) {
+  let res;
+
+  ///////////////////////////
+  //      CREATE CATEGORY
+  ///////////////////////////
+  if (!newCategory._id) {
+    res = await fetch(CATEGORIES_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCategory),
+    });
+  }
+
+  ///////////////////////////
+  //      EDIT CATEGORY
+  ///////////////////////////
+  else {
+    res = await fetch(`${CATEGORIES_URL}/${newCategory._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCategory),
+    });
+  }
+
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }

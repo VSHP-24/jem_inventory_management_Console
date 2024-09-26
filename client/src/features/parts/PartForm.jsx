@@ -6,23 +6,36 @@ import Input from "../../ui/Input";
 
 import { useCreatePart } from "./useCreatePart";
 import Button from "../../ui/Button";
+import toast from "react-hot-toast";
+import { useEditPart } from "./useEditPart";
 
-function PartForm() {
+function PartForm({ partToEdit = {}, setShowForm }) {
+  const { id: editId, ...editValues } = partToEdit;
+  const isEditSession = Boolean(editId);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
 
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  });
 
   const { isCreating, createPart } = useCreatePart();
+  const { isEditing, editPart } = useEditPart();
+
+  const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
-    createPart({ ...data }, { onSuccess: () => reset() });
+    if (isEditSession) {
+      editPart({ ...data }, { onSuccess: setShowForm((show) => !show) });
+    } else createPart({ ...data }, { onSuccess: () => reset() });
   }
 
   function onError(errors) {
+    toast.error(errors);
     return null;
   }
   return (
@@ -33,7 +46,7 @@ function PartForm() {
             type="text"
             id="name"
             placeholder="Enter a Part Name"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("name", { required: "*This field is required" })}
           />
         </FormRow>
@@ -43,7 +56,7 @@ function PartForm() {
             type="number"
             id="length"
             placeholder="Enter the dimension in mm"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("length")}
           />
         </FormRow>
@@ -56,7 +69,7 @@ function PartForm() {
             type="number"
             id="insideDiameter"
             placeholder="Enter the dimension in mm"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("insideDiameter")}
           />
         </FormRow>
@@ -69,7 +82,7 @@ function PartForm() {
             type="number"
             id="outsideDiameter"
             placeholder="Enter the dimension in mm"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("outsideDiameter")}
           />
         </FormRow>
@@ -82,7 +95,7 @@ function PartForm() {
             type="number"
             id="threadDiameter"
             placeholder="Enter the dimension in mm"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("threadDiameter")}
           />
         </FormRow>
@@ -92,7 +105,7 @@ function PartForm() {
             type="number"
             id="threadPitch"
             placeholder="Enter the dimension in mm"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("threadPitch")}
           />
         </FormRow>
@@ -102,7 +115,7 @@ function PartForm() {
             type="number"
             id="shankLength"
             placeholder="Enter the dimension in mm"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("shankLength")}
           />
         </FormRow>
@@ -112,7 +125,7 @@ function PartForm() {
             type="number"
             id="headHeight"
             placeholder="Enter the dimension in mm"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("headHeight")}
           />
         </FormRow>
@@ -122,7 +135,7 @@ function PartForm() {
             type="number"
             id="headDiameter"
             placeholder="Enter the dimension in mm"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("headDiameter")}
           />
         </FormRow>
@@ -132,7 +145,7 @@ function PartForm() {
             type="number"
             placeholder="Enter the dimension in mm"
             id="allenKeySize"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("allenKeySize")}
           />
         </FormRow>
@@ -142,7 +155,7 @@ function PartForm() {
             type="number"
             id="width"
             placeholder="Enter the dimension in mm"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("width")}
           />
         </FormRow>
@@ -152,7 +165,7 @@ function PartForm() {
             type="number"
             id="thickness"
             placeholder="Enter the dimension in mm"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("thickness")}
           />
         </FormRow>
@@ -162,17 +175,21 @@ function PartForm() {
             type="text"
             id="material"
             placeholder="Enter the type of Material"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("material")}
           />
         </FormRow>
 
         <FormRow>
-          <Button size="medium" variation="secondary" type="reset">
+          <Button
+            size="medium"
+            variation="secondary"
+            type={isEditSession ? "button" : "reset"}
+          >
             Cancel
           </Button>
-          <Button size="large" variation="primary" disabled={isCreating}>
-            Create
+          <Button size="large" variation="primary" disabled={isWorking}>
+            {isEditSession ? "Edit Part" : "Create Part"}
           </Button>
         </FormRow>
       </Form>

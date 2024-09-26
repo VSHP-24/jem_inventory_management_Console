@@ -5,22 +5,35 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Select from "../../ui/Select";
 import SelectCategories from "../categories/SelectCategories";
-
-import { useCreateSubCategory } from "./useCreateSubCategory";
 import Button from "../../ui/Button";
 
-function SubCategoryForm() {
+import { useCreateSubCategory } from "./useCreateSubCategory";
+import { useEditSubCategory } from "./useEditSubCategory";
+
+function SubCategoryForm({ subCategoryToEdit = {}, setShowForm }) {
+  const { id: editId, category, ...editValues } = subCategoryToEdit;
+  const isEditSession = Boolean(editId);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: isEditSession
+      ? { category: category.id, ...editValues }
+      : {},
+  });
 
   const { isCreating, createSubCategory } = useCreateSubCategory();
+  const { isEditing, editSubCategory } = useEditSubCategory();
+
+  const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
-    createSubCategory({ ...data }, { onSuccess: () => reset() });
+    if (isEditSession) {
+      editSubCategory({ ...data }, { onSuccess: setShowForm((show) => !show) });
+    } else createSubCategory({ ...data }, { onSuccess: () => reset() });
   }
 
   function onError(errors) {
@@ -34,7 +47,7 @@ function SubCategoryForm() {
             type="text"
             id="name"
             placeholder="Enter a SubCategory Name"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("name", { required: "*This field is required" })}
           />
         </FormRow>
@@ -55,11 +68,15 @@ function SubCategoryForm() {
         </FormRow>
 
         <FormRow>
-          <Button size="medium" variation="secondary" type="reset">
+          <Button
+            size="medium"
+            variation="secondary"
+            type={isEditSession ? "button" : "reset"}
+          >
             Cancel
           </Button>
-          <Button size="large" variation="primary" disabled={isCreating}>
-            Create
+          <Button size="large" variation="primary" disabled={isWorking}>
+            {isEditSession ? "Edit SubCategory" : "Create SubCategory"}
           </Button>
         </FormRow>
       </Form>

@@ -11,17 +11,37 @@ export async function getParts() {
 }
 
 /////////////////////////////////////////////////
-//           CREATE NEW PART
+//           CREATE / EDIT PARTS
 /////////////////////////////////////////////////
 
-export async function createPart(newPart) {
-  const res = await fetch(PARTS_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newPart),
-  });
+export async function createEditPart(newPart) {
+  let res;
+
+  ///////////////////////////
+  //      CREATE PART
+  ///////////////////////////
+  if (!newPart._id) {
+    res = await fetch(PARTS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPart),
+    });
+  }
+  ///////////////////////////
+  //      EDIT PART
+  ///////////////////////////
+  else {
+    res = await fetch(`${PARTS_URL}/${newPart._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPart),
+    });
+  }
+
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }

@@ -1,9 +1,11 @@
 import { useState } from "react";
+
 import Table from "../../ui/Table";
 import TableMenuButton from "../../ui/TableMenuButton";
 import TableMenuList from "../../ui/TableMenuList";
-import { useDeleteBrand } from "./useDeleteBrand";
 import BrandForm from "./BrandForm";
+
+import { useDeleteBrand } from "./useDeleteBrand";
 
 function BrandRow({
   brand,

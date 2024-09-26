@@ -60,7 +60,6 @@ function BrandForm({ brandToEdit = {}, setShowForm }) {
   }
 
   function onError(errors) {
-    toast.error(errors);
     return null;
   }
   return (
@@ -82,6 +81,10 @@ function BrandForm({ brandToEdit = {}, setShowForm }) {
             id="brandLogo"
             {...register("brandLogo", {
               required: isEditSession ? false : "*Brand Logo is required",
+              validate: (value) => {
+                if (!value[0].type.startsWith("image"))
+                  return "*Brand Logo should be an image";
+              },
             })}
           />
         </FormRow>

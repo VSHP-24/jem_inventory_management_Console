@@ -14,14 +14,34 @@ export async function getProducts() {
 //           CREATE NEW PRODUCT
 /////////////////////////////////////////////////
 
-export async function createProduct(newProduct) {
-  const res = await fetch(PRODUCTS_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newProduct),
-  });
+export async function createEditProduct(newProduct) {
+  let res;
+
+  ///////////////////////////
+  //    CREATE PRODUCT
+  ///////////////////////////
+  if (!newProduct._id) {
+    res = await fetch(PRODUCTS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProduct),
+    });
+  }
+
+  ///////////////////////////
+  //    EDIT PRODUCT
+  ///////////////////////////
+  else {
+    res = await fetch(`${PRODUCTS_URL}/${newProduct._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProduct),
+    });
+  }
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }
