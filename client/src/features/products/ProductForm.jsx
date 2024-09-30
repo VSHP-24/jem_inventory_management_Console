@@ -37,7 +37,7 @@ const StyledSelect = styled(Select)`
   width: 75%;
 `;
 
-function ProductForm({ productToEdit = {}, setShowForm }) {
+function ProductForm({ productToEdit = {}, onCloseModal }) {
   const {
     id: editId,
     brand,
@@ -162,7 +162,7 @@ function ProductForm({ productToEdit = {}, setShowForm }) {
           mainImage: imagePath,
           additionalImages: additionalImagePaths,
         },
-        { onSuccess: setShowForm((show) => !show) }
+        { onSuccess: onCloseModal }
       );
     } else
       createProduct(
@@ -404,6 +404,7 @@ function ProductForm({ productToEdit = {}, setShowForm }) {
             size="medium"
             variation="secondary"
             type={isEditSession ? "button" : "reset"}
+            onClick={onCloseModal}
           >
             Cancel
           </Button>

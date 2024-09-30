@@ -1,73 +1,29 @@
-import { useState } from "react";
-
 import Table from "../../ui/Table";
-import TableMenuButton from "../../ui/TableMenuButton";
-import TableMenuList from "../../ui/TableMenuList";
 import ModelForm from "./ModelForm";
 
 import { useDeleteModel } from "./useDeleteModel";
 
-function ModelRow({
-  model,
-  index,
-  openId,
-  close,
-  open,
-  setPosition,
-  position,
-  id,
-}) {
-  const [showForm, setShowForm] = useState(false);
-
+function ModelRow({ model, index, id }) {
   const { name, brand, version, year } = model;
   const { isDeleting, deleteModel } = useDeleteModel();
 
-  function handleViewDetails() {
-    console.log(`handleViewDetails in ModelTable`);
-    close();
-  }
-  function handleEdit() {
-    setShowForm((show) => !show);
-    close();
-  }
-  function handleDelete() {
-    deleteModel(id);
-    close();
-  }
   return (
-    <>
-      <Table.Row>
-        <div>
-          {(index <= 8 && `0${index + 1}`) ||
-            (index === 9 && `${index + 1}`) ||
-            index + 1}
-        </div>
-        <div>{brand.name}</div>
-        <div>{name}</div>
-        <div>{version}</div>
-        <div>{year}</div>
-
-        <TableMenuButton
-          id={id}
-          openId={openId}
-          close={close}
-          open={open}
-          setPosition={setPosition}
-        />
-        {openId === id && (
-          <TableMenuList
-            id={id}
-            openId={openId}
-            position={position}
-            onHandleViewDetails={handleViewDetails}
-            onHandleEdit={handleEdit}
-            onHandleDelete={handleDelete}
-            isDeleting={isDeleting}
-          />
-        )}
-      </Table.Row>
-      {showForm && <ModelForm modelToEdit={model} setShowForm={setShowForm} />}
-    </>
+    <Table.Row
+      id={id}
+      deleteContentFrom={deleteModel}
+      isDeleting={isDeleting}
+      modalWindowContent={<ModelForm modelToEdit={model} />}
+    >
+      <div>
+        {(index <= 8 && `0${index + 1}`) ||
+          (index === 9 && `${index + 1}`) ||
+          index + 1}
+      </div>
+      <div>{brand.name}</div>
+      <div>{name}</div>
+      <div>{version}</div>
+      <div>{year}</div>
+    </Table.Row>
   );
 }
 

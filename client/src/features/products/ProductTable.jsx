@@ -1,22 +1,18 @@
-import { useState } from "react";
+import styled from "styled-components";
+
 import Spinner from "../../ui/Spinner";
 import ProductRow from "./ProductRow";
 import Table from "../../ui/Table";
+import Button from "../../ui/Button";
 
 import { useGetProducts } from "./useGetProducts";
-import styled from "styled-components";
-import Button from "../../ui/Button";
 
 const StyledButton = styled(Button)`
   width: 15rem;
 `;
 
 function ProductTable() {
-  const [openId, setOpenId] = useState("");
-  const [position, setPosition] = useState(null);
-
-  const close = () => setOpenId("");
-  const open = (id) => setOpenId(id);
+  const { isPending, products } = useGetProducts();
 
   function handleClick() {
     console.log(
@@ -30,8 +26,6 @@ function ProductTable() {
       )
     );
   }
-
-  const { isPending, products } = useGetProducts();
 
   if (isPending) return <Spinner />;
 
@@ -60,12 +54,7 @@ function ProductTable() {
               product={product}
               index={i}
               key={product.id}
-              openId={openId}
-              close={close}
-              open={open}
               id={product.id}
-              position={position}
-              setPosition={setPosition}
             />
           )}
         />

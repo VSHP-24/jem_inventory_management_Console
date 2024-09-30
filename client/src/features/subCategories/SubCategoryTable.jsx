@@ -1,24 +1,17 @@
-import { useState } from "react";
+import styled from "styled-components";
 
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import SubCategoryRow from "./SubCategoryRow";
+import Button from "../../ui/Button";
 
 import { useGetSubCategories } from "./useGetSubCategories";
-import styled from "styled-components";
-import Button from "../../ui/Button";
 
 const StyledButton = styled(Button)`
   width: 15rem;
 `;
 
 function SubCategoryTable() {
-  const [openId, setOpenId] = useState("");
-  const [position, setPosition] = useState(null);
-
-  const close = () => setOpenId("");
-  const open = (id) => setOpenId(id);
-
   const { isPending, subCategories } = useGetSubCategories();
 
   function handleClick() {
@@ -50,12 +43,7 @@ function SubCategoryTable() {
               subCategory={subCategory}
               index={i}
               key={subCategory.id}
-              openId={openId}
-              close={close}
-              open={open}
               id={subCategory.id}
-              position={position}
-              setPosition={setPosition}
             />
           )}
         />

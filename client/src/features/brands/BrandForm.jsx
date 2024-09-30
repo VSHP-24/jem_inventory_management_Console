@@ -11,7 +11,7 @@ import supabase, { supabaseUrl } from "../../services/supabase";
 import { useEditBrand } from "./useEditBrand";
 import toast from "react-hot-toast";
 
-function BrandForm({ brandToEdit = {}, setShowForm }) {
+function BrandForm({ brandToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = brandToEdit;
   const isEditSession = Boolean(editId);
 
@@ -51,10 +51,7 @@ function BrandForm({ brandToEdit = {}, setShowForm }) {
         );
     }
     if (isEditSession) {
-      editBrand(
-        { ...data, brandLogo: imagePath },
-        { onSuccess: setShowForm((show) => !show) }
-      );
+      editBrand({ ...data, brandLogo: imagePath }, { onSuccess: onCloseModal });
     } else
       createBrand({ ...data, brandLogo: imagePath }, { onSuccess: reset() });
   }
@@ -82,7 +79,10 @@ function BrandForm({ brandToEdit = {}, setShowForm }) {
             {...register("brandLogo", {
               required: isEditSession ? false : "*Brand Logo is required",
               validate: (value) => {
-                if (!value[0].type.startsWith("image"))
+                if (
+                  !value.startsWith?.(supabaseUrl) &&
+                  !value[0].type.startsWith("image")
+                )
                   return "*Brand Logo should be an image";
               },
             })}
@@ -94,6 +94,7 @@ function BrandForm({ brandToEdit = {}, setShowForm }) {
             size="medium"
             variation="secondary"
             type={isEditSession ? "button" : "reset"}
+            onClick={onCloseModal}
           >
             Cancel
           </Button>

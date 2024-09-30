@@ -1,24 +1,17 @@
-import { useState } from "react";
+import styled from "styled-components";
 
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import CategoryRow from "./CategoryRow";
+import Button from "../../ui/Button";
 
 import { useGetCategories } from "./useGetCategories";
-import styled from "styled-components";
-import Button from "../../ui/Button";
 
 const StyledButton = styled(Button)`
   width: 15rem;
 `;
 
 function CategoryTable() {
-  const [openId, setOpenId] = useState("");
-  const [position, setPosition] = useState(null);
-
-  const close = () => setOpenId("");
-  const open = (id) => setOpenId(id);
-
   const { isPending, categories } = useGetCategories();
 
   function handleClick() {
@@ -42,12 +35,7 @@ function CategoryTable() {
               category={category}
               index={i}
               key={category.id}
-              openId={openId}
-              close={close}
-              open={open}
               id={category.id}
-              position={position}
-              setPosition={setPosition}
             />
           )}
         />

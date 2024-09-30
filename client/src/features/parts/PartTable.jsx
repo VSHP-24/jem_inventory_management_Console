@@ -1,24 +1,17 @@
-import { useState } from "react";
+import styled from "styled-components";
 
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import PartRow from "./PartRow";
+import Button from "../../ui/Button";
 
 import { useGetParts } from "./useGetParts";
-import styled from "styled-components";
-import Button from "../../ui/Button";
 
 const StyledButton = styled(Button)`
   width: 15rem;
 `;
 
 function PartTable() {
-  const [openId, setOpenId] = useState("");
-  const [position, setPosition] = useState(null);
-
-  const close = () => setOpenId("");
-  const open = (id) => setOpenId(id);
-
   const { isPending, parts } = useGetParts();
 
   function handleClick() {
@@ -38,17 +31,7 @@ function PartTable() {
         <Table.Body
           data={parts.filter((part) => !part.isDeleted)}
           render={(part, i) => (
-            <PartRow
-              part={part}
-              index={i}
-              key={part.id}
-              openId={openId}
-              close={close}
-              open={open}
-              id={part.id}
-              position={position}
-              setPosition={setPosition}
-            />
+            <PartRow part={part} index={i} key={part.id} id={part.id} />
           )}
         />
       </Table>

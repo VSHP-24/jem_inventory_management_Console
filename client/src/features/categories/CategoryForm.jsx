@@ -9,7 +9,7 @@ import Button from "../../ui/Button";
 
 import { useEditCategory } from "./useEditCategory";
 
-function CategoryForm({ categoryToEdit = {}, setShowForm }) {
+function CategoryForm({ categoryToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = categoryToEdit;
   const isEditSession = Boolean(editId);
 
@@ -29,7 +29,7 @@ function CategoryForm({ categoryToEdit = {}, setShowForm }) {
 
   function onSubmit(data) {
     if (isEditSession) {
-      editCategory({ ...data }, { onSuccess: setShowForm((show) => !show) });
+      editCategory({ ...data }, { onSuccess: onCloseModal });
     } else createCategory({ ...data }, { onSuccess: () => reset() });
   }
 
@@ -54,6 +54,7 @@ function CategoryForm({ categoryToEdit = {}, setShowForm }) {
             size="medium"
             variation="secondary"
             type={isEditSession ? "button" : "reset"}
+            onClick={onCloseModal}
           >
             Cancel
           </Button>

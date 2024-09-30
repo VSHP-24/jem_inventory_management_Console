@@ -1,24 +1,17 @@
-import { useState } from "react";
+import styled from "styled-components";
 
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import ModelRow from "./ModelRow";
+import Button from "../../ui/Button";
 
 import { useGetModels } from "./useGetModels";
-import styled from "styled-components";
-import Button from "../../ui/Button";
 
 const StyledButton = styled(Button)`
   width: 15rem;
 `;
 
 function ModelTable() {
-  const [openId, setOpenId] = useState("");
-  const [position, setPosition] = useState(null);
-
-  const close = () => setOpenId("");
-  const open = (id) => setOpenId(id);
-
   const { isPending, models } = useGetModels();
 
   function handleClick() {
@@ -45,17 +38,7 @@ function ModelTable() {
             (model) => !model.isDeleted && !model.brand.isDeleted
           )}
           render={(model, i) => (
-            <ModelRow
-              model={model}
-              index={i}
-              key={model.id}
-              openId={openId}
-              close={close}
-              open={open}
-              id={model.id}
-              position={position}
-              setPosition={setPosition}
-            />
+            <ModelRow model={model} index={i} key={model.id} id={model.id} />
           )}
         />
       </Table>

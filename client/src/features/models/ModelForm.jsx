@@ -15,7 +15,7 @@ import Button from "../../ui/Button";
 import { useEditModel } from "./useEditSubCategory";
 import toast from "react-hot-toast";
 
-function ModelForm({ modelToEdit = {}, setShowForm }) {
+function ModelForm({ modelToEdit = {}, onCloseModal }) {
   const { id: editId, brand, ...editValues } = modelToEdit;
   const isEditSession = Boolean(editId);
 
@@ -56,10 +56,7 @@ function ModelForm({ modelToEdit = {}, setShowForm }) {
         );
     }
     if (isEditSession) {
-      editModel(
-        { ...data, bikeImage: imagePath },
-        { onSuccess: setShowForm((show) => !show) }
-      );
+      editModel({ ...data, bikeImage: imagePath }, { onSuccess: onCloseModal });
     } else
       createModel(
         { ...data, bikeImage: imagePath },
@@ -125,7 +122,10 @@ function ModelForm({ modelToEdit = {}, setShowForm }) {
             {...register("bikeImage", {
               required: isEditSession ? false : "*This field is required",
               validate: (value) => {
-                if (!value[0].type.startsWith("image"))
+                if (
+                  !value.startsWith?.(supabaseUrl) &&
+                  !value[0].type.startsWith("image")
+                )
                   return "*Bike Picture should be an image";
               },
             })}
@@ -146,6 +146,7 @@ function ModelForm({ modelToEdit = {}, setShowForm }) {
             size="medium"
             variation="secondary"
             type={isEditSession ? "button" : "reset"}
+            onClick={onCloseModal}
           >
             Cancel
           </Button>

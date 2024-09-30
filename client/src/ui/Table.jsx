@@ -1,5 +1,8 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import styled from "styled-components";
+import TableMenuButton from "./TableMenuButton";
+import TableMenuList from "./TableMenuList";
+import Modal from "./Modal";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-700);
@@ -50,8 +53,32 @@ const Empty = styled.p`
 const TableContext = createContext();
 
 function Table({ columns, children }) {
+  const [openId, setOpenId] = useState("");
+  const [position, setPosition] = useState(null);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const close = () => setOpenId("");
+  const open = (id) => setOpenId(id);
+
+  const closeModal = () => {
+    setIsOpenModal(false);
+    close();
+  };
+
   return (
-    <TableContext.Provider value={{ columns }}>
+    <TableContext.Provider
+      value={{
+        columns,
+        openId,
+        position,
+        setPosition,
+        close,
+        open,
+        isOpenModal,
+        setIsOpenModal,
+        closeModal,
+      }}
+    >
       <StyledTable role="table">{children}</StyledTable>
     </TableContext.Provider>
   );
@@ -65,12 +92,75 @@ function Header({ children }) {
     </StyledHeader>
   );
 }
-function Row({ children }) {
-  const { columns } = useContext(TableContext);
+function Row({
+  children,
+  id,
+  deleteContentFrom,
+  isDeleting,
+  modalWindowContent,
+}) {
+  const {
+    columns,
+    openId,
+    close,
+    open,
+    setPosition,
+    position,
+    isOpenModal,
+    setIsOpenModal,
+    closeModal,
+  } = useContext(TableContext);
+
+  function handleViewDetails() {
+    console.log(`handleViewDetails in BrandTable`);
+    close();
+  }
+
+  function handleEdit() {
+    setIsOpenModal((show) => !show);
+  }
+
+  function handleDelete() {
+    alert(`Are you sure you want to delete`);
+    deleteContentFrom(id);
+    close();
+  }
+
+  const content = { ...modalWindowContent };
+  content.props = { ...content.props, onCloseModal: closeModal };
+
   return (
-    <StyledRow role="row" columns={columns}>
-      {children}
-    </StyledRow>
+    <>
+      <StyledRow role="row" columns={columns}>
+        {children}
+        <TableMenuButton
+          id={id}
+          openId={openId}
+          close={close}
+          open={open}
+          setPosition={setPosition}
+        />
+        {openId === id && (
+          <TableMenuList
+            id={id}
+            openId={openId}
+            position={position}
+            onHandleViewDetails={handleViewDetails}
+            onHandleEdit={handleEdit}
+            onHandleDelete={handleDelete}
+            isDeleting={isDeleting}
+          />
+        )}
+      </StyledRow>
+      {openId === id && isOpenModal && (
+        <Modal
+          id={id}
+          openId={openId}
+          modalWindowContent={content}
+          onCloseModal={closeModal}
+        />
+      )}
+    </>
   );
 }
 function Body({ data, render }) {

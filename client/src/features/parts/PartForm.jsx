@@ -9,7 +9,7 @@ import Button from "../../ui/Button";
 import toast from "react-hot-toast";
 import { useEditPart } from "./useEditPart";
 
-function PartForm({ partToEdit = {}, setShowForm }) {
+function PartForm({ partToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = partToEdit;
   const isEditSession = Boolean(editId);
 
@@ -30,7 +30,7 @@ function PartForm({ partToEdit = {}, setShowForm }) {
 
   function onSubmit(data) {
     if (isEditSession) {
-      editPart({ ...data }, { onSuccess: setShowForm((show) => !show) });
+      editPart({ ...data }, { onSuccess: onCloseModal });
     } else createPart({ ...data }, { onSuccess: () => reset() });
   }
 
@@ -185,6 +185,7 @@ function PartForm({ partToEdit = {}, setShowForm }) {
             size="medium"
             variation="secondary"
             type={isEditSession ? "button" : "reset"}
+            onClick={onCloseModal}
           >
             Cancel
           </Button>

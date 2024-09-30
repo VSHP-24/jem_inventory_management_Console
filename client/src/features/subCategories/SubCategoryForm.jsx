@@ -10,7 +10,7 @@ import Button from "../../ui/Button";
 import { useCreateSubCategory } from "./useCreateSubCategory";
 import { useEditSubCategory } from "./useEditSubCategory";
 
-function SubCategoryForm({ subCategoryToEdit = {}, setShowForm }) {
+function SubCategoryForm({ subCategoryToEdit = {}, onCloseModal }) {
   const { id: editId, category, ...editValues } = subCategoryToEdit;
   const isEditSession = Boolean(editId);
 
@@ -32,7 +32,7 @@ function SubCategoryForm({ subCategoryToEdit = {}, setShowForm }) {
 
   function onSubmit(data) {
     if (isEditSession) {
-      editSubCategory({ ...data }, { onSuccess: setShowForm((show) => !show) });
+      editSubCategory({ ...data }, { onSuccess: onCloseModal });
     } else createSubCategory({ ...data }, { onSuccess: () => reset() });
   }
 
@@ -72,6 +72,7 @@ function SubCategoryForm({ subCategoryToEdit = {}, setShowForm }) {
             size="medium"
             variation="secondary"
             type={isEditSession ? "button" : "reset"}
+            onClick={onCloseModal}
           >
             Cancel
           </Button>
