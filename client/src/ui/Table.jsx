@@ -2,7 +2,6 @@ import { createContext, useContext, useState } from "react";
 import styled from "styled-components";
 import TableMenuButton from "./TableMenuButton";
 import TableMenuList from "./TableMenuList";
-import Modal from "./Modal";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-700);
@@ -55,15 +54,9 @@ const TableContext = createContext();
 function Table({ columns, children }) {
   const [openId, setOpenId] = useState("");
   const [position, setPosition] = useState(null);
-  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const close = () => setOpenId("");
   const open = (id) => setOpenId(id);
-
-  const closeModal = () => {
-    setIsOpenModal(false);
-    close();
-  };
 
   return (
     <TableContext.Provider
@@ -74,9 +67,6 @@ function Table({ columns, children }) {
         setPosition,
         close,
         open,
-        isOpenModal,
-        setIsOpenModal,
-        closeModal,
       }}
     >
       <StyledTable role="table">{children}</StyledTable>
@@ -97,70 +87,35 @@ function Row({
   id,
   deleteContentFrom,
   isDeleting,
-  modalWindowContent,
+  editFormContent,
+  contentType,
 }) {
-  const {
-    columns,
-    openId,
-    close,
-    open,
-    setPosition,
-    position,
-    isOpenModal,
-    setIsOpenModal,
-    closeModal,
-  } = useContext(TableContext);
-
-  function handleViewDetails() {
-    console.log(`handleViewDetails in BrandTable`);
-    close();
-  }
-
-  function handleEdit() {
-    setIsOpenModal((show) => !show);
-  }
-
-  function handleDelete() {
-    alert(`Are you sure you want to delete`);
-    deleteContentFrom(id);
-    close();
-  }
-
-  const content = { ...modalWindowContent };
-  content.props = { ...content.props, onCloseModal: closeModal };
+  const { columns, openId, close, open, setPosition, position } =
+    useContext(TableContext);
 
   return (
-    <>
-      <StyledRow role="row" columns={columns}>
-        {children}
-        <TableMenuButton
+    <StyledRow role="row" columns={columns}>
+      {children}
+      <TableMenuButton
+        id={id}
+        openId={openId}
+        close={close}
+        open={open}
+        setPosition={setPosition}
+      />
+      {openId === id && (
+        <TableMenuList
           id={id}
           openId={openId}
           close={close}
-          open={open}
-          setPosition={setPosition}
-        />
-        {openId === id && (
-          <TableMenuList
-            id={id}
-            openId={openId}
-            position={position}
-            onHandleViewDetails={handleViewDetails}
-            onHandleEdit={handleEdit}
-            onHandleDelete={handleDelete}
-            isDeleting={isDeleting}
-          />
-        )}
-      </StyledRow>
-      {openId === id && isOpenModal && (
-        <Modal
-          id={id}
-          openId={openId}
-          modalWindowContent={content}
-          onCloseModal={closeModal}
+          position={position}
+          isDeleting={isDeleting}
+          editFormContent={editFormContent}
+          contentType={contentType}
+          deleteContentFrom={() => deleteContentFrom(id)}
         />
       )}
-    </>
+    </StyledRow>
   );
 }
 function Body({ data, render }) {

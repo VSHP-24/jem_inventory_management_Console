@@ -12,7 +12,8 @@ function ProductRow({ product, index, id }) {
       id={id}
       deleteContentFrom={deleteProduct}
       isDeleting={isDeleting}
-      modalWindowContent={<ProductForm productToEdit={product} />}
+      contentType="Product"
+      editFormContent={<ProductForm productToEdit={product} />}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||

@@ -12,7 +12,8 @@ function PartRow({ part, index, id }) {
       id={id}
       deleteContentFrom={deletePart}
       isDeleting={isDeleting}
-      modalWindowContent={<PartForm partToEdit={part} />}
+      contentType="Part"
+      editFormContent={<PartForm partToEdit={part} />}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||

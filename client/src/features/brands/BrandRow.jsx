@@ -12,7 +12,8 @@ function BrandRow({ brand, index, id }) {
       id={id}
       deleteContentFrom={deleteBrand}
       isDeleting={isDeleting}
-      modalWindowContent={
+      contentType="Brand"
+      editFormContent={
         <BrandForm
           brandToEdit={brand}
           // setIsOpenModal={setIsOpenModal}

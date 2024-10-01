@@ -12,7 +12,8 @@ function SubCategoryRow({ subCategory, index, id }) {
       id={id}
       deleteContentFrom={deleteSubCategory}
       isDeleting={isDeleting}
-      modalWindowContent={<SubCategoryForm subCategoryToEdit={subCategory} />}
+      contentType="SubCategory"
+      editFormContent={<SubCategoryForm subCategoryToEdit={subCategory} />}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||

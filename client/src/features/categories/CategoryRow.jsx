@@ -12,7 +12,8 @@ function CategoryRow({ category, index, id }) {
       id={id}
       deleteContentFrom={deleteCategory}
       isDeleting={isDeleting}
-      modalWindowContent={<CategoryForm categoryToEdit={category} />}
+      contentType="Category"
+      editFormContent={<CategoryForm categoryToEdit={category} />}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||

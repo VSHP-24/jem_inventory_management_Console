@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import { HiOutlineEye, HiPencil, HiTrash } from "react-icons/hi2";
 import { createPortal } from "react-dom";
+import Modal from "./Modal";
+import ConfirmDelete from "./ConfirmDelete";
 
 const StyledMenuOptions = styled.ul`
   position: absolute;
@@ -37,38 +39,60 @@ const StyledButton = styled.button`
 `;
 
 function TableMenuList({
-  position,
-  onHandleViewDetails,
-  onHandleEdit,
-  onHandleDelete,
   id,
   openId,
+  close,
+  position,
   isDeleting,
+  contentType,
+  editFormContent,
+  deleteContentFrom,
 }) {
   if (openId !== id) {
     return null;
   }
+
   return createPortal(
-    <StyledMenuOptions position={position}>
-      <StyledButton onClick={onHandleViewDetails}>
-        <div>
-          <HiOutlineEye />
-        </div>
-        <span>View Details</span>
-      </StyledButton>
-      <StyledButton onClick={onHandleEdit}>
-        <div>
-          <HiPencil />
-        </div>
-        <span>Edit</span>
-      </StyledButton>
-      <StyledButton onClick={onHandleDelete} disabled={isDeleting}>
-        <div>
-          <HiTrash />
-        </div>
-        <span>Delete</span>
-      </StyledButton>
-    </StyledMenuOptions>,
+    <Modal closeMenuList={close}>
+      <StyledMenuOptions position={position}>
+        <Modal.Open opens="view-details">
+          <StyledButton>
+            <div>
+              <HiOutlineEye />
+            </div>
+            <span>View Details</span>
+          </StyledButton>
+        </Modal.Open>
+
+        <Modal.Open opens="edit">
+          <StyledButton>
+            <div>
+              <HiPencil />
+            </div>
+            <span>Edit</span>
+          </StyledButton>
+        </Modal.Open>
+
+        <Modal.Window name="edit">{editFormContent}</Modal.Window>
+
+        <Modal.Open opens="delete">
+          <StyledButton disabled={isDeleting}>
+            <div>
+              <HiTrash />
+            </div>
+            <span>Delete</span>
+          </StyledButton>
+        </Modal.Open>
+
+        <Modal.Window name="delete">
+          <ConfirmDelete
+            disabled={isDeleting}
+            onConfirm={deleteContentFrom}
+            resourceName={contentType}
+          />
+        </Modal.Window>
+      </StyledMenuOptions>
+    </Modal>,
     document.body
   );
 }

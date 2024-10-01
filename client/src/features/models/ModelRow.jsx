@@ -12,7 +12,8 @@ function ModelRow({ model, index, id }) {
       id={id}
       deleteContentFrom={deleteModel}
       isDeleting={isDeleting}
-      modalWindowContent={<ModelForm modelToEdit={model} />}
+      contentType="Model"
+      editFormContent={<ModelForm modelToEdit={model} />}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||
