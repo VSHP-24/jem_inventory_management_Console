@@ -1,4 +1,5 @@
 import Table from "../../ui/Table";
+import CategoryDetailPage from "./CategoryDetailPage";
 import CategoryForm from "./CategoryForm";
 
 import { useDeleteCategory } from "./useDeleteCategory";
@@ -10,10 +11,11 @@ function CategoryRow({ category, index, id }) {
   return (
     <Table.Row
       id={id}
-      deleteContentFrom={deleteCategory}
       isDeleting={isDeleting}
       contentType="Category"
+      detailPageContent={<CategoryDetailPage category={category} />}
       editFormContent={<CategoryForm categoryToEdit={category} />}
+      deleteContentFrom={deleteCategory}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||

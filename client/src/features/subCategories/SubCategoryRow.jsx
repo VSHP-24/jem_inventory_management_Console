@@ -1,4 +1,5 @@
 import Table from "../../ui/Table";
+import SubCategoryDetailPage from "./SubCategoryDetailPage";
 import SubCategoryForm from "./SubCategoryForm";
 
 import { useDeleteSubCategory } from "./useDeleteSubCategory";
@@ -10,10 +11,11 @@ function SubCategoryRow({ subCategory, index, id }) {
   return (
     <Table.Row
       id={id}
-      deleteContentFrom={deleteSubCategory}
       isDeleting={isDeleting}
       contentType="SubCategory"
+      detailPageContent={<SubCategoryDetailPage subCategory={subCategory} />}
       editFormContent={<SubCategoryForm subCategoryToEdit={subCategory} />}
+      deleteContentFrom={deleteSubCategory}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||

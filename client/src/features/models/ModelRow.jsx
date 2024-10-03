@@ -1,4 +1,5 @@
 import Table from "../../ui/Table";
+import ModelDetailPage from "./ModelDetailPage";
 import ModelForm from "./ModelForm";
 
 import { useDeleteModel } from "./useDeleteModel";
@@ -10,10 +11,11 @@ function ModelRow({ model, index, id }) {
   return (
     <Table.Row
       id={id}
-      deleteContentFrom={deleteModel}
       isDeleting={isDeleting}
       contentType="Model"
+      detailPageContent={<ModelDetailPage model={model} />}
       editFormContent={<ModelForm modelToEdit={model} />}
+      deleteContentFrom={deleteModel}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||

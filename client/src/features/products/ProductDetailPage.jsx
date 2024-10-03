@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import Table from "../../ui/Table";
-import DetailPageImageView from "../../ui/DetailPageImageView";
+import ProductDetailPageImageView from "./PrdocutDetailPageImageView";
+import Heading from "../../ui/Heading";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
   display: grid;
-  grid-template-columns: 50rem 25rem;
+  grid-template-columns: 50rem 30rem;
   font-size: 1.4rem;
   padding: 2rem;
   width: 100%;
@@ -33,6 +34,10 @@ const StyledDetails = styled.div`
   font-weight: 300;
 `;
 
+const StyledHeading = styled(Heading)`
+  padding-bottom: 2rem;
+`;
+
 function ProductDetailPage({ product }) {
   const {
     name,
@@ -55,6 +60,7 @@ function ProductDetailPage({ product }) {
   return (
     <StyledDetailPage>
       <StyledProductDetails>
+        <StyledHeading as="h2">PRODUCT DETAILS</StyledHeading>
         <StyledRow>
           <StyledHeader>Name</StyledHeader>
           <StyledDetails>{name ? name : "--- NA ---"}</StyledDetails>
@@ -147,7 +153,7 @@ function ProductDetailPage({ product }) {
       </StyledProductDetails>
 
       <StyledProductImages>
-        <DetailPageImageView
+        <ProductDetailPageImageView
           name={name}
           additionalImages={additionalImages}
           mainImage={mainImage}

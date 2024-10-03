@@ -45,6 +45,7 @@ function TableMenuList({
   position,
   isDeleting,
   contentType,
+  detailPageContent,
   editFormContent,
   deleteContentFrom,
 }) {
@@ -63,6 +64,8 @@ function TableMenuList({
             <span>View Details</span>
           </StyledButton>
         </Modal.Open>
+
+        <Modal.Window name="view-details">{detailPageContent}</Modal.Window>
 
         <Modal.Open opens="edit">
           <StyledButton>

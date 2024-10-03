@@ -31,13 +31,14 @@ function ProductTable() {
 
   return (
     <>
-      <Table columns="1fr 1fr 1.75fr 1.5fr 2fr .75fr">
+      <Table columns=".75fr 1.25fr 1.5fr 1.25fr 2fr 1fr .75fr">
         <Table.Header>
           <div>Sl No.</div>
           <div>Brand</div>
           <div>Model</div>
           <div>Category</div>
           <div>SubCategory</div>
+          <div>Price</div>
         </Table.Header>
 
         <Table.Body

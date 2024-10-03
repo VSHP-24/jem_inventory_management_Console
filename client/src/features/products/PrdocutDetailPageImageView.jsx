@@ -6,6 +6,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+  width: 100%;
 `;
 
 const StyledSelectedMedia = styled.div`
@@ -15,15 +16,25 @@ const StyledSelectedMedia = styled.div`
 
 const StyledMediaRowLayout = styled.div`
   display: flex;
+  justify-content: space-between;
   gap: 0.5rem;
-  height: 6rem;
-  width: 6rem;
-  justify-content: space-around;
-  align-self: start;
-  padding: 0.2rem;
 `;
 
-function DetailPageImageView({ name, mainImage, additionalImages, video }) {
+const StyledMediaRowItem = styled.img`
+  height: 5rem;
+  border: 1px solid var(--color-grey-700);
+
+  :hover {
+    border: 5px solid var(--color-grey-700);
+  }
+`;
+
+function ProductDetailPageImageView({
+  name,
+  mainImage,
+  additionalImages,
+  video,
+}) {
   const [selectedMedia, setSelectedMedia] = useState("main-image");
   const [selectedMediaAlt, setSelectedMediaAlt] = useState(
     `${name} Primary Pic`
@@ -72,12 +83,16 @@ function DetailPageImageView({ name, mainImage, additionalImages, video }) {
 
       <StyledMediaRowLayout onClick={handleClick}>
         {mainImage && (
-          <img id="main-image" src={mainImage} alt={`${name} Primary Pic`} />
+          <StyledMediaRowItem
+            id="main-image"
+            src={mainImage}
+            alt={`${name} Primary Pic`}
+          />
         )}
 
         {additionalImages &&
           additionalImages.map((cur, i) => (
-            <img
+            <StyledMediaRowItem
               id={`additional-image[${i + 1}]`}
               src={cur}
               key={cur}
@@ -86,7 +101,7 @@ function DetailPageImageView({ name, mainImage, additionalImages, video }) {
           ))}
 
         {video && (
-          <img
+          <StyledMediaRowItem
             id="youtube-video"
             src={`https://img.youtube.com/vi/${videoId}/0.jpg`}
             key={`${name} Youtube Video`}
@@ -98,4 +113,4 @@ function DetailPageImageView({ name, mainImage, additionalImages, video }) {
   );
 }
 
-export default DetailPageImageView;
+export default ProductDetailPageImageView;

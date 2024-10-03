@@ -1,19 +1,21 @@
 import Table from "../../ui/Table";
+import ProductDetailPage from "./ProductDetailPage";
 import ProductForm from "./ProductForm";
 
 import { useDeleteProduct } from "./useDeleteProduct";
 
 function ProductRow({ product, index, id }) {
-  const { brand, model, category, subCategory } = product;
+  const { brand, model, category, subCategory, price } = product;
   const { isDeleting, deleteProduct } = useDeleteProduct();
 
   return (
     <Table.Row
       id={id}
-      deleteContentFrom={deleteProduct}
       isDeleting={isDeleting}
       contentType="Product"
+      detailPageContent={<ProductDetailPage product={product} />}
       editFormContent={<ProductForm productToEdit={product} />}
+      deleteContentFrom={deleteProduct}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||
@@ -24,6 +26,7 @@ function ProductRow({ product, index, id }) {
       <div>{model.name}</div>
       <div>{category.name}</div>
       <div>{subCategory.name}</div>
+      <div>{price}</div>
     </Table.Row>
   );
 }

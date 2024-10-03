@@ -1,4 +1,5 @@
 import Table from "../../ui/Table";
+import BrandDetailPage from "./BrandDetailPage";
 import BrandForm from "./BrandForm";
 
 import { useDeleteBrand } from "./useDeleteBrand";
@@ -10,15 +11,11 @@ function BrandRow({ brand, index, id }) {
   return (
     <Table.Row
       id={id}
-      deleteContentFrom={deleteBrand}
       isDeleting={isDeleting}
       contentType="Brand"
-      editFormContent={
-        <BrandForm
-          brandToEdit={brand}
-          // setIsOpenModal={setIsOpenModal}
-        />
-      }
+      detailPageContent={<BrandDetailPage brand={brand} />}
+      editFormContent={<BrandForm brandToEdit={brand} />}
+      deleteContentFrom={deleteBrand}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||

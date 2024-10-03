@@ -1,4 +1,5 @@
 import { Controller, useFieldArray, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
@@ -18,7 +19,6 @@ import Button from "../../ui/Button";
 import { useCreateProduct } from "./useCreateProduct";
 import supabase, { supabaseUrl } from "../../services/supabase";
 import { useEditProduct } from "./useEditProduct";
-import toast from "react-hot-toast";
 
 const StyledUl = styled.ul`
   padding: 0;
@@ -99,7 +99,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
     const hasAdditionalImagePaths = isEditSession
       ? additionalImagesLinks.length !== 0 && data.additionalImages.length === 0
       : false;
-
     const parts = data.includedParts.map((part) => ({
       quantity: part.quantity,
       part: part.parts,
@@ -359,7 +358,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
                     </StyledSelect>
                   )}
                   name={`includedParts.${index}.parts`}
-                  defaultValue={isEditSession && includedParts[index]?.part}
+                  defaultValue={isEditSession && includedParts[index]?.part.id}
                   control={control}
                 />
                 <Button

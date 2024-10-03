@@ -1,4 +1,5 @@
 import Table from "../../ui/Table";
+import PartDetailPage from "./PartDetailPage";
 import PartForm from "./PartForm";
 
 import { useDeletePart } from "./useDeletePart";
@@ -10,10 +11,11 @@ function PartRow({ part, index, id }) {
   return (
     <Table.Row
       id={id}
-      deleteContentFrom={deletePart}
       isDeleting={isDeleting}
       contentType="Part"
+      detailPageContent={<PartDetailPage part={part} />}
       editFormContent={<PartForm partToEdit={part} />}
+      deleteContentFrom={deletePart}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||

@@ -51,7 +51,7 @@ const Empty = styled.p`
 
 const TableContext = createContext();
 
-function Table({ columns, children }) {
+function Table({ columns, children, menuListRequired = true }) {
   const [openId, setOpenId] = useState("");
   const [position, setPosition] = useState(null);
 
@@ -67,6 +67,7 @@ function Table({ columns, children }) {
         setPosition,
         close,
         open,
+        menuListRequired,
       }}
     >
       <StyledTable role="table">{children}</StyledTable>
@@ -85,24 +86,34 @@ function Header({ children }) {
 function Row({
   children,
   id,
-  deleteContentFrom,
   isDeleting,
-  editFormContent,
   contentType,
+  detailPageContent,
+  editFormContent,
+  deleteContentFrom,
 }) {
-  const { columns, openId, close, open, setPosition, position } =
-    useContext(TableContext);
+  const {
+    columns,
+    openId,
+    close,
+    open,
+    setPosition,
+    position,
+    menuListRequired,
+  } = useContext(TableContext);
 
   return (
     <StyledRow role="row" columns={columns}>
       {children}
-      <TableMenuButton
-        id={id}
-        openId={openId}
-        close={close}
-        open={open}
-        setPosition={setPosition}
-      />
+      {menuListRequired && (
+        <TableMenuButton
+          id={id}
+          openId={openId}
+          close={close}
+          open={open}
+          setPosition={setPosition}
+        />
+      )}
       {openId === id && (
         <TableMenuList
           id={id}
@@ -110,8 +121,9 @@ function Row({
           close={close}
           position={position}
           isDeleting={isDeleting}
-          editFormContent={editFormContent}
           contentType={contentType}
+          detailPageContent={detailPageContent}
+          editFormContent={editFormContent}
           deleteContentFrom={() => deleteContentFrom(id)}
         />
       )}
