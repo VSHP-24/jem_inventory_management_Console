@@ -14,13 +14,20 @@ export async function getPurchases() {
 //           CREATE NEW PURCHASE
 /////////////////////////////////////////////////
 
-export async function createPurchase(newPurchase) {
+export async function createEditPurchase(newPurchase) {
   let res;
 
   ///////////////////////////
   //    CREATE PURCHASE
   ///////////////////////////
   if (!newPurchase._id) {
+    const StatusUpdateOn = {
+      updatedStatus: newPurchase.status,
+      updatedOn: Date.now(),
+    };
+
+    newPurchase.orderStatusUpdateOn = [StatusUpdateOn];
+
     res = await fetch(PURCHASES_URL, {
       method: "POST",
       headers: {
@@ -30,18 +37,25 @@ export async function createPurchase(newPurchase) {
     });
   }
 
-  ///////////////////////////
-  //    EDIT PURCHASE
-  ///////////////////////////
-  //   else {
-  //     res = await fetch(`${PRODUCTS_URL}/${newProduct._id}`, {
-  //       method: "PATCH",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(newProduct),
-  //     });
-  //   }
+  /////////////////////////
+  //  EDIT PURCHASE
+  /////////////////////////
+  else {
+    const StatusUpdateOn = {
+      updatedStatus: newPurchase.status,
+      updatedOn: Date.now(),
+    };
+
+    newPurchase.orderStatusUpdateOn.push(StatusUpdateOn);
+
+    res = await fetch(`${PURCHASES_URL}/${newPurchase._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPurchase),
+    });
+  }
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }

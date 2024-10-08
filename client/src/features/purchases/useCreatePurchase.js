@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { createPurchase as createPurchaseApi } from "../../services/apiPurchases";
+import { createEditPurchase as createPurchaseApi } from "../../services/apiPurchases";
 
 export function useCreatePurchase() {
   const queryClient = useQueryClient();

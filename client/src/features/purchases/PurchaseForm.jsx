@@ -81,6 +81,7 @@ function PurchaseForm() {
             <option value={"order_placed"}>Order Placed</option>
 
             <option value={"order_received"}>Order Received</option>
+            <option value={"cancelled"}>Order Cancelled</option>
           </Select>
         </FormRow>
 
