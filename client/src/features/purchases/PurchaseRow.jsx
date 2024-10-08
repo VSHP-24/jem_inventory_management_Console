@@ -8,6 +8,7 @@ import PurchaseDetailPage from "./PurchaseDetailPage";
 import { formatDate, formatStatus } from "../../utils/helpers";
 import { useDeletePurchase } from "./useDeletePurchase";
 import PurchaseForm from "./PurchaseForm";
+import { useEditPart } from "../parts/useEditPart";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -65,9 +66,12 @@ function PurchaseRow({ purchase, index, id }) {
 
   const { isEditing, editPurchase } = useEditPurchase();
   const { isDeleting, deletePurchase } = useDeletePurchase();
+  const { editPart } = useEditPart();
 
   function handleCheckClick() {
     editPurchase({ ...purchase, status: "order_received" });
+    part.quantity += quantity;
+    editPart({ ...part });
   }
 
   function handleCrossClick() {

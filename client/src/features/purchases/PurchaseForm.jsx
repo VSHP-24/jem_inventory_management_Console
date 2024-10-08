@@ -8,6 +8,7 @@ import Select from "../../ui/Select";
 import SelectParts from "../parts/SelectParts";
 import { useCreatePurchase } from "./useCreatePurchase";
 import { useEditPurchase } from "./useEditPurchase";
+import { useEditPart } from "../parts/useEditPart";
 
 function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
   const { id: editId, part, ...editValues } = purchaseToEdit;
@@ -29,11 +30,16 @@ function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
 
   const { isCreating, createPurchase } = useCreatePurchase();
   const { isEditing, editPurchase } = useEditPurchase();
+  const { editPart } = useEditPart();
 
   const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
     if (isEditSession) {
+      if (data.status === "order_received") {
+        part.quantity += Number(data.quantity);
+        editPart({ ...part });
+      }
       editPurchase({ ...data }, { onSuccess: onCloseModal });
     } else createPurchase({ ...data }, { onSuccess: () => reset() });
   }
@@ -95,9 +101,12 @@ function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
             })}
           >
             <option value={"order_placed"}>Order Placed</option>
-
-            <option value={"order_received"}>Order Received</option>
-            <option value={"cancelled"}>Order Cancelled</option>
+            {isEditSession && (
+              <>
+                <option value={"order_received"}>Order Received</option>
+                <option value={"cancelled"}>Order Cancelled</option>
+              </>
+            )}
           </Select>
         </FormRow>
 

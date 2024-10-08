@@ -7,7 +7,7 @@ export function useEditPurchase() {
   const { mutate: editPurchase, isPending: isEditing } = useMutation({
     mutationFn: editPurchaseApi,
     onSuccess: () => {
-      toast.success(` SubCategory successfully edited `);
+      toast.success(` Purchase Order successfully edited `);
       queryClient.invalidateQueries({ queryKey: ["purchases"] });
     },
     onError: (err) => toast.error(err.message),
