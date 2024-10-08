@@ -41,12 +41,19 @@ export async function createEditPurchase(newPurchase) {
   //  EDIT PURCHASE
   /////////////////////////
   else {
-    const StatusUpdateOn = {
-      updatedStatus: newPurchase.status,
-      updatedOn: Date.now(),
-    };
+    if (
+      newPurchase.status !==
+      newPurchase.orderStatusUpdateOn[
+        newPurchase.orderStatusUpdateOn.length - 1
+      ].updatedStatus
+    ) {
+      const StatusUpdateOn = {
+        updatedStatus: newPurchase.status,
+        updatedOn: Date.now(),
+      };
 
-    newPurchase.orderStatusUpdateOn.push(StatusUpdateOn);
+      newPurchase.orderStatusUpdateOn.push(StatusUpdateOn);
+    }
 
     res = await fetch(`${PURCHASES_URL}/${newPurchase._id}`, {
       method: "PATCH",

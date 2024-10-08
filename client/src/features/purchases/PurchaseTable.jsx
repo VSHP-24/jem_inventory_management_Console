@@ -37,7 +37,7 @@ function PurchaseTable() {
           <div>Part</div>
           <div>Vendor</div>
           <div>Quantity</div>
-          <div>Ordered On</div>
+          <div>Created On</div>
           <div>Status</div>
           <div>Modified On</div>
         </Table.Header>

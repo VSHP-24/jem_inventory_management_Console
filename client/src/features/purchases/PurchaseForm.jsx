@@ -7,19 +7,35 @@ import Button from "../../ui/Button";
 import Select from "../../ui/Select";
 import SelectParts from "../parts/SelectParts";
 import { useCreatePurchase } from "./useCreatePurchase";
+import { useEditPurchase } from "./useEditPurchase";
 
-function PurchaseForm() {
+function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
+  const { id: editId, part, ...editValues } = purchaseToEdit;
+  const isEditSession = Boolean(editId);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: isEditSession
+      ? {
+          part: part.id,
+          ...editValues,
+        }
+      : "",
+  });
 
   const { isCreating, createPurchase } = useCreatePurchase();
+  const { isEditing, editPurchase } = useEditPurchase();
+
+  const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
-    createPurchase({ ...data }, { onSuccess: () => reset() });
+    if (isEditSession) {
+      editPurchase({ ...data }, { onSuccess: onCloseModal });
+    } else createPurchase({ ...data }, { onSuccess: () => reset() });
   }
 
   function onError(errors) {
@@ -32,7 +48,7 @@ function PurchaseForm() {
           <Select
             name="part"
             id="part"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("part", {
               required: "*This field is required",
               validate: (value) => {
@@ -48,8 +64,8 @@ function PurchaseForm() {
           <Input
             type="number"
             id="quantity"
-            placeholder="Enter Number of Products Purchased"
-            disabled={isCreating}
+            placeholder="Enter Number of Parts Purchased"
+            disabled={isWorking}
             {...register("quantity", {
               required: "*This field is required",
             })}
@@ -61,7 +77,7 @@ function PurchaseForm() {
             type="text"
             placeholder="Enter a Vendor Name"
             id="vendor"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("vendor", { required: "*This field is required" })}
           />
         </FormRow>
@@ -70,7 +86,7 @@ function PurchaseForm() {
           <Select
             name="status"
             id="status"
-            disabled={isCreating}
+            disabled={isWorking}
             {...register("status", {
               required: "*This field is required",
               validate: (value) => {
@@ -89,13 +105,13 @@ function PurchaseForm() {
           <Button
             size="medium"
             variation="secondary"
-            type="reset"
-            // onClick={onCloseModal}
+            type={isEditSession ? "button" : "reset"}
+            onClick={onCloseModal}
           >
             Cancel
           </Button>
-          <Button size="large" variation="primary" disabled={isCreating}>
-            Create Purchase
+          <Button size="large" variation="primary" disabled={isWorking}>
+            {isEditSession ? "Edit Purchase" : "Create Purchase"}
           </Button>
         </FormRow>
       </Form>

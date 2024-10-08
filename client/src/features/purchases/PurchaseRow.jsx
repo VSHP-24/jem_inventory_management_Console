@@ -4,6 +4,10 @@ import Table from "../../ui/Table";
 import { HiOutlineCheck, HiOutlineXMark } from "react-icons/hi2";
 import Button from "../../ui/Button";
 import { useEditPurchase } from "./useEditPurchase";
+import PurchaseDetailPage from "./PurchaseDetailPage";
+import { formatDate, formatStatus } from "../../utils/helpers";
+import { useDeletePurchase } from "./useDeletePurchase";
+import PurchaseForm from "./PurchaseForm";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -60,20 +64,7 @@ function PurchaseRow({ purchase, index, id }) {
   } = purchase;
 
   const { isEditing, editPurchase } = useEditPurchase();
-
-  const formatDate = (date) =>
-    new Intl.DateTimeFormat("en", {
-      day: "numeric",
-      month: "numeric",
-      year: "numeric",
-    }).format(new Date(date));
-
-  function formatStatus(status) {
-    if (status === "cancelled")
-      return status.charAt(0).toUpperCase() + status.slice(1);
-    const splitStatus = status.split("_")[1].trim();
-    return splitStatus.charAt(0).toUpperCase() + splitStatus.slice(1);
-  }
+  const { isDeleting, deletePurchase } = useDeletePurchase();
 
   function handleCheckClick() {
     editPurchase({ ...purchase, status: "order_received" });
@@ -86,11 +77,11 @@ function PurchaseRow({ purchase, index, id }) {
   return (
     <Table.Row
       id={id}
-      //   isDeleting={isDeleting}
+      isDeleting={isDeleting}
       contentType="Purchase"
-      //   detailPageContent={<ProductDetailPage product={product} />}
-      //   editFormContent={<ProductForm productToEdit={product} />}
-      //   deleteContentFrom={deleteProduct}
+      detailPageContent={<PurchaseDetailPage purchase={purchase} />}
+      editFormContent={<PurchaseForm purchaseToEdit={purchase} />}
+      deleteContentFrom={deletePurchase}
     >
       <div>
         {(index <= 8 && `0${index + 1}`) ||
