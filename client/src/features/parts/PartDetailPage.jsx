@@ -45,6 +45,7 @@ function PartDetailPage({ part }) {
     width,
     thickness,
     material,
+    quantity,
   } = part;
 
   return (
@@ -58,79 +59,88 @@ function PartDetailPage({ part }) {
         </StyledRow>
 
         <StyledRow>
+          <StyledHeader>Quantity</StyledHeader>
+          <StyledDetails>{quantity ? quantity : "--- NA ---"}</StyledDetails>
+        </StyledRow>
+
+        <StyledRow>
           <StyledHeader>Material</StyledHeader>
           <StyledDetails>{material ? material : "--- NA ---"}</StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Length</StyledHeader>
-          <StyledDetails>{length ? length : "--- NA ---"}</StyledDetails>
+          <StyledDetails>
+            {length ? `${length} mm` : "--- NA ---"}
+          </StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Inside Diameter</StyledHeader>
           <StyledDetails>
-            {insideDiameter ? insideDiameter : "--- NA ---"}
+            {insideDiameter ? `${insideDiameter} mm` : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Outside Diameter</StyledHeader>
           <StyledDetails>
-            {outsideDiameter ? outsideDiameter : "--- NA ---"}
+            {outsideDiameter ? `${outsideDiameter} mm` : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Thread Diameter</StyledHeader>
           <StyledDetails>
-            {threadDiameter ? threadDiameter : "--- NA ---"}
+            {threadDiameter ? `${threadDiameter} mm` : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Thread Pitch</StyledHeader>
           <StyledDetails>
-            {threadPitch ? threadPitch : "--- NA ---"}
+            {threadPitch ? `${threadPitch} mm` : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Shank Length</StyledHeader>
           <StyledDetails>
-            {shankLength ? shankLength : "--- NA ---"}
+            {shankLength ? `${shankLength} mm` : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Head Height</StyledHeader>
           <StyledDetails>
-            {headHeight ? headHeight : "--- NA ---"}
+            {headHeight ? `${headHeight} mm` : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Head Diameter</StyledHeader>
           <StyledDetails>
-            {headDiameter ? headDiameter : "--- NA ---"}
+            {headDiameter ? `${headDiameter} mm` : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Allen Key Size</StyledHeader>
           <StyledDetails>
-            {allenKeySize ? allenKeySize : "--- NA ---"}
+            {allenKeySize ? `${allenKeySize} mm` : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Width</StyledHeader>
-          <StyledDetails>{width ? width : "--- NA ---"}</StyledDetails>
+          <StyledDetails>{width ? `${width} mm` : "--- NA ---"}</StyledDetails>
         </StyledRow>
 
         <StyledRow>
           <StyledHeader>Thickness</StyledHeader>
-          <StyledDetails>{thickness ? thickness : "--- NA ---"}</StyledDetails>
+          <StyledDetails>
+            {thickness ? `${thickness} mm` : "--- NA ---"}
+          </StyledDetails>
         </StyledRow>
       </StyledPartDetails>
     </StyledDetailPage>

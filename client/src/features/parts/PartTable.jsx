@@ -22,10 +22,11 @@ function PartTable() {
 
   return (
     <>
-      <Table columns=".5fr 1fr .5fr">
+      <Table columns=".5fr 1fr 1fr .5fr">
         <Table.Header>
           <div>Sl No.</div>
           <div>Name</div>
+          <div>Quantity</div>
         </Table.Header>
 
         <Table.Body

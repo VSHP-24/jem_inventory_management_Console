@@ -9,7 +9,6 @@ function ManageTableNavTabs() {
         { value: "bikes", label: "Bikes" },
         { value: "categories", label: "Categories" },
         { value: "subCategories", label: "SubCategories" },
-        { value: "parts", label: "Parts" },
       ]}
     ></NavTabs>
   );

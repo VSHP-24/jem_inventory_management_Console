@@ -11,6 +11,7 @@ import PageNotFound from "./pages/PageNotFound";
 import Create from "./pages/Create";
 import Manage from "./pages/Manage";
 import Purchase from "./pages/Purchase";
+import Inventory from "./pages/Inventory";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +35,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="products" element={<Products />} />
             <Route path="purchases" element={<Purchase />} />
+            <Route path="inventory" element={<Inventory />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

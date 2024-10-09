@@ -5,7 +5,7 @@ import PartForm from "./PartForm";
 import { useDeletePart } from "./useDeletePart";
 
 function PartRow({ part, index, id }) {
-  const { name } = part;
+  const { name, quantity } = part;
   const { isDeleting, deletePart } = useDeletePart();
 
   return (
@@ -23,6 +23,7 @@ function PartRow({ part, index, id }) {
           index + 1}
       </div>
       <div>{name}</div>
+      <div>{quantity}</div>
     </Table.Row>
   );
 }

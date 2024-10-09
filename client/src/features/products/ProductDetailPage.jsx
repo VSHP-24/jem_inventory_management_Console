@@ -6,7 +6,7 @@ import Heading from "../../ui/Heading";
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
   display: grid;
-  grid-template-columns: 50rem 30rem;
+  grid-template-columns: 40rem 30rem;
   font-size: 1.4rem;
   padding: 2rem;
   width: 100%;
@@ -96,7 +96,7 @@ function ProductDetailPage({ product }) {
 
         <StyledRow>
           <StyledHeader>Price</StyledHeader>
-          <StyledDetails>{price ? price : "--- NA ---"}</StyledDetails>
+          <StyledDetails>{price ? `₹ ${price}` : "--- NA ---"}</StyledDetails>
         </StyledRow>
 
         <StyledRow>

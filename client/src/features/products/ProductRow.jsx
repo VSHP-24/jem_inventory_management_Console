@@ -26,7 +26,7 @@ function ProductRow({ product, index, id }) {
       <div>{model.name}</div>
       <div>{category.name}</div>
       <div>{subCategory.name}</div>
-      <div>{price}</div>
+      <div>₹ {price}</div>
     </Table.Row>
   );
 }
