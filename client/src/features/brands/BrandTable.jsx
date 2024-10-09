@@ -1,44 +1,56 @@
-import styled from "styled-components";
-
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import BrandRow from "./BrandRow";
-import Button from "../../ui/Button";
 
 import { useGetBrands } from "./useGetBrands";
-
-const StyledButton = styled(Button)`
-  width: 15rem;
-`;
 
 function BrandTable() {
   const { isPending, brands } = useGetBrands();
 
-  function handleClick() {
-    console.log(brands.filter((brand) => brand.isDeleted));
-  }
-
-  if (isPending) return <Spinner />;
-
-  return (
-    <>
-      <Table columns=".5fr 1fr .5fr">
+  function DeletedBrands() {
+    return (
+      <Table
+        columns="2fr 5fr .5fr"
+        modalWindowedTable={true}
+        menuListRequired={false}
+      >
         <Table.Header>
           <div>Sl No.</div>
           <div>Name</div>
         </Table.Header>
 
         <Table.Body
-          data={brands.filter((brand) => !brand.isDeleted)}
+          data={brands.filter((brand) => brand.isDeleted)}
           render={(brand, i) => (
-            <BrandRow brand={brand} index={i} key={brand.id} id={brand.id} />
+            <BrandRow
+              brand={brand}
+              index={i}
+              key={brand.id}
+              id={brand.id}
+              deletedTable={true}
+            />
           )}
         />
       </Table>
-      <StyledButton size="medium" variation="danger" onClick={handleClick}>
-        Deleted Items
-      </StyledButton>
-    </>
+    );
+  }
+
+  if (isPending) return <Spinner />;
+
+  return (
+    <Table columns=".5fr 1fr .5fr" deletedTableContent={<DeletedBrands />}>
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Name</div>
+      </Table.Header>
+
+      <Table.Body
+        data={brands.filter((brand) => !brand.isDeleted)}
+        render={(brand, i) => (
+          <BrandRow brand={brand} index={i} key={brand.id} id={brand.id} />
+        )}
+      />
+    </Table>
   );
 }
 

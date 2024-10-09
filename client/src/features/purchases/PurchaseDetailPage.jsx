@@ -7,7 +7,7 @@ const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
   font-size: 1.4rem;
   padding: 2rem;
-  width: 100%;
+  width: 70rem;
 `;
 
 const StyledPurchaseDetails = styled.main``;
@@ -15,7 +15,7 @@ const StyledPurchaseDetails = styled.main``;
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 10rem 1fr;
+  grid-template-columns: 15rem 1fr;
 `;
 
 const StyledHeader = styled.div`
@@ -79,7 +79,11 @@ function PurchaseDetailPage({ purchase }) {
         <StyledRow>
           <StyledHeader>Status Modified On</StyledHeader>
           <StyledDetails>
-            <Table columns="1fr 1fr" menuListRequired={false}>
+            <Table
+              columns="1fr 1fr"
+              menuListRequired={false}
+              modalWindowedTable={true}
+            >
               <Table.Header>
                 <div>Status</div>
                 <div>Modified On</div>

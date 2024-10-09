@@ -1,12 +1,19 @@
+import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import PartDetailPage from "./PartDetailPage";
 import PartForm from "./PartForm";
 
 import { useDeletePart } from "./useDeletePart";
+import { useEditPart } from "./useEditPart";
 
-function PartRow({ part, index, id }) {
+function PartRow({ part, index, id, deletedTable }) {
   const { name, quantity } = part;
   const { isDeleting, deletePart } = useDeletePart();
+  const { editPart } = useEditPart();
+
+  function handleRestoreButtonClick() {
+    editPart({ ...part, isDeleted: false });
+  }
 
   return (
     <Table.Row
@@ -24,6 +31,9 @@ function PartRow({ part, index, id }) {
       </div>
       <div>{name}</div>
       <div>{quantity}</div>
+      {deletedTable && (
+        <RestoreButton onHandleRestoreButtonClick={handleRestoreButtonClick} />
+      )}
     </Table.Row>
   );
 }

@@ -1,7 +1,9 @@
-import { createContext, useContext, useState } from "react";
 import styled from "styled-components";
+import { createContext, useContext, useState } from "react";
+
 import TableMenuButton from "./TableMenuButton";
 import TableMenuList from "./TableMenuList";
+import DeletedTableItems from "./DeletedTableItems";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-700);
@@ -51,7 +53,13 @@ const Empty = styled.p`
 
 const TableContext = createContext();
 
-function Table({ columns, children, menuListRequired = true }) {
+function Table({
+  columns,
+  children,
+  deletedTableContent,
+  modalWindowedTable = false,
+  menuListRequired = true,
+}) {
   const [openId, setOpenId] = useState("");
   const [position, setPosition] = useState(null);
 
@@ -71,6 +79,9 @@ function Table({ columns, children, menuListRequired = true }) {
       }}
     >
       <StyledTable role="table">{children}</StyledTable>
+      {!modalWindowedTable && (
+        <DeletedTableItems deletedTableContent={deletedTableContent} />
+      )}
     </TableContext.Provider>
   );
 }
@@ -105,6 +116,7 @@ function Row({
   return (
     <StyledRow role="row" columns={columns}>
       {children}
+
       {menuListRequired && (
         <TableMenuButton
           id={id}

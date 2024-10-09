@@ -4,7 +4,7 @@ import Heading from "../../ui/Heading";
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
   display: grid;
-  grid-template-columns: 65rem 15rem;
+  grid-template-columns: 55rem 15rem;
   font-size: 1.4rem;
   padding: 2rem;
   width: 100%;

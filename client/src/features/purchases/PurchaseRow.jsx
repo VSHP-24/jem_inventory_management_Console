@@ -1,14 +1,16 @@
 import styled from "styled-components";
+import { HiOutlineCheck, HiOutlineXMark } from "react-icons/hi2";
 
 import Table from "../../ui/Table";
-import { HiOutlineCheck, HiOutlineXMark } from "react-icons/hi2";
 import Button from "../../ui/Button";
-import { useEditPurchase } from "./useEditPurchase";
 import PurchaseDetailPage from "./PurchaseDetailPage";
-import { formatDate, formatStatus } from "../../utils/helpers";
-import { useDeletePurchase } from "./useDeletePurchase";
 import PurchaseForm from "./PurchaseForm";
+import RestoreButton from "../../ui/RestoreButton";
+
 import { useEditPart } from "../parts/useEditPart";
+import { useEditPurchase } from "./useEditPurchase";
+import { useDeletePurchase } from "./useDeletePurchase";
+import { formatDate, formatStatus } from "../../utils/helpers";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -54,7 +56,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-function PurchaseRow({ purchase, index, id }) {
+function PurchaseRow({ purchase, index, id, deletedTable }) {
   const {
     part,
     quantity,
@@ -78,6 +80,10 @@ function PurchaseRow({ purchase, index, id }) {
     editPurchase({ ...purchase, status: "cancelled" });
   }
 
+  function handleRestoreButtonClick() {
+    editPurchase({ ...purchase, isDeleted: false });
+  }
+
   return (
     <Table.Row
       id={id}
@@ -94,34 +100,41 @@ function PurchaseRow({ purchase, index, id }) {
       </div>
       <div>{part.name}</div>
       <StyledVendor>{vendor}</StyledVendor>
-      <div>{quantity}</div>
+      {!deletedTable && <div>{quantity}</div>}
       <StyledDate>{formatDate(orderPlacedOnDate)}</StyledDate>
-      <StyledContainer>
-        <StyledStatus status={status}>{formatStatus(status)}</StyledStatus>
-        {status === "order_placed" && (
-          <div>
-            <StyledButton
-              type="check"
-              onClick={handleCheckClick}
-              disabled={isEditing}
-            >
-              <HiOutlineCheck />
-            </StyledButton>
-            <StyledButton
-              type="cross"
-              onClick={handleCrossClick}
-              disabled={isEditing}
-            >
-              <HiOutlineXMark />
-            </StyledButton>
-          </div>
-        )}
-      </StyledContainer>
-      <StyledDate>
-        {formatDate(
-          orderStatusUpdateOn[orderStatusUpdateOn.length - 1].updatedOn
-        )}
-      </StyledDate>
+      {!deletedTable && (
+        <>
+          <StyledContainer>
+            <StyledStatus status={status}>{formatStatus(status)}</StyledStatus>
+            {status === "order_placed" && (
+              <div>
+                <StyledButton
+                  type="check"
+                  onClick={handleCheckClick}
+                  disabled={isEditing}
+                >
+                  <HiOutlineCheck />
+                </StyledButton>
+                <StyledButton
+                  type="cross"
+                  onClick={handleCrossClick}
+                  disabled={isEditing}
+                >
+                  <HiOutlineXMark />
+                </StyledButton>
+              </div>
+            )}
+          </StyledContainer>
+          <StyledDate>
+            {formatDate(
+              orderStatusUpdateOn[orderStatusUpdateOn.length - 1].updatedOn
+            )}
+          </StyledDate>
+        </>
+      )}
+      {deletedTable && (
+        <RestoreButton onHandleRestoreButtonClick={handleRestoreButtonClick} />
+      )}
     </Table.Row>
   );
 }

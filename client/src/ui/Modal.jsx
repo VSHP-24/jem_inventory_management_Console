@@ -51,7 +51,7 @@ function Modal({ children, closeMenuList }) {
 
   function close() {
     setOpenName("");
-    closeMenuList();
+    closeMenuList?.();
   }
 
   const open = setOpenName;

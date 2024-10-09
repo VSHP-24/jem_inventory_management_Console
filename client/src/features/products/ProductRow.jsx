@@ -1,12 +1,19 @@
 import Table from "../../ui/Table";
 import ProductDetailPage from "./ProductDetailPage";
 import ProductForm from "./ProductForm";
+import RestoreButton from "../../ui/RestoreButton";
 
 import { useDeleteProduct } from "./useDeleteProduct";
+import { useEditProduct } from "./useEditProduct";
 
-function ProductRow({ product, index, id }) {
-  const { brand, model, category, subCategory, price } = product;
+function ProductRow({ product, index, id, deletedTable }) {
+  const { name, brand, model, category, subCategory, price } = product;
   const { isDeleting, deleteProduct } = useDeleteProduct();
+  const { editProduct } = useEditProduct();
+
+  function handleRestoreButtonClick() {
+    editProduct({ ...product, isDeleted: false });
+  }
 
   return (
     <Table.Row
@@ -22,11 +29,23 @@ function ProductRow({ product, index, id }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
-      <div>{brand.name}</div>
-      <div>{model.name}</div>
-      <div>{category.name}</div>
-      <div>{subCategory.name}</div>
-      <div>₹ {price}</div>
+      {!deletedTable && (
+        <>
+          <div>{brand.name}</div>
+          <div>{model.name}</div>
+          <div>{category.name}</div>
+          <div>{subCategory.name}</div>
+          <div>₹ {price}</div>
+        </>
+      )}
+      {deletedTable && (
+        <>
+          <div>{name}</div>
+          <RestoreButton
+            onHandleRestoreButtonClick={handleRestoreButtonClick}
+          />
+        </>
+      )}
     </Table.Row>
   );
 }

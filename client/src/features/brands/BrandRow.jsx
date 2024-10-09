@@ -1,12 +1,20 @@
+import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import BrandDetailPage from "./BrandDetailPage";
 import BrandForm from "./BrandForm";
 
 import { useDeleteBrand } from "./useDeleteBrand";
+import { useEditBrand } from "./useEditBrand";
 
-function BrandRow({ brand, index, id }) {
+function BrandRow({ brand, index, id, deletedTable }) {
   const { name } = brand;
   const { isDeleting, deleteBrand } = useDeleteBrand();
+
+  const { editBrand } = useEditBrand();
+
+  function handleRestoreButtonClick() {
+    editBrand({ ...brand, isDeleted: false });
+  }
 
   return (
     <Table.Row
@@ -23,6 +31,9 @@ function BrandRow({ brand, index, id }) {
           index + 1}
       </div>
       <div>{name}</div>
+      {deletedTable && (
+        <RestoreButton onHandleRestoreButtonClick={handleRestoreButtonClick} />
+      )}
     </Table.Row>
   );
 }

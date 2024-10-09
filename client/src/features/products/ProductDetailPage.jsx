@@ -9,7 +9,7 @@ const StyledDetailPage = styled.div`
   grid-template-columns: 40rem 30rem;
   font-size: 1.4rem;
   padding: 2rem;
-  width: 100%;
+  width: 75rem;
 `;
 
 const StyledProductDetails = styled.main``;
@@ -126,7 +126,11 @@ function ProductDetailPage({ product }) {
         <StyledRow>
           <StyledHeader>Included Parts</StyledHeader>
           <StyledDetails>
-            <Table columns="1fr 1fr" menuListRequired={false}>
+            <Table
+              columns="1fr 1fr"
+              menuListRequired={false}
+              modalWindowedTable={true}
+            >
               <Table.Header>
                 <div>Part</div>
                 <div>Quantity</div>

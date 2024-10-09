@@ -1,12 +1,20 @@
+import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import CategoryDetailPage from "./CategoryDetailPage";
 import CategoryForm from "./CategoryForm";
 
 import { useDeleteCategory } from "./useDeleteCategory";
+import { useEditCategory } from "./useEditCategory";
 
-function CategoryRow({ category, index, id }) {
+function CategoryRow({ category, index, id, deletedTable }) {
   const { name } = category;
   const { isDeleting, deleteCategory } = useDeleteCategory();
+
+  const { editCategory } = useEditCategory();
+
+  function handleRestoreButtonClick() {
+    editCategory({ ...category, isDeleted: false });
+  }
 
   return (
     <Table.Row
@@ -23,6 +31,9 @@ function CategoryRow({ category, index, id }) {
           index + 1}
       </div>
       <div>{name}</div>
+      {deletedTable && (
+        <RestoreButton onHandleRestoreButtonClick={handleRestoreButtonClick} />
+      )}
     </Table.Row>
   );
 }

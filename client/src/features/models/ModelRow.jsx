@@ -1,12 +1,20 @@
+import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import ModelDetailPage from "./ModelDetailPage";
 import ModelForm from "./ModelForm";
 
 import { useDeleteModel } from "./useDeleteModel";
+import { useEditModel } from "./useEditModel";
 
-function ModelRow({ model, index, id }) {
+function ModelRow({ model, index, id, deletedTable }) {
   const { name, brand, version, year } = model;
   const { isDeleting, deleteModel } = useDeleteModel();
+
+  const { editModel } = useEditModel();
+
+  function handleRestoreButtonClick() {
+    editModel({ ...model, isDeleted: false });
+  }
 
   return (
     <Table.Row
@@ -26,6 +34,9 @@ function ModelRow({ model, index, id }) {
       <div>{name}</div>
       <div>{version}</div>
       <div>{year}</div>
+      {deletedTable && (
+        <RestoreButton onHandleRestoreButtonClick={handleRestoreButtonClick} />
+      )}
     </Table.Row>
   );
 }

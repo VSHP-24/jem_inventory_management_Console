@@ -1,12 +1,20 @@
+import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import SubCategoryDetailPage from "./SubCategoryDetailPage";
 import SubCategoryForm from "./SubCategoryForm";
 
 import { useDeleteSubCategory } from "./useDeleteSubCategory";
+import { useEditSubCategory } from "./useEditSubCategory";
 
-function SubCategoryRow({ subCategory, index, id }) {
+function SubCategoryRow({ subCategory, index, id, deletedTable }) {
   const { name, category } = subCategory;
   const { isDeleting, deleteSubCategory } = useDeleteSubCategory();
+
+  const { editSubCategory } = useEditSubCategory();
+
+  function handleRestoreButtonClick() {
+    editSubCategory({ ...subCategory, isDeleted: false });
+  }
 
   return (
     <Table.Row
@@ -24,6 +32,9 @@ function SubCategoryRow({ subCategory, index, id }) {
       </div>
       <div>{category.name}</div>
       <div>{name}</div>
+      {deletedTable && (
+        <RestoreButton onHandleRestoreButtonClick={handleRestoreButtonClick} />
+      )}
     </Table.Row>
   );
 }
