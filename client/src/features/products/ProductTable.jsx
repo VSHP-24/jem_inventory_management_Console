@@ -3,9 +3,24 @@ import ProductRow from "./ProductRow";
 import Table from "../../ui/Table";
 
 import { useGetProducts } from "./useGetProducts";
+import { useSearchParams } from "react-router-dom";
 
 function ProductTable() {
   const { isPending, products } = useGetProducts();
+  const [searchParams] = useSearchParams();
+
+  let filteredBrands =
+    searchParams.get("brand")?.split(",") || searchParams.get("brand") || "";
+  let filteredModels =
+    searchParams.get("model")?.split(",") || searchParams.get("model") || "";
+  let filteredCategories =
+    searchParams.get("category")?.split(",") ||
+    searchParams.get("category") ||
+    "";
+  let filteredSubCategories =
+    searchParams.get("subCategory")?.split(",") ||
+    searchParams.get("subCategory") ||
+    "";
 
   function DeletedProducts() {
     return (
@@ -65,7 +80,15 @@ function ProductTable() {
             !product.brand.isDeleted &&
             !product.model.isDeleted &&
             !product.category.isDeleted &&
-            !product.subCategory.isDeleted
+            !product.subCategory.isDeleted &&
+            (filteredBrands === "" ||
+              filteredBrands.includes(String(product.brand.id))) &&
+            (filteredModels === "" ||
+              filteredModels.includes(String(product.model.id))) &&
+            (filteredCategories === "" ||
+              filteredCategories.includes(String(product.category.id))) &&
+            (filteredSubCategories === "" ||
+              filteredSubCategories.includes(String(product.subCategory.id)))
         )}
         render={(product, i) => (
           <ProductRow

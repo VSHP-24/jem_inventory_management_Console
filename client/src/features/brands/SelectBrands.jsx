@@ -1,13 +1,13 @@
 import { useGetBrands } from "./useGetBrands";
 
-function SelectBrands() {
+function SelectBrands({ placeholder = "----- Select a Brand -----" }) {
   const { isPending, brands } = useGetBrands();
   if (isPending) return brands;
 
   return (
     <>
       <option value="" itemType="String">
-        ----- Select a Brand -----
+        {placeholder}
       </option>
       {brands
         .filter((brand) => !brand.isDeleted)

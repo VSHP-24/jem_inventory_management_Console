@@ -1,13 +1,13 @@
 import { useGetCategories } from "./useGetCategories";
 
-function SelectCategories() {
+function SelectCategories({ placeholder = "----- Select a Category -----" }) {
   const { isPending, categories } = useGetCategories();
   if (isPending) return categories;
 
   return (
     <>
       <option value="" itemType="String">
-        ----- Select a Category -----
+        {placeholder}
       </option>
       {categories
         .filter((category) => !category.isDeleted)

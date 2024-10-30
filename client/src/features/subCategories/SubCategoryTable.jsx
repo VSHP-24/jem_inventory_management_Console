@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import SubCategoryRow from "./SubCategoryRow";
@@ -6,6 +7,13 @@ import { useGetSubCategories } from "./useGetSubCategories";
 
 function SubCategoryTable() {
   const { isPending, subCategories } = useGetSubCategories();
+
+  const [searchParams] = useSearchParams();
+
+  let filteredCategories =
+    searchParams.get("category")?.split(",") ||
+    searchParams.get("category") ||
+    "";
 
   function DeletedSubCategory() {
     return (
@@ -55,7 +63,10 @@ function SubCategoryTable() {
       <Table.Body
         data={subCategories.filter(
           (subCategory) =>
-            !subCategory.isDeleted && !subCategory.category.isDeleted
+            !subCategory.isDeleted &&
+            !subCategory.category.isDeleted &&
+            (filteredCategories === "" ||
+              filteredCategories.includes(String(subCategory.category.id)))
         )}
         render={(subCategory, i) => (
           <SubCategoryRow

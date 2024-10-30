@@ -1,13 +1,13 @@
 import { useGetParts } from "./useGetParts";
 
-function SelectParts() {
+function SelectParts({ placeholder = "----- Select a Part -----" }) {
   const { isPending, parts } = useGetParts();
   if (isPending) return parts;
 
   return (
     <>
       <option value="" itemType="String">
-        ----- Select a Part -----
+        {placeholder}
       </option>
       {parts
         .filter((part) => !part.isDeleted)

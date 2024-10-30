@@ -1,0 +1,259 @@
+import styled from "styled-components";
+import { useSearchParams } from "react-router-dom";
+
+import Button from "./Button";
+import { HiChevronDown, HiOutlineXMark } from "react-icons/hi2";
+import { useState } from "react";
+import { useEffect } from "react";
+import SelectedFilter from "./SelectedFilter";
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledFilteredItemsContainer = styled.div`
+  border: 2px solid var(--color-grey-900);
+  border-radius: 7px;
+  width: 100%;
+  max-width: 65rem;
+  overflow-wrap: break-word;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  gap: 0.5rem;
+`;
+
+const StyledFilterButtons = styled.div`
+  display: flex;
+`;
+
+const StyledButton = styled(Button)`
+  padding-left: 0.2rem;
+  cursor: pointer;
+  border: none;
+  padding: 0.2rem;
+  background-color: var(--color-gold-100);
+  text-decoration: none;
+  display: inline-block;
+`;
+
+const StyledDivider = styled.div`
+  font-size: 2.5rem;
+`;
+
+const StyledOptionsContainer = styled.div`
+  border: 2px solid var(--color-gold-700);
+  border-radius: 7px;
+  background-color: var(--color-gold-400);
+  position: absolute;
+  width: auto;
+  max-width: 65rem;
+  max-height: 20rem;
+  overflow-wrap: break-word;
+  left: ${(props) => props.position.x}px;
+  top: ${(props) => props.position.y}px;
+  z-index: 100;
+  display: flex;
+  gap: 2.5rem;
+  padding: 2rem;
+  overflow: auto;
+`;
+const StyledIndividualOptionContainer = styled.div`
+  accent-color: var(--color-grey-900);
+  color: var(--color-grey-900);
+`;
+
+const StyledIndividualOption = styled.label`
+  padding-left: 0.5rem;
+  font-weight: 400;
+  font-size: 1.5rem;
+`;
+
+const StyledFilterTitle = styled.p`
+  text-decoration: underline;
+  font-weight: 600;
+`;
+
+function Filter({ filterList = [] }) {
+  const [showOptions, setShowOptions] = useState(false);
+  const [position, setPosition] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedFilters, setSelectedFilters] = useState();
+  let selectedFilterLabels = [];
+
+  if (selectedFilters) {
+    for (const [key] of Object.entries(selectedFilters)) {
+      selectedFilterLabels.push(...selectedFilters[key].labels);
+    }
+  }
+
+  useEffect(() => {
+    const tempFilters = {};
+    filterList.map((filter) => {
+      if (searchParams.get(filter.filterField)) {
+        tempFilters[filter.filterField] = {
+          values:
+            searchParams.get(filter.filterField)?.split(",") ||
+            searchParams.get(filter.filterField),
+        };
+      }
+
+      filter.filterOptions.map((option) => {
+        if (tempFilters?.[filter.filterField]?.values.includes(option.id)) {
+          if (!tempFilters[filter.filterField].labels)
+            tempFilters[filter.filterField].labels = [option.name];
+          else tempFilters[filter.filterField].labels.push(option.name);
+        }
+        return option;
+      });
+
+      if (!tempFilters[filter.filterField]) {
+        tempFilters[filter.filterField] = {
+          labels: [],
+          values: [],
+        };
+      }
+      return filter;
+    });
+    setSelectedFilters(tempFilters);
+  }, [filterList, searchParams]);
+
+  function handleShowFilterOptionsClick(e) {
+    setShowOptions((cur) => !cur);
+    const rect = e.target.closest("#parent-container").getBoundingClientRect();
+    setPosition({
+      x: rect.x,
+      y: rect.bottom + 20,
+    });
+  }
+
+  function handleClearOptionsClick() {
+    setSearchParams();
+    setSelectedFilters();
+  }
+
+  function handleIndividualOptionsClick(filter) {
+    let filterToBeDeleted;
+    filterList.map((filterType) => {
+      filterType.filterOptions.filter((option) => {
+        if (option.name === filter) {
+          filterToBeDeleted = {
+            label: option.name,
+            value: option.id,
+            filterField: filterType.filterField,
+          };
+        }
+        return filterToBeDeleted;
+      });
+      return filterType;
+    });
+    let selectedFilters =
+      searchParams.get(filterToBeDeleted.filterField)?.split(",") ||
+      searchParams.get(filterToBeDeleted.filterField) ||
+      [];
+    selectedFilters = selectedFilters.filter(
+      (cur) => cur !== filterToBeDeleted.value
+    );
+
+    if (selectedFilters.length > 0) {
+      searchParams.set(filterToBeDeleted.filterField, selectedFilters);
+      setSearchParams(searchParams);
+    } else {
+      searchParams.delete(filterToBeDeleted.filterField);
+      setSearchParams(searchParams);
+    }
+  }
+
+  function handleOptionsClick(option, filterType) {
+    let selectedFilters =
+      searchParams.get(filterType.filterField)?.split(",") ||
+      searchParams.get(filterType.filterField) ||
+      [];
+
+    if (!selectedFilters.includes(option.id)) {
+      selectedFilters.push(option.id);
+    } else if (selectedFilters.includes(option.id)) {
+      selectedFilters = selectedFilters.filter((cur) => cur !== option.id);
+    }
+
+    if (selectedFilters.length > 0) {
+      searchParams.set(filterType.filterField, selectedFilters);
+      setSearchParams(searchParams);
+    } else {
+      searchParams.delete(filterType.filterField);
+      setSearchParams(searchParams);
+    }
+  }
+
+  return (
+    <StyledContainer>
+      <StyledFilteredItemsContainer id="parent-container">
+        <SelectedFilter
+          selectedFilterLabels={selectedFilterLabels}
+          onHandleIndividualOptionsClick={handleIndividualOptionsClick}
+        />
+        <StyledFilterButtons>
+          {selectedFilterLabels.length >= 1 && (
+            <StyledButton
+              size="small"
+              variation="danger"
+              type="clear"
+              onClick={handleClearOptionsClick}
+            >
+              <HiOutlineXMark />
+            </StyledButton>
+          )}
+          <StyledDivider>|</StyledDivider>
+          <StyledButton
+            size="small"
+            variation="primary"
+            type="downArrow"
+            onClick={handleShowFilterOptionsClick}
+          >
+            <HiChevronDown />
+          </StyledButton>
+        </StyledFilterButtons>
+      </StyledFilteredItemsContainer>
+
+      {showOptions && (
+        <StyledOptionsContainer position={position}>
+          {filterList.map((filterType) => (
+            <StyledIndividualOptionContainer key={filterType.filterTitle}>
+              <StyledFilterTitle>{filterType.filterTitle}</StyledFilterTitle>
+
+              {filterType.filterOptions.map((optionType) => (
+                <div key={optionType.id}>
+                  <input
+                    type="checkbox"
+                    id={optionType.id}
+                    disabled={
+                      filterType.parentElement &&
+                      !selectedFilters?.[
+                        filterType.parentElement
+                      ]?.values.includes(
+                        optionType[filterType?.parentElement]?.id
+                      )
+                    }
+                    checked={searchParams
+                      ?.get(filterType.filterField)
+                      ?.includes(optionType.id)}
+                    name={optionType.name}
+                    onChange={() => handleOptionsClick(optionType, filterType)}
+                  />
+
+                  <StyledIndividualOption htmlFor={optionType.name}>
+                    {optionType.name}
+                  </StyledIndividualOption>
+                </div>
+              ))}
+            </StyledIndividualOptionContainer>
+          ))}
+        </StyledOptionsContainer>
+      )}
+    </StyledContainer>
+  );
+}
+
+export default Filter;

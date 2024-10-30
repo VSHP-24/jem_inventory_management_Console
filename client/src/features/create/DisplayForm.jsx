@@ -8,9 +8,9 @@ import ProductForm from "../products/ProductForm";
 import PurchaseForm from "../purchases/PurchaseForm";
 
 function DisplayForm() {
-  const [searchParmas] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  const showForm = searchParmas.get("formType") || "new-brand";
+  const showForm = searchParams.get("formType") || "new-brand";
 
   if (showForm === "new-brand") return <BrandForm />;
   if (showForm === "new-bike") return <ModelForm />;

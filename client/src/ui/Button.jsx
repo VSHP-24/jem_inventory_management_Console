@@ -18,6 +18,23 @@ const sizes = {
   `,
 };
 
+const types = {
+  clear: css`
+    color: var(--color-red-800);
+    :hover {
+      background-color: var(--color-gold-700);
+    }
+  `,
+  downArrow: css`
+    color: var(--color-grey-700);
+
+    :hover {
+      background-color: var(--color-gold-700);
+      color: var(--color-grey-900);
+    }
+  `,
+};
+
 const variations = {
   primary: css`
     color: var(--color-gold-100);
@@ -57,6 +74,7 @@ const Button = styled.button`
 
   ${(props) => sizes[props.size]}
   ${(props) => variations[props.variation]}
+  ${(props) => types[props.type]}
 `;
 
 export default Button;

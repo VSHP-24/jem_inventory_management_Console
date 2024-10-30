@@ -1,6 +1,8 @@
 import { useGetSubCategories } from "./useGetSubCategories";
 
-function SelectSubCategories() {
+function SelectSubCategories({
+  placeholder = "----- Select a SubCategory -----",
+}) {
   const { isPending, subCategories } = useGetSubCategories();
 
   if (isPending) return subCategories;
@@ -8,7 +10,7 @@ function SelectSubCategories() {
   return (
     <>
       <option value="" itemType="String">
-        ----- Select a SubCategory -----
+        {placeholder}
       </option>
       {subCategories
         .filter(

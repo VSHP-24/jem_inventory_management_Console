@@ -51,6 +51,9 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
   margin: 0;
   letter-spacing: 0.1rem;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--color-gold-100) var(--color-grey-800);
+  scrollbar-width: thin;
 
 
   /* Creating animations for dark mode */

@@ -1,6 +1,6 @@
 import { useGetModels } from "./useGetModels";
 
-function SelectModels() {
+function SelectModels({ placeholder = "----- Select a Model -----" }) {
   const { isPending, models } = useGetModels();
 
   if (isPending) return models;
@@ -8,7 +8,7 @@ function SelectModels() {
   return (
     <>
       <option value="" itemType="String">
-        ----- Select a Model -----
+        {placeholder}
       </option>
       {models
         .filter((model) => !model.isDeleted && !model.brand.isDeleted)

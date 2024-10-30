@@ -21,6 +21,8 @@ function NavTabs({ fieldComponent, options }) {
   const currentValue = searchParams.get(fieldComponent) || options.at(0).value;
 
   function handleClick(value) {
+    searchParams.delete("brand");
+    searchParams.delete("category");
     searchParams.set(fieldComponent, value);
     setSearchParams(searchParams);
   }

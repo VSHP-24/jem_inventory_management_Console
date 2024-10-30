@@ -6,9 +6,9 @@ import CategoryTable from "../categories/CategoryTable";
 import SubCategoryTable from "../subCategories/SubCategoryTable";
 
 function DisplayManageTable() {
-  const [searchParmas] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  const showTable = searchParmas.get("tableType") || "brands";
+  const showTable = searchParams.get("tableType") || "brands";
 
   if (showTable === "brands") return <BrandTable />;
   if (showTable === "bikes") return <ModelTable />;
