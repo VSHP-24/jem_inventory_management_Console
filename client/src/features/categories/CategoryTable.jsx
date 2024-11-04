@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import CategoryRow from "./CategoryRow";
@@ -6,6 +7,27 @@ import { useGetCategories } from "./useGetCategories";
 
 function CategoryTable() {
   const { isPending, categories } = useGetCategories();
+
+  const [searchParams] = useSearchParams();
+
+  const sortBy = searchParams.get("sortBy") || "category-asc";
+  const [, direction] = sortBy.split("-");
+
+  let sortedCategories;
+
+  if (!isPending) {
+    sortedCategories = categories.sort((a, b) => {
+      if (direction === "asc") {
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
+        if (b.name.toUpperCase() > a.name.toUpperCase()) return -1;
+      }
+      if (direction === "desc") {
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return -1;
+        if (b.name.toUpperCase() > a.name.toUpperCase()) return 1;
+      }
+      return null;
+    });
+  }
 
   function DeletedCategories() {
     return (
@@ -20,7 +42,7 @@ function CategoryTable() {
         </Table.Header>
 
         <Table.Body
-          data={categories.filter((category) => category.isDeleted)}
+          data={sortedCategories.filter((category) => category.isDeleted)}
           render={(category, i) => (
             <CategoryRow
               category={category}
@@ -45,7 +67,7 @@ function CategoryTable() {
       </Table.Header>
 
       <Table.Body
-        data={categories.filter((category) => !category.isDeleted)}
+        data={sortedCategories.filter((category) => !category.isDeleted)}
         render={(category, i) => (
           <CategoryRow
             category={category}

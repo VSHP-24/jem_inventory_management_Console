@@ -12,6 +12,35 @@ function ModelTable() {
   let filteredBrands =
     searchParams.get("brand")?.split(",") || searchParams.get("brand") || "";
 
+  const sortBy = searchParams.get("sortBy") || "brand-asc";
+  const [field, direction] = sortBy.split("-");
+
+  let sortedModels;
+  if (!isPending) {
+    sortedModels = models.sort((a, b) => {
+      if (direction === "asc" && field === "brand") {
+        if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
+        if (b[field].name.toUpperCase() > a[field].name.toUpperCase())
+          return -1;
+      }
+      if (direction === "desc" && field === "brand") {
+        if (a[field].name.toUpperCase() > b[field].name.toUpperCase())
+          return -1;
+        if (b[field].name.toUpperCase() > a[field].name.toUpperCase()) return 1;
+      }
+      if (direction === "asc") {
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
+        if (b.name.toUpperCase() > a.name.toUpperCase()) return -1;
+      }
+      if (direction === "desc" && field !== "price") {
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return -1;
+        if (b.name.toUpperCase() > a.name.toUpperCase()) return 1;
+      }
+
+      return null;
+    });
+  }
+
   function DeletedModels() {
     return (
       <Table
@@ -28,7 +57,7 @@ function ModelTable() {
         </Table.Header>
 
         <Table.Body
-          data={models.filter(
+          data={sortedModels.filter(
             (model) => model.isDeleted || model.brand.isDeleted
           )}
           render={(model, i) => (
@@ -61,7 +90,7 @@ function ModelTable() {
       </Table.Header>
 
       <Table.Body
-        data={models.filter(
+        data={sortedModels.filter(
           (model) =>
             !model.isDeleted &&
             !model.brand.isDeleted &&

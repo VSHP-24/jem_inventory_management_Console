@@ -22,6 +22,30 @@ function ProductTable() {
     searchParams.get("subCategory") ||
     "";
 
+  const sortBy = searchParams.get("sortBy") || "brand-asc";
+  const [field, direction] = sortBy.split("-");
+  const modifier = direction === "asc" ? 1 : -1;
+
+  let sortedProducts;
+  if (!isPending) {
+    sortedProducts = products.sort((a, b) => {
+      if (direction === "asc" && field !== "price") {
+        if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
+        if (b[field].name.toUpperCase() > a[field].name.toUpperCase())
+          return -1;
+      }
+      if (direction === "desc" && field !== "price") {
+        if (a[field].name.toUpperCase() > b[field].name.toUpperCase())
+          return -1;
+        if (b[field].name.toUpperCase() > a[field].name.toUpperCase()) return 1;
+      }
+      if (field === "price") {
+        return (a[field] - b[field]) * modifier;
+      }
+      return null;
+    });
+  }
+
   function DeletedProducts() {
     return (
       <Table
@@ -35,7 +59,7 @@ function ProductTable() {
         </Table.Header>
 
         <Table.Body
-          data={products.filter(
+          data={sortedProducts.filter(
             (product) =>
               product.isDeleted ||
               product.brand.isDeleted ||
@@ -74,7 +98,7 @@ function ProductTable() {
       </Table.Header>
 
       <Table.Body
-        data={products.filter(
+        data={sortedProducts.filter(
           (product) =>
             !product.isDeleted &&
             !product.brand.isDeleted &&

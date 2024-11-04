@@ -24,7 +24,7 @@ const StyledStatus = styled.span`
     props.status === "cancelled" && "var(--color-grey-500)"};
 
   padding: 0 0.5rem;
-  font-weight: 500;
+  font-weight: 600;
   justify-self: center;
   border-radius: 0.4rem;
 `;

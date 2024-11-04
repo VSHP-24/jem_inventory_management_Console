@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import PartRow from "./PartRow";
@@ -6,6 +7,32 @@ import { useGetParts } from "./useGetParts";
 
 function PartTable() {
   const { isPending, parts } = useGetParts();
+
+  const [searchParams] = useSearchParams();
+
+  const sortBy = searchParams.get("sortBy") || "part-asc";
+  const [field, direction] = sortBy.split("-");
+  const modifier = direction === "asc" ? 1 : -1;
+
+  let sortedParts;
+
+  if (!isPending) {
+    sortedParts = parts.sort((a, b) => {
+      if (direction === "asc" && field !== "quantity") {
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
+        if (b.name.toUpperCase() > a.name.toUpperCase()) return -1;
+      }
+      if (direction === "desc" && field !== "quantity") {
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return -1;
+        if (b.name.toUpperCase() > a.name.toUpperCase()) return 1;
+      }
+      if (field === "quantity") {
+        return (a[field] - b[field]) * modifier;
+      }
+
+      return null;
+    });
+  }
 
   function DeletedParts() {
     return (
@@ -21,7 +48,7 @@ function PartTable() {
         </Table.Header>
 
         <Table.Body
-          data={parts.filter((part) => part.isDeleted)}
+          data={sortedParts.filter((part) => part.isDeleted)}
           render={(part, i) => (
             <PartRow
               part={part}
@@ -47,7 +74,7 @@ function PartTable() {
       </Table.Header>
 
       <Table.Body
-        data={parts.filter((part) => !part.isDeleted)}
+        data={sortedParts.filter((part) => !part.isDeleted)}
         render={(part, i) => (
           <PartRow part={part} index={i} key={part.id} id={part.id} />
         )}

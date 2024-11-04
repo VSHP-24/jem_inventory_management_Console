@@ -10,6 +10,35 @@ function SubCategoryTable() {
 
   const [searchParams] = useSearchParams();
 
+  const sortBy = searchParams.get("sortBy") || "category-asc";
+  const [field, direction] = sortBy.split("-");
+
+  let sortedSubCategories;
+  if (!isPending) {
+    sortedSubCategories = subCategories.sort((a, b) => {
+      if (direction === "asc" && field === "category") {
+        if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
+        if (b[field].name.toUpperCase() > a[field].name.toUpperCase())
+          return -1;
+      }
+      if (direction === "desc" && field === "category") {
+        if (a[field].name.toUpperCase() > b[field].name.toUpperCase())
+          return -1;
+        if (b[field].name.toUpperCase() > a[field].name.toUpperCase()) return 1;
+      }
+      if (direction === "asc") {
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
+        if (b.name.toUpperCase() > a.name.toUpperCase()) return -1;
+      }
+      if (direction === "desc" && field !== "price") {
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return -1;
+        if (b.name.toUpperCase() > a.name.toUpperCase()) return 1;
+      }
+
+      return null;
+    });
+  }
+
   let filteredCategories =
     searchParams.get("category")?.split(",") ||
     searchParams.get("category") ||
@@ -29,7 +58,7 @@ function SubCategoryTable() {
         </Table.Header>
 
         <Table.Body
-          data={subCategories.filter(
+          data={sortedSubCategories.filter(
             (subCategory) =>
               subCategory.isDeleted || subCategory.category.isDeleted
           )}
@@ -61,7 +90,7 @@ function SubCategoryTable() {
       </Table.Header>
 
       <Table.Body
-        data={subCategories.filter(
+        data={sortedSubCategories.filter(
           (subCategory) =>
             !subCategory.isDeleted &&
             !subCategory.category.isDeleted &&

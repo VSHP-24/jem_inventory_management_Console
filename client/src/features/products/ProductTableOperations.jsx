@@ -5,6 +5,7 @@ import { useGetBrands } from "../brands/useGetBrands";
 import { useGetCategories } from "../categories/useGetCategories";
 import { useGetModels } from "../models/useGetModels";
 import { useGetSubCategories } from "../subCategories/useGetSubCategories";
+import SortBy from "../../ui/SortBy";
 
 function ProductTableOperations() {
   const { isPending: brandIsPending, brands } = useGetBrands();
@@ -47,9 +48,23 @@ function ProductTableOperations() {
     ];
   }
 
+  const sortByOptions = [
+    { value: "brand-asc", label: "Sort by Brand ( A - Z )" },
+    { value: "brand-desc", label: "Sort by Brand ( Z - A )" },
+    { value: "model-asc", label: "Sort by Model ( A - Z )" },
+    { value: "model-desc", label: "Sort by Model ( Z - A )" },
+    { value: "category-asc", label: "Sort by Category ( A - Z )" },
+    { value: "category-desc", label: "Sort by Category ( Z - A )" },
+    { value: "subCategory-asc", label: "Sort by SubCategory ( A - Z )" },
+    { value: "subCategory-desc", label: "Sort by SubCategory ( Z - A )" },
+    { value: "price-asc", label: "Sort by Price ( Low --> High )" },
+    { value: "price-desc", label: "Sort by Price ( High --> Low )" },
+  ];
+
   return (
     <TableOperations>
       <Filter filterList={filterList} />
+      <SortBy sortByOptions={sortByOptions} />
     </TableOperations>
   );
 }

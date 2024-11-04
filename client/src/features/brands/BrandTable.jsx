@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import BrandRow from "./BrandRow";
@@ -6,6 +7,27 @@ import { useGetBrands } from "./useGetBrands";
 
 function BrandTable() {
   const { isPending, brands } = useGetBrands();
+
+  const [searchParams] = useSearchParams();
+
+  const sortBy = searchParams.get("sortBy") || "brand-asc";
+  const [, direction] = sortBy.split("-");
+
+  let sortedBrands;
+
+  if (!isPending) {
+    sortedBrands = brands.sort((a, b) => {
+      if (direction === "asc") {
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
+        if (b.name.toUpperCase() > a.name.toUpperCase()) return -1;
+      }
+      if (direction === "desc") {
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return -1;
+        if (b.name.toUpperCase() > a.name.toUpperCase()) return 1;
+      }
+      return null;
+    });
+  }
 
   function DeletedBrands() {
     return (
@@ -20,7 +42,7 @@ function BrandTable() {
         </Table.Header>
 
         <Table.Body
-          data={brands.filter((brand) => brand.isDeleted)}
+          data={sortedBrands.filter((brand) => brand.isDeleted)}
           render={(brand, i) => (
             <BrandRow
               brand={brand}
@@ -45,7 +67,7 @@ function BrandTable() {
       </Table.Header>
 
       <Table.Body
-        data={brands.filter((brand) => !brand.isDeleted)}
+        data={sortedBrands.filter((brand) => !brand.isDeleted)}
         render={(brand, i) => (
           <BrandRow brand={brand} index={i} key={brand.id} id={brand.id} />
         )}
