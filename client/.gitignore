@@ -16,14 +16,6 @@ dev-data
 DesignSystem
 apiLinks.js
 supabase.js
-Inventory.jsx
-Purchase.jsx
-PurchaseRow.jsx
-PurchaseTableOperations.jsx
-PartTable.jsx
-PartTableOperations.jsx
-
-
 
 
 # Editor directories and files
