@@ -24,6 +24,7 @@ function NavTabs({ fieldComponent, options }) {
     searchParams.delete("brand");
     searchParams.delete("category");
     searchParams.delete("sortBy");
+    searchParams.delete("page");
     searchParams.set(fieldComponent, value);
     setSearchParams(searchParams);
   }

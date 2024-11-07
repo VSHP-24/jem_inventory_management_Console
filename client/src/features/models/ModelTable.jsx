@@ -4,6 +4,7 @@ import Table from "../../ui/Table";
 import ModelRow from "./ModelRow";
 
 import { useGetModels } from "./useGetModels";
+import Pagination from "../../ui/Pagination";
 
 function ModelTable() {
   const { isPending, models } = useGetModels();
@@ -16,7 +17,12 @@ function ModelTable() {
   const [field, direction] = sortBy.split("-");
 
   let sortedModels;
+  let filterDeletedModels = [];
+  let filterAvailableModels = [];
+
   if (!isPending) {
+    // SORT
+
     sortedModels = models.sort((a, b) => {
       if (direction === "asc" && field === "brand") {
         if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
@@ -39,6 +45,18 @@ function ModelTable() {
 
       return null;
     });
+    // Filter Deleted Models
+    filterDeletedModels = sortedModels.filter(
+      (model) => model.isDeleted || model.brand.isDeleted
+    );
+    // Filter Available Models
+    filterAvailableModels = sortedModels.filter(
+      (model) =>
+        !model.isDeleted &&
+        !model.brand.isDeleted &&
+        (filteredBrands === "" ||
+          filteredBrands.includes(String(model.brand.id)))
+    );
   }
 
   function DeletedModels() {
@@ -57,9 +75,7 @@ function ModelTable() {
         </Table.Header>
 
         <Table.Body
-          data={sortedModels.filter(
-            (model) => model.isDeleted || model.brand.isDeleted
-          )}
+          data={filterDeletedModels}
           render={(model, i) => (
             <ModelRow
               model={model}
@@ -90,17 +106,14 @@ function ModelTable() {
       </Table.Header>
 
       <Table.Body
-        data={sortedModels.filter(
-          (model) =>
-            !model.isDeleted &&
-            !model.brand.isDeleted &&
-            (filteredBrands === "" ||
-              filteredBrands.includes(String(model.brand.id)))
-        )}
+        data={filterAvailableModels}
         render={(model, i) => (
           <ModelRow model={model} index={i} key={model.id} id={model.id} />
         )}
       />
+      <Table.Footer>
+        <Pagination count={filterAvailableModels.length} />
+      </Table.Footer>
     </Table>
   );
 }

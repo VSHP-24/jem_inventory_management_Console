@@ -4,6 +4,7 @@ import Table from "../../ui/Table";
 
 import { useGetProducts } from "./useGetProducts";
 import { useSearchParams } from "react-router-dom";
+import Pagination from "../../ui/Pagination";
 
 function ProductTable() {
   const { isPending, products } = useGetProducts();
@@ -27,7 +28,11 @@ function ProductTable() {
   const modifier = direction === "asc" ? 1 : -1;
 
   let sortedProducts;
+  let filterDeletedProducts = [];
+  let filterAvailableProducts = [];
+
   if (!isPending) {
+    // SORT
     sortedProducts = products.sort((a, b) => {
       if (direction === "asc" && field !== "price") {
         if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
@@ -44,6 +49,36 @@ function ProductTable() {
       }
       return null;
     });
+
+    // Filter Deleted Products
+
+    filterDeletedProducts = sortedProducts.filter(
+      (product) =>
+        product.isDeleted ||
+        product.brand.isDeleted ||
+        product.model.isDeleted ||
+        product.category.isDeleted ||
+        product.subCategory.isDeleted
+    );
+
+    // Filter Available Products
+
+    filterAvailableProducts = sortedProducts.filter(
+      (product) =>
+        !product.isDeleted &&
+        !product.brand.isDeleted &&
+        !product.model.isDeleted &&
+        !product.category.isDeleted &&
+        !product.subCategory.isDeleted &&
+        (filteredBrands === "" ||
+          filteredBrands.includes(String(product.brand.id))) &&
+        (filteredModels === "" ||
+          filteredModels.includes(String(product.model.id))) &&
+        (filteredCategories === "" ||
+          filteredCategories.includes(String(product.category.id))) &&
+        (filteredSubCategories === "" ||
+          filteredSubCategories.includes(String(product.subCategory.id)))
+    );
   }
 
   function DeletedProducts() {
@@ -59,14 +94,7 @@ function ProductTable() {
         </Table.Header>
 
         <Table.Body
-          data={sortedProducts.filter(
-            (product) =>
-              product.isDeleted ||
-              product.brand.isDeleted ||
-              product.model.isDeleted ||
-              product.category.isDeleted ||
-              product.subCategory.isDeleted
-          )}
+          data={filterDeletedProducts}
           render={(product, i) => (
             <ProductRow
               product={product}
@@ -98,22 +126,7 @@ function ProductTable() {
       </Table.Header>
 
       <Table.Body
-        data={sortedProducts.filter(
-          (product) =>
-            !product.isDeleted &&
-            !product.brand.isDeleted &&
-            !product.model.isDeleted &&
-            !product.category.isDeleted &&
-            !product.subCategory.isDeleted &&
-            (filteredBrands === "" ||
-              filteredBrands.includes(String(product.brand.id))) &&
-            (filteredModels === "" ||
-              filteredModels.includes(String(product.model.id))) &&
-            (filteredCategories === "" ||
-              filteredCategories.includes(String(product.category.id))) &&
-            (filteredSubCategories === "" ||
-              filteredSubCategories.includes(String(product.subCategory.id)))
-        )}
+        data={filterAvailableProducts}
         render={(product, i) => (
           <ProductRow
             product={product}
@@ -123,6 +136,9 @@ function ProductTable() {
           />
         )}
       />
+      <Table.Footer>
+        <Pagination count={filterAvailableProducts.length} />
+      </Table.Footer>
     </Table>
   );
 }

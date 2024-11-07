@@ -4,6 +4,7 @@ import Table from "../../ui/Table";
 import PurchaseRow from "./PurchaseRow";
 
 import { useGetPurchases } from "./useGetPurchases";
+import Pagination from "../../ui/Pagination";
 
 function PurchaseTable() {
   const { isPending, purchases } = useGetPurchases();
@@ -22,7 +23,12 @@ function PurchaseTable() {
   const modifier = direction === "asc" ? 1 : -1;
 
   let sortedPurchases;
+  let filterDeletedPurchases = [];
+  let filterAvailablePurchases = [];
+
   if (!isPending) {
+    // SORT
+
     sortedPurchases = purchases.sort((a, b) => {
       if (direction === "asc" && field === "part") {
         if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
@@ -43,6 +49,23 @@ function PurchaseTable() {
       }
       return null;
     });
+
+    // Filter Deleted Purchases
+    filterDeletedPurchases = sortedPurchases.filter(
+      (purchase) => purchase.isDeleted
+    );
+
+    // Filter Available Purchases
+    filterAvailablePurchases = sortedPurchases.filter(
+      (purchase) =>
+        !purchase.isDeleted &&
+        (filteredParts === "" ||
+          filteredParts.includes(String(purchase.part.id))) &&
+        (filteredStatus === "" ||
+          filteredStatus.includes(String(purchase.status))) &&
+        (filteredVendors === "" ||
+          filteredVendors.includes(String(purchase.vendor)))
+    );
   }
 
   function DeletedPurchases() {
@@ -60,7 +83,7 @@ function PurchaseTable() {
         </Table.Header>
 
         <Table.Body
-          data={sortedPurchases.filter((purchase) => purchase.isDeleted)}
+          data={filterDeletedPurchases}
           render={(purchase, i) => (
             <PurchaseRow
               purchase={purchase}
@@ -93,16 +116,7 @@ function PurchaseTable() {
       </Table.Header>
 
       <Table.Body
-        data={sortedPurchases.filter(
-          (purchase) =>
-            !purchase.isDeleted &&
-            (filteredParts === "" ||
-              filteredParts.includes(String(purchase.part.id))) &&
-            (filteredStatus === "" ||
-              filteredStatus.includes(String(purchase.status))) &&
-            (filteredVendors === "" ||
-              filteredVendors.includes(String(purchase.vendor)))
-        )}
+        data={filterAvailablePurchases}
         render={(purchase, i) => (
           <PurchaseRow
             purchase={purchase}
@@ -112,6 +126,9 @@ function PurchaseTable() {
           />
         )}
       />
+      <Table.Footer>
+        <Pagination count={filterAvailablePurchases.length} />
+      </Table.Footer>
     </Table>
   );
 }

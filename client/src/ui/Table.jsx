@@ -4,6 +4,8 @@ import { createContext, useContext, useState } from "react";
 import TableMenuButton from "./TableMenuButton";
 import TableMenuList from "./TableMenuList";
 import DeletedTableItems from "./DeletedTableItems";
+import { useSearchParams } from "react-router-dom";
+import { PAGE_SIZE } from "../utils/constants";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-700);
@@ -40,6 +42,20 @@ const StyledRow = styled(CommonRow)`
   }
 `;
 
+const Footer = styled.footer`
+  background-color: var(--color-gold-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  border: none;
+
+  /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
+  &:not(:has(*)) {
+    display: none;
+  }
+`;
+
 const StyledBody = styled.section`
   margin: 0.4rem 0;
 `;
@@ -62,6 +78,11 @@ function Table({
 }) {
   const [openId, setOpenId] = useState("");
   const [position, setPosition] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  const currentPage = !searchParams.get("page")
+    ? 1
+    : Number(searchParams.get("page"));
 
   const close = () => setOpenId("");
   const open = (id) => setOpenId(id);
@@ -76,6 +97,7 @@ function Table({
         close,
         open,
         menuListRequired,
+        currentPage,
       }}
     >
       <StyledTable role="table">{children}</StyledTable>
@@ -143,12 +165,20 @@ function Row({
   );
 }
 function Body({ data, render }) {
+  const { currentPage } = useContext(TableContext);
   if (!data.length) return <Empty>No data to show at the moment</Empty>;
-  return <StyledBody>{data.map(render)}</StyledBody>;
+  return (
+    <StyledBody>
+      {data
+        .map(render)
+        .slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)}
+    </StyledBody>
+  );
 }
 
 Table.Header = Header;
 Table.Row = Row;
 Table.Body = Body;
+Table.Footer = Footer;
 
 export default Table;

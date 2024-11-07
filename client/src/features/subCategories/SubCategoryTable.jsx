@@ -4,6 +4,7 @@ import Table from "../../ui/Table";
 import SubCategoryRow from "./SubCategoryRow";
 
 import { useGetSubCategories } from "./useGetSubCategories";
+import Pagination from "../../ui/Pagination";
 
 function SubCategoryTable() {
   const { isPending, subCategories } = useGetSubCategories();
@@ -13,8 +14,18 @@ function SubCategoryTable() {
   const sortBy = searchParams.get("sortBy") || "category-asc";
   const [field, direction] = sortBy.split("-");
 
+  let filteredCategories =
+    searchParams.get("category")?.split(",") ||
+    searchParams.get("category") ||
+    "";
+
   let sortedSubCategories;
+  let filterDeletedSubCategories = [];
+  let filterAvailableSubCategories = [];
+
   if (!isPending) {
+    // SORT
+
     sortedSubCategories = subCategories.sort((a, b) => {
       if (direction === "asc" && field === "category") {
         if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
@@ -37,12 +48,20 @@ function SubCategoryTable() {
 
       return null;
     });
-  }
 
-  let filteredCategories =
-    searchParams.get("category")?.split(",") ||
-    searchParams.get("category") ||
-    "";
+    // Filter Deleted SubCategories
+    filterDeletedSubCategories = sortedSubCategories.filter(
+      (subCategory) => subCategory.isDeleted || subCategory.category.isDeleted
+    );
+    // Filter Available SubCategories
+    filterAvailableSubCategories = sortedSubCategories.filter(
+      (subCategory) =>
+        !subCategory.isDeleted &&
+        !subCategory.category.isDeleted &&
+        (filteredCategories === "" ||
+          filteredCategories.includes(String(subCategory.category.id)))
+    );
+  }
 
   function DeletedSubCategory() {
     return (
@@ -58,10 +77,7 @@ function SubCategoryTable() {
         </Table.Header>
 
         <Table.Body
-          data={sortedSubCategories.filter(
-            (subCategory) =>
-              subCategory.isDeleted || subCategory.category.isDeleted
-          )}
+          data={filterDeletedSubCategories}
           render={(subCategory, i) => (
             <SubCategoryRow
               subCategory={subCategory}
@@ -90,13 +106,7 @@ function SubCategoryTable() {
       </Table.Header>
 
       <Table.Body
-        data={sortedSubCategories.filter(
-          (subCategory) =>
-            !subCategory.isDeleted &&
-            !subCategory.category.isDeleted &&
-            (filteredCategories === "" ||
-              filteredCategories.includes(String(subCategory.category.id)))
-        )}
+        data={filterAvailableSubCategories}
         render={(subCategory, i) => (
           <SubCategoryRow
             subCategory={subCategory}
@@ -106,6 +116,9 @@ function SubCategoryTable() {
           />
         )}
       />
+      <Table.Footer>
+        <Pagination count={filterAvailableSubCategories.length} />
+      </Table.Footer>
     </Table>
   );
 }

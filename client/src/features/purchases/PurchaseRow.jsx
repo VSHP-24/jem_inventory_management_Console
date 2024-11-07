@@ -18,8 +18,10 @@ const StyledContainer = styled.div`
 `;
 const StyledStatus = styled.span`
   background-color: ${(props) =>
-    props.status === "order_received" && "#306844"};
+    props.status === "order_received" && "#00ff00"};
   background-color: ${(props) => props.status === "order_placed" && "#FF0000"};
+  color: ${(props) => props.status === "order_placed" && "#FFFFFF"};
+
   background-color: ${(props) =>
     props.status === "cancelled" && "var(--color-grey-500)"};
 

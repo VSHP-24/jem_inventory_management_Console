@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import StyledNavLink from "./StyledNavLink";
 
 const Img = styled.img`
   height: 2.4rem;
@@ -6,7 +7,11 @@ const Img = styled.img`
 `;
 
 function Logo() {
-  return <Img src="/jem.png" alt="JEM Logo" />;
+  return (
+    <StyledNavLink to="Dashboard">
+      <Img src="/jem.png" alt="JEM Logo" />
+    </StyledNavLink>
+  );
 }
 
 export default Logo;

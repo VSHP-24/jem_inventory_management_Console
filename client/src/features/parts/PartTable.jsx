@@ -4,6 +4,7 @@ import Table from "../../ui/Table";
 import PartRow from "./PartRow";
 
 import { useGetParts } from "./useGetParts";
+import Pagination from "../../ui/Pagination";
 
 function PartTable() {
   const { isPending, parts } = useGetParts();
@@ -15,8 +16,12 @@ function PartTable() {
   const modifier = direction === "asc" ? 1 : -1;
 
   let sortedParts;
+  let filterDeletedParts = [];
+  let filterAvailableParts = [];
 
   if (!isPending) {
+    // SORT
+
     sortedParts = parts.sort((a, b) => {
       if (direction === "asc" && field !== "quantity") {
         if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
@@ -32,6 +37,11 @@ function PartTable() {
 
       return null;
     });
+
+    // Filter Deleted Parts
+    filterDeletedParts = sortedParts.filter((part) => part.isDeleted);
+    // Filter Available Parts
+    filterAvailableParts = sortedParts.filter((part) => !part.isDeleted);
   }
 
   function DeletedParts() {
@@ -48,7 +58,7 @@ function PartTable() {
         </Table.Header>
 
         <Table.Body
-          data={sortedParts.filter((part) => part.isDeleted)}
+          data={filterDeletedParts}
           render={(part, i) => (
             <PartRow
               part={part}
@@ -74,11 +84,14 @@ function PartTable() {
       </Table.Header>
 
       <Table.Body
-        data={sortedParts.filter((part) => !part.isDeleted)}
+        data={filterAvailableParts}
         render={(part, i) => (
           <PartRow part={part} index={i} key={part.id} id={part.id} />
         )}
       />
+      <Table.Footer>
+        <Pagination count={filterAvailableParts.length} />
+      </Table.Footer>
     </Table>
   );
 }

@@ -4,6 +4,7 @@ import Table from "../../ui/Table";
 import BrandRow from "./BrandRow";
 
 import { useGetBrands } from "./useGetBrands";
+import Pagination from "../../ui/Pagination";
 
 function BrandTable() {
   const { isPending, brands } = useGetBrands();
@@ -14,8 +15,11 @@ function BrandTable() {
   const [, direction] = sortBy.split("-");
 
   let sortedBrands;
+  let filterDeletedBrands = [];
+  let filterAvailableBrands = [];
 
   if (!isPending) {
+    // SORT
     sortedBrands = brands.sort((a, b) => {
       if (direction === "asc") {
         if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
@@ -27,6 +31,14 @@ function BrandTable() {
       }
       return null;
     });
+
+    // Filter Deleted Brands
+
+    filterDeletedBrands = sortedBrands.filter((brand) => brand.isDeleted);
+
+    // Filter Available Brands
+
+    filterAvailableBrands = sortedBrands.filter((brand) => !brand.isDeleted);
   }
 
   function DeletedBrands() {
@@ -42,7 +54,7 @@ function BrandTable() {
         </Table.Header>
 
         <Table.Body
-          data={sortedBrands.filter((brand) => brand.isDeleted)}
+          data={filterDeletedBrands}
           render={(brand, i) => (
             <BrandRow
               brand={brand}
@@ -67,11 +79,14 @@ function BrandTable() {
       </Table.Header>
 
       <Table.Body
-        data={sortedBrands.filter((brand) => !brand.isDeleted)}
+        data={filterAvailableBrands}
         render={(brand, i) => (
           <BrandRow brand={brand} index={i} key={brand.id} id={brand.id} />
         )}
       />
+      <Table.Footer>
+        <Pagination count={filterAvailableBrands.length} />
+      </Table.Footer>
     </Table>
   );
 }
