@@ -12,6 +12,7 @@ import Create from "./pages/Create";
 import Manage from "./pages/Manage";
 import Purchase from "./pages/Purchase";
 import Inventory from "./pages/Inventory";
+import Customer from "./pages/Customer";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +35,7 @@ function App() {
             <Route path="manage" element={<Manage />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="products" element={<Products />} />
+            <Route path="customers" element={<Customer />} />
             <Route path="purchases" element={<Purchase />} />
             <Route path="inventory" element={<Inventory />} />
           </Route>
