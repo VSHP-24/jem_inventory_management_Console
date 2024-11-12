@@ -65,6 +65,7 @@ const Empty = styled.p`
   font-weight: 500;
   text-align: center;
   margin: 2.4rem;
+  padding: 0.5rem;
 `;
 
 const TableContext = createContext();

@@ -44,6 +44,8 @@ function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
     } else createPurchase({ ...data }, { onSuccess: () => reset() });
   }
 
+  // TODO:  Add Cost per Item and Total Cost
+
   function onError(errors) {
     return null;
   }

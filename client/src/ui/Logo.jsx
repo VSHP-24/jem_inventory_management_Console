@@ -2,15 +2,20 @@ import styled from "styled-components";
 import StyledNavLink from "./StyledNavLink";
 
 const Img = styled.img`
-  height: 2.4rem;
+  height: ${(props) => props.height};
   width: auto;
 `;
 
-function Logo() {
+function Logo({ allowRedirect = true, height = "2.4rem" }) {
   return (
-    <StyledNavLink to="Dashboard">
-      <Img src="/jem.png" alt="JEM Logo" />
-    </StyledNavLink>
+    <>
+      {allowRedirect && (
+        <StyledNavLink to="Dashboard">
+          <Img src="/jem.png" alt="JEM Logo" height={height} />
+        </StyledNavLink>
+      )}
+      {!allowRedirect && <Img src="/jem.png" alt="JEM Logo" height={height} />}
+    </>
   );
 }
 

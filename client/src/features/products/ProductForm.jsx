@@ -392,7 +392,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
 
         <FormRow label="Video">
           <Input
-            type="text"
+            type="url"
             placeholder="Enter video link for the Product"
             id="video"
             {...register("video")}

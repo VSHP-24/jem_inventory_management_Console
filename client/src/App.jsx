@@ -14,6 +14,8 @@ import Purchase from "./pages/Purchase";
 import Inventory from "./pages/Inventory";
 import Customer from "./pages/Customer";
 import Order from "./pages/Order";
+import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,6 +43,9 @@ function App() {
             <Route path="purchases" element={<Purchase />} />
             <Route path="inventory" element={<Inventory />} />
           </Route>
+          <Route path="login" element={<Login />} />
+          <Route path="forgotPassword" element={<ForgotPassword />} />
+
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
