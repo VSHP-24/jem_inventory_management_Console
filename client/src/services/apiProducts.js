@@ -7,7 +7,7 @@ import { PRODUCTS_URL } from "./apiLinks";
 export async function getProducts() {
   const res = await fetch(PRODUCTS_URL);
   const data = await res.json();
-  return data.data.products;
+  return data.data.data;
 }
 
 /////////////////////////////////////////////////

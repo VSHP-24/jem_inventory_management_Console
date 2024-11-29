@@ -7,7 +7,7 @@ import { BRANDS_URL } from "./apiLinks";
 export async function getBrands() {
   const res = await fetch(BRANDS_URL);
   const data = await res.json();
-  return data.data.brands;
+  return data.data.data;
 }
 
 /////////////////////////////////////////////////

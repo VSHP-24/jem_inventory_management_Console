@@ -16,6 +16,8 @@ import Customer from "./pages/Customer";
 import Order from "./pages/Order";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import ResetPassword from "./pages/ResetPassword";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,7 +34,13 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="create" element={<Create />} />
             <Route path="manage" element={<Manage />} />
@@ -43,8 +51,10 @@ function App() {
             <Route path="purchases" element={<Purchase />} />
             <Route path="inventory" element={<Inventory />} />
           </Route>
+
           <Route path="login" element={<Login />} />
           <Route path="forgotPassword" element={<ForgotPassword />} />
+          <Route path="resetPassword/:resetToken" element={<ResetPassword />} />
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>

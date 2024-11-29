@@ -190,7 +190,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             {...register("name", { required: "*This field is required" })}
           />
         </FormRow>
-
         <FormRow label="Brand" error={errors?.brand?.message}>
           <Select
             name="brand"
@@ -205,7 +204,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             <SelectBrands />
           </Select>
         </FormRow>
-
         <FormRow label="Model" error={errors?.model?.message}>
           <Select
             name="model"
@@ -220,7 +218,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             <SelectModels />
           </Select>
         </FormRow>
-
         <FormRow label="Category" error={errors?.category?.message}>
           <Select
             name="category"
@@ -235,7 +232,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             <SelectCategories />
           </Select>
         </FormRow>
-
         <FormRow label="SubCategory" error={errors?.subCategory?.message}>
           <Select
             name="subCategory"
@@ -250,7 +246,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             <SelectSubCategories />
           </Select>
         </FormRow>
-
         <FormRow label="Price" error={errors?.price?.message}>
           <Input
             type="number"
@@ -261,7 +256,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
-
         <FormRow label="Discount Price" error={errors?.discountPrice?.message}>
           <Input
             type="number"
@@ -274,7 +268,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
-
         <FormRow label="Size">
           <Input
             type="text"
@@ -283,7 +276,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             {...register("size")}
           />
         </FormRow>
-
         <FormRow label="Combo">
           <Input
             type="text"
@@ -292,7 +284,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             {...register("combo")}
           />
         </FormRow>
-
         <FormRow label="Main Image" error={errors?.mainImage?.message}>
           <FileInput
             accept="image/*"
@@ -309,7 +300,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
-
         <FormRow
           label="Additional Images"
           error={errors?.additionalImages?.message}
@@ -331,7 +321,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
-
         <FormRow label="Description">
           <Textarea
             type="text"
@@ -340,7 +329,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             {...register("description")}
           />
         </FormRow>
-
         <FormRowIncludedParts
           label="Included Parts"
           error={errors?.includedParts?.root.message}
@@ -382,6 +370,10 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
           </Button>
         </FormRowIncludedParts>
 
+        {
+          // TODO: Additional Information should be an field array , same as included parts
+        }
+
         <FormRow label="Additional Information">
           <Input
             type="text"
@@ -389,7 +381,6 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             {...register("additionalInformation")}
           />
         </FormRow>
-
         <FormRow label="Video">
           <Input
             type="url"

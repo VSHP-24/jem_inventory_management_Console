@@ -7,7 +7,7 @@ import { PARTS_URL } from "./apiLinks";
 export async function getParts() {
   const res = await fetch(PARTS_URL);
   const data = await res.json();
-  return data.data.parts;
+  return data.data.data;
 }
 
 /////////////////////////////////////////////////

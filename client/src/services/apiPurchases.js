@@ -5,9 +5,12 @@ import { PURCHASES_URL } from "./apiLinks";
 /////////////////////////////////////////////////
 
 export async function getPurchases() {
-  const res = await fetch(PURCHASES_URL);
+  const res = await fetch(PURCHASES_URL, {
+    mode: "cors",
+    credentials: "include",
+  });
   const data = await res.json();
-  return data.data.purchases;
+  return data.data.data;
 }
 
 /////////////////////////////////////////////////

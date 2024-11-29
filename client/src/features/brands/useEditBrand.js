@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 export function useEditBrand() {
   const queryClient = useQueryClient();
+
   const { mutate: editBrand, isPending: isEditing } = useMutation({
     mutationFn: editBrandApi,
     onSuccess: () => {

@@ -4,7 +4,7 @@ import StyledNavLink from "./StyledNavLink";
 
 const StyledNav = styled.nav`
   display: flex;
-  gap: 3.2rem;
+  gap: 2.4rem;
 `;
 
 const StyledNavLinks = styled(StyledNavLink)`

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Logo from "./Logo";
 import SecondaryNav from "./SecondaryNav";
+import Logout from "../features/authentication/Logout";
 
 const StyledHeader = styled.header`
   background-color: var(--color-grey-900);
@@ -11,11 +12,20 @@ const StyledHeader = styled.header`
   padding: 2rem 6rem 2rem 0.8rem;
 `;
 
+const StyledContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+`;
+
 function Header() {
   return (
     <StyledHeader>
       <Logo />
-      <SecondaryNav />
+      <StyledContainer>
+        <SecondaryNav />
+        <Logout />
+      </StyledContainer>
     </StyledHeader>
   );
 }

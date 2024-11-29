@@ -56,13 +56,20 @@ const StyledOptionsContainer = styled.div`
   top: ${(props) => props.position.y}px;
   z-index: 100;
   display: flex;
-  gap: 2.5rem;
+  gap: 2rem;
   padding: 2rem;
   overflow: auto;
-`;
-const StyledIndividualOptionContainer = styled.div`
   accent-color: var(--color-grey-900);
   color: var(--color-grey-900);
+`;
+
+const StyledIndividualFilterContainer = styled.div``;
+
+const StyledIndividualOptionContainer = styled.div`
+  color: ${(props) =>
+    props.children[0].props.disabled === true
+      ? "var(--color-grey-700)"
+      : "var(--color-grey-900)"};
 `;
 
 const StyledIndividualOption = styled.label`
@@ -220,11 +227,11 @@ function Filter({ filterList = [] }) {
       {showOptions && (
         <StyledOptionsContainer position={position}>
           {filterList.map((filterType) => (
-            <StyledIndividualOptionContainer key={filterType.filterTitle}>
+            <StyledIndividualFilterContainer key={filterType.filterTitle}>
               <StyledFilterTitle>{filterType.filterTitle}</StyledFilterTitle>
 
               {filterType.filterOptions.map((optionType) => (
-                <div key={optionType.id}>
+                <StyledIndividualOptionContainer key={optionType.id}>
                   <input
                     type="checkbox"
                     id={optionType.id}
@@ -246,9 +253,9 @@ function Filter({ filterList = [] }) {
                   <StyledIndividualOption htmlFor={optionType.name}>
                     {optionType.name}
                   </StyledIndividualOption>
-                </div>
+                </StyledIndividualOptionContainer>
               ))}
-            </StyledIndividualOptionContainer>
+            </StyledIndividualFilterContainer>
           ))}
         </StyledOptionsContainer>
       )}

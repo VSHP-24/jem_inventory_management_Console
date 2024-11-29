@@ -7,7 +7,7 @@ import { SUBCATEGORIES_URL } from "./apiLinks";
 export async function getSubCategories() {
   const res = await fetch(SUBCATEGORIES_URL);
   const data = await res.json();
-  return data.data.subCategories;
+  return data.data.data;
 }
 
 /////////////////////////////////////////////////
