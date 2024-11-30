@@ -3,7 +3,6 @@ import { useUser } from "../features/authentication/useUser";
 import Spinner from "./Spinner";
 import { useEffect } from "react";
 import styled from "styled-components";
-import toast from "react-hot-toast";
 
 const FullPage = styled.div`
   height: 100vh;
@@ -27,11 +26,6 @@ function ProtectedRoute({ children }) {
       <FullPage>
         <Spinner />
       </FullPage>
-    );
-
-  if (!isAuthenticated)
-    return toast.error(
-      "Unauthorized Access. Please provide valid email and password to log in!"
     );
 
   if (isAuthenticated) return children;

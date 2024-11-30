@@ -22,8 +22,10 @@ function ResetPassword() {
   return (
     <LoginLayout>
       <Logo allowRedirect={false} height="3.2rem" />
-      <StyledHeading as="h3">Trouble Logging in?</StyledHeading>
-      <ResetPasswordForm />
+      <StyledHeading as="h3">
+        {`Set a password that you won't forget next time 😜`}
+      </StyledHeading>
+      <ResetPasswordForm displayDirection="vertical" />
     </LoginLayout>
   );
 }

@@ -12,8 +12,10 @@ const Label = styled.label`
 `;
 
 const Error = styled.span`
-  font-size: 1.4rem;
-  color: var(--color-red-700);
+  grid-column-start: 2;
+  font-size: 1rem;
+  color: var(--color-red-800);
+  font-weight: 800;
 `;
 
 function FormRowVertical({ label, error, children }) {

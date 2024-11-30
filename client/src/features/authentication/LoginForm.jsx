@@ -2,12 +2,12 @@ import { useState } from "react";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
-import FormRowVertical from "../../ui/FormRowVertical";
 import StyledNavLink from "../../ui/StyledNavLink";
 import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
+import FormRow from "../../ui/FormRow";
 
-function LoginForm() {
+function LoginForm({ displayDirection = "vertical" }) {
   const [email, setEmail] = useState("admin@jem.com");
   const [password, setPassword] = useState("passwordforadmin@123");
 
@@ -29,7 +29,7 @@ function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRowVertical label="Email address">
+      <FormRow displayDirection={displayDirection} label="Email address">
         <Input
           type="email"
           id="email"
@@ -39,9 +39,9 @@ function LoginForm() {
           onChange={(e) => setEmail(e.target.value)}
           disabled={isPending}
         />
-      </FormRowVertical>
+      </FormRow>
 
-      <FormRowVertical label="Password">
+      <FormRow displayDirection={displayDirection} label="Password">
         <Input
           type="password"
           id="password"
@@ -50,15 +50,15 @@ function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           disabled={isPending}
         />
-      </FormRowVertical>
+      </FormRow>
       <StyledNavLink type="vertical" to="/forgotPassword">
         Forgot Password?
       </StyledNavLink>
-      <FormRowVertical>
+      <FormRow displayDirection={displayDirection}>
         <Button variation="primary" size="large" disabled={isPending}>
           {!isPending ? "Log in" : <SpinnerMini />}
         </Button>
-      </FormRowVertical>
+      </FormRow>
     </Form>
   );
 }

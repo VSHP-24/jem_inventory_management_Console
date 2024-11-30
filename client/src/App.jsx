@@ -18,6 +18,7 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import ResetPassword from "./pages/ResetPassword";
+import Users from "./pages/Users";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,6 +45,7 @@ function App() {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="create" element={<Create />} />
             <Route path="manage" element={<Manage />} />
+            <Route path="users" element={<Users />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="products" element={<Products />} />
             <Route path="orders" element={<Order />} />

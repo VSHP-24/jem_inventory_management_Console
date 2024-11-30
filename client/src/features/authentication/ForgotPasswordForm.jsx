@@ -2,11 +2,11 @@ import { useState } from "react";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
-import FormRowVertical from "../../ui/FormRowVertical";
 import { useForgotPassword } from "./useForgotPassword";
+import FormRow from "../../ui/FormRow";
 import SpinnerMini from "../../ui/SpinnerMini";
 
-function ForgotPasswordForm() {
+function ForgotPasswordForm({ displayDirection = "vertical" }) {
   const [email, setEmail] = useState("");
   const { forgotPassword, isPending } = useForgotPassword();
 
@@ -25,7 +25,7 @@ function ForgotPasswordForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRowVertical label="Email address">
+      <FormRow displayDirection={displayDirection} label="Email address">
         <Input
           type="email"
           id="email"
@@ -35,13 +35,13 @@ function ForgotPasswordForm() {
           onChange={(e) => setEmail(e.target.value)}
           disabled={isPending}
         />
-      </FormRowVertical>
+      </FormRow>
 
-      <FormRowVertical>
+      <FormRow displayDirection={displayDirection}>
         <Button variation="primary" size="large" disabled={isPending}>
           {!isPending ? "Send Password Reset Link" : <SpinnerMini />}
         </Button>
-      </FormRowVertical>
+      </FormRow>
     </Form>
   );
 }

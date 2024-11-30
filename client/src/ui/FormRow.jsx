@@ -1,12 +1,24 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledFormRow = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 24rem 1fr;
-  gap: 0.5rem;
+  ${(props) =>
+    props.displayDirection === "horizontal" &&
+    css`
+      display: grid;
+      align-items: center;
+      grid-template-columns: 24rem 1fr;
+      gap: 0.5rem;
+    `}
 
-  padding: 1.2rem 0;
+  ${(props) =>
+    props.displayDirection === "vertical" &&
+    css`
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.8rem 0;
+    `}
+    padding: 1.2rem 0;
 
   &:first-child {
     padding-top: 0;
@@ -34,14 +46,13 @@ const Error = styled.span`
   font-weight: 800;
 `;
 
-function FormRow({ label, error, children }) {
+function FormRow({ label, error, displayDirection = "horizontal", children }) {
   return (
-    <StyledFormRow>
+    <StyledFormRow displayDirection={displayDirection}>
       {label && <Label htmlFor={children.props?.id}>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}
     </StyledFormRow>
   );
 }
-
 export default FormRow;

@@ -1,24 +1,26 @@
 import { useState } from "react";
-import Button from "../../ui/Button";
 import Form from "../../ui/Form";
-import Input from "../../ui/Input";
-import { useResetPassword } from "./useResetPassword";
-import SpinnerMini from "../../ui/SpinnerMini";
 import FormRow from "../../ui/FormRow";
+import Input from "../../ui/Input";
+import Button from "../../ui/Button";
+import SpinnerMini from "../../ui/SpinnerMini";
+import { useUpdatePassword } from "./useUpdatePassword";
 
-function ResetPasswordForm({ displayDirection = "horizontal" }) {
+function UpdatePasswordForm({ displayDirection = "horizontal" }) {
+  const [passwordCurrent, setPasswordCurrent] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  const { resetPassword, isPending } = useResetPassword();
+  const { updatePassword, isPending } = useUpdatePassword();
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!password || !passwordConfirm) return;
-    resetPassword(
-      { password, passwordConfirm },
+    updatePassword(
+      { passwordCurrent, password, passwordConfirm },
       {
         onSettled: () => {
+          setPasswordCurrent("");
           setPassword("");
           setPasswordConfirm("");
         },
@@ -28,18 +30,27 @@ function ResetPasswordForm({ displayDirection = "horizontal" }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRow displayDirection={displayDirection} label="Password">
+      <FormRow displayDirection={displayDirection} label="Current Password">
+        <Input
+          type="password"
+          id="passwordCurrent"
+          value={passwordCurrent}
+          onChange={(e) => setPasswordCurrent(e.target.value)}
+          disabled={isPending}
+        />
+      </FormRow>
+
+      <FormRow displayDirection={displayDirection} label="New Password">
         <Input
           type="password"
           id="password"
-          autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           disabled={isPending}
         />
       </FormRow>
 
-      <FormRow displayDirection={displayDirection} label="Confirm Password">
+      <FormRow displayDirection={displayDirection} label="Confirm New Password">
         <Input
           type="password"
           id="passwordConfirm"
@@ -58,4 +69,4 @@ function ResetPasswordForm({ displayDirection = "horizontal" }) {
   );
 }
 
-export default ResetPasswordForm;
+export default UpdatePasswordForm;

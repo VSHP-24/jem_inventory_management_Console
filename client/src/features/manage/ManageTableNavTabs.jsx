@@ -10,7 +10,7 @@ function ManageTableNavTabs() {
         { value: "categories", label: "Categories" },
         { value: "subCategories", label: "SubCategories" },
       ]}
-    ></NavTabs>
+    />
   );
 }
 

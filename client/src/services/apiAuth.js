@@ -4,6 +4,7 @@ import {
   LOGIN_URL,
   LOGOUT_URL,
   RESET_PASSWORD_URL,
+  UPDATE_PASSWORD_URL,
 } from "./apiLinks";
 
 /////////////////////////////////////////////////
@@ -34,6 +35,7 @@ export async function getCurrentUser() {
     credentials: "include",
   });
   const data = await res.json();
+  if (!res.ok) throw new Error(data.message);
   return data.data.data;
 }
 
@@ -82,6 +84,29 @@ export async function resetPassword({ password, passwordConfirm }) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ password, passwordConfirm }),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message);
+  return data.data.user;
+}
+
+/////////////////////////////////////////////////
+//           USER UPDATE PASSWORD
+/////////////////////////////////////////////////
+
+export async function updatePassword({
+  passwordCurrent,
+  password,
+  passwordConfirm,
+}) {
+  const res = await fetch(UPDATE_PASSWORD_URL, {
+    mode: "cors",
+    credentials: "include",
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ passwordCurrent, password, passwordConfirm }),
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
