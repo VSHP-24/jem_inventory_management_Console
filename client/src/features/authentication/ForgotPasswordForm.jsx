@@ -1,39 +1,40 @@
-import { useState } from "react";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import { useForgotPassword } from "./useForgotPassword";
 import FormRow from "../../ui/FormRow";
 import SpinnerMini from "../../ui/SpinnerMini";
+import { useForm } from "react-hook-form";
 
 function ForgotPasswordForm({ displayDirection = "vertical" }) {
-  const [email, setEmail] = useState("");
   const { forgotPassword, isPending } = useForgotPassword();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!email) return;
-    forgotPassword(
-      { email },
-      {
-        onSettled: () => {
-          setEmail("");
-        },
-      }
-    );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  async function onSubmit(data) {
+    forgotPassword({ ...data }, { onSuccess: () => reset() });
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormRow displayDirection={displayDirection} label="Email address">
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <FormRow
+        label="Email address"
+        error={errors?.email?.message}
+        displayDirection={displayDirection}
+      >
         <Input
           type="email"
           id="email"
+          placeholder="Enter your email address"
           // This makes this form better for password managers
           autoComplete="username"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           disabled={isPending}
+          {...register("email", { required: "*This field is required" })}
         />
       </FormRow>
 

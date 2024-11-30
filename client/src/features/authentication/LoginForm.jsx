@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
@@ -6,49 +5,52 @@ import StyledNavLink from "../../ui/StyledNavLink";
 import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
 import FormRow from "../../ui/FormRow";
+import { useForm } from "react-hook-form";
 
 function LoginForm({ displayDirection = "vertical" }) {
-  const [email, setEmail] = useState("admin@jem.com");
-  const [password, setPassword] = useState("passwordforadmin@123");
-
   const { login, isPending } = useLogin();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!email || !password) return;
-    login(
-      { email, password },
-      {
-        onSettled: () => {
-          setEmail("");
-          setPassword("");
-        },
-      }
-    );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  async function onSubmit(data) {
+    login({ ...data }, { onSuccess: () => reset() });
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormRow displayDirection={displayDirection} label="Email address">
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <FormRow
+        label="Email address"
+        error={errors?.email?.message}
+        displayDirection={displayDirection}
+      >
         <Input
           type="email"
           id="email"
+          placeholder="Enter your email address"
           // This makes this form better for password managers
           autoComplete="username"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           disabled={isPending}
+          {...register("email", { required: "*This field is required" })}
         />
       </FormRow>
 
-      <FormRow displayDirection={displayDirection} label="Password">
+      <FormRow
+        label="Password"
+        error={errors?.password?.message}
+        displayDirection={displayDirection}
+      >
         <Input
           type="password"
           id="password"
+          placeholder="Enter your password"
           autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           disabled={isPending}
+          {...register("password", { required: "*This field is required" })}
         />
       </FormRow>
       <StyledNavLink type="vertical" to="/forgotPassword">

@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 export function useForgotPassword() {
   const { mutate: forgotPassword, isPending } = useMutation({
-    mutationFn: ({ email }) => forgotPasswordApi({ email }),
+    mutationFn: forgotPasswordApi,
     onSuccess: (user) => {
       toast.success(`Reset Password Token sent to email!`);
     },

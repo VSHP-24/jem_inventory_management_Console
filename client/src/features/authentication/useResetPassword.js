@@ -4,13 +4,12 @@ import { resetPassword as resetPasswordApi } from "../../services/apiAuth";
 
 export function useResetPassword() {
   const { mutate: resetPassword, isPending } = useMutation({
-    mutationFn: ({ password, passwordConfirm }) =>
-      resetPasswordApi({ password, passwordConfirm }),
+    mutationFn: resetPasswordApi,
     onSuccess: (user) => {
       toast.success(`Password Reset successful!`);
     },
     onError: () => {
-      toast.error("Provided email or password is incorrect");
+      toast.error(" Oops ! Password reset failed 😥. Please try again later !");
     },
   });
   return { resetPassword, isPending };

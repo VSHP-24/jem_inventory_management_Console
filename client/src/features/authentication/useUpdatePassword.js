@@ -4,8 +4,7 @@ import { updatePassword as updatePasswordApi } from "../../services/apiAuth";
 
 export function useUpdatePassword() {
   const { mutate: updatePassword, isPending } = useMutation({
-    mutationFn: ({ passwordCurrent, password, passwordConfirm }) =>
-      updatePasswordApi({ passwordCurrent, password, passwordConfirm }),
+    mutationFn: updatePasswordApi,
     onSuccess: (user) => {
       toast.success(`Password Reset successful!`);
     },
