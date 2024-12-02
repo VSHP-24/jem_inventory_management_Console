@@ -5,6 +5,7 @@ import {
   LOGIN_URL,
   LOGOUT_URL,
   RESET_PASSWORD_URL,
+  UPDATE_ME_URL,
   UPDATE_PASSWORD_URL,
 } from "./apiLinks";
 
@@ -126,4 +127,23 @@ export async function createNewStaff(newStaff) {
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
+}
+
+/////////////////////////////////////////////////
+//           UPDATE MY PROFILE
+/////////////////////////////////////////////////
+
+export async function updateMyProfile(updatedProfileData) {
+  const res = await fetch(UPDATE_ME_URL, {
+    mode: "cors",
+    credentials: "include",
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedProfileData),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message);
+  return data.data.user;
 }
