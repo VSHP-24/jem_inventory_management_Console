@@ -1,0 +1,103 @@
+import { useSearchParams } from "react-router-dom";
+import Pagination from "../../ui/Pagination";
+import Spinner from "../../ui/Spinner";
+import Table from "../../ui/Table";
+import { useGetUsers } from "./useGetUsers";
+import UsersRow from "./UsersRow";
+
+function UsersTable() {
+  const { isPending, users } = useGetUsers();
+  const [searchParams] = useSearchParams();
+
+  const sortBy = searchParams.get("sortBy") || "name-asc";
+  const [field, direction] = sortBy.split("-");
+
+  let sortedUsers;
+  let filterDeletedUsers = [];
+  let filterAvailableUsers = [];
+
+  if (!isPending) {
+    // SORT
+
+    sortedUsers = users.sort((a, b) => {
+      if (direction === "asc") {
+        if (a[field].toUpperCase() > b[field].toUpperCase()) return 1;
+        if (b[field].toUpperCase() > a[field].toUpperCase()) return -1;
+      }
+      if (direction === "desc") {
+        if (a[field].toUpperCase() > b[field].toUpperCase()) return -1;
+        if (b[field].toUpperCase() > a[field].toUpperCase()) return 1;
+      }
+      return null;
+    });
+
+    // Filter Deleted Users
+
+    filterDeletedUsers = sortedUsers.filter((user) =>
+      user.active === false ? user : null
+    );
+
+    // Filter Available Users
+
+    filterAvailableUsers = sortedUsers.filter((user) =>
+      user.active === true ? user : null
+    );
+  }
+
+  function DeletedUsers() {
+    return (
+      <Table
+        columns="2fr 7.5fr 7.5fr .75fr "
+        modalWindowedTable={true}
+        menuListRequired={false}
+      >
+        <Table.Header>
+          <div>Sl No.</div>
+          <div>Name</div>
+          <div>Email</div>
+        </Table.Header>
+
+        <Table.Body
+          data={filterDeletedUsers}
+          render={(user, i) => (
+            <UsersRow
+              user={user}
+              index={i}
+              key={user.id}
+              id={user.id}
+              deletedTable={true}
+            />
+          )}
+        />
+      </Table>
+    );
+  }
+
+  if (isPending) return <Spinner />;
+
+  return (
+    <Table
+      deletedTableContent={<DeletedUsers />}
+      columns=".75fr 2fr 2.5fr 1fr .75fr"
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Name</div>
+        <div>Email</div>
+        <div>Role</div>
+      </Table.Header>
+
+      <Table.Body
+        data={filterAvailableUsers}
+        render={(user, i) => (
+          <UsersRow user={user} index={i} key={user.id} id={user.id} />
+        )}
+      />
+      <Table.Footer>
+        <Pagination count={users.length} />
+      </Table.Footer>
+    </Table>
+  );
+}
+
+export default UsersTable;

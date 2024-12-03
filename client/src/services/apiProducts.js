@@ -52,15 +52,17 @@ export async function createEditProduct(newProduct) {
 
 export async function deleteProduct(id) {
   const updateDeletedStatus = {
+    id,
     isDeleted: true,
   };
   const res = await fetch(`${PRODUCTS_URL}/${id}`, {
-    method: "PATCH",
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(updateDeletedStatus),
   });
+  if (res.ok) return;
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }

@@ -18,7 +18,6 @@ function ResetPasswordForm({ displayDirection = "horizontal" }) {
   } = useForm();
 
   async function onSubmit(data) {
-    console.log(data);
     resetPassword({ ...data }, { onSuccess: () => reset() });
   }
 

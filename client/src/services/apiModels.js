@@ -52,15 +52,17 @@ export async function createEditModel(newModel) {
 
 export async function deleteModel(id) {
   const updateDeletedStatus = {
+    id,
     isDeleted: true,
   };
   const res = await fetch(`${MODELS_URL}/${id}`, {
-    method: "PATCH",
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(updateDeletedStatus),
   });
+  if (res.ok) return;
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }

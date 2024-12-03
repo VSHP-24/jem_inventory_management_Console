@@ -54,15 +54,17 @@ export async function createEditBrand(newBrand) {
 
 export async function deleteBrand(id) {
   const updateDeletedStatus = {
+    id,
     isDeleted: true,
   };
   const res = await fetch(`${BRANDS_URL}/${id}`, {
-    method: "PATCH",
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(updateDeletedStatus),
   });
+  if (res.ok) return;
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }

@@ -1,14 +1,18 @@
-// import { useState } from "react";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import { useCreateNewStaff } from "./useCreateNewStaff";
-import SpinnerMini from "../../ui/SpinnerMini";
 import { useForm } from "react-hook-form";
+import { useEditUser } from "../users/useEditUser";
 
-function CreateNewStaffForm({ displayDirection = "horizontal" }) {
-  const { createNewStaff, isPending } = useCreateNewStaff();
+function CreateNewStaffForm({
+  userToEdit = {},
+  displayDirection = "horizontal",
+  onCloseModal,
+}) {
+  const { id: editId, ...editValues } = userToEdit;
+  const isEditSession = Boolean(editId);
 
   const {
     register,
@@ -16,14 +20,27 @@ function CreateNewStaffForm({ displayDirection = "horizontal" }) {
     formState: { errors },
     getValues,
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: isEditSession ? { ...editValues } : {},
+  });
+
+  const { createNewStaff, isPending } = useCreateNewStaff();
+  const { isEditing, editUser } = useEditUser();
+
+  const isWorking = isPending || isEditing;
 
   async function onSubmit(data) {
-    createNewStaff({ ...data }, { onSuccess: () => reset() });
+    if (isEditSession) {
+      editUser({ ...data }, { onSuccess: onCloseModal });
+    } else createNewStaff({ ...data }, { onSuccess: () => reset() });
+  }
+
+  function onError(errors) {
+    return null;
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow
         label="Name"
         error={errors?.name?.message}
@@ -32,7 +49,7 @@ function CreateNewStaffForm({ displayDirection = "horizontal" }) {
         <Input
           type="text"
           id="name"
-          disabled={isPending}
+          disabled={isWorking}
           placeholder="Enter Staff Full Name"
           {...register("name", { required: "*This field is required" })}
         />
@@ -49,53 +66,57 @@ function CreateNewStaffForm({ displayDirection = "horizontal" }) {
           placeholder="Enter Staff Email Address"
           // This makes this form better for password managers
           autoComplete="username"
-          disabled={isPending}
+          disabled={isWorking}
           {...register("email", { required: "*This field is required" })}
         />
       </FormRow>
 
-      <FormRow
-        displayDirection={displayDirection}
-        label="New Password"
-        error={errors?.password?.message}
-      >
-        <Input
-          type="password"
-          id="password"
-          placeholder="Enter Staff Temporary Password"
-          disabled={isPending}
-          {...register("password", {
-            required: "*This field is required",
-            minLength: {
-              value: 8,
-              message: "Password should contain atleast 8 characters",
-            },
-          })}
-        />
-      </FormRow>
+      {!isEditSession && (
+        <>
+          <FormRow
+            displayDirection={displayDirection}
+            label="New Password"
+            error={errors?.password?.message}
+          >
+            <Input
+              type="password"
+              id="password"
+              placeholder="Enter Staff Temporary Password"
+              disabled={isWorking}
+              {...register("password", {
+                required: "*This field is required",
+                minLength: {
+                  value: 8,
+                  message: "Password should contain atleast 8 characters",
+                },
+              })}
+            />
+          </FormRow>
 
-      <FormRow
-        displayDirection={displayDirection}
-        label="Confirm New Password"
-        error={errors?.passwordConfirm?.message}
-      >
-        <Input
-          type="password"
-          id="passwordConfirm"
-          placeholder="Enter Staff Temporary Password to confirm"
-          disabled={isPending}
-          {...register("passwordConfirm", {
-            required: "*This field is required",
-            validate: (value) =>
-              String(value) === String(getValues().password) ||
-              "*Passwords do not match",
-          })}
-        />
-      </FormRow>
+          <FormRow
+            displayDirection={displayDirection}
+            label="Confirm New Password"
+            error={errors?.passwordConfirm?.message}
+          >
+            <Input
+              type="password"
+              id="passwordConfirm"
+              placeholder="Enter Staff Temporary Password to confirm"
+              disabled={isWorking}
+              {...register("passwordConfirm", {
+                required: "*This field is required",
+                validate: (value) =>
+                  String(value) === String(getValues().password) ||
+                  "*Passwords do not match",
+              })}
+            />
+          </FormRow>
+        </>
+      )}
 
       <FormRow displayDirection={displayDirection}>
-        <Button variation="primary" size="large" disabled={isPending}>
-          {!isPending ? "Create New Staff" : <SpinnerMini />}
+        <Button variation="primary" size="large" disabled={isWorking}>
+          {isEditSession ? "Edit Staff" : "Create New Staff"}
         </Button>
       </FormRow>
     </Form>

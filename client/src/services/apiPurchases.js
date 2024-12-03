@@ -59,6 +59,8 @@ export async function createEditPurchase(newPurchase) {
     }
 
     res = await fetch(`${PURCHASES_URL}/${newPurchase._id}`, {
+      mode: "cors",
+      credentials: "include",
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -76,15 +78,19 @@ export async function createEditPurchase(newPurchase) {
 
 export async function deletePurchase(id) {
   const updateDeletedStatus = {
+    id,
     isDeleted: true,
   };
   const res = await fetch(`${PURCHASES_URL}/${id}`, {
-    method: "PATCH",
+    mode: "cors",
+    credentials: "include",
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(updateDeletedStatus),
   });
+  if (res.ok) return;
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }

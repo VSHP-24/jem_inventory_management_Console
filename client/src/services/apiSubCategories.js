@@ -53,15 +53,17 @@ export async function createEditSubCategory(newSubCategory) {
 
 export async function deleteSubCategory(id) {
   const updateDeletedStatus = {
+    id,
     isDeleted: true,
   };
   const res = await fetch(`${SUBCATEGORIES_URL}/${id}`, {
-    method: "PATCH",
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(updateDeletedStatus),
   });
+  if (res.ok) return;
   const data = await res.json();
   if (!res.ok) throw new Error(data.message);
 }
