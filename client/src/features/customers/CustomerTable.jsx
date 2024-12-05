@@ -9,7 +9,7 @@ function CustomersTable() {
   const { isPending, customers } = useGetCustomers();
   const [searchParams] = useSearchParams();
 
-  const sortBy = searchParams.get("sortBy") || "user-asc";
+  const sortBy = searchParams.get("sortBy") || "name-asc";
   const [field, direction] = sortBy.split("-");
 
   let sortedCustomers;
@@ -18,27 +18,22 @@ function CustomersTable() {
 
   if (!isPending) {
     // SORT
-
     sortedCustomers = customers.sort((a, b) => {
-      if (direction === "asc" && field === "user") {
-        if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
-        if (b[field].name.toUpperCase() > a[field].name.toUpperCase())
-          return -1;
-      }
-      if (direction === "desc" && field === "user") {
-        if (a[field].name.toUpperCase() > b[field].name.toUpperCase())
-          return -1;
-        if (b[field].name.toUpperCase() > a[field].name.toUpperCase()) return 1;
-      }
       if (direction === "asc") {
-        if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
-        if (b.name.toUpperCase() > a.name.toUpperCase()) return -1;
+        if (
+          a.user[field].toUpperCase() >
+          b.user[field].toUpperCase().toUpperCase()
+        )
+          return 1;
+
+        if (b.user[field].toUpperCase() > a.user[field].toUpperCase())
+          return -1;
       }
       if (direction === "desc") {
-        if (a.name.toUpperCase() > b.name.toUpperCase()) return -1;
-        if (b.name.toUpperCase() > a.name.toUpperCase()) return 1;
+        if (a.user[field].toUpperCase() > b.user[field].toUpperCase())
+          return -1;
+        if (b.user[field].toUpperCase() > a.user[field].toUpperCase()) return 1;
       }
-
       return null;
     });
 
