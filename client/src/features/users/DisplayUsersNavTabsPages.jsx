@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import UpdatePasswordForm from "../authentication/UpdatePasswordForm";
 import CreateNewStaffForm from "../authentication/CreateNewStaffForm";
 import MyProfile from "../authentication/MyProfile";
-import UsersTable from "./UsersTable";
+import UserTable from "./UserTable";
 
 function DisplayUsersNavTabsPages() {
   const [searchParams] = useSearchParams();
@@ -12,7 +12,7 @@ function DisplayUsersNavTabsPages() {
   if (showPage === "myProfile") return <MyProfile />;
   if (showPage === "updatePassword") return <UpdatePasswordForm />;
   if (showPage === "createStaffProfile") return <CreateNewStaffForm />;
-  if (showPage === "allUsers") return <UsersTable />;
+  if (showPage === "allUsers") return <UserTable />;
 }
 
 export default DisplayUsersNavTabsPages;

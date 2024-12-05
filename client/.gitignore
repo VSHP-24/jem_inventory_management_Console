@@ -16,6 +16,8 @@ dev-data
 DesignSystem
 apiLinks.js
 supabase.js
+customers
+apiCustomers.js
 
 
 # Editor directories and files

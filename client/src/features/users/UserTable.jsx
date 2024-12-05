@@ -3,9 +3,9 @@ import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import { useGetUsers } from "./useGetUsers";
-import UsersRow from "./UsersRow";
+import UserRow from "./UserRow";
 
-function UsersTable() {
+function UserTable() {
   const { isPending, users } = useGetUsers();
   const [searchParams] = useSearchParams();
 
@@ -19,7 +19,9 @@ function UsersTable() {
   if (!isPending) {
     // SORT
 
-    sortedUsers = users.sort((a, b) => {
+    const staffMembers = users.filter((user) => user.role === "staff");
+
+    sortedUsers = staffMembers.sort((a, b) => {
       if (direction === "asc") {
         if (a[field].toUpperCase() > b[field].toUpperCase()) return 1;
         if (b[field].toUpperCase() > a[field].toUpperCase()) return -1;
@@ -60,7 +62,7 @@ function UsersTable() {
         <Table.Body
           data={filterDeletedUsers}
           render={(user, i) => (
-            <UsersRow
+            <UserRow
               user={user}
               index={i}
               key={user.id}
@@ -90,14 +92,14 @@ function UsersTable() {
       <Table.Body
         data={filterAvailableUsers}
         render={(user, i) => (
-          <UsersRow user={user} index={i} key={user.id} id={user.id} />
+          <UserRow user={user} index={i} key={user.id} id={user.id} />
         )}
       />
       <Table.Footer>
-        <Pagination count={users.length} />
+        <Pagination count={filterAvailableUsers.length} />
       </Table.Footer>
     </Table>
   );
 }
 
-export default UsersTable;
+export default UserTable;

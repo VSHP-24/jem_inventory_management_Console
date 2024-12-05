@@ -9,6 +9,7 @@ export function useEditUser() {
     onSuccess: () => {
       toast.success(` User successfully edited `);
       queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
     },
     onError: (err) => toast.error(err.message),
   });

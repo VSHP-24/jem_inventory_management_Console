@@ -5,7 +5,7 @@ import { useDeleteUser } from "./useDeleteUser";
 import { useEditUser } from "./useEditUser";
 import UserDetailPage from "./UserDetailPage";
 
-function UsersRow({ user, index, id, deletedTable }) {
+function UserRow({ user, index, id, deletedTable }) {
   const { name, email, role } = user;
   const { isDeleting, deleteUser } = useDeleteUser();
 
@@ -50,4 +50,4 @@ function UsersRow({ user, index, id, deletedTable }) {
   );
 }
 
-export default UsersRow;
+export default UserRow;

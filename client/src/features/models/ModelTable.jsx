@@ -34,7 +34,7 @@ function ModelTable() {
           return -1;
         if (b[field].name.toUpperCase() > a[field].name.toUpperCase()) return 1;
       }
-      if (direction === "asc") {
+      if (direction === "asc" && field !== "price") {
         if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
         if (b.name.toUpperCase() > a.name.toUpperCase()) return -1;
       }

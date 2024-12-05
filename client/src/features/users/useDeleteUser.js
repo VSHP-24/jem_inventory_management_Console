@@ -9,6 +9,7 @@ export function useDeleteUser() {
     onSuccess: () => {
       toast.success(` User successfully deleted `);
       queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["customers"] });
     },
     onError: (err) => toast.error(err.message),
   });

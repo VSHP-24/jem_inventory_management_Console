@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import TableOperations from "../../ui/TableOperations";
 import SortBy from "../../ui/SortBy";
 
-function UsersTableOperations() {
+function UserTableOperations() {
   const [searchParams] = useSearchParams();
 
   let sortByOptions = [];
@@ -24,4 +24,4 @@ function UsersTableOperations() {
   );
 }
 
-export default UsersTableOperations;
+export default UserTableOperations;
