@@ -44,8 +44,6 @@ function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
     } else createPurchase({ ...data }, { onSuccess: () => reset() });
   }
 
-  // TODO:  Add Cost per Item and Total Cost
-
   function onError(errors) {
     return null;
   }
@@ -75,6 +73,18 @@ function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
             placeholder="Enter Number of Parts Purchased"
             disabled={isWorking}
             {...register("quantity", {
+              required: "*This field is required",
+            })}
+          />
+        </FormRow>
+
+        <FormRow label="Purchase Cost" error={errors?.purchaseCost?.message}>
+          <Input
+            type="number"
+            placeholder="Enter Purchase Amount"
+            id="purchaseCost"
+            disabled={isWorking}
+            {...register("purchaseCost", {
               required: "*This field is required",
             })}
           />

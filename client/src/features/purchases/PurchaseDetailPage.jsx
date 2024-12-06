@@ -40,6 +40,7 @@ function PurchaseDetailPage({ purchase }) {
     orderPlacedOnDate,
     orderStatusUpdateOn,
     status,
+    purchaseCost,
   } = purchase;
 
   return (
@@ -55,6 +56,13 @@ function PurchaseDetailPage({ purchase }) {
         <StyledRow>
           <StyledHeader>Quantity</StyledHeader>
           <StyledDetails>{quantity ? quantity : "--- NA ---"}</StyledDetails>
+        </StyledRow>
+
+        <StyledRow>
+          <StyledHeader>Purchase Cost</StyledHeader>
+          <StyledDetails>
+            {purchaseCost ? `₹ ${purchaseCost}` : "--- NA ---"}
+          </StyledDetails>
         </StyledRow>
 
         <StyledRow>

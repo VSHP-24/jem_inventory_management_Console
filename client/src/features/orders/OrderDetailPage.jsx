@@ -97,7 +97,7 @@ function OrderDetailPage({ order }) {
                     </div>
                     <div>{item.product.name}</div>
                     <div>{item.quantity}</div>
-                    <div>{item.cost}</div>
+                    <div>{`₹ ${item.cost}`}</div>
                   </Table.Row>
                 )}
               />
@@ -107,7 +107,7 @@ function OrderDetailPage({ order }) {
 
         <StyledRow>
           <StyledHeader>Total Cost</StyledHeader>
-          <StyledDetails>{cost ? cost : "--- NA ---"}</StyledDetails>
+          <StyledDetails>{cost ? `₹ ${cost}` : "--- NA ---"}</StyledDetails>
         </StyledRow>
         <StyledRow>
           <StyledHeader>Shipping Address</StyledHeader>

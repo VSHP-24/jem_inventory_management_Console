@@ -32,6 +32,8 @@ export async function createEditPurchase(newPurchase) {
     newPurchase.orderStatusUpdateOn = [StatusUpdateOn];
 
     res = await fetch(PURCHASES_URL, {
+      mode: "cors",
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",

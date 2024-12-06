@@ -108,7 +108,7 @@ function OrderTable() {
   return (
     <Table
       deletedTableContent={<DeletedOrders />}
-      columns=".75fr 4fr 2fr 1fr 1.5fr 1.5fr 3fr .75fr"
+      columns=".75fr 4fr 2fr 1.5fr 1.5fr 1.5fr 3fr .75fr"
     >
       <Table.Header>
         <div>Sl No.</div>

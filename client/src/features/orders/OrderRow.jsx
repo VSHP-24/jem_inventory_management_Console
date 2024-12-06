@@ -97,7 +97,7 @@ function OrderRow({ order, index, id, deletedTable }) {
         <>
           <div>{id}</div>
           <div>{user.user.name}</div>
-          <div>{cost}</div>
+          <div>{`₹ ${cost}`}</div>
           <div>{formatStatus(paymentMethod)}</div>
           <div>{formatStatus(paymentStatus)}</div>
           <StyledContainer>
