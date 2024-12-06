@@ -1,24 +1,21 @@
 import styled from "styled-components";
-import Heading from "../../ui/Heading";
-import { formatDate, formatStatus } from "../../utils/helpers";
 import Table from "../../ui/Table";
+import { formatDate, formatStatus } from "../../utils/helpers";
+import Heading from "../../ui/Heading";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
-  display: grid;
-  grid-template-columns: 50rem 20rem;
   font-size: 1.4rem;
   padding: 2rem;
-  width: 100%;
+  width: 70rem;
 `;
 
-const StyledCustomerDetails = styled.main``;
+const StyledOrderDetails = styled.main``;
 
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 12.5rem 1fr;
-  align-items: center;
+  grid-template-columns: 15rem 1fr;
 `;
 
 const StyledHeader = styled.div`
@@ -35,32 +32,11 @@ const StyledHeading = styled(Heading)`
   padding-bottom: 2rem;
 `;
 
-const StyledStatus = styled.span`
-  background-color: ${(props) =>
-    props.status === "order_delivered" && "#00ff00"};
-
-  background-color: ${(props) =>
-    props.status === "order_confirmed" && "#E9C111"};
-
-  background-color: ${(props) => props.status === "order_shipped" && "#FF7440"};
-
-  color: ${(props) => props.status === "order_placed" && "#FFFFFF"};
-
-  background-color: ${(props) => props.status === "order_placed" && "#FF0000"};
-  color: ${(props) => props.status === "order_placed" && "#FFFFFF"};
-
-  background-color: ${(props) =>
-    props.status === "cancelled" && "var(--color-grey-500)"};
-
-  padding: 0 0.5rem;
-  font-weight: 600;
-  border-radius: 0.4rem;
-  justify-self: center;
-`;
-
-function CustomerDetailPage({ customer }) {
+function OrderDetailPage({ order }) {
   const {
     user,
+    orderItems,
+    cost,
     shippingAddress,
     shippingCity,
     shippingState,
@@ -71,153 +47,177 @@ function CustomerDetailPage({ customer }) {
     billingState,
     billingPostCode,
     billingCountry,
-    phoneNumber,
-    orderHistory,
-  } = customer;
+    paymentMethod,
+    paymentStatus,
+    orderStatus,
+    orderStatusUpdateOn,
+    createdAt,
+  } = order;
 
+  console.log(orderItems);
   return (
     <StyledDetailPage>
-      <StyledCustomerDetails>
-        <StyledHeading as="h2">CUSTOMER DETAILS</StyledHeading>
-
+      <StyledOrderDetails>
+        <StyledHeading as="h2">ORDER DETAILS</StyledHeading>
         <StyledRow>
-          <StyledHeader>Name</StyledHeader>
-          <StyledDetails>{user.name ? user.name : "--- NA ---"}</StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Email</StyledHeader>
+          <StyledHeader>Customer Name</StyledHeader>
           <StyledDetails>
-            {user.email ? user.email : "--- NA ---"}
+            {user.user.name ? user.user.name : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Customer Email</StyledHeader>
+          <StyledDetails>
+            {user.user.email ? user.user.email : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
 
         <StyledRow>
-          <StyledHeader>Shipping Address</StyledHeader>
-          <StyledDetails>
-            {shippingAddress ? shippingAddress : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Shipping City</StyledHeader>
-          <StyledDetails>
-            {shippingCity ? shippingCity : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Shipping State</StyledHeader>
-          <StyledDetails>
-            {shippingState ? shippingState : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Shipping PostCode</StyledHeader>
-          <StyledDetails>
-            {shippingPostCode ? shippingPostCode : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Shipping Country</StyledHeader>
-          <StyledDetails>
-            {shippingCountry ? shippingCountry : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Billing Address</StyledHeader>
-          <StyledDetails>
-            {billingAddress ? billingAddress : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Billing City</StyledHeader>
-          <StyledDetails>
-            {billingCity ? billingCity : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Billing State</StyledHeader>
-          <StyledDetails>
-            {billingState ? billingState : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Billing PostCode</StyledHeader>
-          <StyledDetails>
-            {billingPostCode ? billingPostCode : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Billing Country</StyledHeader>
-          <StyledDetails>
-            {billingCountry ? billingCountry : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Phone Number</StyledHeader>
-          <StyledDetails>
-            {phoneNumber ? phoneNumber : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Password Modified On</StyledHeader>
-          <StyledDetails>
-            {user.passwordChagedAt
-              ? formatDate(user.passwordChagedAt)
-              : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Order History</StyledHeader>
+          <StyledHeader>Ordered Items</StyledHeader>
           <StyledDetails>
             <Table
-              columns="17.5rem 5rem 7.5rem 7.5rem 9rem 10rem"
+              columns=".75fr 3fr 1fr 1fr"
               menuListRequired={false}
               modalWindowedTable={true}
             >
               <Table.Header>
-                <div>Order Id</div>
+                <div>Sl No.</div>
+                <div>Product Name</div>
+                <div>Quantity</div>
                 <div>Cost</div>
-                <div>Payment Method</div>
-                <div>Payment Status</div>
-                <div>Order Status</div>
-                <div>Ordered On</div>
               </Table.Header>
               <Table.Body
-                data={orderHistory}
-                render={(order) => (
-                  <Table.Row
-                    columns="17.5rem 5rem 7.5rem 7.5rem 9rem 10rem"
-                    key={order.id}
-                  >
-                    <div>{order.id}</div>
-                    <div>{order.cost}</div>
-                    <div>{formatStatus(order.paymentMethod)}</div>
-                    <div>{formatStatus(order.paymentStatus)}</div>
-                    <StyledStatus status={order.orderStatus}>
-                      {formatStatus(order.orderStatus)}
-                    </StyledStatus>
-                    <div>{formatDate(order.createdAt)}</div>
+                data={orderItems}
+                render={(item, i) => (
+                  <Table.Row columns=".75fr 3fr 1fr 1fr" key={item.id}>
+                    <div>
+                      {(i <= 8 && `0${i + 1}`) ||
+                        (i === 9 && `${i + 1}`) ||
+                        i + 1}
+                    </div>
+                    <div>{item.product.name}</div>
+                    <div>{item.quantity}</div>
+                    <div>{item.cost}</div>
                   </Table.Row>
                 )}
               />
             </Table>
           </StyledDetails>
         </StyledRow>
-      </StyledCustomerDetails>
+
+        <StyledRow>
+          <StyledHeader>Total Cost</StyledHeader>
+          <StyledDetails>{cost ? cost : "--- NA ---"}</StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Shipping Address</StyledHeader>
+          <StyledDetails>
+            {shippingAddress ? shippingAddress : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Shipping City</StyledHeader>
+          <StyledDetails>
+            {shippingCity ? shippingCity : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Shipping State</StyledHeader>
+          <StyledDetails>
+            {shippingState ? shippingState : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Shipping PostCode</StyledHeader>
+          <StyledDetails>
+            {shippingPostCode ? shippingPostCode : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Shipping Country</StyledHeader>
+          <StyledDetails>
+            {shippingCountry ? shippingCountry : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Billing Address</StyledHeader>
+          <StyledDetails>
+            {billingAddress ? billingAddress : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Billing City</StyledHeader>
+          <StyledDetails>
+            {billingCity ? billingCity : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Billing State</StyledHeader>
+          <StyledDetails>
+            {billingState ? billingState : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Billing PostCode</StyledHeader>
+          <StyledDetails>
+            {billingPostCode ? billingPostCode : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Billing Country</StyledHeader>
+          <StyledDetails>
+            {billingCountry ? billingCountry : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Payment Method</StyledHeader>
+          <StyledDetails>
+            {paymentMethod ? formatStatus(paymentMethod) : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Payment Status</StyledHeader>
+          <StyledDetails>
+            {paymentStatus ? formatStatus(paymentStatus) : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Order Status</StyledHeader>
+          <StyledDetails>
+            {orderStatus ? formatStatus(orderStatus) : "--- NA ---"}
+          </StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Order Created On</StyledHeader>
+          <StyledDetails>{createdAt ? createdAt : "--- NA ---"}</StyledDetails>
+        </StyledRow>
+        <StyledRow>
+          <StyledHeader>Order Status Modified On</StyledHeader>
+          <StyledDetails>
+            <Table
+              columns="10rem 20rem"
+              menuListRequired={false}
+              modalWindowedTable={true}
+            >
+              <Table.Header>
+                <div>Status</div>
+                <div>Modified On</div>
+              </Table.Header>
+              <Table.Body
+                data={orderStatusUpdateOn}
+                render={(status) => (
+                  <Table.Row columns="10rem 20rem" key={status.id}>
+                    <div>{formatStatus(status.updatedStatus)}</div>
+                    <div>{formatDate(status.updatedOn)}</div>
+                  </Table.Row>
+                )}
+              />
+            </Table>
+          </StyledDetails>
+        </StyledRow>
+      </StyledOrderDetails>
     </StyledDetailPage>
   );
 }
 
-export default CustomerDetailPage;
+export default OrderDetailPage;
