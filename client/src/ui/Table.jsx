@@ -99,6 +99,7 @@ function Table({
         open,
         menuListRequired,
         currentPage,
+        modalWindowedTable,
       }}
     >
       <StyledTable role="table">{children}</StyledTable>
@@ -166,15 +167,22 @@ function Row({
   );
 }
 function Body({ data, render }) {
-  const { currentPage } = useContext(TableContext);
+  const { currentPage, modalWindowedTable } = useContext(TableContext);
   if (!data.length) return <Empty>No data to show at the moment</Empty>;
-  return (
-    <StyledBody>
-      {data
-        .map(render)
-        .slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)}
-    </StyledBody>
-  );
+
+  if (!modalWindowedTable) {
+    return (
+      <StyledBody>
+        {data
+          .map(render)
+          .slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)}
+      </StyledBody>
+    );
+  }
+
+  if (modalWindowedTable) {
+    return <StyledBody>{data.map(render)}</StyledBody>;
+  }
 }
 
 Table.Header = Header;
