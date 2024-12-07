@@ -3,12 +3,14 @@ import styled from "styled-components";
 
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Footer from "./Footer";
 
 const StyledAppLayout = styled.div`
   display: grid;
   grid-template-columns: 11rem 1fr;
-  grid-template-rows: 5.2rem 1fr;
+  grid-template-rows: 5.2rem 1fr 2.25rem;
   height: 100vh;
+  overflow: clip;
 `;
 
 const Main = styled.main`
@@ -35,6 +37,7 @@ function AppLayout() {
           <Outlet />
         </Container>
       </Main>
+      <Footer />
     </StyledAppLayout>
   );
 }

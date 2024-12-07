@@ -7,7 +7,7 @@ function Products() {
   return (
     <>
       <Row>
-        <Heading as="h2">All Products</Heading>
+        <Heading as="h2">Products</Heading>
       </Row>
       <Row>
         <ProductTableOperations />

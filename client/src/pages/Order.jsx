@@ -7,7 +7,7 @@ function Order() {
   return (
     <>
       <Row>
-        <Heading as="h2">Orders Data</Heading>
+        <Heading as="h2">Orders</Heading>
       </Row>
 
       <Row>

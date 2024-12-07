@@ -7,7 +7,7 @@ function Inventory() {
   return (
     <>
       <Row>
-        <Heading as="h2">All Parts</Heading>
+        <Heading as="h2">Inventory</Heading>
       </Row>
       <Row>
         <PartTableOperations />

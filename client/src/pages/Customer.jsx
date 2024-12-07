@@ -7,7 +7,7 @@ function Customer() {
   return (
     <>
       <Row>
-        <Heading as="h2">Customers Data</Heading>
+        <Heading as="h2">Customers</Heading>
       </Row>
 
       <Row>

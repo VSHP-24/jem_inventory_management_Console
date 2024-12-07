@@ -110,7 +110,7 @@ input:focus,
 button:focus,
 textarea:focus,
 select:focus {
-  outline: 2px solid var(--color-grey-9 00);
+  outline: 2px solid var(--color-grey-900);
   outline-offset: -1px;
 }
 
@@ -136,9 +136,6 @@ h6 {
 
 img {
   max-width: 100%;
-
-  /* For dark mode */
-  filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
 
 }`;
