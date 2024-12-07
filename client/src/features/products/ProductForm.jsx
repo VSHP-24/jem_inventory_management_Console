@@ -37,6 +37,10 @@ const StyledSelect = styled(Select)`
   width: 75%;
 `;
 
+const StyledInvisibleBox = styled.div`
+  display: none;
+`;
+
 function ProductForm({ productToEdit = {}, onCloseModal }) {
   const {
     id: editId,
@@ -45,6 +49,8 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
     category,
     subCategory,
     includedParts,
+    additionalInformations,
+    descriptions,
     additionalImages: additionalImagesLinks,
     ...editValues
   } = productToEdit;
@@ -64,10 +70,16 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
           model: model.id,
           category: category.id,
           subCategory: subCategory.id,
-          includedParts: includedParts,
+          includedParts,
+          additionalInformations,
+          descriptions,
           ...editValues,
         }
-      : { includedParts: [{ quantity: 1, parts: "" }] },
+      : {
+          includedParts: [{ quantity: 1, parts: "" }],
+          additionalInformations: [{ bulletPointNumber: "", info: "" }],
+          descriptions: [{ bulletPointNumber: "", info: "" }],
+        },
   });
   const { fields, append, remove } = useFieldArray({
     control,
@@ -88,6 +100,24 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
     },
   });
 
+  const {
+    fields: additionalInfoFields,
+    append: additionalInfoAppend,
+    remove: additionalInfoRemove,
+  } = useFieldArray({
+    control,
+    name: "additionalInformations",
+  });
+
+  const {
+    fields: descriptionFields,
+    append: descriptionAppend,
+    remove: descriptionRemove,
+  } = useFieldArray({
+    control,
+    name: "descriptions",
+  });
+
   const { isCreating, createProduct } = useCreateProduct();
   const { isEditing, editProduct } = useEditProduct();
 
@@ -103,6 +133,14 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
       quantity: part.quantity,
       part: part.parts,
     }));
+
+    const informations = data.additionalInformations.map(
+      (information) => information.info
+    );
+
+    const description = data.descriptions.map(
+      (description) => description.info
+    );
     const imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
       "/",
       ""
@@ -158,6 +196,8 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
         {
           ...data,
           includedParts: parts,
+          additionalInformations: informations,
+          descriptions: description,
           mainImage: imagePath,
           additionalImages: additionalImagePaths,
         },
@@ -168,6 +208,8 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
         {
           ...data,
           includedParts: parts,
+          additionalInformations: informations,
+          descriptions: description,
           mainImage: imagePath,
           additionalImages: additionalImagePaths,
         },
@@ -321,14 +363,51 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
-        <FormRow label="Description">
-          <Textarea
-            type="text"
-            placeholder="Enter a brief description about the Product"
-            id="description"
-            {...register("description")}
-          />
-        </FormRow>
+
+        <FormRowIncludedParts
+          label="Description"
+          error={errors?.descriptions?.root.message}
+        >
+          <StyledUl>
+            {descriptionFields.map((item, index) => (
+              <StyledLi key={`${item.id}${index}`}>
+                <StyledInvisibleBox
+                  {...register(`descriptions.${index}.bulletPointNumber`)}
+                />
+                <Controller
+                  render={({ field }) => (
+                    <Textarea
+                      placeholder="Enter a brief description about the Product"
+                      {...field}
+                    ></Textarea>
+                  )}
+                  name={`descriptions.${index}.info`}
+                  defaultValue={isEditSession && descriptions[index]}
+                  control={control}
+                />
+                <Button
+                  size="small"
+                  variation="secondary"
+                  type="button"
+                  onClick={() => descriptionRemove(index)}
+                >
+                  &times;
+                </Button>
+              </StyledLi>
+            ))}
+          </StyledUl>
+          <Button
+            size="medium"
+            variation="primary"
+            type="button"
+            onClick={() =>
+              descriptionAppend({ bulletPointNumber: "", info: "" })
+            }
+          >
+            Add Info
+          </Button>
+        </FormRowIncludedParts>
+
         <FormRowIncludedParts
           label="Included Parts"
           error={errors?.includedParts?.root.message}
@@ -370,17 +449,52 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
           </Button>
         </FormRowIncludedParts>
 
-        {
-          // TODO: Additional Information should be an field array , same as included parts
-        }
+        <FormRowIncludedParts
+          label="Additional Information"
+          error={errors?.additionalInformations?.root.message}
+        >
+          <StyledUl>
+            {additionalInfoFields.map((item, index) => (
+              <StyledLi key={`${item.id}${index}`}>
+                <StyledInvisibleBox
+                  {...register(
+                    `additionalInformations.${index}.bulletPointNumber`
+                  )}
+                />
+                <Controller
+                  render={({ field }) => (
+                    <Textarea
+                      placeholder="Enter Additional Information about the Product"
+                      {...field}
+                    ></Textarea>
+                  )}
+                  name={`additionalInformations.${index}.info`}
+                  defaultValue={isEditSession && additionalInformations[index]}
+                  control={control}
+                />
+                <Button
+                  size="small"
+                  variation="secondary"
+                  type="button"
+                  onClick={() => additionalInfoRemove(index)}
+                >
+                  &times;
+                </Button>
+              </StyledLi>
+            ))}
+          </StyledUl>
+          <Button
+            size="medium"
+            variation="primary"
+            type="button"
+            onClick={() =>
+              additionalInfoAppend({ bulletPointNumber: "", info: "" })
+            }
+          >
+            Add Info
+          </Button>
+        </FormRowIncludedParts>
 
-        <FormRow label="Additional Information">
-          <Input
-            type="text"
-            id="additionalInformation"
-            {...register("additionalInformation")}
-          />
-        </FormRow>
         <FormRow label="Video">
           <Input
             type="url"

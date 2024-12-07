@@ -38,6 +38,14 @@ const StyledHeading = styled(Heading)`
   padding-bottom: 2rem;
 `;
 
+const StyledListBulletPointsAdditionalInformation = styled.ol`
+  list-style-type: disc;
+`;
+
+const StyledIndividualBulletPointsAdditionalInformation = styled.li`
+  padding: 0.5rem;
+`;
+
 function ProductDetailPage({ product }) {
   const {
     name,
@@ -48,10 +56,9 @@ function ProductDetailPage({ product }) {
     price,
     discountPrice,
     size,
-    combo,
-    description,
+    descriptions,
     includedParts,
-    additionalInformation,
+    additionalInformations,
     video,
     additionalImages,
     mainImage,
@@ -112,14 +119,19 @@ function ProductDetailPage({ product }) {
         </StyledRow>
 
         <StyledRow>
-          <StyledHeader>Combo</StyledHeader>
-          <StyledDetails>{combo ? combo : "--- NA ---"}</StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Description</StyledHeader>
+          <StyledHeader>Descriptions</StyledHeader>
           <StyledDetails>
-            {description ? description : "--- NA ---"}
+            {descriptions.length >= 1 ? (
+              <StyledListBulletPointsAdditionalInformation>
+                {descriptions.map((description, i) => (
+                  <StyledIndividualBulletPointsAdditionalInformation key={i}>
+                    {description}
+                  </StyledIndividualBulletPointsAdditionalInformation>
+                ))}
+              </StyledListBulletPointsAdditionalInformation>
+            ) : (
+              "--- NA ---"
+            )}
           </StyledDetails>
         </StyledRow>
 
@@ -127,7 +139,7 @@ function ProductDetailPage({ product }) {
           <StyledHeader>Included Parts</StyledHeader>
           <StyledDetails>
             <Table
-              columns="1fr 1fr"
+              columns="10rem 10rem"
               menuListRequired={false}
               modalWindowedTable={true}
             >
@@ -149,9 +161,19 @@ function ProductDetailPage({ product }) {
         </StyledRow>
 
         <StyledRow>
-          <StyledHeader>Additional Information</StyledHeader>
+          <StyledHeader>Additional Informations</StyledHeader>
           <StyledDetails>
-            {additionalInformation ? additionalInformation : "--- NA ---"}
+            {additionalInformations.length >= 1 ? (
+              <StyledListBulletPointsAdditionalInformation>
+                {additionalInformations.map((information, i) => (
+                  <StyledIndividualBulletPointsAdditionalInformation key={i}>
+                    {information}
+                  </StyledIndividualBulletPointsAdditionalInformation>
+                ))}
+              </StyledListBulletPointsAdditionalInformation>
+            ) : (
+              "--- NA ---"
+            )}
           </StyledDetails>
         </StyledRow>
       </StyledProductDetails>

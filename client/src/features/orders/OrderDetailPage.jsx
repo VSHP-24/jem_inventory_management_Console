@@ -54,7 +54,6 @@ function OrderDetailPage({ order }) {
     createdAt,
   } = order;
 
-  console.log(orderItems);
   return (
     <StyledDetailPage>
       <StyledOrderDetails>
