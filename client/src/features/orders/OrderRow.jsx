@@ -8,6 +8,7 @@ import { useEditOrder } from "./useEditOrder";
 import { useDeleteOrder } from "./useDeleteOrder";
 import OrderForm from "./OrderForm";
 import OrderDetailPage from "./OrderDetailPage";
+import { useEditPart } from "../parts/useEditPart";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -61,6 +62,8 @@ function OrderRow({ order, index, id, deletedTable }) {
 
   const { isEditing, editOrder } = useEditOrder();
 
+  const { editPart } = useEditPart();
+
   function handleCheckClick(orderStatus) {
     if (orderStatus === "order_placed") {
       editOrder({ ...order, orderStatus: "order_confirmed" });
@@ -68,6 +71,13 @@ function OrderRow({ order, index, id, deletedTable }) {
 
     if (orderStatus === "order_confirmed") {
       editOrder({ ...order, orderStatus: "order_shipped" });
+
+      order.orderItems.map((orderItem) =>
+        orderItem.product.includedParts.map((el) => {
+          el.part.quantity -= el.quantity;
+          return editPart({ ...el.part });
+        })
+      );
     }
   }
 
