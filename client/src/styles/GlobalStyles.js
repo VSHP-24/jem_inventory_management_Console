@@ -29,6 +29,22 @@ const GlobalStyles = createGlobalStyle`
   --color-red-700: #b91c1c;
   --color-red-800: #f32013;
 
+
+  --color-green-100: #306844;
+  --color-green-700: #399471;
+  --color-green-800: #2c4c3b;
+
+  --color-blue-100: #002D62;
+  --color-blue-800: #00308F;
+
+  --color-expense-100: #F40009;
+  --color-expense-700: #b91c1c;
+  --color-expense-800: #f32013;
+
+  --color-orange-100: #FF8303;
+
+
+
   --backdrop-color: rgba(255, 233, 133, .1)
 
 

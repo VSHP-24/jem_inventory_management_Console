@@ -1,0 +1,104 @@
+import styled from "styled-components";
+import Heading from "../../ui/Heading";
+import {
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
+import { generateRandomColor } from "../../utils/generateRandomColor";
+
+const ChartBox = styled.div`
+  /* Box */
+  background-color: var(--color-gold-200);
+  border: 1px solid var(--color-gold-700);
+  border-radius: var(--border-radius-md);
+
+  padding: 2.4rem 3.2rem;
+  grid-column: 3 / span 2;
+
+  & > *:first-child {
+    margin-bottom: 1.6rem;
+  }
+
+  & .recharts-pie-label-text {
+    font-weight: 600;
+  }
+`;
+
+function setCategoryData(categories) {
+  const startData = categories.map((categoryEl) => {
+    const categorySet = {
+      category: categoryEl.name,
+      value: 0,
+      color: generateRandomColor(),
+    };
+
+    return categorySet;
+  });
+  return startData;
+}
+
+function prepareData(startData, orders) {
+  function incArrayValue(arr, field) {
+    return arr.map((obj) =>
+      obj.category === field ? { ...obj, value: obj.value + 1 } : obj
+    );
+  }
+
+  const data = orders
+    .reduce((arr, cur) => {
+      const check = cur.orderItems.reduce((accum, current) => {
+        return incArrayValue(accum, current.product.category.name);
+      }, arr);
+      return check;
+    }, startData)
+    .filter((obj) => obj.value > 0);
+  return data;
+}
+
+function CategoryChart({ orders, categories }) {
+  const startData = setCategoryData(categories);
+  const data = prepareData(startData, orders);
+
+  return (
+    <ChartBox>
+      <Heading as="h2">Category Sales Summary</Heading>
+      <ResponsiveContainer width="100%" height={360}>
+        <PieChart>
+          <Pie
+            data={data}
+            nameKey="category"
+            dataKey="value"
+            innerRadius={85}
+            outerRadius={110}
+            cx="50%"
+            cy="50%"
+            paddingAngle={3}
+          >
+            {data.map((entry) => (
+              <Cell
+                fill={entry.color}
+                stroke={entry.color}
+                key={entry.category}
+              />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend
+            verticalAlign="middle"
+            align="right"
+            width="40%"
+            layout="vertical"
+            iconSize={15}
+            iconType="circle"
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartBox>
+  );
+}
+
+export default CategoryChart;

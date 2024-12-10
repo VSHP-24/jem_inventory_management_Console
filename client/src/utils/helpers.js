@@ -25,3 +25,8 @@ export function formatStatus(status) {
   splitStatus = status.split("_")[1].trim();
   return splitStatus.charAt(0).toUpperCase() + splitStatus.slice(1);
 }
+
+export const formatCurrency = (value) =>
+  new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(
+    value
+  );

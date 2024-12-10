@@ -11,11 +11,13 @@ const StyledNav = styled.nav`
   padding: 0.2rem;
   display: flex;
   gap: 0.4rem;
-  width: 100%;
   justify-content: space-around;
+  width: ${(props) => {
+    return props.width;
+  }};
 `;
 
-function NavTabs({ fieldComponent, options }) {
+function NavTabs({ fieldComponent, options, width = "100%" }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentValue = searchParams.get(fieldComponent) || options.at(0).value;
@@ -29,7 +31,7 @@ function NavTabs({ fieldComponent, options }) {
     setSearchParams(searchParams);
   }
   return (
-    <StyledNav>
+    <StyledNav width={width}>
       {options.map((option) => (
         <NavTabButton
           key={option.value}
