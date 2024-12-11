@@ -27,6 +27,14 @@ const ChartBox = styled.div`
     font-weight: 600;
   }
 `;
+
+const NoActivity = styled.p`
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+  padding-top: 10rem;
+`;
+
 function setBrandData(brands) {
   const startData = brands.map((brandEl) => {
     const brandSet = {
@@ -58,13 +66,18 @@ function prepareData(startData, orders) {
   return data;
 }
 
-function BrandChart({ orders, brands }) {
+function BrandChart({ orders, brands, numDays }) {
   const startData = setBrandData(brands);
   const data = prepareData(startData, orders);
 
   return (
     <ChartBox>
       <Heading as="h2">Brand Sales Summary</Heading>
+
+      {data.length === 0 && (
+        <NoActivity>No sales in the last {numDays} days 😶</NoActivity>
+      )}
+
       <ResponsiveContainer width="100%" height={360}>
         <PieChart>
           <Pie

@@ -28,6 +28,13 @@ const ChartBox = styled.div`
   }
 `;
 
+const NoActivity = styled.p`
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+  padding-top: 10rem;
+`;
+
 function setCategoryData(categories) {
   const startData = categories.map((categoryEl) => {
     const categorySet = {
@@ -59,13 +66,18 @@ function prepareData(startData, orders) {
   return data;
 }
 
-function CategoryChart({ orders, categories }) {
+function CategoryChart({ orders, categories, numDays }) {
   const startData = setCategoryData(categories);
   const data = prepareData(startData, orders);
 
   return (
     <ChartBox>
       <Heading as="h2">Category Sales Summary</Heading>
+
+      {data.length === 0 && (
+        <NoActivity>No sales in the last {numDays} days 😶</NoActivity>
+      )}
+
       <ResponsiveContainer width="100%" height={360}>
         <PieChart>
           <Pie

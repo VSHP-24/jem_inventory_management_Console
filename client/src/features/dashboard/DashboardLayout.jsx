@@ -56,8 +56,14 @@ function DashboardLayout() {
         parts={filteredParts}
       />
 
-      <BrandChart orders={filteredOrders} brands={brands} />
-      <CategoryChart orders={filteredOrders} categories={categories} />
+      <BrandChart orders={filteredOrders} brands={brands} numDays={numDays} />
+
+      <CategoryChart
+        orders={filteredOrders}
+        categories={categories}
+        numDays={numDays}
+      />
+
       <RevenueChart
         purchases={filteredPurchases}
         orders={filteredOrders}
