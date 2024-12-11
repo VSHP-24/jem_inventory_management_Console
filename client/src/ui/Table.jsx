@@ -160,7 +160,10 @@ function Row({
           contentType={contentType}
           detailPageContent={detailPageContent}
           editFormContent={editFormContent}
-          deleteContentFrom={() => deleteContentFrom(id)}
+          deleteContentFrom={() => {
+            deleteContentFrom(id);
+            close();
+          }}
         />
       )}
     </StyledRow>
