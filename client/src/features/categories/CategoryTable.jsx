@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import CategoryRow from "./CategoryRow";
@@ -6,6 +6,7 @@ import CategoryRow from "./CategoryRow";
 import { useGetCategories } from "./useGetCategories";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function CategoryTable() {
   const { isPending, categories } = useGetCategories();
@@ -18,6 +19,8 @@ function CategoryTable() {
   let sortedCategories;
   let filterDeletedCategories = [];
   let filterAvailableCategories = [];
+  let currentPage;
+  let pageCount;
 
   if (!isPending) {
     //SORT
@@ -44,6 +47,12 @@ function CategoryTable() {
     filterAvailableCategories = sortedCategories.filter(
       (category) => !category.isDeleted
     );
+
+    currentPage = !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
+
+    pageCount = Math.ceil(categories.length / PAGE_SIZE);
   }
 
   function DeletedCategories() {
@@ -81,6 +90,9 @@ function CategoryTable() {
 
   if (!filterAvailableCategories || filterAvailableCategories.length === 0)
     return <Empty resourceName={"Categories"} />;
+
+  if (currentPage > pageCount)
+    return <Navigate replace to="/manage?tableType=categories" />;
 
   return (
     <Table deletedTableContent={<DeletedCategories />} columns=".5fr 1fr  .5fr">

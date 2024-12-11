@@ -3,9 +3,10 @@ import ProductRow from "./ProductRow";
 import Table from "../../ui/Table";
 
 import { useGetProducts } from "./useGetProducts";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function ProductTable() {
   const { isPending, products } = useGetProducts();
@@ -31,6 +32,8 @@ function ProductTable() {
   let sortedProducts;
   let filterDeletedProducts = [];
   let filterAvailableProducts = [];
+  let currentPage;
+  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -80,6 +83,12 @@ function ProductTable() {
         (filteredSubCategories === "" ||
           filteredSubCategories.includes(String(product.subCategory.id)))
     );
+
+    currentPage = !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
+
+    pageCount = Math.ceil(products.length / PAGE_SIZE);
   }
 
   function DeletedProducts() {
@@ -117,6 +126,8 @@ function ProductTable() {
 
   if (!filterAvailableProducts || filterAvailableProducts.length === 0)
     return <Empty resourceName={"Products"} />;
+
+  if (currentPage > pageCount) return <Navigate replace to="/Products" />;
 
   return (
     <Table

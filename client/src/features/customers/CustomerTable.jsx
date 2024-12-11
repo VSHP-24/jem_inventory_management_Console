@@ -1,10 +1,11 @@
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import { useGetCustomers } from "./useGetCustomers";
 import Table from "../../ui/Table";
 import CustomerRow from "./CustomerRow";
 import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function CustomersTable() {
   const { isPending, customers } = useGetCustomers();
@@ -16,6 +17,8 @@ function CustomersTable() {
   let sortedCustomers;
   let filterDeletedCustomers = [];
   let filterAvailableCustomers = [];
+  let currentPage;
+  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -46,6 +49,12 @@ function CustomersTable() {
     filterAvailableCustomers = sortedCustomers.filter(
       (customer) => customer.user.active
     );
+
+    currentPage = !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
+
+    pageCount = Math.ceil(customers.length / PAGE_SIZE);
   }
 
   function DeletedCustomers() {
@@ -83,6 +92,8 @@ function CustomersTable() {
 
   if (!filterAvailableCustomers || filterAvailableCustomers.length === 0)
     return <Empty resourceName={"Customers"} />;
+
+  if (currentPage > pageCount) return <Navigate replace to="/customers" />;
 
   return (
     <Table

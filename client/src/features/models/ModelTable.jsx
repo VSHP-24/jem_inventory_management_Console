@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import ModelRow from "./ModelRow";
@@ -6,6 +6,7 @@ import ModelRow from "./ModelRow";
 import { useGetModels } from "./useGetModels";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function ModelTable() {
   const { isPending, models } = useGetModels();
@@ -20,6 +21,8 @@ function ModelTable() {
   let sortedModels;
   let filterDeletedModels = [];
   let filterAvailableModels = [];
+  let currentPage;
+  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -58,6 +61,12 @@ function ModelTable() {
         (filteredBrands === "" ||
           filteredBrands.includes(String(model.brand.id)))
     );
+
+    currentPage = !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
+
+    pageCount = Math.ceil(models.length / PAGE_SIZE);
   }
 
   function DeletedModels() {
@@ -98,6 +107,9 @@ function ModelTable() {
 
   if (!filterAvailableModels || filterAvailableModels.length === 0)
     return <Empty resourceName={"Bike Models"} />;
+
+  if (currentPage > pageCount)
+    return <Navigate replace to="/manage?tableType=bikes" />;
 
   return (
     <Table

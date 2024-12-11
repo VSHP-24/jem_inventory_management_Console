@@ -1,10 +1,11 @@
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import { useGetUsers } from "./useGetUsers";
 import UserRow from "./UserRow";
 import Empty from "../../ui/Empty";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function UserTable() {
   const { isPending, users } = useGetUsers();
@@ -16,6 +17,8 @@ function UserTable() {
   let sortedUsers;
   let filterDeletedUsers = [];
   let filterAvailableUsers = [];
+  let currentPage;
+  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -45,6 +48,12 @@ function UserTable() {
     filterAvailableUsers = sortedUsers.filter((user) =>
       user.active === true ? user : null
     );
+
+    currentPage = !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
+
+    pageCount = Math.ceil(staffMembers.length / PAGE_SIZE);
   }
 
   function DeletedUsers() {
@@ -83,6 +92,9 @@ function UserTable() {
 
   if (!filterAvailableUsers || filterAvailableUsers.length === 0)
     return <Empty resourceName={"Users"} />;
+
+  if (currentPage > pageCount)
+    return <Navigate replace to="/Users?userOptions=allUsers" />;
 
   return (
     <Table

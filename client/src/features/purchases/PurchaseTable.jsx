@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import PurchaseRow from "./PurchaseRow";
@@ -6,6 +6,7 @@ import PurchaseRow from "./PurchaseRow";
 import { useGetPurchases } from "./useGetPurchases";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function PurchaseTable() {
   const { isPending, purchases } = useGetPurchases();
@@ -26,6 +27,8 @@ function PurchaseTable() {
   let sortedPurchases;
   let filterDeletedPurchases = [];
   let filterAvailablePurchases = [];
+  let currentPage;
+  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -67,6 +70,12 @@ function PurchaseTable() {
         (filteredVendors === "" ||
           filteredVendors.includes(String(purchase.vendor)))
     );
+
+    currentPage = !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
+
+    pageCount = Math.ceil(purchases.length / PAGE_SIZE);
   }
 
   function DeletedPurchases() {
@@ -106,6 +115,8 @@ function PurchaseTable() {
 
   if (!filterAvailablePurchases || filterAvailablePurchases.length === 0)
     return <Empty resourceName={"Purchases"} />;
+
+  if (currentPage > pageCount) return <Navigate replace to="/Purchases" />;
 
   return (
     <Table

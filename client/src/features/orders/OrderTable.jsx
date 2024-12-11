@@ -1,10 +1,11 @@
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import { useGetOrders } from "./useGetOrder";
 import Table from "../../ui/Table";
 import OrderRow from "./OrderRow";
 import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function OrderTable() {
   const { isPending, orders } = useGetOrders();
@@ -31,6 +32,8 @@ function OrderTable() {
   let sortedOrders;
   let filterDeletedOrders = [];
   let filterAvailableOrders = [];
+  let currentPage;
+  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -74,6 +77,12 @@ function OrderTable() {
         (filteredOrderStatus === "" ||
           filteredOrderStatus.includes(order.orderStatus))
     );
+
+    currentPage = !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
+
+    pageCount = Math.ceil(orders.length / PAGE_SIZE);
   }
 
   function DeletedOrders() {
@@ -111,6 +120,8 @@ function OrderTable() {
 
   if (!filterAvailableOrders || filterAvailableOrders.length === 0)
     return <Empty resourceName={"Orders"} />;
+
+  if (currentPage > pageCount) return <Navigate replace to="/Orders" />;
 
   return (
     <Table

@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import PartRow from "./PartRow";
@@ -6,6 +6,7 @@ import PartRow from "./PartRow";
 import { useGetParts } from "./useGetParts";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function PartTable() {
   const { isPending, parts } = useGetParts();
@@ -19,6 +20,8 @@ function PartTable() {
   let sortedParts;
   let filterDeletedParts = [];
   let filterAvailableParts = [];
+  let currentPage;
+  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -43,6 +46,12 @@ function PartTable() {
     filterDeletedParts = sortedParts.filter((part) => part.isDeleted);
     // Filter Available Parts
     filterAvailableParts = sortedParts.filter((part) => !part.isDeleted);
+
+    currentPage = !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
+
+    pageCount = Math.ceil(parts.length / PAGE_SIZE);
   }
 
   function DeletedParts() {
@@ -81,6 +90,8 @@ function PartTable() {
 
   if (!filterAvailableParts || filterAvailableParts.length === 0)
     return <Empty resourceName={"Parts"} />;
+
+  if (currentPage > pageCount) return <Navigate replace to="/Inventory" />;
 
   return (
     <Table deletedTableContent={<DeletedParts />} columns=".5fr 1fr 1fr .5fr">

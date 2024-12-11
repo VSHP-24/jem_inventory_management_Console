@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import BrandRow from "./BrandRow";
@@ -6,6 +6,7 @@ import BrandRow from "./BrandRow";
 import { useGetBrands } from "./useGetBrands";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function BrandTable() {
   const { isPending, brands } = useGetBrands();
@@ -18,6 +19,8 @@ function BrandTable() {
   let sortedBrands;
   let filterDeletedBrands = [];
   let filterAvailableBrands = [];
+  let currentPage;
+  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -40,6 +43,12 @@ function BrandTable() {
     // Filter Available Brands
 
     filterAvailableBrands = sortedBrands.filter((brand) => !brand.isDeleted);
+
+    currentPage = !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
+
+    pageCount = Math.ceil(brands.length / PAGE_SIZE);
   }
 
   function DeletedBrands() {
@@ -77,6 +86,8 @@ function BrandTable() {
 
   if (!filterAvailableBrands || filterAvailableBrands.length === 0)
     return <Empty resourceName={"Brands"} />;
+
+  if (currentPage > pageCount) return <Navigate replace to="/manage" />;
 
   return (
     <Table columns=".5fr 1fr .5fr" deletedTableContent={<DeletedBrands />}>

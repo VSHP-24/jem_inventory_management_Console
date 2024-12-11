@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import SubCategoryRow from "./SubCategoryRow";
@@ -6,6 +6,7 @@ import SubCategoryRow from "./SubCategoryRow";
 import { useGetSubCategories } from "./useGetSubCategories";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+import { PAGE_SIZE } from "../../utils/constants";
 
 function SubCategoryTable() {
   const { isPending, subCategories } = useGetSubCategories();
@@ -23,6 +24,8 @@ function SubCategoryTable() {
   let sortedSubCategories;
   let filterDeletedSubCategories = [];
   let filterAvailableSubCategories = [];
+  let currentPage;
+  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -62,6 +65,12 @@ function SubCategoryTable() {
         (filteredCategories === "" ||
           filteredCategories.includes(String(subCategory.category.id)))
     );
+
+    currentPage = !searchParams.get("page")
+      ? 1
+      : Number(searchParams.get("page"));
+
+    pageCount = Math.ceil(subCategories.length / PAGE_SIZE);
   }
 
   function DeletedSubCategory() {
@@ -103,6 +112,9 @@ function SubCategoryTable() {
     filterAvailableSubCategories.length === 0
   )
     return <Empty resourceName={"SubCategories"} />;
+
+  if (currentPage > pageCount)
+    return <Navigate replace to="/manage?tableType=subCategories" />;
 
   return (
     <Table
