@@ -5,6 +5,7 @@ import CategoryRow from "./CategoryRow";
 
 import { useGetCategories } from "./useGetCategories";
 import Pagination from "../../ui/Pagination";
+import Empty from "../../ui/Empty";
 
 function CategoryTable() {
   const { isPending, categories } = useGetCategories();
@@ -46,6 +47,9 @@ function CategoryTable() {
   }
 
   function DeletedCategories() {
+    if (!filterDeletedCategories || filterDeletedCategories.length === 0)
+      return <Empty resourceName={"Deleted Categories"} />;
+
     return (
       <Table
         columns=".5fr 1fr  .5fr"
@@ -74,6 +78,9 @@ function CategoryTable() {
   }
 
   if (isPending) return <Spinner />;
+
+  if (!filterAvailableCategories || filterAvailableCategories.length === 0)
+    return <Empty resourceName={"Categories"} />;
 
   return (
     <Table deletedTableContent={<DeletedCategories />} columns=".5fr 1fr  .5fr">

@@ -5,6 +5,7 @@ import PurchaseRow from "./PurchaseRow";
 
 import { useGetPurchases } from "./useGetPurchases";
 import Pagination from "../../ui/Pagination";
+import Empty from "../../ui/Empty";
 
 function PurchaseTable() {
   const { isPending, purchases } = useGetPurchases();
@@ -69,6 +70,9 @@ function PurchaseTable() {
   }
 
   function DeletedPurchases() {
+    if (!filterDeletedPurchases || filterDeletedPurchases.length === 0)
+      return <Empty resourceName={"Deleted Purchases"} />;
+
     return (
       <Table
         columns=".75fr 2fr 3fr 2.5fr .1fr"
@@ -99,6 +103,9 @@ function PurchaseTable() {
   }
 
   if (isPending) return <Spinner />;
+
+  if (!filterAvailablePurchases || filterAvailablePurchases.length === 0)
+    return <Empty resourceName={"Purchases"} />;
 
   return (
     <Table

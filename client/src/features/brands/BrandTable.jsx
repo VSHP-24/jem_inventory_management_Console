@@ -5,6 +5,7 @@ import BrandRow from "./BrandRow";
 
 import { useGetBrands } from "./useGetBrands";
 import Pagination from "../../ui/Pagination";
+import Empty from "../../ui/Empty";
 
 function BrandTable() {
   const { isPending, brands } = useGetBrands();
@@ -42,6 +43,9 @@ function BrandTable() {
   }
 
   function DeletedBrands() {
+    if (!filterDeletedBrands || filterDeletedBrands.length === 0)
+      return <Empty resourceName={"Deleted Brands"} />;
+
     return (
       <Table
         columns="2fr 5fr .5fr"
@@ -70,6 +74,9 @@ function BrandTable() {
   }
 
   if (isPending) return <Spinner />;
+
+  if (!filterAvailableBrands || filterAvailableBrands.length === 0)
+    return <Empty resourceName={"Brands"} />;
 
   return (
     <Table columns=".5fr 1fr .5fr" deletedTableContent={<DeletedBrands />}>

@@ -4,6 +4,7 @@ import Table from "../../ui/Table";
 import CustomerRow from "./CustomerRow";
 import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
+import Empty from "../../ui/Empty";
 
 function CustomersTable() {
   const { isPending, customers } = useGetCustomers();
@@ -48,6 +49,9 @@ function CustomersTable() {
   }
 
   function DeletedCustomers() {
+    if (!filterDeletedCustomers || filterDeletedCustomers.length === 0)
+      return <Empty resourceName={"Deleted Customers"} />;
+
     return (
       <Table
         columns={".5fr 1.5fr 2fr .5fr"}
@@ -76,6 +80,9 @@ function CustomersTable() {
   }
 
   if (isPending) return <Spinner />;
+
+  if (!filterAvailableCustomers || filterAvailableCustomers.length === 0)
+    return <Empty resourceName={"Customers"} />;
 
   return (
     <Table

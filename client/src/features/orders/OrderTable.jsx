@@ -4,6 +4,7 @@ import Table from "../../ui/Table";
 import OrderRow from "./OrderRow";
 import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
+import Empty from "../../ui/Empty";
 
 function OrderTable() {
   const { isPending, orders } = useGetOrders();
@@ -76,6 +77,9 @@ function OrderTable() {
   }
 
   function DeletedOrders() {
+    if (!filterDeletedOrders || filterDeletedOrders.length === 0)
+      return <Empty resourceName={"Deleted Orders"} />;
+
     return (
       <Table
         columns={".75fr 5fr 1fr .75fr"}
@@ -104,6 +108,9 @@ function OrderTable() {
   }
 
   if (isPending) return <Spinner />;
+
+  if (!filterAvailableOrders || filterAvailableOrders.length === 0)
+    return <Empty resourceName={"Orders"} />;
 
   return (
     <Table

@@ -5,6 +5,7 @@ import PartRow from "./PartRow";
 
 import { useGetParts } from "./useGetParts";
 import Pagination from "../../ui/Pagination";
+import Empty from "../../ui/Empty";
 
 function PartTable() {
   const { isPending, parts } = useGetParts();
@@ -45,6 +46,9 @@ function PartTable() {
   }
 
   function DeletedParts() {
+    if (!filterDeletedParts || filterDeletedParts.length === 0)
+      return <Empty resourceName={"Deleted Parts"} />;
+
     return (
       <Table
         columns=".5fr 1fr 1fr .5fr"
@@ -74,6 +78,9 @@ function PartTable() {
   }
 
   if (isPending) return <Spinner />;
+
+  if (!filterAvailableParts || filterAvailableParts.length === 0)
+    return <Empty resourceName={"Parts"} />;
 
   return (
     <Table deletedTableContent={<DeletedParts />} columns=".5fr 1fr 1fr .5fr">

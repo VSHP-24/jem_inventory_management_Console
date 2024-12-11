@@ -5,6 +5,7 @@ import ModelRow from "./ModelRow";
 
 import { useGetModels } from "./useGetModels";
 import Pagination from "../../ui/Pagination";
+import Empty from "../../ui/Empty";
 
 function ModelTable() {
   const { isPending, models } = useGetModels();
@@ -60,6 +61,9 @@ function ModelTable() {
   }
 
   function DeletedModels() {
+    if (!filterDeletedModels || filterDeletedModels.length === 0)
+      return <Empty resourceName={"Deleted Bike Models"} />;
+
     return (
       <Table
         columns=".5fr 1fr 1fr 1fr .5fr .5fr"
@@ -91,6 +95,9 @@ function ModelTable() {
   }
 
   if (isPending) return <Spinner />;
+
+  if (!filterAvailableModels || filterAvailableModels.length === 0)
+    return <Empty resourceName={"Bike Models"} />;
 
   return (
     <Table

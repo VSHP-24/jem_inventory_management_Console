@@ -5,6 +5,7 @@ import SubCategoryRow from "./SubCategoryRow";
 
 import { useGetSubCategories } from "./useGetSubCategories";
 import Pagination from "../../ui/Pagination";
+import Empty from "../../ui/Empty";
 
 function SubCategoryTable() {
   const { isPending, subCategories } = useGetSubCategories();
@@ -64,6 +65,9 @@ function SubCategoryTable() {
   }
 
   function DeletedSubCategory() {
+    if (!filterDeletedSubCategories || filterDeletedSubCategories.length === 0)
+      return <Empty resourceName={"Deleted SubCategories"} />;
+
     return (
       <Table
         modalWindowedTable={true}
@@ -93,6 +97,12 @@ function SubCategoryTable() {
   }
 
   if (isPending) return <Spinner />;
+
+  if (
+    !filterAvailableSubCategories ||
+    filterAvailableSubCategories.length === 0
+  )
+    return <Empty resourceName={"SubCategories"} />;
 
   return (
     <Table

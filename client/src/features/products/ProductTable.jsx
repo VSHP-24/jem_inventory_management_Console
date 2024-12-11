@@ -5,6 +5,7 @@ import Table from "../../ui/Table";
 import { useGetProducts } from "./useGetProducts";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../../ui/Pagination";
+import Empty from "../../ui/Empty";
 
 function ProductTable() {
   const { isPending, products } = useGetProducts();
@@ -82,6 +83,9 @@ function ProductTable() {
   }
 
   function DeletedProducts() {
+    if (!filterDeletedProducts || filterDeletedProducts.length === 0)
+      return <Empty resourceName={"Deleted Products"} />;
+
     return (
       <Table
         columns="2fr 10fr .75fr"
@@ -110,6 +114,9 @@ function ProductTable() {
   }
 
   if (isPending) return <Spinner />;
+
+  if (!filterAvailableProducts || filterAvailableProducts.length === 0)
+    return <Empty resourceName={"Products"} />;
 
   return (
     <Table

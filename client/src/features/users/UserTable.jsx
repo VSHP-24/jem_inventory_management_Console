@@ -4,6 +4,7 @@ import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import { useGetUsers } from "./useGetUsers";
 import UserRow from "./UserRow";
+import Empty from "../../ui/Empty";
 
 function UserTable() {
   const { isPending, users } = useGetUsers();
@@ -47,6 +48,9 @@ function UserTable() {
   }
 
   function DeletedUsers() {
+    if (!filterDeletedUsers || filterDeletedUsers.length === 0)
+      return <Empty resourceName={"Deleted Users"} />;
+
     return (
       <Table
         columns="2fr 7.5fr 7.5fr .75fr "
@@ -76,6 +80,9 @@ function UserTable() {
   }
 
   if (isPending) return <Spinner />;
+
+  if (!filterAvailableUsers || filterAvailableUsers.length === 0)
+    return <Empty resourceName={"Users"} />;
 
   return (
     <Table
