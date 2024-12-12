@@ -18,7 +18,7 @@ function Footer() {
     <StyledFooter>
       <Content>
         <p>{`© ${currentYear}, All Rights Reserved `}</p>
-        <p>{`Built with ♥ by VSHP.`}</p>
+        <p>{`Built with 💖 by VSHP.`}</p>
       </Content>
     </StyledFooter>
   );

@@ -15,7 +15,9 @@ function LoginForm({ displayDirection = "vertical" }) {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: { email: "admin@jem.com", password: "passwordforadmin@123" },
+  });
 
   async function onSubmit(data) {
     login({ ...data }, { onSuccess: () => reset() });
