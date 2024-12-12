@@ -8,6 +8,38 @@ import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
 
+function DeletedSubCategory({ filterDeletedSubCategories }) {
+  if (!filterDeletedSubCategories || filterDeletedSubCategories.length === 0)
+    return <Empty resourceName={"Deleted SubCategories"} />;
+
+  return (
+    <Table
+      modalWindowedTable={true}
+      menuListRequired={false}
+      columns=".5fr 1fr 1fr .5fr"
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Category</div>
+        <div>SubCategory</div>
+      </Table.Header>
+
+      <Table.Body
+        data={filterDeletedSubCategories}
+        render={(subCategory, i) => (
+          <SubCategoryRow
+            subCategory={subCategory}
+            index={i}
+            key={subCategory.id}
+            id={subCategory.id}
+            deletedTable={true}
+          />
+        )}
+      />
+    </Table>
+  );
+}
+
 function SubCategoryTable() {
   const { isPending, subCategories } = useGetSubCategories();
 
@@ -73,38 +105,6 @@ function SubCategoryTable() {
     pageCount = Math.ceil(subCategories.length / PAGE_SIZE);
   }
 
-  function DeletedSubCategory() {
-    if (!filterDeletedSubCategories || filterDeletedSubCategories.length === 0)
-      return <Empty resourceName={"Deleted SubCategories"} />;
-
-    return (
-      <Table
-        modalWindowedTable={true}
-        menuListRequired={false}
-        columns=".5fr 1fr 1fr .5fr"
-      >
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Category</div>
-          <div>SubCategory</div>
-        </Table.Header>
-
-        <Table.Body
-          data={filterDeletedSubCategories}
-          render={(subCategory, i) => (
-            <SubCategoryRow
-              subCategory={subCategory}
-              index={i}
-              key={subCategory.id}
-              id={subCategory.id}
-              deletedTable={true}
-            />
-          )}
-        />
-      </Table>
-    );
-  }
-
   if (isPending) return <Spinner />;
 
   if (currentPage > pageCount)
@@ -112,7 +112,11 @@ function SubCategoryTable() {
 
   return (
     <Table
-      deletedTableContent={<DeletedSubCategory />}
+      deletedTableContent={
+        <DeletedSubCategory
+          filterDeletedSubCategories={filterDeletedSubCategories}
+        />
+      }
       columns=".5fr 1fr 1fr .5fr"
     >
       <Table.Header>

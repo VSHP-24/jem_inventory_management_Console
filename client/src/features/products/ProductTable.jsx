@@ -8,6 +8,37 @@ import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
 
+function DeletedProducts({ filterDeletedProducts }) {
+  if (!filterDeletedProducts || filterDeletedProducts.length === 0)
+    return <Empty resourceName={"Deleted Products"} />;
+
+  return (
+    <Table
+      columns="2fr 10fr .75fr"
+      modalWindowedTable={true}
+      menuListRequired={false}
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Name</div>
+      </Table.Header>
+
+      <Table.Body
+        data={filterDeletedProducts}
+        render={(product, i) => (
+          <ProductRow
+            product={product}
+            index={i}
+            key={product.id}
+            id={product.id}
+            deletedTable={true}
+          />
+        )}
+      />
+    </Table>
+  );
+}
+
 function ProductTable() {
   const { isPending, products } = useGetProducts();
   const [searchParams] = useSearchParams();
@@ -91,44 +122,15 @@ function ProductTable() {
     pageCount = Math.ceil(products.length / PAGE_SIZE);
   }
 
-  function DeletedProducts() {
-    if (!filterDeletedProducts || filterDeletedProducts.length === 0)
-      return <Empty resourceName={"Deleted Products"} />;
-
-    return (
-      <Table
-        columns="2fr 10fr .75fr"
-        modalWindowedTable={true}
-        menuListRequired={false}
-      >
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Name</div>
-        </Table.Header>
-
-        <Table.Body
-          data={filterDeletedProducts}
-          render={(product, i) => (
-            <ProductRow
-              product={product}
-              index={i}
-              key={product.id}
-              id={product.id}
-              deletedTable={true}
-            />
-          )}
-        />
-      </Table>
-    );
-  }
-
   if (isPending) return <Spinner />;
 
   if (currentPage > pageCount) return <Navigate replace to="/Products" />;
 
   return (
     <Table
-      deletedTableContent={<DeletedProducts />}
+      deletedTableContent={
+        <DeletedProducts filterDeletedProducts={filterDeletedProducts} />
+      }
       columns=".75fr 1.25fr 1.5fr 1.25fr 2fr 1fr .75fr"
     >
       <Table.Header>

@@ -7,6 +7,38 @@ import UserRow from "./UserRow";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
 
+function DeletedUsers({ filterDeletedUsers }) {
+  if (!filterDeletedUsers || filterDeletedUsers.length === 0)
+    return <Empty resourceName={"Deleted Users"} />;
+
+  return (
+    <Table
+      columns="2fr 7.5fr 7.5fr .75fr "
+      modalWindowedTable={true}
+      menuListRequired={false}
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Name</div>
+        <div>Email</div>
+      </Table.Header>
+
+      <Table.Body
+        data={filterDeletedUsers}
+        render={(user, i) => (
+          <UserRow
+            user={user}
+            index={i}
+            key={user.id}
+            id={user.id}
+            deletedTable={true}
+          />
+        )}
+      />
+    </Table>
+  );
+}
+
 function UserTable() {
   const { isPending, users } = useGetUsers();
   const [searchParams] = useSearchParams();
@@ -56,38 +88,6 @@ function UserTable() {
     pageCount = Math.ceil(staffMembers.length / PAGE_SIZE);
   }
 
-  function DeletedUsers() {
-    if (!filterDeletedUsers || filterDeletedUsers.length === 0)
-      return <Empty resourceName={"Deleted Users"} />;
-
-    return (
-      <Table
-        columns="2fr 7.5fr 7.5fr .75fr "
-        modalWindowedTable={true}
-        menuListRequired={false}
-      >
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Name</div>
-          <div>Email</div>
-        </Table.Header>
-
-        <Table.Body
-          data={filterDeletedUsers}
-          render={(user, i) => (
-            <UserRow
-              user={user}
-              index={i}
-              key={user.id}
-              id={user.id}
-              deletedTable={true}
-            />
-          )}
-        />
-      </Table>
-    );
-  }
-
   if (isPending) return <Spinner />;
 
   if (currentPage > pageCount)
@@ -95,7 +95,9 @@ function UserTable() {
 
   return (
     <Table
-      deletedTableContent={<DeletedUsers />}
+      deletedTableContent={
+        <DeletedUsers filterDeletedUsers={filterDeletedUsers} />
+      }
       columns=".75fr 2fr 2.5fr 1fr .75fr"
     >
       <Table.Header>

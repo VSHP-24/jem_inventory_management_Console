@@ -8,6 +8,37 @@ import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
 
+function DeletedBrands({ filterDeletedBrands }) {
+  if (!filterDeletedBrands || filterDeletedBrands.length === 0)
+    return <Empty resourceName={"Deleted Brands"} />;
+
+  return (
+    <Table
+      columns="2fr 5fr .5fr"
+      modalWindowedTable={true}
+      menuListRequired={false}
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Name</div>
+      </Table.Header>
+
+      <Table.Body
+        data={filterDeletedBrands}
+        render={(brand, i) => (
+          <BrandRow
+            brand={brand}
+            index={i}
+            key={brand.id}
+            id={brand.id}
+            deletedTable={true}
+          />
+        )}
+      />
+    </Table>
+  );
+}
+
 function BrandTable() {
   const { isPending, brands } = useGetBrands();
 
@@ -51,43 +82,17 @@ function BrandTable() {
     pageCount = Math.ceil(brands.length / PAGE_SIZE);
   }
 
-  function DeletedBrands() {
-    if (!filterDeletedBrands || filterDeletedBrands.length === 0)
-      return <Empty resourceName={"Deleted Brands"} />;
-
-    return (
-      <Table
-        columns="2fr 5fr .5fr"
-        modalWindowedTable={true}
-        menuListRequired={false}
-      >
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Name</div>
-        </Table.Header>
-
-        <Table.Body
-          data={filterDeletedBrands}
-          render={(brand, i) => (
-            <BrandRow
-              brand={brand}
-              index={i}
-              key={brand.id}
-              id={brand.id}
-              deletedTable={true}
-            />
-          )}
-        />
-      </Table>
-    );
-  }
-
   if (isPending) return <Spinner />;
 
   if (currentPage > pageCount) return <Navigate replace to="/manage" />;
 
   return (
-    <Table columns=".5fr 1fr .5fr" deletedTableContent={<DeletedBrands />}>
+    <Table
+      columns=".5fr 1fr .5fr"
+      deletedTableContent={
+        <DeletedBrands filterDeletedBrands={filterDeletedBrands} />
+      }
+    >
       <Table.Header>
         <div>Sl No.</div>
         <div>Name</div>

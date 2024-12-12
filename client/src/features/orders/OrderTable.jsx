@@ -7,6 +7,37 @@ import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
 
+function DeletedOrders({ filterDeletedOrders }) {
+  if (!filterDeletedOrders || filterDeletedOrders.length === 0)
+    return <Empty resourceName={"Deleted Orders"} />;
+
+  return (
+    <Table
+      columns={".75fr 5fr 1fr .75fr"}
+      modalWindowedTable={true}
+      menuListRequired={false}
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Order Id</div>
+        <div>Name</div>
+      </Table.Header>
+      <Table.Body
+        data={filterDeletedOrders}
+        render={(order, i) => (
+          <OrderRow
+            order={order}
+            index={i}
+            key={order.id}
+            id={order.id}
+            deletedTable={true}
+          />
+        )}
+      />
+    </Table>
+  );
+}
+
 function OrderTable() {
   const { isPending, orders } = useGetOrders();
 
@@ -82,44 +113,15 @@ function OrderTable() {
     pageCount = Math.ceil(orders.length / PAGE_SIZE);
   }
 
-  function DeletedOrders() {
-    if (!filterDeletedOrders || filterDeletedOrders.length === 0)
-      return <Empty resourceName={"Deleted Orders"} />;
-
-    return (
-      <Table
-        columns={".75fr 5fr 1fr .75fr"}
-        modalWindowedTable={true}
-        menuListRequired={false}
-      >
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Order Id</div>
-          <div>Name</div>
-        </Table.Header>
-        <Table.Body
-          data={filterDeletedOrders}
-          render={(order, i) => (
-            <OrderRow
-              order={order}
-              index={i}
-              key={order.id}
-              id={order.id}
-              deletedTable={true}
-            />
-          )}
-        />
-      </Table>
-    );
-  }
-
   if (isPending) return <Spinner />;
 
   if (currentPage > pageCount) return <Navigate replace to="/Orders" />;
 
   return (
     <Table
-      deletedTableContent={<DeletedOrders />}
+      deletedTableContent={
+        <DeletedOrders filterDeletedOrders={filterDeletedOrders} />
+      }
       columns=".75fr 4.5fr 2fr 1.5fr 1.5fr 1.5fr 2.75fr .75fr"
     >
       <Table.Header>

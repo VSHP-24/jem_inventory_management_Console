@@ -8,6 +8,38 @@ import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
 
+function DeletedParts({ filterDeletedParts }) {
+  if (!filterDeletedParts || filterDeletedParts.length === 0)
+    return <Empty resourceName={"Deleted Parts"} />;
+
+  return (
+    <Table
+      columns=".5fr 1fr 1fr .5fr"
+      modalWindowedTable={true}
+      menuListRequired={false}
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Name</div>
+        <div>Quantity</div>
+      </Table.Header>
+
+      <Table.Body
+        data={filterDeletedParts}
+        render={(part, i) => (
+          <PartRow
+            part={part}
+            index={i}
+            key={part.id}
+            id={part.id}
+            deletedTable={true}
+          />
+        )}
+      />
+    </Table>
+  );
+}
+
 function PartTable() {
   const { isPending, parts } = useGetParts();
 
@@ -54,44 +86,17 @@ function PartTable() {
     pageCount = Math.ceil(parts.length / PAGE_SIZE);
   }
 
-  function DeletedParts() {
-    if (!filterDeletedParts || filterDeletedParts.length === 0)
-      return <Empty resourceName={"Deleted Parts"} />;
-
-    return (
-      <Table
-        columns=".5fr 1fr 1fr .5fr"
-        modalWindowedTable={true}
-        menuListRequired={false}
-      >
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Name</div>
-          <div>Quantity</div>
-        </Table.Header>
-
-        <Table.Body
-          data={filterDeletedParts}
-          render={(part, i) => (
-            <PartRow
-              part={part}
-              index={i}
-              key={part.id}
-              id={part.id}
-              deletedTable={true}
-            />
-          )}
-        />
-      </Table>
-    );
-  }
-
   if (isPending) return <Spinner />;
 
   if (currentPage > pageCount) return <Navigate replace to="/Inventory" />;
 
   return (
-    <Table deletedTableContent={<DeletedParts />} columns=".5fr 1fr 1fr .5fr">
+    <Table
+      deletedTableContent={
+        <DeletedParts filterDeletedParts={filterDeletedParts} />
+      }
+      columns=".5fr 1fr 1fr .5fr"
+    >
       <Table.Header>
         <div>Sl No.</div>
         <div>Name</div>

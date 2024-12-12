@@ -8,6 +8,39 @@ import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
 
+function DeletedPurchases({ filterDeletedPurchases }) {
+  if (!filterDeletedPurchases || filterDeletedPurchases.length === 0)
+    return <Empty resourceName={"Deleted Purchases"} />;
+
+  return (
+    <Table
+      columns=".75fr 2fr 3fr 2.5fr .1fr"
+      modalWindowedTable={true}
+      menuListRequired={false}
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Part</div>
+        <div>Vendor</div>
+        <div>Created On</div>
+      </Table.Header>
+
+      <Table.Body
+        data={filterDeletedPurchases}
+        render={(purchase, i) => (
+          <PurchaseRow
+            purchase={purchase}
+            index={i}
+            key={purchase.id}
+            id={purchase.id}
+            deletedTable={true}
+          />
+        )}
+      />
+    </Table>
+  );
+}
+
 function PurchaseTable() {
   const { isPending, purchases } = useGetPurchases();
 
@@ -78,46 +111,15 @@ function PurchaseTable() {
     pageCount = Math.ceil(purchases.length / PAGE_SIZE);
   }
 
-  function DeletedPurchases() {
-    if (!filterDeletedPurchases || filterDeletedPurchases.length === 0)
-      return <Empty resourceName={"Deleted Purchases"} />;
-
-    return (
-      <Table
-        columns=".75fr 2fr 3fr 2.5fr .1fr"
-        modalWindowedTable={true}
-        menuListRequired={false}
-      >
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Part</div>
-          <div>Vendor</div>
-          <div>Created On</div>
-        </Table.Header>
-
-        <Table.Body
-          data={filterDeletedPurchases}
-          render={(purchase, i) => (
-            <PurchaseRow
-              purchase={purchase}
-              index={i}
-              key={purchase.id}
-              id={purchase.id}
-              deletedTable={true}
-            />
-          )}
-        />
-      </Table>
-    );
-  }
-
   if (isPending) return <Spinner />;
 
   if (currentPage > pageCount) return <Navigate replace to="/Purchases" />;
 
   return (
     <Table
-      deletedTableContent={<DeletedPurchases />}
+      deletedTableContent={
+        <DeletedPurchases filterDeletedPurchases={filterDeletedPurchases} />
+      }
       columns=".75fr 1.5fr 1.5fr 1fr 1.5fr 1.5fr 1.5fr .1fr"
     >
       <Table.Header>

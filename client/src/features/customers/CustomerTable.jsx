@@ -7,6 +7,37 @@ import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
 
+function DeletedCustomers({ filterDeletedCustomers }) {
+  if (!filterDeletedCustomers || filterDeletedCustomers.length === 0)
+    return <Empty resourceName={"Deleted Customers"} />;
+
+  return (
+    <Table
+      columns={".5fr 1.5fr 2fr .5fr"}
+      modalWindowedTable={true}
+      menuListRequired={false}
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Name</div>
+        <div>Email</div>
+      </Table.Header>
+      <Table.Body
+        data={filterDeletedCustomers}
+        render={(customer, i) => (
+          <CustomerRow
+            customer={customer}
+            index={i}
+            key={customer.id}
+            id={customer.id}
+            deletedTable={true}
+          />
+        )}
+      />
+    </Table>
+  );
+}
+
 function CustomersTable() {
   const { isPending, customers } = useGetCustomers();
   const [searchParams] = useSearchParams();
@@ -57,44 +88,15 @@ function CustomersTable() {
     pageCount = Math.ceil(customers.length / PAGE_SIZE);
   }
 
-  function DeletedCustomers() {
-    if (!filterDeletedCustomers || filterDeletedCustomers.length === 0)
-      return <Empty resourceName={"Deleted Customers"} />;
-
-    return (
-      <Table
-        columns={".5fr 1.5fr 2fr .5fr"}
-        modalWindowedTable={true}
-        menuListRequired={false}
-      >
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Name</div>
-          <div>Email</div>
-        </Table.Header>
-        <Table.Body
-          data={filterDeletedCustomers}
-          render={(customer, i) => (
-            <CustomerRow
-              customer={customer}
-              index={i}
-              key={customer.id}
-              id={customer.id}
-              deletedTable={true}
-            />
-          )}
-        />
-      </Table>
-    );
-  }
-
   if (isPending) return <Spinner />;
 
   if (currentPage > pageCount) return <Navigate replace to="/customers" />;
 
   return (
     <Table
-      deletedTableContent={<DeletedCustomers />}
+      deletedTableContent={
+        <DeletedCustomers filterDeletedCustomers={filterDeletedCustomers} />
+      }
       columns={".5fr 1fr 1fr 1fr.5fr"}
     >
       <Table.Header>

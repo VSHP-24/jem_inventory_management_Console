@@ -8,6 +8,40 @@ import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
 
+function DeletedModels({ filterDeletedModels }) {
+  if (!filterDeletedModels || filterDeletedModels.length === 0)
+    return <Empty resourceName={"Deleted Bike Models"} />;
+
+  return (
+    <Table
+      columns=".5fr 1fr 1fr 1fr .5fr .5fr"
+      modalWindowedTable={true}
+      menuListRequired={false}
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Brand</div>
+        <div>Bike Model</div>
+        <div>Version</div>
+        <div>Year</div>
+      </Table.Header>
+
+      <Table.Body
+        data={filterDeletedModels}
+        render={(model, i) => (
+          <ModelRow
+            model={model}
+            index={i}
+            key={model.id}
+            id={model.id}
+            deletedTable={true}
+          />
+        )}
+      />
+    </Table>
+  );
+}
+
 function ModelTable() {
   const { isPending, models } = useGetModels();
   const [searchParams] = useSearchParams();
@@ -69,40 +103,6 @@ function ModelTable() {
     pageCount = Math.ceil(models.length / PAGE_SIZE);
   }
 
-  function DeletedModels() {
-    if (!filterDeletedModels || filterDeletedModels.length === 0)
-      return <Empty resourceName={"Deleted Bike Models"} />;
-
-    return (
-      <Table
-        columns=".5fr 1fr 1fr 1fr .5fr .5fr"
-        modalWindowedTable={true}
-        menuListRequired={false}
-      >
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Brand</div>
-          <div>Bike Model</div>
-          <div>Version</div>
-          <div>Year</div>
-        </Table.Header>
-
-        <Table.Body
-          data={filterDeletedModels}
-          render={(model, i) => (
-            <ModelRow
-              model={model}
-              index={i}
-              key={model.id}
-              id={model.id}
-              deletedTable={true}
-            />
-          )}
-        />
-      </Table>
-    );
-  }
-
   if (isPending) return <Spinner />;
 
   if (currentPage > pageCount)
@@ -110,7 +110,9 @@ function ModelTable() {
 
   return (
     <Table
-      deletedTableContent={<DeletedModels />}
+      deletedTableContent={
+        <DeletedModels filterDeletedModels={filterDeletedModels} />
+      }
       columns=".5fr 1fr 1fr .75fr .5fr .5fr"
     >
       <Table.Header>

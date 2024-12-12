@@ -8,6 +8,37 @@ import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
 
+function DeletedCategories({ filterDeletedCategories }) {
+  if (!filterDeletedCategories || filterDeletedCategories.length === 0)
+    return <Empty resourceName={"Deleted Categories"} />;
+
+  return (
+    <Table
+      columns=".5fr 1fr  .5fr"
+      modalWindowedTable={true}
+      menuListRequired={false}
+    >
+      <Table.Header>
+        <div>Sl No.</div>
+        <div>Name</div>
+      </Table.Header>
+
+      <Table.Body
+        data={filterDeletedCategories}
+        render={(category, i) => (
+          <CategoryRow
+            category={category}
+            index={i}
+            key={category.id}
+            id={category.id}
+            deletedTable={true}
+          />
+        )}
+      />
+    </Table>
+  );
+}
+
 function CategoryTable() {
   const { isPending, categories } = useGetCategories();
 
@@ -55,44 +86,18 @@ function CategoryTable() {
     pageCount = Math.ceil(categories.length / PAGE_SIZE);
   }
 
-  function DeletedCategories() {
-    if (!filterDeletedCategories || filterDeletedCategories.length === 0)
-      return <Empty resourceName={"Deleted Categories"} />;
-
-    return (
-      <Table
-        columns=".5fr 1fr  .5fr"
-        modalWindowedTable={true}
-        menuListRequired={false}
-      >
-        <Table.Header>
-          <div>Sl No.</div>
-          <div>Name</div>
-        </Table.Header>
-
-        <Table.Body
-          data={filterDeletedCategories}
-          render={(category, i) => (
-            <CategoryRow
-              category={category}
-              index={i}
-              key={category.id}
-              id={category.id}
-              deletedTable={true}
-            />
-          )}
-        />
-      </Table>
-    );
-  }
-
   if (isPending) return <Spinner />;
 
   if (currentPage > pageCount)
     return <Navigate replace to="/manage?tableType=categories" />;
 
   return (
-    <Table deletedTableContent={<DeletedCategories />} columns=".5fr 1fr  .5fr">
+    <Table
+      deletedTableContent={
+        <DeletedCategories filterDeletedCategories={filterDeletedCategories} />
+      }
+      columns=".5fr 1fr  .5fr"
+    >
       <Table.Header>
         <div>Sl No.</div>
         <div>Name</div>
