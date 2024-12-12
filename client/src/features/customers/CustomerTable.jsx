@@ -90,9 +90,6 @@ function CustomersTable() {
 
   if (isPending) return <Spinner />;
 
-  if (!filterAvailableCustomers || filterAvailableCustomers.length === 0)
-    return <Empty resourceName={"Customers"} />;
-
   if (currentPage > pageCount) return <Navigate replace to="/customers" />;
 
   return (

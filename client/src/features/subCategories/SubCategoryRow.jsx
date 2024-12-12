@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import SubCategoryDetailPage from "./SubCategoryDetailPage";
@@ -13,6 +14,10 @@ function SubCategoryRow({ subCategory, index, id, deletedTable }) {
   const { editSubCategory } = useEditSubCategory();
 
   function handleRestoreButtonClick() {
+    if (!subCategory.isDeleted)
+      return toast.error(
+        `${subCategory.category.name} category is deleted . Restore Category first ! `
+      );
     editSubCategory({ ...subCategory, isDeleted: false });
   }
 

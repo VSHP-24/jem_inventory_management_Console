@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import ModelDetailPage from "./ModelDetailPage";
@@ -13,6 +14,10 @@ function ModelRow({ model, index, id, deletedTable }) {
   const { editModel } = useEditModel();
 
   function handleRestoreButtonClick() {
+    if (!model.isDeleted)
+      return toast.error(
+        `${model.brand.name} brand is deleted . Restore brand first ! `
+      );
     editModel({ ...model, isDeleted: false });
   }
 

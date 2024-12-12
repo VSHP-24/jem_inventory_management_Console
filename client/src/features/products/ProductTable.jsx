@@ -124,9 +124,6 @@ function ProductTable() {
 
   if (isPending) return <Spinner />;
 
-  if (!filterAvailableProducts || filterAvailableProducts.length === 0)
-    return <Empty resourceName={"Products"} />;
-
   if (currentPage > pageCount) return <Navigate replace to="/Products" />;
 
   return (

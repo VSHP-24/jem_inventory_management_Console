@@ -61,15 +61,12 @@ function OrderTable() {
     });
 
     // Filter Deleted Orders
-    filterDeletedOrders = sortedOrders.filter(
-      (order) => order.isDeleted || !order.user.user.active
-    );
+    filterDeletedOrders = sortedOrders.filter((order) => order.isDeleted);
 
     // Filter Available Orders
     filterAvailableOrders = sortedOrders.filter(
       (order) =>
         !order.isDeleted &&
-        order.user.user.active &&
         (filteredPaymentMethod === "" ||
           filteredPaymentMethod.includes(order.paymentMethod)) &&
         (filteredPaymentStatus === "" ||
@@ -117,9 +114,6 @@ function OrderTable() {
   }
 
   if (isPending) return <Spinner />;
-
-  if (!filterAvailableOrders || filterAvailableOrders.length === 0)
-    return <Empty resourceName={"Orders"} />;
 
   if (currentPage > pageCount) return <Navigate replace to="/Orders" />;
 

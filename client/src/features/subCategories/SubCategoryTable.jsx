@@ -107,12 +107,6 @@ function SubCategoryTable() {
 
   if (isPending) return <Spinner />;
 
-  if (
-    !filterAvailableSubCategories ||
-    filterAvailableSubCategories.length === 0
-  )
-    return <Empty resourceName={"SubCategories"} />;
-
   if (currentPage > pageCount)
     return <Navigate replace to="/manage?tableType=subCategories" />;
 

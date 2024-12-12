@@ -105,9 +105,6 @@ function ModelTable() {
 
   if (isPending) return <Spinner />;
 
-  if (!filterAvailableModels || filterAvailableModels.length === 0)
-    return <Empty resourceName={"Bike Models"} />;
-
   if (currentPage > pageCount)
     return <Navigate replace to="/manage?tableType=bikes" />;
 

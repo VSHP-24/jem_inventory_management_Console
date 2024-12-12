@@ -88,9 +88,6 @@ function PartTable() {
 
   if (isPending) return <Spinner />;
 
-  if (!filterAvailableParts || filterAvailableParts.length === 0)
-    return <Empty resourceName={"Parts"} />;
-
   if (currentPage > pageCount) return <Navigate replace to="/Inventory" />;
 
   return (

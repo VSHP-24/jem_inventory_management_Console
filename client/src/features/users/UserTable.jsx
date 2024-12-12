@@ -90,9 +90,6 @@ function UserTable() {
 
   if (isPending) return <Spinner />;
 
-  if (!filterAvailableUsers || filterAvailableUsers.length === 0)
-    return <Empty resourceName={"Users"} />;
-
   if (currentPage > pageCount)
     return <Navigate replace to="/Users?userOptions=allUsers" />;
 

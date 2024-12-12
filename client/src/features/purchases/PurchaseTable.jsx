@@ -113,9 +113,6 @@ function PurchaseTable() {
 
   if (isPending) return <Spinner />;
 
-  if (!filterAvailablePurchases || filterAvailablePurchases.length === 0)
-    return <Empty resourceName={"Purchases"} />;
-
   if (currentPage > pageCount) return <Navigate replace to="/Purchases" />;
 
   return (

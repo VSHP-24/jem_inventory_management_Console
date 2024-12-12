@@ -88,9 +88,6 @@ function CategoryTable() {
 
   if (isPending) return <Spinner />;
 
-  if (!filterAvailableCategories || filterAvailableCategories.length === 0)
-    return <Empty resourceName={"Categories"} />;
-
   if (currentPage > pageCount)
     return <Navigate replace to="/manage?tableType=categories" />;
 

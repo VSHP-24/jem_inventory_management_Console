@@ -4,7 +4,6 @@ import { HiOutlineEye, HiPencil, HiTrash } from "react-icons/hi2";
 import { createPortal } from "react-dom";
 import Modal from "./Modal";
 import ConfirmDelete from "./ConfirmDelete";
-import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const StyledMenuOptions = styled.ul`
   position: absolute;
@@ -50,14 +49,12 @@ function TableMenuList({
   editFormContent,
   deleteContentFrom,
 }) {
-  const ref = useOutsideClick(close);
-
   if (openId !== id) {
     return null;
   }
 
   return createPortal(
-    <Modal ref={ref} closeMenuList={close}>
+    <Modal closeMenuList={close}>
       <StyledMenuOptions position={position}>
         <Modal.Open opens="view-details">
           <StyledButton>

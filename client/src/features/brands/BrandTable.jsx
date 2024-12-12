@@ -84,9 +84,6 @@ function BrandTable() {
 
   if (isPending) return <Spinner />;
 
-  if (!filterAvailableBrands || filterAvailableBrands.length === 0)
-    return <Empty resourceName={"Brands"} />;
-
   if (currentPage > pageCount) return <Navigate replace to="/manage" />;
 
   return (
