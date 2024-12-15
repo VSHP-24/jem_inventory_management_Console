@@ -6,10 +6,10 @@ import Heading from "../../ui/Heading";
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
   display: grid;
-  grid-template-columns: 40rem 30rem;
+  grid-template-columns: 1fr 1fr;
   font-size: 1.4rem;
   padding: 2rem;
-  width: 75rem;
+  width: 100%;
 `;
 
 const StyledProductDetails = styled.main``;

@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { device } from "../utils/devices";
 
 const Heading = styled.h1`
   ${(props) =>
@@ -13,6 +14,14 @@ const Heading = styled.h1`
     css`
       font-size: 2rem;
       font-weight: 600;
+
+      @media ${device.laptopL} {
+        font-size: 1.6rem;
+      }
+
+      @media ${device.mobileM} {
+        font-size: 1.2rem;
+      }
     `}
 
     ${(props) =>

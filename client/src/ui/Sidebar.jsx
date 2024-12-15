@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import mainNavList from "./../utils/mainNavList.js";
 import StyledNavLink from "./StyledNavLink.jsx";
+import { device } from "../utils/devices.js";
 
 const StyledAside = styled.aside`
   font-size: 1rem;
@@ -9,6 +10,16 @@ const StyledAside = styled.aside`
   background-color: var(--color-gold-300);
   justify-content: space-around;
   padding: 0.4rem 0.2rem 2.4rem;
+
+  @media ${device.laptopS} {
+    grid-row: 3 / span 1;
+    flex-direction: row;
+  }
+
+  @media ${device.mobileM} {
+    grid-row: 2;
+    flex-direction: column;
+  }
 `;
 
 const StyledNavLinks = styled(StyledNavLink)`
@@ -36,14 +47,73 @@ const StyledNavLinks = styled(StyledNavLink)`
   &.active:visited svg {
     color: var(--color-gold-100);
   }
+
+  @media ${device.laptopL} {
+    & svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  @media ${device.laptopS} {
+    flex-direction: column;
+    height: 5rem;
+    gap: 0;
+    padding: 0 1rem;
+  }
+
+  @media ${device.tablet} {
+    & svg {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+  }
+
+  @media ${device.mobileM} {
+    justify-content: space-evenly;
+    & svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
 `;
 
 const StyledIcon = styled.div`
   font-size: 2rem;
+
+  @media ${device.laptopL} {
+    font-size: 1rem;
+  }
+  @media ${device.laptopS} {
+    font-size: 1rem;
+  }
+
+  @media ${device.tablet} {
+    font-size: 1.8rem;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 1.6rem;
+  }
 `;
 
 const StyledIconLabel = styled.span`
   font-size: 1.2rem;
+
+  @media ${device.laptopL} {
+    font-size: 1rem;
+  }
+  @media ${device.laptopS} {
+    font-size: 0.8rem;
+  }
+
+  @media ${device.tablet} {
+    font-size: 0.8rem;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 0.75rem;
+  }
 `;
 
 function MainNav() {

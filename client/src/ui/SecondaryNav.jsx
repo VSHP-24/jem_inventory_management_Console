@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import secondaryNavList from "./../utils/secondaryNavList";
 import StyledNavLink from "./StyledNavLink";
+import { device } from "../utils/devices";
 
 const StyledNav = styled.nav`
   display: flex;
   gap: 2.4rem;
+
+  @media ${device.mobileM} {
+    gap: 1rem;
+  }
 `;
 
 const StyledNavLinks = styled(StyledNavLink)`
@@ -31,14 +36,37 @@ const StyledNavLinks = styled(StyledNavLink)`
   &.active:visited svg {
     color: var(--color-grey-900);
   }
+
+  @media ${device.tablet} {
+    & svg {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+  }
 `;
 
 const StyledIcon = styled.div`
   font-size: 3rem;
+
+  @media ${device.laptopS} {
+    font-size: 1rem;
+  }
+
+  @media ${device.tablet} {
+    font-size: 1.8rem;
+  }
 `;
 
 const StyledIconLabel = styled.span`
   font-size: 1rem;
+
+  @media ${device.laptopS} {
+    font-size: 1rem;
+  }
+
+  @media ${device.tablet} {
+    font-size: 0.8rem;
+  }
 `;
 
 function SecondaryNav() {

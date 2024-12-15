@@ -75,7 +75,7 @@ function OrderDetailPage({ order }) {
           <StyledHeader>Ordered Items</StyledHeader>
           <StyledDetails>
             <Table
-              columns=".75fr 3fr 1fr 1fr"
+              columns=".75fr 2fr 1fr 1fr"
               menuListRequired={false}
               modalWindowedTable={true}
             >

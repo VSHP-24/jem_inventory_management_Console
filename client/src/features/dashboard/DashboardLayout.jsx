@@ -10,12 +10,28 @@ import CategoryChart from "./CategoryChart";
 import { useGetBrands } from "../brands/useGetBrands";
 import { useGetCategories } from "../categories/useGetCategories";
 import BrandChart from "./BrandChart";
+import { device } from "../../utils/devices";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto 34rem auto;
   gap: 2.4rem;
+
+  @media ${device.laptopL} {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto 34rem auto;
+    gap: 1.2rem;
+  }
+
+  @media ${device.tablet} {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media ${device.mobileM} {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
 `;
 
 function DashboardLayout() {

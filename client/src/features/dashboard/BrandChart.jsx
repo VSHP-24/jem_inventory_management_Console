@@ -9,6 +9,7 @@ import {
   Tooltip,
 } from "recharts";
 import { generateRandomColor } from "../../utils/generateRandomColor";
+import { device } from "../../utils/devices";
 
 const ChartBox = styled.div`
   /* Box */
@@ -25,6 +26,14 @@ const ChartBox = styled.div`
 
   & .recharts-pie-label-text {
     font-weight: 600;
+  }
+
+  @media ${device.laptopL} {
+    grid-column: 1 / span 2;
+  }
+
+  @media ${device.mobileM} {
+    grid-column: 1 / span 1;
   }
 `;
 

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../utils/devices";
 
 const StyledStat = styled.div`
   /* Box */
@@ -12,6 +13,11 @@ const StyledStat = styled.div`
   grid-template-rows: auto auto;
   column-gap: 1.6rem;
   row-gap: 0.4rem;
+
+  @media ${device.laptopL} {
+    padding: 0.8rem;
+    column-gap: 1.2rem;
+  }
 `;
 
 const Icon = styled.div`
@@ -30,6 +36,13 @@ const Icon = styled.div`
     height: 2.4rem;
     color: var(--color-grey-0);
   }
+
+  @media ${device.laptopL} {
+    & svg {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
 `;
 
 const Title = styled.h5`
@@ -39,6 +52,10 @@ const Title = styled.h5`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-700);
+
+  @media ${device.laptopL} {
+    font-size: 1rem;
+  }
 `;
 
 const Value = styled.p`
@@ -46,6 +63,10 @@ const Value = styled.p`
   line-height: 1;
   font-weight: 500;
   color: var(--color-grey-900);
+
+  @media ${device.laptopL} {
+    font-size: 1.4rem;
+  }
 `;
 
 function Stat({ icon, title, value, color }) {

@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { NavTabButton } from "./NavTabButton";
+import { device } from "../utils/devices";
 
 const StyledNav = styled.nav`
   border: 1px solid var(--color-gold-700);
@@ -15,6 +16,21 @@ const StyledNav = styled.nav`
   width: ${(props) => {
     return props.width;
   }};
+
+  @media ${device.laptopL} {
+    gap: 0.1rem;
+    padding: 0 0.1rem;
+    font-size: 1.2rem;
+  }
+
+  @media ${device.tablet} {
+    width: 100%;
+    font-size: 1.2rem;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 1rem;
+  }
 `;
 
 function NavTabs({ fieldComponent, options, width = "100%" }) {

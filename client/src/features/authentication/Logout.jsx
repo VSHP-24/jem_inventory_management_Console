@@ -3,13 +3,48 @@ import ButtonIcon from "../../ui/ButtonIcon";
 import styled from "styled-components";
 import { useLogout } from "./useLogout";
 import SpinnerMini from "../../ui/SpinnerMini";
+import { device } from "../../utils/devices";
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+`;
 
 const StyledIcon = styled.div`
   font-size: 3rem;
+
+  @media ${device.laptopS} {
+    font-size: 1rem;
+    @media ${device.tablet} {
+      & svg {
+        width: 1.8rem;
+        height: 1.8rem;
+      }
+    }
+  }
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+    @media ${device.tablet} {
+      & svg {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
+  }
 `;
 
 const StyledIconLabel = styled.span`
   font-size: 1rem;
+
+  @media ${device.laptopS} {
+    font-size: 1rem;
+  }
+
+  @media ${device.tablet} {
+    font-size: 0.8rem;
+  }
 `;
 
 function Logout() {
@@ -18,12 +53,12 @@ function Logout() {
   return (
     <ButtonIcon disabled={isPending} onClick={logout}>
       {!isPending ? (
-        <>
+        <StyledContainer>
           <StyledIcon>
             <HiArrowRightOnRectangle />
           </StyledIcon>
           <StyledIconLabel>Logout</StyledIconLabel>
-        </>
+        </StyledContainer>
       ) : (
         <SpinnerMini />
       )}
