@@ -35,7 +35,7 @@ const StyledAppLayout = styled.div`
   @media ${device.mobileM} {
     max-width: 40rem;
     grid-template-columns: 5rem 1fr;
-    grid-template-rows: 7.5rem 1fr 1.5rem;
+    grid-template-rows: 7.5rem 1fr 3rem;
   }
 `;
 

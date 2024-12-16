@@ -19,6 +19,11 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0 1rem;
+
+  @media ${device.mobileM} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 function Footer() {

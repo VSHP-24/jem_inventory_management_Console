@@ -29,6 +29,14 @@ const Heading = styled.h1`
     css`
       font-size: 1.8rem;
       font-weight: 500;
+
+      @media ${device.laptopL} {
+        font-size: 1.4rem;
+      }
+
+      @media ${device.mobileM} {
+        font-size: 1rem;
+      }
     `}
 
   line-height: 1.4

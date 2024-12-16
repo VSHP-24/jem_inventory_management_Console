@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Logo from "../ui/Logo";
 import Heading from "../ui/Heading";
 import LoginForm from "../features/authentication/LoginForm";
+import { device } from "../utils/devices";
 
 const LoginLayout = styled.main`
   min-height: 100vh;
@@ -12,6 +13,15 @@ const LoginLayout = styled.main`
   justify-items: center;
   gap: 1.2rem;
   background-color: var(--color-grey-900);
+  padding: 2rem;
+
+  @media ${device.tablet} {
+    gap: 1rem;
+  }
+
+  @media ${device.mobileM} {
+    gap: 0.8rem;
+  }
 `;
 
 const StyledHeading = styled(Heading)`
