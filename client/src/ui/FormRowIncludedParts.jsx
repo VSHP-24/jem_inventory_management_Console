@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../utils/devices";
 
 const StyledFormRow = styled.div`
   display: grid;
@@ -17,6 +18,10 @@ const StyledFormRow = styled.div`
   }
   &:button {
     gap: 1.2rem;
+  }
+
+  @media ${device.laptopL} {
+    grid-template-columns: 1fr 1fr;
   }
 `;
 

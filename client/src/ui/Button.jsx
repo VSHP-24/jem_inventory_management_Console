@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { device } from "../utils/devices";
 
 const sizes = {
   small: css`
@@ -10,11 +11,23 @@ const sizes = {
     font-size: 1rem;
     padding: 0.25rem 0.75rem;
     font-weight: 500;
+
+    @media ${device.laptopL} {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.6rem;
+      font-weight: 500;
+    }
   `,
   large: css`
     font-size: 1.2rem;
     padding: 0.75rem 1rem;
     font-weight: 500;
+
+    @media ${device.laptopL} {
+      font-size: 1rem;
+      padding: 0.5rem 0.8rem;
+      font-weight: 500;
+    }
   `,
 };
 

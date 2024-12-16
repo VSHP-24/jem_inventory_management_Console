@@ -1,13 +1,15 @@
 import styled, { css } from "styled-components";
+import { device } from "../utils/devices";
 
 const StyledFormRow = styled.div`
+  gap: 0.5rem;
+  padding: 1.2rem 0;
   ${(props) =>
     props.displayDirection === "horizontal" &&
     css`
       display: grid;
       align-items: center;
       grid-template-columns: 24rem 1fr;
-      gap: 0.5rem;
     `}
 
   ${(props) =>
@@ -15,10 +17,8 @@ const StyledFormRow = styled.div`
     css`
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
       padding: 0.8rem 0;
     `}
-    padding: 1.2rem 0;
 
   &:first-child {
     padding-top: 0;
@@ -33,10 +33,30 @@ const StyledFormRow = styled.div`
     justify-content: flex-end;
     gap: 1.2rem;
   }
+
+  @media ${device.laptopL} {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    &:has(button) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  @media ${device.tablet} {
+    padding: 1rem 0;
+  }
 `;
 
 const Label = styled.label`
   font-weight: 500;
+
+  @media ${device.tablet} {
+    font-size: 1.2rem;
+  }
 `;
 
 const Error = styled.span`

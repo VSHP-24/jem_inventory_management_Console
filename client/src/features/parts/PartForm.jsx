@@ -6,10 +6,9 @@ import Input from "../../ui/Input";
 
 import { useCreatePart } from "./useCreatePart";
 import Button from "../../ui/Button";
-import toast from "react-hot-toast";
 import { useEditPart } from "./useEditPart";
 
-function PartForm({ partToEdit = {}, onCloseModal }) {
+function PartForm({ type, partToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = partToEdit;
   const isEditSession = Boolean(editId);
 
@@ -17,7 +16,6 @@ function PartForm({ partToEdit = {}, onCloseModal }) {
     register,
     handleSubmit,
     formState: { errors },
-
     reset,
   } = useForm({
     defaultValues: isEditSession ? editValues : {},
@@ -35,7 +33,6 @@ function PartForm({ partToEdit = {}, onCloseModal }) {
   }
 
   function onError(errors) {
-    toast.error(errors);
     return null;
   }
   return (

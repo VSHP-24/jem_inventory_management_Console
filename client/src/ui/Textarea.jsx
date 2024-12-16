@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../utils/devices";
 
 const Textarea = styled.textarea`
   padding: 0.8rem 1.2rem;
@@ -8,6 +9,10 @@ const Textarea = styled.textarea`
   box-shadow: var(--shadow-sm);
   width: 30rem;
   height: 8rem;
+
+  @media ${device.tablet} {
+    width: 100%;
+  }
 `;
 
 export default Textarea;

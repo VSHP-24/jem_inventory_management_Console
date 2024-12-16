@@ -21,7 +21,7 @@ function PartRow({ part, index, id, deletedTable }) {
       isDeleting={isDeleting}
       contentType="Part"
       detailPageContent={<PartDetailPage part={part} />}
-      editFormContent={<PartForm partToEdit={part} />}
+      editFormContent={<PartForm type="modal" partToEdit={part} />}
       deleteContentFrom={deletePart}
     >
       <div>

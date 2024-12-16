@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { NavTabButton } from "./NavTabButton";
 import { device } from "../utils/devices";
@@ -7,6 +7,7 @@ import { device } from "../utils/devices";
 const StyledNav = styled.nav`
   border: 1px solid var(--color-gold-700);
   background-color: var(--color-gold-200);
+
   box-shadow: var(--shadow-sm);
   border-radius: var(--border-radius-sm);
   padding: 0.2rem;
@@ -17,23 +18,48 @@ const StyledNav = styled.nav`
     return props.width;
   }};
 
-  @media ${device.laptopL} {
-    gap: 0.1rem;
-    padding: 0 0.1rem;
-    font-size: 1.2rem;
-  }
+  ${(props) =>
+    props.stylingType === "dashboardFilter" &&
+    css`
+      @media ${device.laptopL} {
+        gap: 0.1rem;
+        padding: 0 0.1rem;
+        font-size: 1.2rem;
+      }
 
-  @media ${device.tablet} {
-    width: 100%;
-    font-size: 1.2rem;
-  }
+      @media ${device.tablet} {
+        width: 100%;
+        font-size: 1.2rem;
+      }
 
-  @media ${device.mobileM} {
-    font-size: 1rem;
-  }
+      @media ${device.mobileM} {
+        font-size: 1rem;
+      }
+    `};
+
+  ${(props) =>
+    props.stylingType === "createFormTabs" &&
+    css`
+      @media ${device.laptopL} {
+        gap: 0.1rem;
+        padding: 0 0.1rem;
+        font-size: 1.2rem;
+      }
+
+      @media ${device.tablet} {
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      @media ${device.mobileM} {
+        font-size: 1rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    `}
 `;
 
-function NavTabs({ fieldComponent, options, width = "100%" }) {
+function NavTabs({ fieldComponent, options, stylingType, width = "100%" }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentValue = searchParams.get(fieldComponent) || options.at(0).value;
@@ -47,7 +73,7 @@ function NavTabs({ fieldComponent, options, width = "100%" }) {
     setSearchParams(searchParams);
   }
   return (
-    <StyledNav width={width}>
+    <StyledNav stylingType={stylingType} width={width}>
       {options.map((option) => (
         <NavTabButton
           key={option.value}

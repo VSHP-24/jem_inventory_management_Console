@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../utils/devices";
 
 const Select = styled.select`
   border: 1px solid var(--color-grey-600);
@@ -7,6 +8,10 @@ const Select = styled.select`
   padding: 0.8rem 1.2rem;
   width: 30rem;
   box-shadow: var(--shadow-sm);
+
+  @media ${device.tablet} {
+    width: 100%;
+  }
 `;
 
 export default Select;

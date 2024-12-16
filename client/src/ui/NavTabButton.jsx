@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { device } from "../utils/devices";
 
 export const NavTabButton = styled.button`
   background-color: var(--color-gold-200);
@@ -20,5 +21,13 @@ export const NavTabButton = styled.button`
   &:hover:not(:disabled) {
     background-color: var(--color-grey-800);
     color: var(--color-gold-100);
+  }
+
+  @media ${device.laptopL} {
+    padding: 0.4rem;
+  }
+
+  @media ${device.tablet} {
+    padding: 0.2rem;
   }
 `;

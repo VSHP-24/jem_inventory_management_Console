@@ -3,6 +3,7 @@ import NavTabs from "../../ui/NavTabs";
 function CreateFormTabs() {
   return (
     <NavTabs
+      stylingType="createFormTabs"
       fieldComponent="formType"
       options={[
         { value: "new-brand", label: "Brand" },

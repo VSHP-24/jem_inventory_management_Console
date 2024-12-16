@@ -11,6 +11,7 @@ function DashboardFilter() {
         { value: "all", label: "All" },
       ]}
       width="40rem"
+      stylingType="dashboardFilter"
     />
   );
 }
