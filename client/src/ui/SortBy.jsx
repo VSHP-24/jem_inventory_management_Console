@@ -1,13 +1,25 @@
 import styled from "styled-components";
 import Select from "./Select";
 import { useSearchParams } from "react-router-dom";
+import { device } from "../utils/devices";
 
 const StyledSelect = styled(Select)`
   border: 2px solid var(--color-grey-900);
   border-radius: 7px;
   height: 5rem;
   font-size: 2.5rem;
-  width: 25rem;
+  width: 100%;
+
+  @media ${device.laptopL} {
+    font-size: 1.2rem;
+    height: 4rem;
+  }
+`;
+
+const StyledOption = styled.option`
+  @media ${device.laptopL} {
+    font-size: 1.2rem;
+  }
 `;
 
 function SortBy({ sortByOptions = [] }) {
@@ -23,9 +35,9 @@ function SortBy({ sortByOptions = [] }) {
   return (
     <StyledSelect onChange={handleChange} value={sortBy}>
       {sortByOptions.map((option) => (
-        <option value={option.value} key={option.value}>
+        <StyledOption value={option.value} key={option.value}>
           {option.label}
-        </option>
+        </StyledOption>
       ))}
     </StyledSelect>
   );

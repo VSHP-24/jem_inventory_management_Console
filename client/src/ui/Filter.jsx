@@ -6,10 +6,12 @@ import { HiChevronDown, HiOutlineXMark } from "react-icons/hi2";
 import { useState } from "react";
 import { useEffect } from "react";
 import SelectedFilter from "./SelectedFilter";
+import { device } from "../utils/devices";
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const StyledFilteredItemsContainer = styled.div`
@@ -37,10 +39,18 @@ const StyledButton = styled(Button)`
   background-color: var(--color-gold-100);
   text-decoration: none;
   display: inline-block;
+
+  @media ${device.laptopL} {
+    font-size: 2rem;
+  }
 `;
 
 const StyledDivider = styled.div`
   font-size: 2.5rem;
+
+  @media ${device.laptopL} {
+    font-size: 2rem;
+  }
 `;
 
 const StyledOptionsContainer = styled.div`
@@ -61,6 +71,13 @@ const StyledOptionsContainer = styled.div`
   overflow: auto;
   accent-color: var(--color-grey-900);
   color: var(--color-grey-900);
+
+  @media ${device.laptopL} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+    padding: 1.2rem;
+  }
 `;
 
 const StyledIndividualFilterContainer = styled.div``;

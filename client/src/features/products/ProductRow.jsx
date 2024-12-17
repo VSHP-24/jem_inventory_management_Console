@@ -6,6 +6,33 @@ import RestoreButton from "../../ui/RestoreButton";
 import { useDeleteProduct } from "./useDeleteProduct";
 import { useEditProduct } from "./useEditProduct";
 import toast from "react-hot-toast";
+import styled, { css } from "styled-components";
+import { device } from "../../utils/devices";
+
+const columnType = {
+  productDetails: css`
+    @media ${device.laptopL} {
+      grid-column: 3;
+    }
+    @media ${device.mobileM} {
+      grid-column: 3;
+    }
+  `,
+
+  heading: css`
+    font-weight: 600;
+    display: none;
+
+    @media ${device.laptopL} {
+      grid-column: 2;
+      display: block;
+    }
+  `,
+};
+
+const StyledColumnLaptopL = styled.div`
+  ${(props) => columnType[props.type]}
+`;
 
 function ProductRow({ product, index, id, deletedTable }) {
   const { name, brand, model, category, subCategory, price } = product;
@@ -52,15 +79,46 @@ function ProductRow({ product, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
+
       {!deletedTable && (
         <>
-          <div>{brand.name}</div>
-          <div>{model.name}</div>
-          <div>{category.name}</div>
-          <div>{subCategory.name}</div>
-          <div>₹ {price}</div>
+          <StyledColumnLaptopL as="header" index={1} type="heading">
+            Brand
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="productDetails">
+            {brand.name}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" index={2} type="heading">
+            Model
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="productDetails">
+            {model.name}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" index={3} type="heading">
+            Category
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="productDetails">
+            {category.name}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" index={4} type="heading">
+            SubCategory
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="productDetails">
+            {subCategory.name}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" index={5} type="heading">
+            Price
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="productDetails">
+            ₹ {price}
+          </StyledColumnLaptopL>
         </>
       )}
+
       {deletedTable && (
         <>
           <div>{name}</div>

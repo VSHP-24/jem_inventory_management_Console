@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { device } from "../utils/devices";
 
 const GlobalStyles = createGlobalStyle`
 :root {
@@ -86,6 +87,16 @@ body {
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;
   font-size: 1.6rem;
+
+
+   @media ${device.laptopL} {
+    font-size: 1.4rem;
+
+    }
+
+    @media ${device.tablet} {
+    font-size: 1rem;
+    }
 }
 
 button,nav {

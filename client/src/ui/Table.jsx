@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { createContext, useContext, useState } from "react";
 
 import TableMenuButton from "./TableMenuButton";
@@ -6,25 +6,63 @@ import TableMenuList from "./TableMenuList";
 import DeletedTableItems from "./DeletedTableItems";
 import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../utils/constants";
+import { device } from "../utils/devices";
+
+const tableType = {
+  productTable: css`
+    background-color: var(--color-gold-200);
+    grid-template-columns: ${(props) => props.columns.defaultColumns};
+    @media ${device.laptopL} {
+      grid-template-columns: ${(props) => props.columns.laptopL.columns};
+      grid-template-rows: ${(props) => props.columns.laptopL.rows};
+    }
+    @media ${device.tablet} {
+      grid-template-columns: ${(props) => props.columns.tablet};
+    }
+    @media ${device.mobileM} {
+      grid-template-columns: ${(props) => props.columns.mobileM};
+      column-gap: 0.25rem;
+    }
+  `,
+};
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-700);
-  align-self: center;
-  justify-self: center;
 
   font-size: 1.4rem;
   background-color: var(--color-gold-200);
   border-radius: 7px;
   overflow: hidden;
   width: 100%;
+
+  @media ${device.laptopL} {
+    font-size: 1.2rem;
+  }
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 0.8rem;
+  }
 `;
 
 const CommonRow = styled.div`
   display: grid;
-  grid-template-columns: ${(props) => props.columns};
   transition: none;
   align-items: center;
   padding: 0.5rem 1.2rem;
+  grid-template-columns: ${(props) => props.columns};
+  ${(props) => tableType[props.columns.tableName]};
+
+  @media ${device.tablet} {
+    padding: 0.5rem 1rem;
+  }
+
+  @media ${device.mobileM} {
+    padding: 0.5rem 1rem;
+  }
 `;
 
 const StyledHeader = styled(CommonRow)`
@@ -34,11 +72,32 @@ const StyledHeader = styled(CommonRow)`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-800);
+
+  ${(props) =>
+    !props.modalWindowedTable &&
+    css`
+      @media ${device.laptopL} {
+        display: none;
+      }
+      @media ${device.tablet} {
+        display: none;
+      }
+    `};
 `;
 
 const StyledRow = styled(CommonRow)`
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-600);
+  }
+
+  & :first-child {
+    grid-column: 1;
+    grid-row: 1 /-1;
+  }
+
+  & :last-child {
+    grid-column: -1;
+    grid-row: 1 /-1;
   }
 `;
 
@@ -71,6 +130,7 @@ const Empty = styled.p`
 const TableContext = createContext();
 
 function Table({
+  tableName,
   columns,
   children,
   deletedTableContent,
@@ -111,9 +171,14 @@ function Table({
 }
 
 function Header({ children }) {
-  const { columns } = useContext(TableContext);
+  const { columns, modalWindowedTable } = useContext(TableContext);
   return (
-    <StyledHeader role="row" columns={columns} as="header">
+    <StyledHeader
+      modalWindowedTable={modalWindowedTable}
+      role="row"
+      columns={columns}
+      as="header"
+    >
       {children}
     </StyledHeader>
   );

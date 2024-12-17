@@ -1,6 +1,7 @@
 import { HiOutlineXMark } from "react-icons/hi2";
 import styled from "styled-components";
 import Button from "./Button";
+import { device } from "../utils/devices";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -8,8 +9,20 @@ const StyledContainer = styled.div`
   gap: 0.75rem;
   width: 100%;
   max-width: 55rem;
+  max-height: 15rem;
+  overflow-y: scroll;
   cursor: pointer;
   flex-flow: row wrap;
+
+  @media ${device.laptopL} {
+    font-size: 1.4rem;
+    max-height: 7.5rem;
+    overflow-y: scroll;
+  }
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+  }
 `;
 
 const StyledIndividualContainer = styled.div`
@@ -23,6 +36,10 @@ const StyledIndividualContainer = styled.div`
 
   :hover {
     background-color: var(--color-gold-700);
+  }
+
+  @media ${device.laptopL} {
+    font-size: 0.8rem;
   }
 `;
 

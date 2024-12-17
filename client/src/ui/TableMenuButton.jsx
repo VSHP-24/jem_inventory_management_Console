@@ -1,5 +1,6 @@
 import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
+import { device } from "../utils/devices";
 
 const StyledMenuButton = styled.button`
   background: none;
@@ -9,6 +10,7 @@ const StyledMenuButton = styled.button`
   transform: translateX(0.8rem);
   transition: all 0.2s;
   width: 3rem;
+  justify-self: center;
 
   &:hover {
     background-color: var(--color-gold-700);
@@ -18,6 +20,14 @@ const StyledMenuButton = styled.button`
     width: 2.4rem;
     height: 2.4rem;
     color: var(--color-grey-700);
+  }
+
+  @media ${device.mobileM} {
+    & svg {
+      width: 1.8rem;
+      height: 1.8rem;
+      color: var(--color-grey-700);
+    }
   }
 `;
 

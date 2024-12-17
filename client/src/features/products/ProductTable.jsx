@@ -7,6 +7,26 @@ import { Navigate, useSearchParams } from "react-router-dom";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
+import styled from "styled-components";
+import { device } from "../../utils/devices";
+
+const productTableStyles = {
+  tableName: "productTable",
+  defaultColumns: ".75fr 1.25fr 1.5fr 1.25fr 2fr 1fr .1fr",
+  laptopL: { columns: ".25fr .5fr 1fr ", rows: "1fr 1fr 1fr 1fr 1fr" },
+  tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+  mobileM: { columns: ".15fr 1fr 1fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+};
+
+const StyledTableColumnLaptopL = styled.div`
+  @media ${device.laptopL} {
+    grid-column: 2;
+  }
+`;
+
+const InvisibileBox = styled.div`
+  color: var(--color-gold-400);
+`;
 
 function DeletedProducts({ filterDeletedProducts }) {
   if (!filterDeletedProducts || filterDeletedProducts.length === 0)
@@ -14,7 +34,7 @@ function DeletedProducts({ filterDeletedProducts }) {
 
   return (
     <Table
-      columns="2fr 10fr .75fr"
+      columns="2fr 7.5fr .75fr"
       modalWindowedTable={true}
       menuListRequired={false}
     >
@@ -131,15 +151,18 @@ function ProductTable() {
       deletedTableContent={
         <DeletedProducts filterDeletedProducts={filterDeletedProducts} />
       }
-      columns=".75fr 1.25fr 1.5fr 1.25fr 2fr 1fr .75fr"
+      columns={productTableStyles}
     >
       <Table.Header>
         <div>Sl No.</div>
-        <div>Brand</div>
-        <div>Model</div>
-        <div>Category</div>
-        <div>SubCategory</div>
-        <div>Price</div>
+
+        <StyledTableColumnLaptopL>Brand</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Model</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Category</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>SubCategory</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Price</StyledTableColumnLaptopL>
+
+        <InvisibileBox>Hello</InvisibileBox>
       </Table.Header>
 
       <Table.Body
