@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button from "./Button";
 import Heading from "./Heading";
+import { device } from "../utils/devices";
 
 const StyledConfirmDelete = styled.div`
   width: 40rem;
@@ -17,6 +18,17 @@ const StyledConfirmDelete = styled.div`
     display: flex;
     justify-content: flex-end;
     gap: 1.2rem;
+  }
+
+  @media ${device.laptopL} {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    & div {
+      justify-content: center;
+      gap: 1.2rem;
+    }
   }
 `;
 

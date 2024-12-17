@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Button from "./Button";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 import { cloneElement, createContext, useContext, useState } from "react";
+import { device } from "../utils/devices";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -18,6 +19,17 @@ const StyledModal = styled.div`
   transition: all 0.5s;
   max-height: 100vh;
   overflow-y: auto;
+  max-width: 80%;
+
+  @media ${device.laptopL} {
+    padding: 1.2rem;
+    font-size: 1rem;
+  }
+
+  @media ${device.tablet} {
+    padding: 1rem;
+    font-size: 1rem;
+  }
 `;
 
 const Overlay = styled.div`

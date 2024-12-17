@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { device } from "../../utils/devices";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -10,13 +11,23 @@ const StyledContainer = styled.div`
 `;
 
 const StyledSelectedMedia = styled.div`
-  height: 25rem;
-  width: 25rem;
+  height: 20rem;
+  width: 20rem;
+
+  @media ${device.laptopS} {
+    height: 15rem;
+    width: 15rem;
+  }
+
+  @media ${device.mobileM} {
+    height: 10rem;
+    width: 10rem;
+  }
 `;
 
 const StyledMediaRowLayout = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5rem;
 `;
 

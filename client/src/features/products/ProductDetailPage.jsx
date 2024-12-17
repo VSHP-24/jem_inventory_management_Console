@@ -2,14 +2,25 @@ import styled from "styled-components";
 import Table from "../../ui/Table";
 import ProductDetailPageImageView from "./PrdocutDetailPageImageView";
 import Heading from "../../ui/Heading";
+import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 30rem 1fr;
   font-size: 1.4rem;
   padding: 2rem;
   width: 100%;
+
+  @media ${device.laptopL} {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+  }
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+  }
 `;
 
 const StyledProductDetails = styled.main``;
@@ -22,6 +33,12 @@ const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
   grid-template-columns: 10rem 1fr;
+
+  @media ${device.laptopL} {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `;
 
 const StyledHeader = styled.div`
@@ -139,7 +156,7 @@ function ProductDetailPage({ product }) {
           <StyledHeader>Included Parts</StyledHeader>
           <StyledDetails>
             <Table
-              columns="10rem 10rem"
+              columns="1fr 1fr"
               menuListRequired={false}
               modalWindowedTable={true}
             >
@@ -150,7 +167,7 @@ function ProductDetailPage({ product }) {
               <Table.Body
                 data={includedParts}
                 render={(part) => (
-                  <Table.Row columns="10rem 10rem" key={part.id}>
+                  <Table.Row key={part.id}>
                     <div>{part.part.name}</div>
                     <div>{part.quantity}</div>
                   </Table.Row>

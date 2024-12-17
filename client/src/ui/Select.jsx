@@ -10,8 +10,8 @@ const Select = styled.select`
   box-shadow: var(--shadow-sm);
 
   @media ${device.tablet} {
-    width: 100%;
     padding: 0.8rem;
+    width: 100%;
   }
 `;
 

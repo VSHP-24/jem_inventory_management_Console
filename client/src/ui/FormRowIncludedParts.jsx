@@ -3,7 +3,7 @@ import { device } from "../utils/devices";
 
 const StyledFormRow = styled.div`
   display: grid;
-  grid-template-columns: 24rem 30rem 7rem;
+  grid-template-columns: 15rem 30rem 7rem;
   align-items: center;
   gap: 0.5rem;
 

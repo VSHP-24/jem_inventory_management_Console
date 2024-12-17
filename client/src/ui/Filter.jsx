@@ -61,14 +61,14 @@ const StyledOptionsContainer = styled.div`
   width: auto;
   max-width: 65rem;
   max-height: 20rem;
-  overflow-wrap: break-word;
+  overflow: auto;
+
   left: ${(props) => props.position.x}px;
   top: ${(props) => props.position.y}px;
   z-index: 100;
   display: flex;
   gap: 2rem;
   padding: 2rem;
-  overflow: auto;
   accent-color: var(--color-grey-900);
   color: var(--color-grey-900);
 
@@ -77,6 +77,11 @@ const StyledOptionsContainer = styled.div`
     grid-template-columns: 1fr 1fr;
     height: auto;
     padding: 1.2rem;
+  }
+
+  @media ${device.mobileM} {
+    grid-template-columns: 1fr;
+    width: 70%;
   }
 `;
 

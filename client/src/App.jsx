@@ -82,7 +82,7 @@ function App() {
             duration: 5000,
           },
           style: {
-            fontSize: "1.6rem",
+            fontSize: "1.2rem",
             maxWidth: "50rem",
             padding: "1.6rem 2.4rem",
             backgroundColor: "var(--color-grey-900)",

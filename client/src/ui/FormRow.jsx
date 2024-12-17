@@ -3,13 +3,13 @@ import { device } from "../utils/devices";
 
 const StyledFormRow = styled.div`
   gap: 0.5rem;
-  padding: 1.2rem 0;
+  padding: 1rem 0;
   ${(props) =>
     props.displayDirection === "horizontal" &&
     css`
       display: grid;
       align-items: center;
-      grid-template-columns: 24rem 1fr;
+      grid-template-columns: 15rem 1fr;
     `}
 
   ${(props) =>

@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { device } from "../utils/devices";
 
 const Form = styled.form`
+  width: 100%;
   ${(props) =>
     props.type === "regular" &&
     css`
