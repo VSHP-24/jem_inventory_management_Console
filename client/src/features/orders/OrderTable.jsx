@@ -10,7 +10,6 @@ import { device } from "../../utils/devices";
 import styled from "styled-components";
 
 const orderTableStyles = {
-  tableName: "orderTable",
   defaultColumns: ".75fr 4fr 2fr 1.25fr 1fr 1.25fr 2fr .001fr",
   laptopL: { columns: ".1fr .35fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr 1fr " },
   tablet: { columns: ".1fr .35fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr" },
@@ -145,7 +144,6 @@ function OrderTable() {
         <DeletedOrders filterDeletedOrders={filterDeletedOrders} />
       }
       columns={orderTableStyles}
-      // columns=""
     >
       <Table.Header>
         <StyledTableColumnLaptopL>Sl No.</StyledTableColumnLaptopL>

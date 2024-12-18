@@ -7,6 +7,31 @@ import { useGetPurchases } from "./useGetPurchases";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
+import styled from "styled-components";
+import { device } from "../../utils/devices";
+
+const purchaseTableStyles = {
+  defaultColumns: ".75fr 1.5fr 1.5fr 1fr 1.5fr 1.5fr 1.5fr .1fr",
+  laptopL: {
+    columns: ".1fr .35fr .5fr",
+    rows: "1fr 1fr 1fr 1fr 1fr 1fr",
+  },
+  tablet: { columns: ".1fr .5fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+  mobileM: { columns: ".25fr 1.25fr .001fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+};
+
+const StyledTableColumnLaptopL = styled.div`
+  font-size: 1.2rem;
+  justify-self: center;
+
+  @media ${device.laptopL} {
+    grid-column: 2;
+  }
+`;
+
+const InvisibileBox = styled.div`
+  color: var(--color-gold-400);
+`;
 
 function DeletedPurchases({ filterDeletedPurchases }) {
   if (!filterDeletedPurchases || filterDeletedPurchases.length === 0)
@@ -14,7 +39,7 @@ function DeletedPurchases({ filterDeletedPurchases }) {
 
   return (
     <Table
-      columns=".75fr 2fr 3fr 2.5fr .1fr"
+      columns=".5fr 1fr 1fr .5fr"
       modalWindowedTable={true}
       menuListRequired={false}
     >
@@ -22,7 +47,6 @@ function DeletedPurchases({ filterDeletedPurchases }) {
         <div>Sl No.</div>
         <div>Part</div>
         <div>Vendor</div>
-        <div>Created On</div>
       </Table.Header>
 
       <Table.Body
@@ -120,16 +144,18 @@ function PurchaseTable() {
       deletedTableContent={
         <DeletedPurchases filterDeletedPurchases={filterDeletedPurchases} />
       }
-      columns=".75fr 1.5fr 1.5fr 1fr 1.5fr 1.5fr 1.5fr .1fr"
+      columns={purchaseTableStyles}
     >
       <Table.Header>
-        <div>Sl No.</div>
-        <div>Part</div>
-        <div>Vendor</div>
-        <div>Quantity</div>
-        <div>Created On</div>
-        <div>Status</div>
-        <div>Modified On</div>
+        <StyledTableColumnLaptopL>Sl No.</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Part</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Vendor</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Quantity</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Created On</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Status</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Modified On</StyledTableColumnLaptopL>
+
+        <InvisibileBox>Hello</InvisibileBox>
       </Table.Header>
 
       <Table.Body

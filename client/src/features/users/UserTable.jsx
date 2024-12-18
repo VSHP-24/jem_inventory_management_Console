@@ -10,7 +10,6 @@ import styled from "styled-components";
 import { device } from "../../utils/devices";
 
 const userTableStyles = {
-  tableName: "userTable",
   defaultColumns: ".75fr 2fr 2.5fr 1fr .75fr",
   laptopL: { columns: ".25fr 1fr 1fr ", rows: "1fr 1fr 1fr" },
   tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr" },

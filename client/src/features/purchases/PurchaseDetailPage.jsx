@@ -2,12 +2,21 @@ import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import { formatDate, formatStatus } from "../../utils/helpers";
 import Table from "../../ui/Table";
+import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
   font-size: 1.4rem;
   padding: 2rem;
-  width: 70rem;
+  width: 100%;
+
+  @media ${device.laptopL} {
+    font-size: 1rem;
+  }
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+  }
 `;
 
 const StyledPurchaseDetails = styled.main``;
@@ -15,7 +24,24 @@ const StyledPurchaseDetails = styled.main``;
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 15rem 1fr;
+  grid-template-columns: 1fr 1fr;
+
+  @media ${device.laptopL} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  @media ${device.tablet} {
+    gap: 0.8rem;
+  }
+`;
+
+const StyledStatusModified = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
 `;
 
 const StyledHeader = styled.div`
@@ -84,7 +110,7 @@ function PurchaseDetailPage({ purchase }) {
           </StyledDetails>
         </StyledRow>
 
-        <StyledRow>
+        <StyledStatusModified>
           <StyledHeader>Status Modified On</StyledHeader>
           <StyledDetails>
             <Table
@@ -107,7 +133,7 @@ function PurchaseDetailPage({ purchase }) {
               />
             </Table>
           </StyledDetails>
-        </StyledRow>
+        </StyledStatusModified>
       </StyledPurchaseDetails>
     </StyledDetailPage>
   );

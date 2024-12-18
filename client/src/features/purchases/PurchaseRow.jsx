@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { HiOutlineCheck, HiOutlineXMark } from "react-icons/hi2";
 
 import Table from "../../ui/Table";
@@ -11,11 +11,43 @@ import { useEditPart } from "../parts/useEditPart";
 import { useEditPurchase } from "./useEditPurchase";
 import { useDeletePurchase } from "./useDeletePurchase";
 import { formatDate, formatStatus } from "../../utils/helpers";
+import { device } from "../../utils/devices";
 
 const StyledContainer = styled.div`
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 `;
+
+const columnType = {
+  orderDetails: css`
+    font-size: 1.2rem;
+    word-break: break-word;
+    @media ${device.laptopL} {
+      grid-column: 3;
+      font-size: 1rem;
+    }
+    @media ${device.mobileM} {
+      grid-column: 3;
+      font-size: 0.8rem;
+    }
+  `,
+
+  heading: css`
+    font-weight: 600;
+    display: none;
+
+    @media ${device.laptopL} {
+      grid-column: 2;
+      display: block;
+    }
+  `,
+};
+
+const StyledColumnLaptopL = styled.div`
+  ${(props) => columnType[props.type]}
+`;
+
 const StyledStatus = styled.span`
   background-color: ${(props) =>
     props.status === "order_received" && "#00ff00"};
@@ -38,6 +70,10 @@ const StyledVendor = styled.div`
 
 const StyledDate = styled.div`
   justify-self: center;
+
+  @media ${device.laptopL} {
+    justify-self: flex-start;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -100,12 +136,35 @@ function PurchaseRow({ purchase, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
-      <div>{part.name}</div>
-      <StyledVendor>{vendor}</StyledVendor>
-      {!deletedTable && <div>{quantity}</div>}
-      <StyledDate>{formatDate(orderPlacedOnDate)}</StyledDate>
       {!deletedTable && (
         <>
+          <StyledColumnLaptopL as="header" type="heading">
+            Part
+          </StyledColumnLaptopL>
+          <div>{part.name}</div>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Vendor
+          </StyledColumnLaptopL>
+
+          <StyledVendor>{vendor}</StyledVendor>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Quantity
+          </StyledColumnLaptopL>
+
+          <div>{quantity}</div>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Order Placed On
+          </StyledColumnLaptopL>
+
+          <StyledDate>{formatDate(orderPlacedOnDate)}</StyledDate>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Status
+          </StyledColumnLaptopL>
+
           <StyledContainer>
             <StyledStatus status={status}>{formatStatus(status)}</StyledStatus>
             {status === "order_placed" && (
@@ -127,6 +186,11 @@ function PurchaseRow({ purchase, index, id, deletedTable }) {
               </div>
             )}
           </StyledContainer>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Modified On
+          </StyledColumnLaptopL>
+
           <StyledDate>
             {formatDate(
               orderStatusUpdateOn[orderStatusUpdateOn.length - 1].updatedOn
@@ -135,7 +199,14 @@ function PurchaseRow({ purchase, index, id, deletedTable }) {
         </>
       )}
       {deletedTable && (
-        <RestoreButton onHandleRestoreButtonClick={handleRestoreButtonClick} />
+        <>
+          <div>{part.name}</div>
+          <div>{vendor}</div>
+
+          <RestoreButton
+            onHandleRestoreButtonClick={handleRestoreButtonClick}
+          />
+        </>
       )}
     </Table.Row>
   );

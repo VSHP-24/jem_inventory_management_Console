@@ -36,7 +36,7 @@ const CommonRow = styled.div`
   align-items: center;
   padding: 0.5rem 1.2rem;
 
-  grid-template-columns: ${(props) => props.columns};
+  grid-template-columns: ${(props) => props?.columns};
 
   grid-template-columns: ${(props) => props.columns?.defaultColumns};
 
