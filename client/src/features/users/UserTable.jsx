@@ -33,7 +33,7 @@ function DeletedUsers({ filterDeletedUsers }) {
 
   return (
     <Table
-      columns="2fr 7.5fr .75fr "
+      columns="2fr 7.5fr .75fr"
       modalWindowedTable={true}
       menuListRequired={false}
     >

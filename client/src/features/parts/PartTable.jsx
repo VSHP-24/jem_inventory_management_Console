@@ -7,6 +7,26 @@ import { useGetParts } from "./useGetParts";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
+import styled from "styled-components";
+import { device } from "../../utils/devices";
+
+const partTableStyles = {
+  tableName: "partTable",
+  defaultColumns: ".5fr 1fr 1fr .5fr",
+  laptopL: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr" },
+  tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr" },
+  mobileM: { columns: ".15fr 1fr 1fr", rows: "1fr 1fr 1fr" },
+};
+
+const StyledTableColumnLaptopL = styled.div`
+  @media ${device.laptopL} {
+    grid-column: 2;
+  }
+`;
+
+const InvisibileBox = styled.div`
+  color: var(--color-gold-400);
+`;
 
 function DeletedParts({ filterDeletedParts }) {
   if (!filterDeletedParts || filterDeletedParts.length === 0)
@@ -14,7 +34,7 @@ function DeletedParts({ filterDeletedParts }) {
 
   return (
     <Table
-      columns=".5fr 1fr 1fr .5fr"
+      columns={".5fr 1fr 1fr .5fr"}
       modalWindowedTable={true}
       menuListRequired={false}
     >
@@ -95,12 +115,15 @@ function PartTable() {
       deletedTableContent={
         <DeletedParts filterDeletedParts={filterDeletedParts} />
       }
-      columns=".5fr 1fr 1fr .5fr"
+      columns={partTableStyles}
     >
       <Table.Header>
         <div>Sl No.</div>
-        <div>Name</div>
-        <div>Quantity</div>
+
+        <StyledTableColumnLaptopL>Name</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Quantity</StyledTableColumnLaptopL>
+
+        <InvisibileBox>Hello</InvisibileBox>
       </Table.Header>
 
       <Table.Body

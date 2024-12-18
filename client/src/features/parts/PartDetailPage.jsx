@@ -13,7 +13,7 @@ const StyledPartDetails = styled.main``;
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 10rem 1fr;
+  grid-template-columns: 1fr 1fr;
 `;
 
 const StyledHeader = styled.div`

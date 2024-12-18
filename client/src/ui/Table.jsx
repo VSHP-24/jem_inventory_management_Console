@@ -8,77 +8,6 @@ import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../utils/constants";
 import { device } from "../utils/devices";
 
-const tableType = {
-  productTable: css`
-    grid-template-columns: ${(props) => props.columns.defaultColumns};
-    @media ${device.laptopL} {
-      grid-template-columns: ${(props) => props.columns.laptopL.columns};
-      grid-template-rows: ${(props) => props.columns.laptopL.rows};
-    }
-
-    @media ${device.tablet} {
-      grid-template-columns: ${(props) => props.columns.tablet.columns};
-    }
-
-    @media ${device.mobileM} {
-      grid-template-columns: ${(props) => props.columns.mobileM.columns};
-      column-gap: 0.25rem;
-    }
-  `,
-
-  userTable: css`
-    grid-template-columns: ${(props) => props.columns.defaultColumns};
-
-    @media ${device.laptopL} {
-      grid-template-columns: ${(props) => props.columns.laptopL.columns};
-      grid-template-rows: ${(props) => props.columns.laptopL.rows};
-    }
-
-    @media ${device.tablet} {
-      grid-template-columns: ${(props) => props.columns.tablet.columns};
-    }
-
-    @media ${device.mobileM} {
-      grid-template-columns: ${(props) => props.columns.mobileM.columns};
-      column-gap: 0.25rem;
-    }
-  `,
-
-  orderTable: css`
-    grid-template-columns: ${(props) => props.columns.defaultColumns};
-
-    @media ${device.laptopL} {
-      grid-template-columns: ${(props) => props.columns.laptopL.columns};
-      grid-template-rows: ${(props) => props.columns.laptopL.rows};
-    }
-
-    @media ${device.tablet} {
-      grid-template-columns: ${(props) => props.columns.tablet.columns};
-    }
-
-    @media ${device.mobileM} {
-      grid-template-columns: ${(props) => props.columns.mobileM.columns};
-    }
-  `,
-
-  customerTable: css`
-    grid-template-columns: ${(props) => props.columns.defaultColumns};
-
-    @media ${device.laptopL} {
-      grid-template-columns: ${(props) => props.columns.laptopL.columns};
-      grid-template-rows: ${(props) => props.columns.laptopL.rows};
-    }
-
-    @media ${device.tablet} {
-      grid-template-columns: ${(props) => props.columns.tablet.columns};
-    }
-
-    @media ${device.mobileM} {
-      grid-template-columns: ${(props) => props.columns.mobileM.columns};
-    }
-  `,
-};
-
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-700);
 
@@ -106,14 +35,23 @@ const CommonRow = styled.div`
   transition: none;
   align-items: center;
   padding: 0.5rem 1.2rem;
+
   grid-template-columns: ${(props) => props.columns};
-  ${(props) => tableType[props.columns.tableName]};
+
+  grid-template-columns: ${(props) => props.columns?.defaultColumns};
+
+  @media ${device.laptopL} {
+    grid-template-columns: ${(props) => props.columns.laptopL?.columns};
+    grid-template-rows: ${(props) => props.columns.laptopL?.rows};
+  }
 
   @media ${device.tablet} {
+    grid-template-columns: ${(props) => props.columns.tablet?.columns};
     padding: 0.5rem 1rem;
   }
 
   @media ${device.mobileM} {
+    grid-template-columns: ${(props) => props.columns.mobileM?.columns};
     padding: 0.5rem 1rem;
   }
 `;
