@@ -12,6 +12,17 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 30rem;
+
+  @media ${device.laptopL} {
+    font-size: 1.2rem;
+    height: 4rem;
+    max-width: 20rem;
+  }
+
+  @media ${device.tablet} {
+    max-width: 100%;
+  }
 `;
 
 const StyledFilteredItemsContainer = styled.div`

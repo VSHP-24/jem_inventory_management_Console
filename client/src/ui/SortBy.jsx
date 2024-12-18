@@ -9,10 +9,16 @@ const StyledSelect = styled(Select)`
   height: 5rem;
   font-size: 2.5rem;
   width: 100%;
+  max-width: 30rem;
 
   @media ${device.laptopL} {
     font-size: 1.2rem;
     height: 4rem;
+    max-width: 20rem;
+  }
+
+  @media ${device.tablet} {
+    max-width: 100%;
   }
 `;
 
