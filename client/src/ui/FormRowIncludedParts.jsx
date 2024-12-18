@@ -21,6 +21,12 @@ const StyledFormRow = styled.div`
   }
 
   @media ${device.laptopL} {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  @media ${device.tablet} {
     grid-template-columns: 1fr 1fr;
   }
 `;

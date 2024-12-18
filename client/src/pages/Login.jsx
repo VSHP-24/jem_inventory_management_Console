@@ -7,20 +7,22 @@ import { device } from "../utils/devices";
 const LoginLayout = styled.main`
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 48rem;
+  grid-template-columns: 36rem;
   align-content: center;
   justify-content: center;
   justify-items: center;
-  gap: 1.2rem;
+  gap: 1rem;
   background-color: var(--color-grey-900);
-  padding: 2rem;
+  padding: 1rem;
 
   @media ${device.tablet} {
     gap: 1rem;
+    grid-template-columns: 24rem;
   }
 
   @media ${device.mobileM} {
     gap: 0.8rem;
+    grid-template-columns: 18rem;
   }
 `;
 

@@ -32,6 +32,10 @@ const StyledFormRow = styled.div`
     display: flex;
     justify-content: flex-end;
     gap: 1.2rem;
+
+    @media ${device.mobileM} {
+      justify-content: center;
+    }
   }
 
   @media ${device.laptopL} {

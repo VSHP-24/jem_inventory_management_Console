@@ -24,7 +24,7 @@ import { device } from "../../utils/devices";
 const StyledUl = styled.ul`
   padding: 0;
 
-  @media ${device.laptopL} {
+  @media ${device.tablet} {
     grid-row: 2;
     grid-column: 1 / span 2;
   }
@@ -34,10 +34,6 @@ const StyledLi = styled.li`
   display: flex;
   align-items: center;
   gap: 1.5rem;
-
-  @media ${device.laptopL} {
-    flex-direction: row-reverse;
-  }
 `;
 
 const StyledInputQuantity = styled(Input)`

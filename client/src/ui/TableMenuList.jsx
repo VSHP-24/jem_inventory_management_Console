@@ -4,6 +4,7 @@ import { HiOutlineEye, HiPencil, HiTrash } from "react-icons/hi2";
 import { createPortal } from "react-dom";
 import Modal from "./Modal";
 import ConfirmDelete from "./ConfirmDelete";
+import { device } from "../utils/devices";
 
 const StyledMenuOptions = styled.ul`
   position: absolute;
@@ -15,6 +16,16 @@ const StyledMenuOptions = styled.ul`
   bottom: ${(props) => props.position.y}px;
   z-index: 100;
   width: 14rem;
+
+  @media ${device.laptopL} {
+    font-size: 1.2rem;
+    width: 12rem;
+  }
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+    width: 10rem;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -35,6 +46,22 @@ const StyledButton = styled.button`
   &:hover {
     background-color: var(--color-grey-800);
     color: var(--color-gold-100);
+  }
+
+  @media ${device.laptopL} {
+    & svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+    gap: 0.8rem;
+  }
+
+  @media ${device.tablet} {
+    & svg {
+      width: 1rem;
+      height: 1rem;
+    }
+    gap: 0.5rem;
   }
 `;
 
