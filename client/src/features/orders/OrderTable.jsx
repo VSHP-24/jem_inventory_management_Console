@@ -6,6 +6,29 @@ import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
+import { device } from "../../utils/devices";
+import styled from "styled-components";
+
+const orderTableStyles = {
+  tableName: "orderTable",
+  defaultColumns: ".75fr 4fr 2fr 1.25fr 1fr 1.25fr 2fr .001fr",
+  laptopL: { columns: ".1fr .35fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr 1fr " },
+  tablet: { columns: ".1fr .35fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+  mobileM: { columns: ".25fr 1.25fr .001fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+};
+
+const StyledTableColumnLaptopL = styled.div`
+  font-size: 1rem;
+  justify-self: center;
+
+  @media ${device.laptopL} {
+    grid-column: 2;
+  }
+`;
+
+const InvisibileBox = styled.div`
+  color: var(--color-gold-400);
+`;
 
 function DeletedOrders({ filterDeletedOrders }) {
   if (!filterDeletedOrders || filterDeletedOrders.length === 0)
@@ -13,14 +36,13 @@ function DeletedOrders({ filterDeletedOrders }) {
 
   return (
     <Table
-      columns={".75fr 5fr 1fr .75fr"}
+      columns={"2fr 5fr .75fr"}
       modalWindowedTable={true}
       menuListRequired={false}
     >
       <Table.Header>
         <div>Sl No.</div>
         <div>Order Id</div>
-        <div>Name</div>
       </Table.Header>
       <Table.Body
         data={filterDeletedOrders}
@@ -122,16 +144,19 @@ function OrderTable() {
       deletedTableContent={
         <DeletedOrders filterDeletedOrders={filterDeletedOrders} />
       }
-      columns=".75fr 4.5fr 2fr 1.5fr 1.5fr 1.5fr 2.75fr .75fr"
+      columns={orderTableStyles}
+      // columns=""
     >
       <Table.Header>
-        <div>Sl No.</div>
-        <div>Order Id</div>
-        <div>Customer Name</div>
-        <div>Total Cost</div>
-        <div>Payment Method</div>
-        <div>Payment Status</div>
-        <div>Order Status</div>
+        <StyledTableColumnLaptopL>Sl No.</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Order Id</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Name</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Amount</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Method</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Settlement</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Order Status</StyledTableColumnLaptopL>
+
+        <InvisibileBox>Hello</InvisibileBox>
       </Table.Header>
 
       <Table.Body

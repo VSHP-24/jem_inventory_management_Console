@@ -13,7 +13,7 @@ import { device } from "../../utils/devices";
 const productTableStyles = {
   tableName: "productTable",
   defaultColumns: ".75fr 1.25fr 1.5fr 1.25fr 2fr 1fr .1fr",
-  laptopL: { columns: ".25fr .5fr 1fr ", rows: "1fr 1fr 1fr 1fr 1fr" },
+  laptopL: { columns: ".25fr 1fr 1fr ", rows: "1fr 1fr 1fr 1fr 1fr" },
   tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr 1fr 1fr" },
   mobileM: { columns: ".15fr 1fr 1fr", rows: "1fr 1fr 1fr 1fr 1fr" },
 };

@@ -10,34 +10,54 @@ import { device } from "../utils/devices";
 
 const tableType = {
   productTable: css`
-    background-color: var(--color-gold-200);
     grid-template-columns: ${(props) => props.columns.defaultColumns};
     @media ${device.laptopL} {
       grid-template-columns: ${(props) => props.columns.laptopL.columns};
       grid-template-rows: ${(props) => props.columns.laptopL.rows};
     }
+
     @media ${device.tablet} {
-      grid-template-columns: ${(props) => props.columns.tablet};
+      grid-template-columns: ${(props) => props.columns.tablet.columns};
     }
+
     @media ${device.mobileM} {
-      grid-template-columns: ${(props) => props.columns.mobileM};
+      grid-template-columns: ${(props) => props.columns.mobileM.columns};
       column-gap: 0.25rem;
     }
   `,
 
   userTable: css`
-    background-color: var(--color-gold-200);
     grid-template-columns: ${(props) => props.columns.defaultColumns};
+
     @media ${device.laptopL} {
       grid-template-columns: ${(props) => props.columns.laptopL.columns};
       grid-template-rows: ${(props) => props.columns.laptopL.rows};
     }
+
     @media ${device.tablet} {
-      grid-template-columns: ${(props) => props.columns.tablet};
+      grid-template-columns: ${(props) => props.columns.tablet.columns};
     }
+
     @media ${device.mobileM} {
-      grid-template-columns: ${(props) => props.columns.mobileM};
+      grid-template-columns: ${(props) => props.columns.mobileM.columns};
       column-gap: 0.25rem;
+    }
+  `,
+
+  orderTable: css`
+    grid-template-columns: ${(props) => props.columns.defaultColumns};
+
+    @media ${device.laptopL} {
+      grid-template-columns: ${(props) => props.columns.laptopL.columns};
+      grid-template-rows: ${(props) => props.columns.laptopL.rows};
+    }
+
+    @media ${device.tablet} {
+      grid-template-columns: ${(props) => props.columns.tablet.columns};
+    }
+
+    @media ${device.mobileM} {
+      grid-template-columns: ${(props) => props.columns.mobileM.columns};
     }
   `,
 };
@@ -105,16 +125,6 @@ const StyledRow = styled(CommonRow)`
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-600);
   }
-
-  & :first-child {
-    grid-column: 1;
-    grid-row: 1 /-1;
-  }
-
-  & :last-child {
-    grid-column: -1;
-    grid-row: 1 /-1;
-  }
 `;
 
 const Footer = styled.footer`
@@ -146,7 +156,6 @@ const Empty = styled.p`
 const TableContext = createContext();
 
 function Table({
-  tableName,
   columns,
   children,
   deletedTableContent,

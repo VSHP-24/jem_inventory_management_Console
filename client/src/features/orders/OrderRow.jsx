@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import { formatStatus } from "../../utils/helpers";
@@ -9,10 +9,50 @@ import { useDeleteOrder } from "./useDeleteOrder";
 import OrderForm from "./OrderForm";
 import OrderDetailPage from "./OrderDetailPage";
 import { useEditPart } from "../parts/useEditPart";
+import { device } from "../../utils/devices";
 
 const StyledContainer = styled.div`
   display: flex;
   gap: 0.5rem;
+  font-size: 1.2rem;
+  align-items: center;
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+  }
+`;
+
+const StyledOrderId = styled.div`
+  word-break: break-word;
+`;
+
+const columnType = {
+  orderDetails: css`
+    font-size: 1.2rem;
+    word-break: break-word;
+    @media ${device.laptopL} {
+      grid-column: 3;
+      font-size: 1rem;
+    }
+    @media ${device.mobileM} {
+      grid-column: 3;
+      font-size: 0.8rem;
+    }
+  `,
+
+  heading: css`
+    font-weight: 600;
+    display: none;
+
+    @media ${device.laptopL} {
+      grid-column: 2;
+      display: block;
+    }
+  `,
+};
+
+const StyledColumnLaptopL = styled.div`
+  ${(props) => columnType[props.type]}
 `;
 
 const StyledStatus = styled.span`
@@ -105,11 +145,41 @@ function OrderRow({ order, index, id, deletedTable }) {
       </div>
       {!deletedTable && (
         <>
-          <div>{id}</div>
-          <div>{user.user.name}</div>
-          <div>{`₹ ${cost}`}</div>
-          <div>{formatStatus(paymentMethod)}</div>
-          <div>{formatStatus(paymentStatus)}</div>
+          <StyledColumnLaptopL as="header" type="heading">
+            Order ID
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="orderDetails">{id}</StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Name
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="orderDetails">
+            {user.user.name}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Cost
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL type="orderDetails">{`₹ ${cost}`}</StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Payment Method
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="orderDetails">
+            {formatStatus(paymentMethod)}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Payment Status
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="orderDetails">
+            {formatStatus(paymentStatus)}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Order Status
+          </StyledColumnLaptopL>
           <StyledContainer>
             <StyledStatus status={orderStatus}>
               {formatStatus(
@@ -120,9 +190,10 @@ function OrderRow({ order, index, id, deletedTable }) {
                 }`
               )}
             </StyledStatus>
+
             {(orderStatus === "order_placed" ||
               orderStatus === "order_confirmed") && (
-              <div>
+              <StyledColumnLaptopL type="orderDetails">
                 <StyledButton
                   type="check"
                   onClick={() => handleCheckClick(orderStatus)}
@@ -137,15 +208,15 @@ function OrderRow({ order, index, id, deletedTable }) {
                 >
                   <HiOutlineXMark />
                 </StyledButton>
-              </div>
+              </StyledColumnLaptopL>
             )}
           </StyledContainer>
         </>
       )}
+
       {deletedTable && (
         <>
-          <div>{id}</div>
-          <div>{user.user.name}</div>
+          <StyledOrderId>{id}</StyledOrderId>
 
           <RestoreButton
             onHandleRestoreButtonClick={handleRestoreButtonClick}

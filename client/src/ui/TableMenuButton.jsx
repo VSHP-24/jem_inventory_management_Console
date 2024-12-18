@@ -9,7 +9,7 @@ const StyledMenuButton = styled.button`
   border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
   transition: all 0.2s;
-  width: 3rem;
+  width: 2.5rem;
   justify-self: center;
 
   &:hover {
@@ -20,15 +20,20 @@ const StyledMenuButton = styled.button`
     width: 2.4rem;
     height: 2.4rem;
     color: var(--color-grey-700);
-  }
 
-  @media ${device.mobileM} {
-    & svg {
-      width: 1.8rem;
-      height: 1.8rem;
-      color: var(--color-grey-700);
+    @media ${device.mobileM} {
+      width: 1.6rem;
+      height: 1.6rem;
     }
   }
+
+  @media ${device.tablet} {
+    justify-self: flex-end;
+    width: 1.5rem;
+  }
+
+  grid-column: -1;
+  grid-row: 1;
 `;
 
 function TableMenuButton({ id, openId, close, open, setPosition }) {
