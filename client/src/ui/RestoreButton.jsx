@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { MdOutlineRestore } from "react-icons/md";
 import Button from "./Button";
+import { device } from "../utils/devices";
 
 const StyledButton = styled(Button)`
   background: none;
@@ -20,6 +21,20 @@ const StyledButton = styled(Button)`
     width: 2.4rem;
     height: 2.4rem;
     color: var(--color-grey-700);
+
+    @media ${device.laptopL} {
+      width: 2rem;
+      height: 2rem;
+    }
+    @media ${device.tablet} {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+
+    @media ${device.mobileM} {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
   }
 `;
 

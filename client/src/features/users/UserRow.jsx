@@ -1,9 +1,36 @@
+import styled, { css } from "styled-components";
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import CreateNewStaffForm from "../authentication/CreateNewStaffForm";
 import { useDeleteUser } from "./useDeleteUser";
 import { useEditUser } from "./useEditUser";
 import UserDetailPage from "./UserDetailPage";
+import { device } from "../../utils/devices";
+
+const columnType = {
+  userDetails: css`
+    @media ${device.laptopL} {
+      grid-column: 3;
+    }
+    @media ${device.mobileM} {
+      grid-column: 3;
+    }
+  `,
+
+  heading: css`
+    font-weight: 600;
+    display: none;
+
+    @media ${device.laptopL} {
+      grid-column: 2;
+      display: block;
+    }
+  `,
+};
+
+const StyledColumnLaptopL = styled.div`
+  ${(props) => columnType[props.type]}
+`;
 
 function UserRow({ user, index, id, deletedTable }) {
   const { name, email, role } = user;
@@ -31,14 +58,24 @@ function UserRow({ user, index, id, deletedTable }) {
       </div>
       {!deletedTable && (
         <>
-          <div>{name}</div>
-          <div>{email}</div>
-          <div>{role}</div>
+          <StyledColumnLaptopL as="header" type="heading">
+            Name
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="userDetails">{name}</StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Email
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="userDetails">{email}</StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Role
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="userDetails">{role}</StyledColumnLaptopL>
         </>
       )}
       {deletedTable && (
         <>
-          <div>{name}</div>
           <div>{email}</div>
 
           <RestoreButton

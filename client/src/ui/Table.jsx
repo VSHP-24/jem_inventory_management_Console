@@ -24,6 +24,22 @@ const tableType = {
       column-gap: 0.25rem;
     }
   `,
+
+  userTable: css`
+    background-color: var(--color-gold-200);
+    grid-template-columns: ${(props) => props.columns.defaultColumns};
+    @media ${device.laptopL} {
+      grid-template-columns: ${(props) => props.columns.laptopL.columns};
+      grid-template-rows: ${(props) => props.columns.laptopL.rows};
+    }
+    @media ${device.tablet} {
+      grid-template-columns: ${(props) => props.columns.tablet};
+    }
+    @media ${device.mobileM} {
+      grid-template-columns: ${(props) => props.columns.mobileM};
+      column-gap: 0.25rem;
+    }
+  `,
 };
 
 const StyledTable = styled.div`

@@ -82,35 +82,35 @@ function ProductRow({ product, index, id, deletedTable }) {
 
       {!deletedTable && (
         <>
-          <StyledColumnLaptopL as="header" index={1} type="heading">
+          <StyledColumnLaptopL as="header" type="heading">
             Brand
           </StyledColumnLaptopL>
           <StyledColumnLaptopL type="productDetails">
             {brand.name}
           </StyledColumnLaptopL>
 
-          <StyledColumnLaptopL as="header" index={2} type="heading">
+          <StyledColumnLaptopL as="header" type="heading">
             Model
           </StyledColumnLaptopL>
           <StyledColumnLaptopL type="productDetails">
             {model.name}
           </StyledColumnLaptopL>
 
-          <StyledColumnLaptopL as="header" index={3} type="heading">
+          <StyledColumnLaptopL as="header" type="heading">
             Category
           </StyledColumnLaptopL>
           <StyledColumnLaptopL type="productDetails">
             {category.name}
           </StyledColumnLaptopL>
 
-          <StyledColumnLaptopL as="header" index={4} type="heading">
+          <StyledColumnLaptopL as="header" type="heading">
             SubCategory
           </StyledColumnLaptopL>
           <StyledColumnLaptopL type="productDetails">
             {subCategory.name}
           </StyledColumnLaptopL>
 
-          <StyledColumnLaptopL as="header" index={5} type="heading">
+          <StyledColumnLaptopL as="header" type="heading">
             Price
           </StyledColumnLaptopL>
           <StyledColumnLaptopL type="productDetails">

@@ -10,6 +10,7 @@ function UsersNavTabs() {
         { value: "createStaffProfile", label: "Create Staff Profile" },
         { value: "allUsers", label: "All Users" },
       ]}
+      stylingType="usersNavTabs"
     />
   );
 }

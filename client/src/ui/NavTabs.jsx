@@ -57,6 +57,27 @@ const StyledNav = styled.nav`
         grid-template-columns: 1fr 1fr 1fr;
       }
     `}
+
+  ${(props) =>
+    props.stylingType === "usersNavTabs" &&
+    css`
+      @media ${device.laptopL} {
+        gap: 0.1rem;
+        padding: 0 0.1rem;
+        font-size: 1.2rem;
+      }
+
+      @media ${device.tablet} {
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      @media ${device.mobileM} {
+        font-size: 0.8rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    `}
 `;
 
 function NavTabs({ fieldComponent, options, stylingType, width = "100%" }) {

@@ -6,6 +6,26 @@ import { useGetUsers } from "./useGetUsers";
 import UserRow from "./UserRow";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
+import styled from "styled-components";
+import { device } from "../../utils/devices";
+
+const userTableStyles = {
+  tableName: "userTable",
+  defaultColumns: ".75fr 2fr 2.5fr 1fr .75fr",
+  laptopL: { columns: ".25fr .5fr 1fr ", rows: "1fr 1fr 1fr" },
+  tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+  mobileM: { columns: ".15fr 1fr 1fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+};
+
+const StyledTableColumnLaptopL = styled.div`
+  @media ${device.laptopL} {
+    grid-column: 2;
+  }
+`;
+
+const InvisibileBox = styled.div`
+  color: var(--color-gold-400);
+`;
 
 function DeletedUsers({ filterDeletedUsers }) {
   if (!filterDeletedUsers || filterDeletedUsers.length === 0)
@@ -13,13 +33,12 @@ function DeletedUsers({ filterDeletedUsers }) {
 
   return (
     <Table
-      columns="2fr 7.5fr 7.5fr .75fr "
+      columns="2fr 7.5fr .75fr "
       modalWindowedTable={true}
       menuListRequired={false}
     >
       <Table.Header>
         <div>Sl No.</div>
-        <div>Name</div>
         <div>Email</div>
       </Table.Header>
 
@@ -98,13 +117,16 @@ function UserTable() {
       deletedTableContent={
         <DeletedUsers filterDeletedUsers={filterDeletedUsers} />
       }
-      columns=".75fr 2fr 2.5fr 1fr .75fr"
+      columns={userTableStyles}
     >
       <Table.Header>
         <div>Sl No.</div>
-        <div>Name</div>
-        <div>Email</div>
-        <div>Role</div>
+
+        <StyledTableColumnLaptopL>Name</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Email</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Role</StyledTableColumnLaptopL>
+
+        <InvisibileBox>Hello</InvisibileBox>
       </Table.Header>
 
       <Table.Body
