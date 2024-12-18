@@ -6,6 +6,26 @@ import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
+import styled from "styled-components";
+import { device } from "../../utils/devices";
+
+const customerTableStyles = {
+  tableName: "customerTable",
+  defaultColumns: ".5fr 1fr 2fr 1.5fr .75fr",
+  laptopL: { columns: ".25fr 1fr 1fr ", rows: "1fr 1fr 1fr" },
+  tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr" },
+  mobileM: { columns: ".15fr 1fr 1fr", rows: "1fr 1fr 1fr" },
+};
+
+const StyledTableColumnLaptopL = styled.div`
+  @media ${device.laptopL} {
+    grid-column: 2;
+  }
+`;
+
+const InvisibileBox = styled.div`
+  color: var(--color-gold-400);
+`;
 
 function DeletedCustomers({ filterDeletedCustomers }) {
   if (!filterDeletedCustomers || filterDeletedCustomers.length === 0)
@@ -13,13 +33,12 @@ function DeletedCustomers({ filterDeletedCustomers }) {
 
   return (
     <Table
-      columns={".5fr 1.5fr 2fr .5fr"}
+      columns={"1fr 2.5fr .5fr"}
       modalWindowedTable={true}
       menuListRequired={false}
     >
       <Table.Header>
         <div>Sl No.</div>
-        <div>Name</div>
         <div>Email</div>
       </Table.Header>
       <Table.Body
@@ -97,13 +116,16 @@ function CustomersTable() {
       deletedTableContent={
         <DeletedCustomers filterDeletedCustomers={filterDeletedCustomers} />
       }
-      columns={".5fr 1fr 1fr 1fr.5fr"}
+      columns={customerTableStyles}
     >
       <Table.Header>
         <div>Sl No.</div>
-        <div>Name</div>
-        <div>Email</div>
-        <div>Phone Number</div>
+
+        <StyledTableColumnLaptopL>Name</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Email</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>Phone Number</StyledTableColumnLaptopL>
+
+        <InvisibileBox>Hello</InvisibileBox>
       </Table.Header>
 
       <Table.Body

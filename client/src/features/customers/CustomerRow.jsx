@@ -1,9 +1,36 @@
+import styled, { css } from "styled-components";
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
+import { device } from "../../utils/devices";
 import { useDeleteUser } from "../users/useDeleteUser";
 import { useEditUser } from "../users/useEditUser";
 import CustomerDetailPage from "./CustomerDetailPage";
 import CustomerForm from "./CustomerForm";
+
+const columnType = {
+  userDetails: css`
+    @media ${device.laptopL} {
+      grid-column: 3;
+    }
+    @media ${device.mobileM} {
+      grid-column: 3;
+    }
+  `,
+
+  heading: css`
+    font-weight: 600;
+    display: none;
+
+    @media ${device.laptopL} {
+      grid-column: 2;
+      display: block;
+    }
+  `,
+};
+
+const StyledColumnLaptopL = styled.div`
+  ${(props) => columnType[props.type]}
+`;
 
 function CustomerRow({ customer, index, id, deletedTable }) {
   const { user, phoneNumber } = customer;
@@ -31,15 +58,33 @@ function CustomerRow({ customer, index, id, deletedTable }) {
       </div>
       {!deletedTable && (
         <>
-          <div>{user.name}</div>
-          <div>{user.email}</div>
-          <div>{phoneNumber}</div>
+          <StyledColumnLaptopL as="header" type="heading">
+            Name
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="customerDetails">
+            {user.name}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Email
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL type="customerDetails">
+            {user.email}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Phone No.
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL type="customerDetails">
+            {phoneNumber}
+          </StyledColumnLaptopL>
         </>
       )}
 
       {deletedTable && (
         <>
-          <div>{user.name}</div>
           <div>{user.email}</div>
           <RestoreButton
             onHandleRestoreButtonClick={handleRestoreButtonClick}

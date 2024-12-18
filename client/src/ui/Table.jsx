@@ -60,6 +60,23 @@ const tableType = {
       grid-template-columns: ${(props) => props.columns.mobileM.columns};
     }
   `,
+
+  customerTable: css`
+    grid-template-columns: ${(props) => props.columns.defaultColumns};
+
+    @media ${device.laptopL} {
+      grid-template-columns: ${(props) => props.columns.laptopL.columns};
+      grid-template-rows: ${(props) => props.columns.laptopL.rows};
+    }
+
+    @media ${device.tablet} {
+      grid-template-columns: ${(props) => props.columns.tablet.columns};
+    }
+
+    @media ${device.mobileM} {
+      grid-template-columns: ${(props) => props.columns.mobileM.columns};
+    }
+  `,
 };
 
 const StyledTable = styled.div`

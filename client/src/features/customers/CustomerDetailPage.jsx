@@ -1,15 +1,23 @@
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
-import { formatDate, formatStatus } from "../../utils/helpers";
-import Table from "../../ui/Table";
+import { formatDate } from "../../utils/helpers";
+import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
   display: grid;
-  grid-template-columns: 50rem 20rem;
+  grid-template-columns: 1fr 1fr;
   font-size: 1.4rem;
   padding: 2rem;
   width: 100%;
+
+  @media ${device.laptopL} {
+    font-size: 1rem;
+  }
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+  }
 `;
 
 const StyledCustomerDetails = styled.main``;
@@ -19,6 +27,17 @@ const StyledRow = styled.div`
   display: grid;
   grid-template-columns: 12.5rem 1fr;
   align-items: center;
+
+  @media ${device.laptopL} {
+    gap: 2rem;
+  }
+
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
 `;
 
 const StyledHeader = styled.div`
@@ -35,29 +54,6 @@ const StyledHeading = styled(Heading)`
   padding-bottom: 2rem;
 `;
 
-const StyledStatus = styled.span`
-  background-color: ${(props) =>
-    props.status === "order_delivered" && "#00ff00"};
-
-  background-color: ${(props) =>
-    props.status === "order_confirmed" && "#E9C111"};
-
-  background-color: ${(props) => props.status === "order_shipped" && "#FF7440"};
-
-  color: ${(props) => props.status === "order_placed" && "#FFFFFF"};
-
-  background-color: ${(props) => props.status === "order_placed" && "#FF0000"};
-  color: ${(props) => props.status === "order_placed" && "#FFFFFF"};
-
-  background-color: ${(props) =>
-    props.status === "cancelled" && "var(--color-grey-500)"};
-
-  padding: 0 0.5rem;
-  font-weight: 600;
-  border-radius: 0.4rem;
-  justify-self: center;
-`;
-
 function CustomerDetailPage({ customer }) {
   const {
     user,
@@ -72,7 +68,6 @@ function CustomerDetailPage({ customer }) {
     billingPostCode,
     billingCountry,
     phoneNumber,
-    orderHistory,
   } = customer;
 
   return (
@@ -175,44 +170,6 @@ function CustomerDetailPage({ customer }) {
             {user.passwordChagedAt
               ? formatDate(user.passwordChagedAt)
               : "--- NA ---"}
-          </StyledDetails>
-        </StyledRow>
-
-        <StyledRow>
-          <StyledHeader>Order History</StyledHeader>
-          <StyledDetails>
-            <Table
-              columns="17.5rem 5rem 7.5rem 7.5rem 9rem 10rem"
-              menuListRequired={false}
-              modalWindowedTable={true}
-            >
-              <Table.Header>
-                <div>Order Id</div>
-                <div>Cost</div>
-                <div>Payment Method</div>
-                <div>Payment Status</div>
-                <div>Order Status</div>
-                <div>Ordered On</div>
-              </Table.Header>
-              <Table.Body
-                data={orderHistory}
-                render={(order) => (
-                  <Table.Row
-                    columns="17.5rem 5rem 7.5rem 7.5rem 9rem 10rem"
-                    key={order.id}
-                  >
-                    <div>{order.id}</div>
-                    <div>{order.cost}</div>
-                    <div>{formatStatus(order.paymentMethod)}</div>
-                    <div>{formatStatus(order.paymentStatus)}</div>
-                    <StyledStatus status={order.orderStatus}>
-                      {formatStatus(order.orderStatus)}
-                    </StyledStatus>
-                    <div>{formatDate(order.createdAt)}</div>
-                  </Table.Row>
-                )}
-              />
-            </Table>
           </StyledDetails>
         </StyledRow>
       </StyledCustomerDetails>
