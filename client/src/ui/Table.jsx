@@ -94,6 +94,13 @@ const Footer = styled.footer`
   &:not(:has(*)) {
     display: none;
   }
+
+  @media ${device.laptopL} {
+    padding: 1rem;
+  }
+  @media ${device.tablet} {
+    padding: 0.8rem;
+  }
 `;
 
 const StyledBody = styled.section`
@@ -106,6 +113,13 @@ const Empty = styled.p`
   text-align: center;
   margin: 2.4rem;
   padding: 0.5rem;
+
+  @media ${device.laptopL} {
+    font-size: 1.2rem;
+  }
+  @media ${device.tablet} {
+    font-size: 1rem;
+  }
 `;
 
 const TableContext = createContext();

@@ -1,25 +1,35 @@
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
+import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
-  display: grid;
-  grid-template-columns: 50rem 20rem;
   font-size: 1.4rem;
-  padding: 2rem;
+  padding: 1rem;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+  }
 `;
 
 const StyledModelDetails = styled.main``;
 
-const StyledModelImages = styled.aside`
-  height: 30rem;
-`;
+const StyledModelImages = styled.aside``;
 
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 10rem 1fr;
+  grid-template-columns: 1fr 1fr;
+
+  @media ${device.laptopL} {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `;
 
 const StyledHeader = styled.div`

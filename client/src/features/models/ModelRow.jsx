@@ -6,6 +6,33 @@ import ModelForm from "./ModelForm";
 
 import { useDeleteModel } from "./useDeleteModel";
 import { useEditModel } from "./useEditModel";
+import { device } from "../../utils/devices";
+import styled, { css } from "styled-components";
+
+const columnType = {
+  modelDetails: css`
+    @media ${device.laptopL} {
+      grid-column: 3;
+    }
+    @media ${device.mobileM} {
+      grid-column: 3;
+    }
+  `,
+
+  heading: css`
+    font-weight: 600;
+    display: none;
+
+    @media ${device.laptopL} {
+      grid-column: 2;
+      display: block;
+    }
+  `,
+};
+
+const StyledColumnLaptopL = styled.div`
+  ${(props) => columnType[props.type]}
+`;
 
 function ModelRow({ model, index, id, deletedTable }) {
   const { name, brand, version, year } = model;
@@ -35,12 +62,44 @@ function ModelRow({ model, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
-      <div>{brand.name}</div>
-      <div>{name}</div>
-      <div>{version}</div>
-      <div>{year}</div>
+      {!deletedTable && (
+        <>
+          <StyledColumnLaptopL as="header" type="heading">
+            Brand
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="modelDetails">
+            {brand.name}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Name
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="modelDetails">{name}</StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Version
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="modelDetails">
+            {version}
+          </StyledColumnLaptopL>
+
+          <StyledColumnLaptopL as="header" type="heading">
+            Year
+          </StyledColumnLaptopL>
+          <StyledColumnLaptopL type="modelDetails">{year}</StyledColumnLaptopL>
+        </>
+      )}
+
       {deletedTable && (
-        <RestoreButton onHandleRestoreButtonClick={handleRestoreButtonClick} />
+        <>
+          <div>{name}</div>
+          <div>{version}</div>
+          <div>{year}</div>
+
+          <RestoreButton
+            onHandleRestoreButtonClick={handleRestoreButtonClick}
+          />
+        </>
       )}
     </Table.Row>
   );

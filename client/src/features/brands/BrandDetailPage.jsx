@@ -3,8 +3,8 @@ import Heading from "../../ui/Heading";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
-  display: grid;
-  grid-template-columns: 55rem 15rem;
+  display: flex;
+  flex-direction: column;
   font-size: 1.4rem;
   padding: 2rem;
   width: 100%;
@@ -12,14 +12,12 @@ const StyledDetailPage = styled.div`
 
 const StyledBrandDetails = styled.main``;
 
-const StyledBrandImages = styled.aside`
-  height: 30rem;
-`;
+const StyledBrandImages = styled.aside``;
 
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 10rem 1fr;
+  grid-template-columns: 1fr 1fr;
 `;
 
 const StyledHeader = styled.div`
