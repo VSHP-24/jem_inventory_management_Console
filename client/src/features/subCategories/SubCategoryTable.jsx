@@ -7,6 +7,21 @@ import { useGetSubCategories } from "./useGetSubCategories";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
 import { PAGE_SIZE } from "../../utils/constants";
+import { device } from "../../utils/devices";
+import styled from "styled-components";
+
+const subCategoryTableStyles = {
+  defaultColumns: ".5fr 1fr 1fr .5fr",
+  laptopL: { columns: ".25fr 1fr 1fr ", rows: "1fr 1fr " },
+  tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr" },
+  mobileM: { columns: ".15fr 1fr 1fr", rows: "1fr 1fr" },
+};
+
+const StyledTableColumnLaptopL = styled.div`
+  @media ${device.laptopL} {
+    grid-column: 2;
+  }
+`;
 
 function DeletedSubCategory({ filterDeletedSubCategories }) {
   if (!filterDeletedSubCategories || filterDeletedSubCategories.length === 0)
@@ -117,12 +132,12 @@ function SubCategoryTable() {
           filterDeletedSubCategories={filterDeletedSubCategories}
         />
       }
-      columns=".5fr 1fr 1fr .5fr"
+      columns={subCategoryTableStyles}
     >
       <Table.Header>
         <div>Sl No.</div>
-        <div>Category</div>
-        <div>SubCategory</div>
+        <StyledTableColumnLaptopL>Category</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>SubCategory</StyledTableColumnLaptopL>
       </Table.Header>
 
       <Table.Body

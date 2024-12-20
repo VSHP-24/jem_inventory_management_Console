@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
+import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
   font-size: 1.4rem;
   padding: 2rem;
   width: 100%;
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+  }
 `;
 
 const StyledSubCategoryDetails = styled.main``;
@@ -13,7 +18,13 @@ const StyledSubCategoryDetails = styled.main``;
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 10rem 1fr;
+  grid-template-columns: 1fr 1fr;
+
+  @media ${device.laptopL} {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `;
 
 const StyledHeader = styled.div`
