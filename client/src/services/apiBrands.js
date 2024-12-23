@@ -23,6 +23,8 @@ export async function createEditBrand(newBrand) {
 
   if (!newBrand._id) {
     res = await fetch(BRANDS_URL, {
+      mode: "cors",
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,6 +38,8 @@ export async function createEditBrand(newBrand) {
   ///////////////////////////
   else {
     res = await fetch(`${BRANDS_URL}/${newBrand._id}`, {
+      mode: "cors",
+      credentials: "include",
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -58,6 +62,8 @@ export async function deleteBrand(id) {
     isDeleted: true,
   };
   const res = await fetch(`${BRANDS_URL}/${id}`, {
+    mode: "cors",
+    credentials: "include",
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

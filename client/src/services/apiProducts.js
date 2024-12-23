@@ -22,6 +22,8 @@ export async function createEditProduct(newProduct) {
   ///////////////////////////
   if (!newProduct._id) {
     res = await fetch(PRODUCTS_URL, {
+      mode: "cors",
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,6 +37,8 @@ export async function createEditProduct(newProduct) {
   ///////////////////////////
   else {
     res = await fetch(`${PRODUCTS_URL}/${newProduct._id}`, {
+      mode: "cors",
+      credentials: "include",
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -56,6 +60,8 @@ export async function deleteProduct(id) {
     isDeleted: true,
   };
   const res = await fetch(`${PRODUCTS_URL}/${id}`, {
+    mode: "cors",
+    credentials: "include",
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

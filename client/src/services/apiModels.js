@@ -22,6 +22,8 @@ export async function createEditModel(newModel) {
   ///////////////////////////
   if (!newModel._id) {
     res = await fetch(MODELS_URL, {
+      mode: "cors",
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,6 +37,8 @@ export async function createEditModel(newModel) {
   ///////////////////////////
   else {
     res = await fetch(`${MODELS_URL}/${newModel._id}`, {
+      mode: "cors",
+      credentials: "include",
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -56,6 +60,8 @@ export async function deleteModel(id) {
     isDeleted: true,
   };
   const res = await fetch(`${MODELS_URL}/${id}`, {
+    mode: "cors",
+    credentials: "include",
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

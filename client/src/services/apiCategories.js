@@ -22,6 +22,8 @@ export async function createEditCategory(newCategory) {
   ///////////////////////////
   if (!newCategory._id) {
     res = await fetch(CATEGORIES_URL, {
+      mode: "cors",
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,6 +37,8 @@ export async function createEditCategory(newCategory) {
   ///////////////////////////
   else {
     res = await fetch(`${CATEGORIES_URL}/${newCategory._id}`, {
+      mode: "cors",
+      credentials: "include",
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -57,6 +61,8 @@ export async function deleteCategory(id) {
     isDeleted: true,
   };
   const res = await fetch(`${CATEGORIES_URL}/${id}`, {
+    mode: "cors",
+    credentials: "include",
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

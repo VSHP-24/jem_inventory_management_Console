@@ -22,6 +22,8 @@ export async function createEditSubCategory(newSubCategory) {
   ///////////////////////////
   if (!newSubCategory._id) {
     res = await fetch(SUBCATEGORIES_URL, {
+      mode: "cors",
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,6 +37,8 @@ export async function createEditSubCategory(newSubCategory) {
   ///////////////////////////
   else {
     res = await fetch(`${SUBCATEGORIES_URL}/${newSubCategory._id}`, {
+      mode: "cors",
+      credentials: "include",
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -57,6 +61,8 @@ export async function deleteSubCategory(id) {
     isDeleted: true,
   };
   const res = await fetch(`${SUBCATEGORIES_URL}/${id}`, {
+    mode: "cors",
+    credentials: "include",
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

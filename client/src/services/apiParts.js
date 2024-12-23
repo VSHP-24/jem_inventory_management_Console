@@ -22,6 +22,8 @@ export async function createEditPart(newPart) {
   ///////////////////////////
   if (!newPart._id) {
     res = await fetch(PARTS_URL, {
+      mode: "cors",
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,6 +36,8 @@ export async function createEditPart(newPart) {
   ///////////////////////////
   else {
     res = await fetch(`${PARTS_URL}/${newPart._id}`, {
+      mode: "cors",
+      credentials: "include",
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -56,6 +60,8 @@ export async function deletePart(id) {
     isDeleted: true,
   };
   const res = await fetch(`${PARTS_URL}/${id}`, {
+    mode: "cors",
+    credentials: "include",
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
