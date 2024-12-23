@@ -10,7 +10,7 @@ import { device } from "../../utils/devices";
 import styled from "styled-components";
 
 const orderTableStyles = {
-  defaultColumns: ".75fr 4fr 2fr 1.25fr 1fr 1.25fr 2fr .001fr",
+  defaultColumns: ".75fr 4fr 2fr 1.25fr 1fr 1.25fr 2.5fr .001fr",
   laptopL: { columns: ".1fr .35fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr 1fr " },
   tablet: { columns: ".1fr .35fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr" },
   mobileM: { columns: ".25fr 1.25fr .001fr", rows: "1fr 1fr 1fr 1fr 1fr" },

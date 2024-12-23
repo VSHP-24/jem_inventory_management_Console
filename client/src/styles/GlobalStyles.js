@@ -68,7 +68,6 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
   margin: 0;
   letter-spacing: 0.1rem;
-  scroll-behavior: smooth;
   scrollbar-color: var(--color-gold-100) var(--color-grey-800);
   scrollbar-width: thin;
 
@@ -78,7 +77,9 @@ const GlobalStyles = createGlobalStyle`
 }
 
 html{
-  font-size: 62.5%
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+
 }
 
 body {
@@ -87,6 +88,7 @@ body {
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;
   font-size: 1.6rem;
+
 
 
    @media ${device.laptopL} {

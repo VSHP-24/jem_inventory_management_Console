@@ -25,9 +25,7 @@ const StyledDetailPage = styled.div`
 
 const StyledProductDetails = styled.main``;
 
-const StyledProductImages = styled.aside`
-  height: 30rem;
-`;
+const StyledProductImages = styled.aside``;
 
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
