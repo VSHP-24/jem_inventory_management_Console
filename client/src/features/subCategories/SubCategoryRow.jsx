@@ -1,4 +1,6 @@
 import toast from "react-hot-toast";
+import styled, { css } from "styled-components";
+
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import SubCategoryDetailPage from "./SubCategoryDetailPage";
@@ -6,7 +8,6 @@ import SubCategoryForm from "./SubCategoryForm";
 
 import { useDeleteSubCategory } from "./useDeleteSubCategory";
 import { useEditSubCategory } from "./useEditSubCategory";
-import styled, { css } from "styled-components";
 import { device } from "../../utils/devices";
 
 const columnType = {
@@ -49,6 +50,9 @@ function SubCategoryRow({ subCategory, index, id, deletedTable }) {
   }
 
   return (
+    ///////////////////////////////////
+    // AVAILABLE SUBCATEGORY
+    ///////////////////////////////////
     <Table.Row
       id={id}
       isDeleting={isDeleting}
@@ -62,6 +66,7 @@ function SubCategoryRow({ subCategory, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
+
       {!deletedTable && (
         <>
           <StyledColumnLaptopL as="header" type="heading">
@@ -79,6 +84,8 @@ function SubCategoryRow({ subCategory, index, id, deletedTable }) {
           </StyledColumnLaptopL>
         </>
       )}
+
+      {/* DELETED SUBCATEGORY */}
       {deletedTable && (
         <>
           <div>{category.name}</div>

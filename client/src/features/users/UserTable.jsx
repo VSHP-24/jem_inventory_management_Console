@@ -1,12 +1,14 @@
+import styled from "styled-components";
 import { Navigate, useSearchParams } from "react-router-dom";
+
 import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
-import { useGetUsers } from "./useGetUsers";
 import UserRow from "./UserRow";
 import Empty from "../../ui/Empty";
+
+import { useGetUsers } from "./useGetUsers";
 import { PAGE_SIZE } from "../../utils/constants";
-import styled from "styled-components";
 import { device } from "../../utils/devices";
 
 const userTableStyles = {
@@ -26,6 +28,9 @@ const InvisibileBox = styled.div`
   color: var(--color-gold-400);
 `;
 
+///////////////////////////////////
+// DELETED USERS TABLE COMPONENT
+///////////////////////////////////
 function DeletedUsers({ filterDeletedUsers }) {
   if (!filterDeletedUsers || filterDeletedUsers.length === 0)
     return <Empty resourceName={"Deleted Users"} />;
@@ -57,6 +62,9 @@ function DeletedUsers({ filterDeletedUsers }) {
   );
 }
 
+////////////////////////////////////////
+// AVAILABLE USERS TABLE COMPONENT
+////////////////////////////////////////
 function UserTable() {
   const { isPending, users } = useGetUsers();
   const [searchParams] = useSearchParams();
@@ -72,7 +80,6 @@ function UserTable() {
 
   if (!isPending) {
     // SORT
-
     const staffMembers = users.filter((user) => user.role === "staff");
 
     sortedUsers = staffMembers.sort((a, b) => {
@@ -87,18 +94,17 @@ function UserTable() {
       return null;
     });
 
-    // Filter Deleted Users
-
+    // FILTER DELETED USERS
     filterDeletedUsers = sortedUsers.filter((user) =>
       user.active === false ? user : null
     );
 
-    // Filter Available Users
-
+    // FILTER AVAILABLE USERS
     filterAvailableUsers = sortedUsers.filter((user) =>
       user.active === true ? user : null
     );
 
+    // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
     currentPage = !searchParams.get("page")
       ? 1
       : Number(searchParams.get("page"));
@@ -108,7 +114,8 @@ function UserTable() {
 
   if (isPending) return <Spinner />;
 
-  if (currentPage > pageCount)
+  // IF SEARCHPARAMS PAGE IS GREATER THAN EXISTING PAGE COUNTS, PAGE WILL BE REDIRECTED TO FIRST PAGE OF THE TABLE
+  if (currentPage > pageCount || currentPage < 1)
     return <Navigate replace to="/Users?userOptions=allUsers" />;
 
   return (
@@ -134,6 +141,7 @@ function UserTable() {
           <UserRow user={user} index={i} key={user.id} id={user.id} />
         )}
       />
+
       <Table.Footer>
         <Pagination count={filterAvailableUsers.length} />
       </Table.Footer>

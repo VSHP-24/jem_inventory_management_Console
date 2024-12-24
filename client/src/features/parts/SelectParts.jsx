@@ -2,6 +2,7 @@ import { useGetParts } from "./useGetParts";
 
 function SelectParts({ placeholder = "----- Select a Part -----" }) {
   const { isPending, parts } = useGetParts();
+
   if (isPending) return parts;
 
   return (
@@ -9,6 +10,7 @@ function SelectParts({ placeholder = "----- Select a Part -----" }) {
       <option value="" itemType="String">
         {placeholder}
       </option>
+
       {parts
         .filter((part) => !part.isDeleted)
         .map((part) => (

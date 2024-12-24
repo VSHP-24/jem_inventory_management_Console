@@ -10,9 +10,11 @@ function Manage() {
       <Row>
         <Heading as="h2">Manage</Heading>
       </Row>
+
       <Row>
         <ManageTableOperations />
       </Row>
+
       <Row>
         <ManageTableNavTabs />
       </Row>

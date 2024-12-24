@@ -1,15 +1,17 @@
 import styled from "styled-components";
-import { useRecentOrders } from "./useRecentOrders";
-import Spinner from "../../ui/Spinner";
-import { useRecentPurchases } from "./useRecentPurchases";
+
 import Stats from "./Stats";
-import { useStockout } from "./useStockout";
+import Spinner from "../../ui/Spinner";
 import RevenueChart from "./RevenueChart";
-import { useSearchParams } from "react-router-dom";
 import CategoryChart from "./CategoryChart";
+import BrandChart from "./BrandChart";
+
+import { useRecentOrders } from "./useRecentOrders";
+import { useRecentPurchases } from "./useRecentPurchases";
+import { useStockout } from "./useStockout";
+import { useSearchParams } from "react-router-dom";
 import { useGetBrands } from "../brands/useGetBrands";
 import { useGetCategories } from "../categories/useGetCategories";
-import BrandChart from "./BrandChart";
 import { device } from "../../utils/devices";
 
 const StyledDashboardLayout = styled.div`
@@ -36,23 +38,22 @@ const StyledDashboardLayout = styled.div`
 
 function DashboardLayout() {
   const [searchParams] = useSearchParams();
+
   const { isPending: isBrandPending, brands } = useGetBrands();
   const { isPending: isCategoryPending, categories } = useGetCategories();
-
   const {
     isPending: isOrderPending,
     filteredOrders,
     totalOrders,
   } = useRecentOrders();
+  const { isPending: isPurchasesPending, filteredPurchases } =
+    useRecentPurchases();
+  const { isPending: isPartsPending, filteredParts } = useStockout();
 
+  // IF SEARCHPARAMS DOESN'T HAVE NUMBER OF DAYS , DEFAULT IS SET TO LAST 7 DAYS
   const numDays = !searchParams.get("dataDuration")
     ? 7
     : searchParams.get("dataDuration");
-
-  const { isPending: isPurchasesPending, filteredPurchases } =
-    useRecentPurchases();
-
-  const { isPending: isPartsPending, filteredParts } = useStockout();
 
   const isPending =
     isOrderPending ||

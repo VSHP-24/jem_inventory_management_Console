@@ -1,7 +1,9 @@
 import styled from "styled-components";
+
 import Table from "../../ui/Table";
 import ProductDetailPageImageView from "./PrdocutDetailPageImageView";
 import Heading from "../../ui/Heading";
+
 import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
@@ -162,6 +164,7 @@ function ProductDetailPage({ product }) {
                 <div>Part</div>
                 <div>Quantity</div>
               </Table.Header>
+
               <Table.Body
                 data={includedParts}
                 render={(part) => (
@@ -177,6 +180,7 @@ function ProductDetailPage({ product }) {
 
         <StyledRow>
           <StyledHeader>Additional Informations</StyledHeader>
+
           <StyledDetails>
             {additionalInformations.length >= 1 ? (
               <StyledListBulletPointsAdditionalInformation>

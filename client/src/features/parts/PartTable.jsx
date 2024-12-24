@@ -1,13 +1,14 @@
+import styled from "styled-components";
 import { Navigate, useSearchParams } from "react-router-dom";
+
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import PartRow from "./PartRow";
-
-import { useGetParts } from "./useGetParts";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+
+import { useGetParts } from "./useGetParts";
 import { PAGE_SIZE } from "../../utils/constants";
-import styled from "styled-components";
 import { device } from "../../utils/devices";
 
 const partTableStyles = {
@@ -27,6 +28,9 @@ const InvisibileBox = styled.div`
   color: var(--color-gold-400);
 `;
 
+///////////////////////////////////
+// DELETED PARTS TABLE COMPONENT
+///////////////////////////////////
 function DeletedParts({ filterDeletedParts }) {
   if (!filterDeletedParts || filterDeletedParts.length === 0)
     return <Empty resourceName={"Deleted Parts"} />;
@@ -59,6 +63,9 @@ function DeletedParts({ filterDeletedParts }) {
   );
 }
 
+////////////////////////////////////////
+// AVAILABLE PARTS TABLE COMPONENT
+////////////////////////////////////////
 function PartTable() {
   const { isPending, parts } = useGetParts();
 
@@ -68,15 +75,12 @@ function PartTable() {
   const [field, direction] = sortBy.split("-");
   const modifier = direction === "asc" ? 1 : -1;
 
-  let sortedParts;
+  let sortedParts, currentPage, pageCount;
   let filterDeletedParts = [];
   let filterAvailableParts = [];
-  let currentPage;
-  let pageCount;
 
   if (!isPending) {
     // SORT
-
     sortedParts = parts.sort((a, b) => {
       if (direction === "asc" && field !== "quantity") {
         if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
@@ -93,11 +97,12 @@ function PartTable() {
       return null;
     });
 
-    // Filter Deleted Parts
+    // FILTER DELETED PARTS
     filterDeletedParts = sortedParts.filter((part) => part.isDeleted);
-    // Filter Available Parts
+    // FILTER AVAILABLE PARTS
     filterAvailableParts = sortedParts.filter((part) => !part.isDeleted);
 
+    // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
     currentPage = !searchParams.get("page")
       ? 1
       : Number(searchParams.get("page"));
@@ -107,7 +112,9 @@ function PartTable() {
 
   if (isPending) return <Spinner />;
 
-  if (currentPage > pageCount) return <Navigate replace to="/Inventory" />;
+  // IF SEARCHPARAMS PAGE IS GREATER THAN EXISTING PAGE COUNTS, PAGE WILL BE REDIRECTED TO FIRST PAGE OF THE TABLE
+  if (currentPage > pageCount || currentPage < 1)
+    return <Navigate replace to="/Inventory" />;
 
   return (
     <Table
@@ -131,6 +138,7 @@ function PartTable() {
           <PartRow part={part} index={i} key={part.id} id={part.id} />
         )}
       />
+
       <Table.Footer>
         <Pagination count={filterAvailableParts.length} />
       </Table.Footer>

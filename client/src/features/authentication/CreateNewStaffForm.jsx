@@ -1,9 +1,11 @@
+import { useForm } from "react-hook-form";
+
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
+
 import { useCreateNewStaff } from "./useCreateNewStaff";
-import { useForm } from "react-hook-form";
 import { useEditUser } from "../users/useEditUser";
 
 function CreateNewStaffForm({
@@ -11,6 +13,10 @@ function CreateNewStaffForm({
   displayDirection = "horizontal",
   onCloseModal,
 }) {
+  ////////////////////////////////////////////////
+  // AUTOFILL EXISTING USER DETAILS IN EDIT SESSION
+  ////////////////////////////////////////////////
+
   const { id: editId, ...editValues } = userToEdit;
   const isEditSession = Boolean(editId);
 
@@ -64,13 +70,13 @@ function CreateNewStaffForm({
           type="email"
           id="email"
           placeholder="Enter Staff Email Address"
-          // This makes this form better for password managers
           autoComplete="username"
           disabled={isWorking}
           {...register("email", { required: "*This field is required" })}
         />
       </FormRow>
 
+      {/* Password should not be edited in this form in Edit Session , use RESET or FORGOT PASSWORD form */}
       {!isEditSession && (
         <>
           <FormRow

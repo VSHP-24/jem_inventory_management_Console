@@ -9,6 +9,7 @@ function Inventory() {
       <Row>
         <Heading as="h2">Inventory</Heading>
       </Row>
+
       <Row>
         <PartTableOperations />
       </Row>

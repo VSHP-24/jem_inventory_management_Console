@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { getBrands } from "../../services/apiBrands";
 
 export function useGetBrands() {
@@ -6,5 +7,6 @@ export function useGetBrands() {
     queryKey: ["brands"],
     queryFn: getBrands,
   });
+
   return { isPending, brands };
 }

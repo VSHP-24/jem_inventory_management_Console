@@ -1,10 +1,12 @@
+import { useForm } from "react-hook-form";
+
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
-import { useResetPassword } from "./useResetPassword";
 import SpinnerMini from "../../ui/SpinnerMini";
 import FormRow from "../../ui/FormRow";
-import { useForm } from "react-hook-form";
+
+import { useResetPassword } from "./useResetPassword";
 
 function ResetPasswordForm({ displayDirection = "horizontal" }) {
   const { resetPassword, isPending } = useResetPassword();

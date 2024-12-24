@@ -10,6 +10,7 @@ function SelectModels({ placeholder = "----- Select a Model -----" }) {
       <option value="" itemType="String">
         {placeholder}
       </option>
+
       {models
         .filter((model) => !model.isDeleted && !model.brand.isDeleted)
         .map((model) => (

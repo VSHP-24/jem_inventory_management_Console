@@ -1,11 +1,13 @@
+import { useForm } from "react-hook-form";
+
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import StyledNavLink from "../../ui/StyledNavLink";
-import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
 import FormRow from "../../ui/FormRow";
-import { useForm } from "react-hook-form";
+
+import { useLogin } from "./useLogin";
 
 function LoginForm({ displayDirection = "vertical" }) {
   const { login, isPending } = useLogin();
@@ -34,7 +36,6 @@ function LoginForm({ displayDirection = "vertical" }) {
           type="email"
           id="email"
           placeholder="Enter your email address"
-          // This makes this form better for password managers
           autoComplete="username"
           disabled={isPending}
           {...register("email", { required: "*This field is required" })}
@@ -55,9 +56,11 @@ function LoginForm({ displayDirection = "vertical" }) {
           {...register("password", { required: "*This field is required" })}
         />
       </FormRow>
+
       <StyledNavLink type="vertical" to="/forgotPassword">
         Forgot Password?
       </StyledNavLink>
+
       <FormRow displayDirection={displayDirection}>
         <Button variation="primary" size="large" disabled={isPending}>
           {!isPending ? "Log in" : <SpinnerMini />}

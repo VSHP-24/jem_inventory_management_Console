@@ -1,10 +1,11 @@
-import { createPortal } from "react-dom";
-
-import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
-import Button from "./Button";
-import { useOutsideClick } from "../hooks/useOutsideClick";
+import { createPortal } from "react-dom";
+import { HiXMark } from "react-icons/hi2";
 import { cloneElement, createContext, useContext, useState } from "react";
+
+import Button from "./Button";
+
+import { useOutsideClick } from "../hooks/useOutsideClick";
 import { device } from "../utils/devices";
 
 const StyledModal = styled.div`

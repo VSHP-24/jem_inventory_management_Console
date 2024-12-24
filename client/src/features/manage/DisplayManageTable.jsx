@@ -8,6 +8,7 @@ import SubCategoryTable from "../subCategories/SubCategoryTable";
 function DisplayManageTable() {
   const [searchParams] = useSearchParams();
 
+  // IF SEARCHPARAMS DOESN'T HAVE TABLE TYPE , DEFAULT IS SET TO BRANDS
   const showTable = searchParams.get("tableType") || "brands";
 
   if (showTable === "brands") return <BrandTable />;

@@ -1,10 +1,11 @@
 import styled, { css } from "styled-components";
 import { createContext, useContext, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import TableMenuButton from "./TableMenuButton";
 import TableMenuList from "./TableMenuList";
 import DeletedTableItems from "./DeletedTableItems";
-import { useSearchParams } from "react-router-dom";
+
 import { PAGE_SIZE } from "../utils/constants";
 import { device } from "../utils/devices";
 
@@ -90,7 +91,7 @@ const Footer = styled.footer`
   padding: 1.2rem;
   border: none;
 
-  /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
+  /* This will hide the footer when it contains no child elements. */
   &:not(:has(*)) {
     display: none;
   }
@@ -135,6 +136,7 @@ function Table({
   const [position, setPosition] = useState(null);
   const [searchParams] = useSearchParams();
 
+  // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
   const currentPage = !searchParams.get("page")
     ? 1
     : Number(searchParams.get("page"));
@@ -177,6 +179,7 @@ function Header({ children }) {
     </StyledHeader>
   );
 }
+
 function Row({
   children,
   id,
@@ -209,6 +212,7 @@ function Row({
           setPosition={setPosition}
         />
       )}
+
       {openId === id && (
         <TableMenuList
           id={id}
@@ -228,6 +232,7 @@ function Row({
     </StyledRow>
   );
 }
+
 function Body({ data, render }) {
   const { currentPage, modalWindowedTable } = useContext(TableContext);
   if (!data.length) return <Empty>No data to show at the moment</Empty>;

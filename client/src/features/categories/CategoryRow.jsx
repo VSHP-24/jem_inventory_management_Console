@@ -17,6 +17,9 @@ function CategoryRow({ category, index, id, deletedTable }) {
   }
 
   return (
+    ///////////////////////////////////
+    // AVAILABLE CATEGORIES
+    ///////////////////////////////////
     <Table.Row
       id={id}
       isDeleting={isDeleting}
@@ -30,7 +33,10 @@ function CategoryRow({ category, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
+
       <div>{name}</div>
+
+      {/* DELETED CATEGORIES */}
       {deletedTable && (
         <RestoreButton onHandleRestoreButtonClick={handleRestoreButtonClick} />
       )}

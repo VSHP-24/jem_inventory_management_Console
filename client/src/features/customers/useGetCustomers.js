@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { getCustomers } from "../../services/apiCustomers";
 
 export function useGetCustomers() {
@@ -6,5 +7,6 @@ export function useGetCustomers() {
     queryKey: ["customers"],
     queryFn: getCustomers,
   });
+
   return { isPending, customers };
 }

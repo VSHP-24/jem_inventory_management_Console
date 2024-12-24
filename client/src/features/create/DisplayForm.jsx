@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+
 import BrandForm from "../brands/BrandForm";
 import ModelForm from "../models/ModelForm";
 import CategoryForm from "../categories/CategoryForm";
@@ -10,6 +11,7 @@ import PurchaseForm from "../purchases/PurchaseForm";
 function DisplayForm() {
   const [searchParams] = useSearchParams();
 
+  // IF SEARCHPARAMS DOESN'T HAVE FORMTYPE , DEFAULT IS SET TO BRAND
   const showForm = searchParams.get("formType") || "new-brand";
 
   if (showForm === "new-brand") return <BrandForm />;

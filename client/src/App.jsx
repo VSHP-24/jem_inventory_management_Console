@@ -87,6 +87,7 @@ function App() {
             padding: "1.6rem 2.4rem",
             backgroundColor: "var(--color-grey-900)",
             color: "var(--color-gold-100)",
+            gap: "1rem",
           },
         }}
       />

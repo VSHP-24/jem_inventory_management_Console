@@ -1,13 +1,15 @@
+import styled from "styled-components";
 import { Navigate, useSearchParams } from "react-router-dom";
-import { useGetCustomers } from "./useGetCustomers";
+
 import Table from "../../ui/Table";
 import CustomerRow from "./CustomerRow";
 import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
-import { PAGE_SIZE } from "../../utils/constants";
-import styled from "styled-components";
+
 import { device } from "../../utils/devices";
+import { useGetCustomers } from "./useGetCustomers";
+import { PAGE_SIZE } from "../../utils/constants";
 
 const customerTableStyles = {
   defaultColumns: ".5fr 1fr 2fr 1.5fr .75fr",
@@ -26,6 +28,9 @@ const InvisibileBox = styled.div`
   color: var(--color-gold-400);
 `;
 
+//////////////////////////////////////
+// DELETED CUSTOMERS TABLE COMPONENT
+//////////////////////////////////////
 function DeletedCustomers({ filterDeletedCustomers }) {
   if (!filterDeletedCustomers || filterDeletedCustomers.length === 0)
     return <Empty resourceName={"Deleted Customers"} />;
@@ -40,6 +45,7 @@ function DeletedCustomers({ filterDeletedCustomers }) {
         <div>Sl No.</div>
         <div>Email</div>
       </Table.Header>
+
       <Table.Body
         data={filterDeletedCustomers}
         render={(customer, i) => (
@@ -56,6 +62,10 @@ function DeletedCustomers({ filterDeletedCustomers }) {
   );
 }
 
+////////////////////////////////////////
+// AVAILABLE CUSTOMERS TABLE COMPONENT
+////////////////////////////////////////
+
 function CustomersTable() {
   const { isPending, customers } = useGetCustomers();
   const [searchParams] = useSearchParams();
@@ -63,11 +73,9 @@ function CustomersTable() {
   const sortBy = searchParams.get("sortBy") || "name-asc";
   const [field, direction] = sortBy.split("-");
 
-  let sortedCustomers;
+  let sortedCustomers, currentPage, pageCount;
   let filterDeletedCustomers = [];
   let filterAvailableCustomers = [];
-  let currentPage;
-  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -90,15 +98,17 @@ function CustomersTable() {
       return null;
     });
 
-    // Filter Deleted Customers
+    // FILTER DELETED CUSTOMERS
     filterDeletedCustomers = sortedCustomers.filter(
       (customer) => !customer.user.active
     );
-    // Filter Available Customers
+
+    // FILTER AVAILABLE CUSTOMERS
     filterAvailableCustomers = sortedCustomers.filter(
       (customer) => customer.user.active
     );
 
+    // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
     currentPage = !searchParams.get("page")
       ? 1
       : Number(searchParams.get("page"));
@@ -108,7 +118,9 @@ function CustomersTable() {
 
   if (isPending) return <Spinner />;
 
-  if (currentPage > pageCount) return <Navigate replace to="/customers" />;
+  // IF SEARCHPARAMS PAGE IS GREATER THAN EXISTING PAGE COUNTS, PAGE WILL BE REDIRECTED TO FIRST PAGE OF THE TABLE
+  if (currentPage > pageCount || currentPage < 1)
+    return <Navigate replace to="/customers" />;
 
   return (
     <Table
@@ -121,7 +133,9 @@ function CustomersTable() {
         <div>Sl No.</div>
 
         <StyledTableColumnLaptopL>Name</StyledTableColumnLaptopL>
+
         <StyledTableColumnLaptopL>Email</StyledTableColumnLaptopL>
+
         <StyledTableColumnLaptopL>Phone Number</StyledTableColumnLaptopL>
 
         <InvisibileBox>Hello</InvisibileBox>

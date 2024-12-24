@@ -1,13 +1,14 @@
+import styled from "styled-components";
 import { Navigate, useSearchParams } from "react-router-dom";
+
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import PurchaseRow from "./PurchaseRow";
-
-import { useGetPurchases } from "./useGetPurchases";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+
+import { useGetPurchases } from "./useGetPurchases";
 import { PAGE_SIZE } from "../../utils/constants";
-import styled from "styled-components";
 import { device } from "../../utils/devices";
 
 const purchaseTableStyles = {
@@ -33,6 +34,9 @@ const InvisibileBox = styled.div`
   color: var(--color-gold-400);
 `;
 
+//////////////////////////////////////
+// DELETED PURCHASES TABLE COMPONENT
+//////////////////////////////////////
 function DeletedPurchases({ filterDeletedPurchases }) {
   if (!filterDeletedPurchases || filterDeletedPurchases.length === 0)
     return <Empty resourceName={"Deleted Purchases"} />;
@@ -65,6 +69,9 @@ function DeletedPurchases({ filterDeletedPurchases }) {
   );
 }
 
+//////////////////////////////////////
+// DELETED AVAILABLE TABLE COMPONENT
+//////////////////////////////////////
 function PurchaseTable() {
   const { isPending, purchases } = useGetPurchases();
 
@@ -81,15 +88,12 @@ function PurchaseTable() {
   const [field, direction] = sortBy.split("-");
   const modifier = direction === "asc" ? 1 : -1;
 
-  let sortedPurchases;
+  let sortedPurchases, currentPage, pageCount;
   let filterDeletedPurchases = [];
   let filterAvailablePurchases = [];
-  let currentPage;
-  let pageCount;
 
   if (!isPending) {
     // SORT
-
     sortedPurchases = purchases.sort((a, b) => {
       if (direction === "asc" && field === "part") {
         if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
@@ -111,12 +115,12 @@ function PurchaseTable() {
       return null;
     });
 
-    // Filter Deleted Purchases
+    // FILTER DELETED PURCHASES
     filterDeletedPurchases = sortedPurchases.filter(
       (purchase) => purchase.isDeleted
     );
 
-    // Filter Available Purchases
+    // FILTER AVAILABLE PURCHASES
     filterAvailablePurchases = sortedPurchases.filter(
       (purchase) =>
         !purchase.isDeleted &&
@@ -128,6 +132,7 @@ function PurchaseTable() {
           filteredVendors.includes(String(purchase.vendor)))
     );
 
+    // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
     currentPage = !searchParams.get("page")
       ? 1
       : Number(searchParams.get("page"));
@@ -137,7 +142,9 @@ function PurchaseTable() {
 
   if (isPending) return <Spinner />;
 
-  if (currentPage > pageCount) return <Navigate replace to="/Purchases" />;
+  // IF SEARCHPARAMS PAGE IS GREATER THAN EXISTING PAGE COUNTS, PAGE WILL BE REDIRECTED TO FIRST PAGE OF THE TABLE
+  if (currentPage > pageCount || currentPage < 1)
+    return <Navigate replace to="/Purchases" />;
 
   return (
     <Table

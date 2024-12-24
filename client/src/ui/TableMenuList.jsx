@@ -1,8 +1,9 @@
 import styled from "styled-components";
-
 import { HiOutlineEye, HiPencil, HiTrash } from "react-icons/hi2";
 import { createPortal } from "react-dom";
+
 import Modal from "./Modal";
+
 import ConfirmDelete from "./ConfirmDelete";
 import { device } from "../utils/devices";
 

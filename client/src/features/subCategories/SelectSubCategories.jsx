@@ -12,6 +12,7 @@ function SelectSubCategories({
       <option value="" itemType="String">
         {placeholder}
       </option>
+
       {subCategories
         .filter(
           (subCategory) =>

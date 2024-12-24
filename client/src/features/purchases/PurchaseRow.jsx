@@ -123,6 +123,9 @@ function PurchaseRow({ purchase, index, id, deletedTable }) {
   }
 
   return (
+    ///////////////////////////////////
+    // AVAILABLE PURCHASES
+    ///////////////////////////////////
     <Table.Row
       id={id}
       isDeleting={isDeleting}
@@ -136,6 +139,7 @@ function PurchaseRow({ purchase, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
+
       {!deletedTable && (
         <>
           <StyledColumnLaptopL as="header" type="heading">
@@ -198,6 +202,8 @@ function PurchaseRow({ purchase, index, id, deletedTable }) {
           </StyledDate>
         </>
       )}
+
+      {/* DELETED PURCHASES */}
       {deletedTable && (
         <>
           <div>{part.name}</div>

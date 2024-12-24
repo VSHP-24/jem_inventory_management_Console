@@ -9,6 +9,7 @@ function SelectBrands({ placeholder = "----- Select a Brand -----" }) {
       <option value="" itemType="String">
         {placeholder}
       </option>
+
       {brands
         .filter((brand) => !brand.isDeleted)
         .map((brand) => (

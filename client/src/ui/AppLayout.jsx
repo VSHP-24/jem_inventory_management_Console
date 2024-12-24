@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
+
 import { device } from "../utils/devices";
 
 const StyledAppLayout = styled.div`
@@ -65,12 +66,15 @@ function AppLayout() {
   return (
     <StyledAppLayout>
       <Header />
+
       <Sidebar />
+
       <Main>
         <Container>
           <Outlet />
         </Container>
       </Main>
+
       <Footer />
     </StyledAppLayout>
   );

@@ -3,6 +3,8 @@ import NavTabs from "../../ui/NavTabs";
 function DashboardFilter() {
   return (
     <NavTabs
+      width="40rem"
+      stylingType="dashboardFilter"
       fieldComponent="dataDuration"
       options={[
         { value: "7", label: "Last 7 days" },
@@ -10,8 +12,6 @@ function DashboardFilter() {
         { value: "90", label: "Last 90 days" },
         { value: "all", label: "All" },
       ]}
-      width="40rem"
-      stylingType="dashboardFilter"
     />
   );
 }

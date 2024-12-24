@@ -1,6 +1,8 @@
-import { HiOutlineXMark } from "react-icons/hi2";
 import styled from "styled-components";
+import { HiOutlineXMark } from "react-icons/hi2";
+
 import Button from "./Button";
+
 import { device } from "../utils/devices";
 
 const StyledContainer = styled.div`
@@ -71,6 +73,7 @@ function SelectedFilter({
             onClick={() => onHandleIndividualOptionsClick(filter)}
           >
             <span>{filter}</span>
+
             <StyledButton size="small" variation="danger" type="clear">
               <HiOutlineXMark />
             </StyledButton>

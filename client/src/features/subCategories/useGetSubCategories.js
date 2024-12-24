@@ -7,5 +7,6 @@ export function useGetSubCategories() {
     queryKey: ["subCategories"],
     queryFn: getSubCategories,
   });
+
   return { isPending, subCategories };
 }

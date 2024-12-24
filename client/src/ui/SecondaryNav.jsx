@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import secondaryNavList from "./../utils/secondaryNavList";
 import StyledNavLink from "./StyledNavLink";
 import { device } from "../utils/devices";
@@ -69,6 +70,7 @@ const StyledIconLabel = styled.span`
   }
 `;
 
+// THESE ARE HEADER NAV COMPONENTS
 function SecondaryNav() {
   return (
     <StyledNav>

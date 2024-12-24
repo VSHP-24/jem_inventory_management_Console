@@ -1,10 +1,12 @@
 import styled, { css } from "styled-components";
+
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import CreateNewStaffForm from "../authentication/CreateNewStaffForm";
+import UserDetailPage from "./UserDetailPage";
+
 import { useDeleteUser } from "./useDeleteUser";
 import { useEditUser } from "./useEditUser";
-import UserDetailPage from "./UserDetailPage";
 import { device } from "../../utils/devices";
 
 const columnType = {
@@ -43,6 +45,9 @@ function UserRow({ user, index, id, deletedTable }) {
   }
 
   return (
+    ///////////////////////////////////
+    // AVAILABLE USERS (STAFFS)
+    ///////////////////////////////////
     <Table.Row
       id={id}
       isDeleting={isDeleting}
@@ -56,6 +61,7 @@ function UserRow({ user, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
+
       {!deletedTable && (
         <>
           <StyledColumnLaptopL as="header" type="heading">
@@ -74,6 +80,8 @@ function UserRow({ user, index, id, deletedTable }) {
           <StyledColumnLaptopL type="userDetails">{role}</StyledColumnLaptopL>
         </>
       )}
+
+      {/* DELETED USERS */}
       {deletedTable && (
         <>
           <div>{email}</div>

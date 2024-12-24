@@ -1,7 +1,9 @@
 import styled from "styled-components";
+
 import Heading from "../../ui/Heading";
-import { formatDate, formatStatus } from "../../utils/helpers";
 import Table from "../../ui/Table";
+
+import { formatDate, formatStatus } from "../../utils/helpers";
 import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
@@ -122,6 +124,7 @@ function PurchaseDetailPage({ purchase }) {
                 <div>Status</div>
                 <div>Modified On</div>
               </Table.Header>
+
               <Table.Body
                 data={orderStatusUpdateOn}
                 render={(status) => (

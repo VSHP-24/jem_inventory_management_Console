@@ -1,5 +1,6 @@
-import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
+import { HiEllipsisVertical } from "react-icons/hi2";
+
 import { device } from "../utils/devices";
 
 const StyledMenuButton = styled.button`
@@ -40,12 +41,14 @@ function TableMenuButton({ id, openId, close, open, setPosition }) {
   function handleClickMenuButton(e) {
     e.stopPropagation();
 
+    // THIS SETS THE POSITION , JUST BELOW THE SELECTED TABLE MENU BUTTON
     const rect = e.target.closest("button").getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x + 30,
       y: window.innerHeight - rect.bottom,
     });
 
+    // IF NO OPEN ID OR DIFFERENT ID EXIST ,THIS OPENS THE MENUS TO THE SELECTED ONE , IF SAME OPEN ID , IT CLOSES
     openId === "" || openId !== id ? open(id) : close();
   }
 

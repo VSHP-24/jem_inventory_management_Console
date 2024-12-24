@@ -1,7 +1,9 @@
 import styled from "styled-components";
+
 import Table from "../../ui/Table";
-import { formatDate, formatStatus } from "../../utils/helpers";
 import Heading from "../../ui/Heading";
+
+import { formatDate, formatStatus } from "../../utils/helpers";
 import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
@@ -99,12 +101,14 @@ function OrderDetailPage({ order }) {
     <StyledDetailPage>
       <StyledOrderDetails>
         <StyledHeading as="h2">ORDER DETAILS</StyledHeading>
+
         <StyledRow>
           <StyledHeader>Customer Name</StyledHeader>
           <StyledDetails>
             {user.user.name ? user.user.name : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
+
         <StyledRow>
           <StyledHeader>Customer Email</StyledHeader>
           <StyledDetails>
@@ -114,6 +118,7 @@ function OrderDetailPage({ order }) {
 
         <StyledTable>
           <StyledHeader>Ordered Items</StyledHeader>
+
           <StyledDetails>
             <Table
               columns=".5fr 2.5fr 1fr 1fr"
@@ -136,8 +141,11 @@ function OrderDetailPage({ order }) {
                         (i === 9 && `${i + 1}`) ||
                         i + 1}
                     </StyledTableDetails>
+
                     <StyledTableDetails>{item.product.name}</StyledTableDetails>
+
                     <StyledTableDetails>{item.quantity}</StyledTableDetails>
+
                     <StyledTableDetails>{`₹ ${item.cost}`}</StyledTableDetails>
                   </Table.Row>
                 )}
@@ -249,6 +257,7 @@ function OrderDetailPage({ order }) {
 
         <StyledTable>
           <StyledHeader>Order Status Modified On</StyledHeader>
+
           <StyledDetails>
             <Table
               columns="1fr 1fr"

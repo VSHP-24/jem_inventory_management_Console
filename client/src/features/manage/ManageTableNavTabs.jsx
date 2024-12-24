@@ -3,6 +3,7 @@ import NavTabs from "../../ui/NavTabs";
 function ManageTableNavTabs() {
   return (
     <NavTabs
+      stylingType="manageTableNavFilter"
       fieldComponent="tableType"
       options={[
         { value: "brands", label: "Brands" },
@@ -10,7 +11,6 @@ function ManageTableNavTabs() {
         { value: "categories", label: "Categories" },
         { value: "subCategories", label: "SubCategories" },
       ]}
-      stylingType="manageTableNavFilter"
     />
   );
 }

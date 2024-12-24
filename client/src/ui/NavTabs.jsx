@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 import { NavTabButton } from "./NavTabButton";
+
 import { device } from "../utils/devices";
 
 const StyledNav = styled.nav`
@@ -106,6 +107,7 @@ function NavTabs({ fieldComponent, options, stylingType, width = "100%" }) {
 
   const currentValue = searchParams.get(fieldComponent) || options.at(0).value;
 
+  //SEARCHPARAMS ARE DELETED AS IT MOVES TO DIFFERENT PAGES
   function handleClick(value) {
     searchParams.delete("brand");
     searchParams.delete("category");

@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { getModels } from "../../services/apiModels";
 
 export function useGetModels() {
@@ -6,5 +7,6 @@ export function useGetModels() {
     queryKey: ["models"],
     queryFn: getModels,
   });
+
   return { isPending, models };
 }

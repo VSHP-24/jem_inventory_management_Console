@@ -1,6 +1,8 @@
 import styled from "styled-components";
+
 import mainNavList from "./../utils/mainNavList.js";
 import StyledNavLink from "./StyledNavLink.jsx";
+
 import { device } from "../utils/devices.js";
 
 const StyledAside = styled.aside`
@@ -116,6 +118,7 @@ const StyledIconLabel = styled.span`
   }
 `;
 
+// THESE ARE NAV COMPONENTS IN THE ASIDE COMPONENT
 function MainNav() {
   return (
     <StyledAside>

@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import PartDetailPage from "./PartDetailPage";
@@ -43,6 +44,9 @@ function PartRow({ part, index, id, deletedTable }) {
   }
 
   return (
+    ///////////////////////////////////
+    // AVAILABLE PARTS
+    ///////////////////////////////////
     <Table.Row
       id={id}
       isDeleting={isDeleting}
@@ -73,10 +77,13 @@ function PartRow({ part, index, id, deletedTable }) {
           </StyledColumnLaptopL>
         </>
       )}
+
+      {/* DELETED PARTS */}
       {deletedTable && (
         <>
           <div>{name}</div>
           <div>{quantity}</div>
+
           <RestoreButton
             onHandleRestoreButtonClick={handleRestoreButtonClick}
           />

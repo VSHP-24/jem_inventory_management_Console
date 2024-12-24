@@ -9,6 +9,7 @@ function Products() {
       <Row>
         <Heading as="h2">Products</Heading>
       </Row>
+
       <Row>
         <ProductTableOperations />
       </Row>

@@ -1,14 +1,15 @@
+import styled from "styled-components";
 import { Navigate, useSearchParams } from "react-router-dom";
+
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import SubCategoryRow from "./SubCategoryRow";
-
-import { useGetSubCategories } from "./useGetSubCategories";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+
 import { PAGE_SIZE } from "../../utils/constants";
 import { device } from "../../utils/devices";
-import styled from "styled-components";
+import { useGetSubCategories } from "./useGetSubCategories";
 
 const subCategoryTableStyles = {
   defaultColumns: ".5fr 1fr 1fr .5fr",
@@ -23,6 +24,9 @@ const StyledTableColumnLaptopL = styled.div`
   }
 `;
 
+////////////////////////////////////////
+// DELETED SUBCATEGORY TABLE COMPONENT
+////////////////////////////////////////
 function DeletedSubCategory({ filterDeletedSubCategories }) {
   if (!filterDeletedSubCategories || filterDeletedSubCategories.length === 0)
     return <Empty resourceName={"Deleted SubCategories"} />;
@@ -55,6 +59,9 @@ function DeletedSubCategory({ filterDeletedSubCategories }) {
   );
 }
 
+////////////////////////////////////////
+// AVAILABLE SUBCATEGORY TABLE COMPONENT
+////////////////////////////////////////
 function SubCategoryTable() {
   const { isPending, subCategories } = useGetSubCategories();
 
@@ -68,15 +75,12 @@ function SubCategoryTable() {
     searchParams.get("category") ||
     "";
 
-  let sortedSubCategories;
+  let sortedSubCategories, currentPage, pageCount;
   let filterDeletedSubCategories = [];
   let filterAvailableSubCategories = [];
-  let currentPage;
-  let pageCount;
 
   if (!isPending) {
     // SORT
-
     sortedSubCategories = subCategories.sort((a, b) => {
       if (direction === "asc" && field === "category") {
         if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
@@ -100,11 +104,12 @@ function SubCategoryTable() {
       return null;
     });
 
-    // Filter Deleted SubCategories
+    // FILTER DELETED SUBCATEGORIES
     filterDeletedSubCategories = sortedSubCategories.filter(
       (subCategory) => subCategory.isDeleted || subCategory.category.isDeleted
     );
-    // Filter Available SubCategories
+
+    // FILTER AVAILABLE SUBCATEGORIES
     filterAvailableSubCategories = sortedSubCategories.filter(
       (subCategory) =>
         !subCategory.isDeleted &&
@@ -113,6 +118,7 @@ function SubCategoryTable() {
           filteredCategories.includes(String(subCategory.category.id)))
     );
 
+    // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
     currentPage = !searchParams.get("page")
       ? 1
       : Number(searchParams.get("page"));
@@ -122,7 +128,8 @@ function SubCategoryTable() {
 
   if (isPending) return <Spinner />;
 
-  if (currentPage > pageCount)
+  // IF SEARCHPARAMS PAGE IS GREATER THAN EXISTING PAGE COUNTS, PAGE WILL BE REDIRECTED TO FIRST PAGE OF THE TABLE
+  if (currentPage > pageCount || currentPage < 1)
     return <Navigate replace to="/manage?tableType=subCategories" />;
 
   return (

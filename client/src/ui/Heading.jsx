@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+
 import { device } from "../utils/devices";
 
 const Heading = styled.h1`

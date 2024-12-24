@@ -1,5 +1,7 @@
 import styled from "styled-components";
+
 import StyledNavLink from "./StyledNavLink";
+
 import { device } from "../utils/devices";
 
 const Img = styled.img`

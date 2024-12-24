@@ -1,13 +1,15 @@
 import styled, { css } from "styled-components";
+
+import OrderForm from "./OrderForm";
+import OrderDetailPage from "./OrderDetailPage";
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
-import { formatStatus } from "../../utils/helpers";
 import Button from "../../ui/Button";
+
+import { formatStatus } from "../../utils/helpers";
 import { HiOutlineCheck, HiOutlineXMark } from "react-icons/hi2";
 import { useEditOrder } from "./useEditOrder";
 import { useDeleteOrder } from "./useDeleteOrder";
-import OrderForm from "./OrderForm";
-import OrderDetailPage from "./OrderDetailPage";
 import { useEditPart } from "../parts/useEditPart";
 import { device } from "../../utils/devices";
 
@@ -99,9 +101,7 @@ const StyledButton = styled(Button)`
 function OrderRow({ order, index, id, deletedTable }) {
   const { user, cost, paymentMethod, paymentStatus, orderStatus } = order;
   const { isDeleting, deleteOrder } = useDeleteOrder();
-
   const { isEditing, editOrder } = useEditOrder();
-
   const { editPart } = useEditPart();
 
   function handleCheckClick(orderStatus) {
@@ -130,6 +130,9 @@ function OrderRow({ order, index, id, deletedTable }) {
   }
 
   return (
+    ///////////////////////////////////
+    // AVAILABLE ORDERS
+    ///////////////////////////////////
     <Table.Row
       id={id}
       isDeleting={isDeleting}
@@ -143,6 +146,7 @@ function OrderRow({ order, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
+
       {!deletedTable && (
         <>
           <StyledColumnLaptopL as="header" type="heading">
@@ -214,6 +218,7 @@ function OrderRow({ order, index, id, deletedTable }) {
         </>
       )}
 
+      {/* DELETED ORDERS */}
       {deletedTable && (
         <>
           <StyledOrderId>{id}</StyledOrderId>

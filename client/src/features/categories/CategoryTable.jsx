@@ -1,12 +1,17 @@
 import { Navigate, useSearchParams } from "react-router-dom";
+
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import CategoryRow from "./CategoryRow";
-
-import { useGetCategories } from "./useGetCategories";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+
+import { useGetCategories } from "./useGetCategories";
 import { PAGE_SIZE } from "../../utils/constants";
+
+///////////////////////////////////
+// DELETED CATEGORY TABLE COMPONENT
+///////////////////////////////////
 
 function DeletedCategories({ filterDeletedCategories }) {
   if (!filterDeletedCategories || filterDeletedCategories.length === 0)
@@ -39,6 +44,10 @@ function DeletedCategories({ filterDeletedCategories }) {
   );
 }
 
+////////////////////////////////////////
+// AVAILABLE CATEGORIES TABLE COMPONENT
+////////////////////////////////////////
+
 function CategoryTable() {
   const { isPending, categories } = useGetCategories();
 
@@ -47,11 +56,9 @@ function CategoryTable() {
   const sortBy = searchParams.get("sortBy") || "category-asc";
   const [, direction] = sortBy.split("-");
 
-  let sortedCategories;
+  let sortedCategories, currentPage, pageCount;
   let filterDeletedCategories = [];
   let filterAvailableCategories = [];
-  let currentPage;
-  let pageCount;
 
   if (!isPending) {
     //SORT
@@ -67,18 +74,17 @@ function CategoryTable() {
       return null;
     });
 
-    // Filter Deleted Categories
-
+    // FILTER DELETED CATEGORIES
     filterDeletedCategories = sortedCategories.filter(
       (category) => category.isDeleted
     );
 
-    // Filter Available Categories
-
+    // FILTER AVAILABLE CATEGORIES
     filterAvailableCategories = sortedCategories.filter(
       (category) => !category.isDeleted
     );
 
+    // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
     currentPage = !searchParams.get("page")
       ? 1
       : Number(searchParams.get("page"));
@@ -88,7 +94,8 @@ function CategoryTable() {
 
   if (isPending) return <Spinner />;
 
-  if (currentPage > pageCount)
+  // IF SEARCHPARAMS PAGE IS GREATER THAN EXISTING PAGE COUNTS, PAGE WILL BE REDIRECTED TO FIRST PAGE OF THE TABLE
+  if (currentPage > pageCount || currentPage < 1)
     return <Navigate replace to="/manage?tableType=categories" />;
 
   return (

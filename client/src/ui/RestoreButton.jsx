@@ -1,7 +1,8 @@
 import styled from "styled-components";
-
 import { MdOutlineRestore } from "react-icons/md";
+
 import Button from "./Button";
+
 import { device } from "../utils/devices";
 
 const StyledButton = styled(Button)`

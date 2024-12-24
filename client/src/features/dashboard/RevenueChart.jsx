@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import DashboardBox from "./DashboardBox";
-import Heading from "../../ui/Heading";
 import {
   Area,
   AreaChart,
@@ -11,6 +9,9 @@ import {
   YAxis,
 } from "recharts";
 import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
+
+import DashboardBox from "./DashboardBox";
+import Heading from "../../ui/Heading";
 
 const StyledRevenueChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -69,6 +70,7 @@ function RevenueChart({ purchases, orders, numDays }) {
               fontSize: "1rem",
             }}
           />
+
           <YAxis
             unit="₹"
             tick={{ fill: colors.text }}
@@ -77,8 +79,11 @@ function RevenueChart({ purchases, orders, numDays }) {
               fontSize: "1rem",
             }}
           />
+
           <CartesianGrid strokeDasharray="4" />
+
           <Tooltip contentStyle={{ backgroundColor: colors.background }} />
+
           <Area
             dataKey="sales"
             type="monotone"
@@ -88,6 +93,7 @@ function RevenueChart({ purchases, orders, numDays }) {
             name="Sales"
             unit="₹"
           />
+
           <Area
             dataKey="expenses"
             type="monotone"

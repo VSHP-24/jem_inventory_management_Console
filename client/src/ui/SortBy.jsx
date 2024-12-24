@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import Select from "./Select";
 import { useSearchParams } from "react-router-dom";
+
+import Select from "./Select";
+
 import { device } from "../utils/devices";
 
 const StyledSelect = styled(Select)`

@@ -1,11 +1,13 @@
 import styled, { css } from "styled-components";
+
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
-import { device } from "../../utils/devices";
-import { useDeleteUser } from "../users/useDeleteUser";
-import { useEditUser } from "../users/useEditUser";
 import CustomerDetailPage from "./CustomerDetailPage";
 import CustomerForm from "./CustomerForm";
+
+import { device } from "../../utils/devices";
+import { useEditUser } from "../users/useEditUser";
+import { useDeleteUser } from "../users/useDeleteUser";
 
 const columnType = {
   userDetails: css`
@@ -43,6 +45,9 @@ function CustomerRow({ customer, index, id, deletedTable }) {
   }
 
   return (
+    ///////////////////////////////////
+    // AVAILABLE CUSTOMERS
+    ///////////////////////////////////
     <Table.Row
       id={id}
       isDeleting={isDeleting}
@@ -56,6 +61,7 @@ function CustomerRow({ customer, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
+
       {!deletedTable && (
         <>
           <StyledColumnLaptopL as="header" type="heading">
@@ -83,9 +89,11 @@ function CustomerRow({ customer, index, id, deletedTable }) {
         </>
       )}
 
+      {/* DELETED CUSTOMERS */}
       {deletedTable && (
         <>
           <div>{user.email}</div>
+
           <RestoreButton
             onHandleRestoreButtonClick={handleRestoreButtonClick}
           />

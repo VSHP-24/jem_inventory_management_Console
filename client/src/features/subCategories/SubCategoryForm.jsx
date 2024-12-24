@@ -11,6 +11,9 @@ import { useCreateSubCategory } from "./useCreateSubCategory";
 import { useEditSubCategory } from "./useEditSubCategory";
 
 function SubCategoryForm({ subCategoryToEdit = {}, onCloseModal }) {
+  ////////////////////////////////////////////////////////////
+  // AUTOFILL EXISTING SUBCATEGORY DETAILS IN EDIT SESSION
+  ////////////////////////////////////////////////////////////
   const { id: editId, category, ...editValues } = subCategoryToEdit;
   const isEditSession = Boolean(editId);
 
@@ -76,6 +79,7 @@ function SubCategoryForm({ subCategoryToEdit = {}, onCloseModal }) {
           >
             Cancel
           </Button>
+
           <Button size="large" variation="primary" disabled={isWorking}>
             {isEditSession ? "Edit SubCategory" : "Create SubCategory"}
           </Button>

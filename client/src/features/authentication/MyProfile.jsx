@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
-import { useUser } from "./useUser";
-import { useState } from "react";
 import SpinnerMini from "../../ui/SpinnerMini";
+
+import { useUser } from "./useUser";
 import { useUpdateMyProfile } from "./useUpdateMe";
 
 function MyProfile({ displayDirection = "horizontal" }) {
@@ -24,6 +26,7 @@ function MyProfile({ displayDirection = "horizontal" }) {
   });
 
   async function onSubmit(data) {
+    // Initially input fields will be disabled , this enables the input field to edit
     if (!isUpdateSession) return setIsUpdateSession(true);
 
     if (isUpdateSession) {
@@ -56,7 +59,6 @@ function MyProfile({ displayDirection = "horizontal" }) {
           type="email"
           id="email"
           placeholder="Enter Staff Email Address"
-          // This makes this form better for password managers
           autoComplete="username"
           disabled={isWorking || !isUpdateSession}
           {...register("email", { required: "*This field is required" })}

@@ -1,7 +1,9 @@
 import styled from "styled-components";
+
 import Logo from "../ui/Logo";
 import Heading from "../ui/Heading";
 import ResetPasswordForm from "../features/authentication/ResetPasswordForm";
+
 import { device } from "../utils/devices";
 
 const LoginLayout = styled.main`
@@ -33,9 +35,11 @@ function ResetPassword() {
   return (
     <LoginLayout>
       <Logo allowRedirect={false} height="3.2rem" />
+
       <StyledHeading as="h3">
         {`Set a password that you won't forget next time 😜`}
       </StyledHeading>
+
       <ResetPasswordForm displayDirection="vertical" />
     </LoginLayout>
   );

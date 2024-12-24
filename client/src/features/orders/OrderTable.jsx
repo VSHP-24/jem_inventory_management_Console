@@ -1,13 +1,15 @@
+import styled from "styled-components";
 import { Navigate, useSearchParams } from "react-router-dom";
-import { useGetOrders } from "./useGetOrder";
+
 import Table from "../../ui/Table";
 import OrderRow from "./OrderRow";
 import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+
 import { PAGE_SIZE } from "../../utils/constants";
 import { device } from "../../utils/devices";
-import styled from "styled-components";
+import { useGetOrders } from "./useGetOrder";
 
 const orderTableStyles = {
   defaultColumns: ".75fr 4fr 2fr 1.25fr 1fr 1.25fr 2.5fr .001fr",
@@ -29,6 +31,9 @@ const InvisibileBox = styled.div`
   color: var(--color-gold-400);
 `;
 
+///////////////////////////////////
+// DELETED ORDERS TABLE COMPONENT
+///////////////////////////////////
 function DeletedOrders({ filterDeletedOrders }) {
   if (!filterDeletedOrders || filterDeletedOrders.length === 0)
     return <Empty resourceName={"Deleted Orders"} />;
@@ -43,6 +48,7 @@ function DeletedOrders({ filterDeletedOrders }) {
         <div>Sl No.</div>
         <div>Order Id</div>
       </Table.Header>
+
       <Table.Body
         data={filterDeletedOrders}
         render={(order, i) => (
@@ -58,6 +64,10 @@ function DeletedOrders({ filterDeletedOrders }) {
     </Table>
   );
 }
+
+////////////////////////////////////////
+// AVAILABLE ORDERS TABLE COMPONENT
+////////////////////////////////////////
 
 function OrderTable() {
   const { isPending, orders } = useGetOrders();
@@ -112,10 +122,10 @@ function OrderTable() {
       return null;
     });
 
-    // Filter Deleted Orders
+    // FILTER DELETED ORDERS
     filterDeletedOrders = sortedOrders.filter((order) => order.isDeleted);
 
-    // Filter Available Orders
+    // FILTER AVAILABLE ORDERS
     filterAvailableOrders = sortedOrders.filter(
       (order) =>
         !order.isDeleted &&
@@ -127,6 +137,7 @@ function OrderTable() {
           filteredOrderStatus.includes(order.orderStatus))
     );
 
+    // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
     currentPage = !searchParams.get("page")
       ? 1
       : Number(searchParams.get("page"));
@@ -136,7 +147,9 @@ function OrderTable() {
 
   if (isPending) return <Spinner />;
 
-  if (currentPage > pageCount) return <Navigate replace to="/Orders" />;
+  // IF SEARCHPARAMS PAGE IS GREATER THAN EXISTING PAGE COUNTS, PAGE WILL BE REDIRECTED TO FIRST PAGE OF THE TABLE
+  if (currentPage > pageCount || currentPage < 1)
+    return <Navigate replace to="/Orders" />;
 
   return (
     <Table
@@ -147,11 +160,17 @@ function OrderTable() {
     >
       <Table.Header>
         <StyledTableColumnLaptopL>Sl No.</StyledTableColumnLaptopL>
+
         <StyledTableColumnLaptopL>Order Id</StyledTableColumnLaptopL>
+
         <StyledTableColumnLaptopL>Name</StyledTableColumnLaptopL>
+
         <StyledTableColumnLaptopL>Amount</StyledTableColumnLaptopL>
+
         <StyledTableColumnLaptopL>Method</StyledTableColumnLaptopL>
+
         <StyledTableColumnLaptopL>Settlement</StyledTableColumnLaptopL>
+
         <StyledTableColumnLaptopL>Order Status</StyledTableColumnLaptopL>
 
         <InvisibileBox>Hello</InvisibileBox>
@@ -163,6 +182,7 @@ function OrderTable() {
           <OrderRow order={order} index={i} key={order.id} id={order.id} />
         )}
       />
+
       <Table.Footer>
         <Pagination count={filterAvailableOrders.length} />
       </Table.Footer>

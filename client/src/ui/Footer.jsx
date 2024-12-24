@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { device } from "../utils/devices";
 
 const StyledFooter = styled.footer`
@@ -28,6 +29,7 @@ const Content = styled.div`
 
 function Footer() {
   const currentYear = new Date(Date.now()).getFullYear();
+
   return (
     <StyledFooter>
       <Content>

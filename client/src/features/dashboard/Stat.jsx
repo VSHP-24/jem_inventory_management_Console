@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { device } from "../../utils/devices";
 
 const StyledStat = styled.div`
@@ -73,7 +74,9 @@ function Stat({ icon, title, value, color }) {
   return (
     <StyledStat>
       <Icon color={color}>{icon}</Icon>
+
       <Title>{title}</Title>
+
       <Value>{value}</Value>
     </StyledStat>
   );

@@ -1,12 +1,17 @@
 import { Navigate, useSearchParams } from "react-router-dom";
+
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import BrandRow from "./BrandRow";
-
-import { useGetBrands } from "./useGetBrands";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+
+import { useGetBrands } from "./useGetBrands";
 import { PAGE_SIZE } from "../../utils/constants";
+
+///////////////////////////////////
+// DELETED BRAND TABLE COMPONENT
+///////////////////////////////////
 
 function DeletedBrands({ filterDeletedBrands }) {
   if (!filterDeletedBrands || filterDeletedBrands.length === 0)
@@ -39,6 +44,10 @@ function DeletedBrands({ filterDeletedBrands }) {
   );
 }
 
+////////////////////////////////////////
+// AVAILABLE BRAND TABLE COMPONENT
+////////////////////////////////////////
+
 function BrandTable() {
   const { isPending, brands } = useGetBrands();
 
@@ -47,11 +56,9 @@ function BrandTable() {
   const sortBy = searchParams.get("sortBy") || "brand-asc";
   const [, direction] = sortBy.split("-");
 
-  let sortedBrands;
+  let sortedBrands, currentPage, pageCount;
   let filterDeletedBrands = [];
   let filterAvailableBrands = [];
-  let currentPage;
-  let pageCount;
 
   if (!isPending) {
     // SORT
@@ -67,14 +74,13 @@ function BrandTable() {
       return null;
     });
 
-    // Filter Deleted Brands
-
+    // FILTER DELETED BRANDS
     filterDeletedBrands = sortedBrands.filter((brand) => brand.isDeleted);
 
-    // Filter Available Brands
-
+    // FILTER AVAILABLE BRANDS
     filterAvailableBrands = sortedBrands.filter((brand) => !brand.isDeleted);
 
+    // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
     currentPage = !searchParams.get("page")
       ? 1
       : Number(searchParams.get("page"));
@@ -84,7 +90,9 @@ function BrandTable() {
 
   if (isPending) return <Spinner />;
 
-  if (currentPage > pageCount) return <Navigate replace to="/manage" />;
+  // IF SEARCHPARAMS PAGE IS GREATER THAN EXISTING PAGE COUNTS, PAGE WILL BE REDIRECTED TO FIRST PAGE OF THE TABLE
+  if (currentPage > pageCount || currentPage < 1)
+    return <Navigate replace to="/manage" />;
 
   return (
     <Table

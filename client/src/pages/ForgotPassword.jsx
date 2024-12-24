@@ -1,7 +1,9 @@
 import styled from "styled-components";
+
 import Logo from "../ui/Logo";
 import Heading from "../ui/Heading";
 import ForgotPasswordForm from "../features/authentication/ForgotPasswordForm";
+
 import { device } from "../utils/devices";
 
 const LoginLayout = styled.main`

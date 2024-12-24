@@ -1,11 +1,11 @@
 import TableOperations from "../../ui/TableOperations";
 import Filter from "../../ui/Filter";
+import SortBy from "../../ui/SortBy";
 
 import { useGetBrands } from "../brands/useGetBrands";
 import { useGetCategories } from "../categories/useGetCategories";
 import { useGetModels } from "../models/useGetModels";
 import { useGetSubCategories } from "../subCategories/useGetSubCategories";
-import SortBy from "../../ui/SortBy";
 
 function ProductTableOperations() {
   const { isPending: brandIsPending, brands } = useGetBrands();

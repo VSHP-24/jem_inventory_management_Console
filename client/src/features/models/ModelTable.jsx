@@ -1,13 +1,14 @@
+import styled from "styled-components";
 import { Navigate, useSearchParams } from "react-router-dom";
+
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import ModelRow from "./ModelRow";
-
-import { useGetModels } from "./useGetModels";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+
+import { useGetModels } from "./useGetModels";
 import { PAGE_SIZE } from "../../utils/constants";
-import styled from "styled-components";
 import { device } from "../../utils/devices";
 
 const modelTableStyles = {
@@ -27,6 +28,9 @@ const InvisibileBox = styled.div`
   color: var(--color-gold-400);
 `;
 
+///////////////////////////////////////
+// DELETED BIKE MODEL TABLE COMPONENT
+///////////////////////////////////////
 function DeletedModels({ filterDeletedModels }) {
   if (!filterDeletedModels || filterDeletedModels.length === 0)
     return <Empty resourceName={"Deleted Bike Models"} />;
@@ -60,6 +64,9 @@ function DeletedModels({ filterDeletedModels }) {
   );
 }
 
+/////////////////////////////////////////
+// AVAILABLE BIKE MODEL TABLE COMPONENT
+/////////////////////////////////////////
 function ModelTable() {
   const { isPending, models } = useGetModels();
   const [searchParams] = useSearchParams();
@@ -78,7 +85,6 @@ function ModelTable() {
 
   if (!isPending) {
     // SORT
-
     sortedModels = models.sort((a, b) => {
       if (direction === "asc" && field === "brand") {
         if (a[field].name.toUpperCase() > b[field].name.toUpperCase()) return 1;
@@ -101,11 +107,11 @@ function ModelTable() {
 
       return null;
     });
-    // Filter Deleted Models
+    // FILTER DELETED BIKE MODELS
     filterDeletedModels = sortedModels.filter(
       (model) => model.isDeleted || model.brand.isDeleted
     );
-    // Filter Available Models
+    // FILTER AVAILABLE BIKE MODELS
     filterAvailableModels = sortedModels.filter(
       (model) =>
         !model.isDeleted &&
@@ -114,6 +120,7 @@ function ModelTable() {
           filteredBrands.includes(String(model.brand.id)))
     );
 
+    // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
     currentPage = !searchParams.get("page")
       ? 1
       : Number(searchParams.get("page"));
@@ -123,7 +130,8 @@ function ModelTable() {
 
   if (isPending) return <Spinner />;
 
-  if (currentPage > pageCount)
+  // IF SEARCHPARAMS PAGE IS GREATER THAN EXISTING PAGE COUNTS, PAGE WILL BE REDIRECTED TO FIRST PAGE OF THE TABLE
+  if (currentPage > pageCount || currentPage < 1)
     return <Navigate replace to="/manage?tableType=bikes" />;
 
   return (

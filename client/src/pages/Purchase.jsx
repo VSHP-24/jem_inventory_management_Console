@@ -9,6 +9,7 @@ function Purchase() {
       <Row>
         <Heading as="h2">Purchases</Heading>
       </Row>
+
       <Row>
         <PurchaseTableOperations />
       </Row>

@@ -1,8 +1,10 @@
-import { HiArrowRightOnRectangle } from "react-icons/hi2";
-import ButtonIcon from "../../ui/ButtonIcon";
 import styled from "styled-components";
-import { useLogout } from "./useLogout";
+import { HiArrowRightOnRectangle } from "react-icons/hi2";
+
+import ButtonIcon from "../../ui/ButtonIcon";
 import SpinnerMini from "../../ui/SpinnerMini";
+
+import { useLogout } from "./useLogout";
 import { device } from "../../utils/devices";
 
 const StyledContainer = styled.div`

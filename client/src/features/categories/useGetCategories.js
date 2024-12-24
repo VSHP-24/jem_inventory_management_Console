@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { getCategories } from "../../services/apiCategories";
 
 export function useGetCategories() {
@@ -6,5 +7,6 @@ export function useGetCategories() {
     queryKey: ["categories"],
     queryFn: getCategories,
   });
+
   return { isPending, categories };
 }

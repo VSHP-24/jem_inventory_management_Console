@@ -1,5 +1,7 @@
 import styled from "styled-components";
+
 import Heading from "../../ui/Heading";
+
 import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
@@ -57,6 +59,7 @@ function CategoryDetailPage({ category }) {
     <StyledDetailPage>
       <StyledCategoryDetails>
         <StyledHeading as="h2">CATEGORY DETAILS</StyledHeading>
+
         <StyledRow>
           <StyledHeader>Name</StyledHeader>
           <StyledDetails>{name ? name : "--- NA ---"}</StyledDetails>

@@ -10,9 +10,11 @@ function Users() {
       <Row>
         <Heading as="h2">Users</Heading>
       </Row>
+
       <Row>
         <UserTableOperations />
       </Row>
+
       <Row>
         <UsersNavTabs />
       </Row>

@@ -1,4 +1,6 @@
 import toast from "react-hot-toast";
+import styled, { css } from "styled-components";
+
 import RestoreButton from "../../ui/RestoreButton";
 import Table from "../../ui/Table";
 import ModelDetailPage from "./ModelDetailPage";
@@ -7,7 +9,6 @@ import ModelForm from "./ModelForm";
 import { useDeleteModel } from "./useDeleteModel";
 import { useEditModel } from "./useEditModel";
 import { device } from "../../utils/devices";
-import styled, { css } from "styled-components";
 
 const columnType = {
   modelDetails: css`
@@ -41,13 +42,19 @@ function ModelRow({ model, index, id, deletedTable }) {
   const { editModel } = useEditModel();
 
   function handleRestoreButtonClick() {
+    //IF BIKE MODEL IS NOT DELETED, BUT BIKE BRAND IS DELETED
     if (!model.isDeleted)
       return toast.error(
         `${model.brand.name} brand is deleted . Restore brand first ! `
       );
+
+    //IF BIKE MODEL IS DELETED
     editModel({ ...model, isDeleted: false });
   }
 
+  ///////////////////////////////////
+  // AVAILABLE BIKE MODELS
+  ///////////////////////////////////
   return (
     <Table.Row
       id={id}
@@ -62,6 +69,7 @@ function ModelRow({ model, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
+
       {!deletedTable && (
         <>
           <StyledColumnLaptopL as="header" type="heading">
@@ -90,6 +98,7 @@ function ModelRow({ model, index, id, deletedTable }) {
         </>
       )}
 
+      {/* DELETED BIKE MODELS */}
       {deletedTable && (
         <>
           <div>{name}</div>

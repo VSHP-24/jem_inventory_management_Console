@@ -1,7 +1,9 @@
 import styled from "styled-components";
+
 import Logo from "./Logo";
 import SecondaryNav from "./SecondaryNav";
 import Logout from "../features/authentication/Logout";
+
 import { device } from "../utils/devices";
 
 const StyledHeader = styled.header`

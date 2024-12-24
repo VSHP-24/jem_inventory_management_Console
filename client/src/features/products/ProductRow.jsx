@@ -1,3 +1,6 @@
+import toast from "react-hot-toast";
+import styled, { css } from "styled-components";
+
 import Table from "../../ui/Table";
 import ProductDetailPage from "./ProductDetailPage";
 import ProductForm from "./ProductForm";
@@ -5,8 +8,6 @@ import RestoreButton from "../../ui/RestoreButton";
 
 import { useDeleteProduct } from "./useDeleteProduct";
 import { useEditProduct } from "./useEditProduct";
-import toast from "react-hot-toast";
-import styled, { css } from "styled-components";
 import { device } from "../../utils/devices";
 
 const columnType = {
@@ -40,23 +41,33 @@ function ProductRow({ product, index, id, deletedTable }) {
   const { editProduct } = useEditProduct();
 
   function handleRestoreButtonClick() {
+    // IF PRODUCT IS NOT DELETED
     if (!product.isDeleted) {
+      // IF PRODUCT IS NOT DELETED , BUT BRAND IS DELETED
       if (product.brand.isDeleted)
         return toast.error(
           `${product.brand.name} brand is deleted. Restore Brand first !`
         );
+
+      // IF PRODUCT IS NOT DELETED , BUT BIKE MODEL IS DELETED
       if (product.model.isDeleted)
         return toast.error(
           `${product.model.name} bike model is deleted. Restore Bike Model first !`
         );
+
+      // IF PRODUCT IS NOT DELETED , BUT CATEGORY IS DELETED
       if (product.category.isDeleted)
         return toast.error(
           `${product.category.name} category is deleted. Restore Category first !`
         );
+
+      // IF PRODUCT IS NOT DELETED , BUT SUBCATEGORY IS DELETED
       if (product.subCategory.isDeleted)
         return toast.error(
           `${product.subCategory.name} subCategory is deleted. Restore SubCategory first !`
         );
+
+      // IF PRODUCT IS NOT DELETED , BUT BRAND IS DELETED
       if (product.brand.isDeleted)
         return toast.error(
           `${product.brand.name} brand is deleted. Restore Brand first !`
@@ -66,6 +77,9 @@ function ProductRow({ product, index, id, deletedTable }) {
   }
 
   return (
+    ///////////////////////////////////
+    // AVAILABLE PRODUCTS
+    ///////////////////////////////////
     <Table.Row
       id={id}
       isDeleting={isDeleting}
@@ -119,6 +133,7 @@ function ProductRow({ product, index, id, deletedTable }) {
         </>
       )}
 
+      {/* DELETED PRODUCTS */}
       {deletedTable && (
         <>
           <div>{name}</div>

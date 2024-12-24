@@ -1,10 +1,12 @@
+import { useForm } from "react-hook-form";
+
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
-import { useForgotPassword } from "./useForgotPassword";
 import FormRow from "../../ui/FormRow";
 import SpinnerMini from "../../ui/SpinnerMini";
-import { useForm } from "react-hook-form";
+
+import { useForgotPassword } from "./useForgotPassword";
 
 function ForgotPasswordForm({ displayDirection = "vertical" }) {
   const { forgotPassword, isPending } = useForgotPassword();
@@ -31,7 +33,6 @@ function ForgotPasswordForm({ displayDirection = "vertical" }) {
           type="email"
           id="email"
           placeholder="Enter your email address"
-          // This makes this form better for password managers
           autoComplete="username"
           disabled={isPending}
           {...register("email", { required: "*This field is required" })}

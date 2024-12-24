@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
 import Form from "../../ui/Form";
@@ -9,9 +10,11 @@ import Button from "../../ui/Button";
 import { useCreateBrand } from "./useCreateBrand";
 import supabase, { supabaseUrl } from "../../services/supabase";
 import { useEditBrand } from "./useEditBrand";
-import toast from "react-hot-toast";
 
 function BrandForm({ brandToEdit = {}, onCloseModal }) {
+  ////////////////////////////////////////////////////
+  // AUTOFILL EXISTING BRAND DETAILS IN EDIT SESSION
+  ////////////////////////////////////////////////////
   const { id: editId, ...editValues } = brandToEdit;
   const isEditSession = Boolean(editId);
 
@@ -30,16 +33,21 @@ function BrandForm({ brandToEdit = {}, onCloseModal }) {
   const isWorking = isCreating || isEditing;
 
   async function onSubmit(data) {
+    //CHECK IF BRAND LOGO IS A LINK OR A NEW FILE
     const hasImagePath = data.brandLogo?.startsWith?.(supabaseUrl);
 
+    //SET IMAGE NAME BEFORE UPLOADING IT TO STORAGE BUCKET
     const imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
       "/",
       ""
     );
+
+    //THE STORAGE LINK IS SET IN DB
     const imagePath = hasImagePath
       ? data.brandLogo
       : `${supabaseUrl}/storage/v1/object/public/brandLogos/${imageName}`;
 
+    //IF BRAND LOGO IS A FILE , HERE IT UPLOADS TO THE STORAGE BUCKET
     if (!hasImagePath) {
       const { error: storageError } = await supabase.storage
         .from("brandLogos")
@@ -50,6 +58,7 @@ function BrandForm({ brandToEdit = {}, onCloseModal }) {
           "Brand Logo could not be uploaded and the brand was not created"
         );
     }
+
     if (isEditSession) {
       editBrand({ ...data, brandLogo: imagePath }, { onSuccess: onCloseModal });
     } else
@@ -98,6 +107,7 @@ function BrandForm({ brandToEdit = {}, onCloseModal }) {
           >
             Cancel
           </Button>
+
           <Button size="large" variation="primary" disabled={isWorking}>
             {isEditSession ? "Edit Brand" : "Create Brand"}
           </Button>

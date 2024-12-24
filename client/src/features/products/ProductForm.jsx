@@ -48,6 +48,9 @@ const StyledInvisibleBox = styled.div`
 `;
 
 function ProductForm({ productToEdit = {}, onCloseModal }) {
+  ////////////////////////////////////////////////////
+  // AUTOFILL EXISTING PRODUCT DETAILS IN EDIT SESSION
+  ////////////////////////////////////////////////////
   const {
     id: editId,
     brand,
@@ -87,6 +90,10 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
           descriptions: [{ bulletPointNumber: "", info: "" }],
         },
   });
+
+  ////////////////////////////////////////
+  // MULTIPLE INPUTS FOR INCLUDED PARTS
+  ////////////////////////////////////////
   const { fields, append, remove } = useFieldArray({
     control,
     name: "includedParts",
@@ -106,6 +113,9 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
     },
   });
 
+  ////////////////////////////////////////
+  // MULTIPLE INPUTS FOR ADDITIONAL INFOS
+  ////////////////////////////////////////
   const {
     fields: additionalInfoFields,
     append: additionalInfoAppend,
@@ -115,6 +125,9 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
     name: "additionalInformations",
   });
 
+  ////////////////////////////////////////
+  // MULTIPLE INPUTS FOR DESCRIPTIONS
+  ////////////////////////////////////////
   const {
     fields: descriptionFields,
     append: descriptionAppend,
@@ -130,31 +143,42 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
   const isWorking = isCreating || isEditing;
 
   async function onSubmit(data) {
+    //CHECK IF PRODUCT MAIN IMAGE IS A LINK OR A NEW FILE
     const hasMainImagePath = data.mainImage?.startsWith?.(supabaseUrl);
 
+    //CHECK IF PRODUCT HAS ADDITIONAL IMAGES OR LINKS
     const hasAdditionalImagePaths = isEditSession
       ? additionalImagesLinks.length !== 0 && data.additionalImages.length === 0
       : false;
+
+    //SET PARTS AS AN ARRAY OF OBJECTS
     const parts = data.includedParts.map((part) => ({
       quantity: part.quantity,
       part: part.parts,
     }));
 
+    //SET INFORMATION AS AN ARRAY OF STRINGS
     const informations = data.additionalInformations.map(
       (information) => information.info
     );
 
+    //SET DESCRIPTION AS AN ARRAY OF STRINGS
     const description = data.descriptions.map(
       (description) => description.info
     );
+
+    //SET IMAGE NAME BEFORE UPLOADING IT TO STORAGE BUCKET
     const imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
       "/",
       ""
     );
+
+    //THE STORAGE LINK IS SET IN DB
     const imagePath = hasMainImagePath
       ? data.mainImage
       : `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
 
+    //IF PRODUCT MAIN IMAGE IS A FILE , HERE IT UPLOADS TO THE STORAGE BUCKET
     if (!hasMainImagePath) {
       const { error: storageError } = await supabase.storage
         .from("productImages")
@@ -168,17 +192,22 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
 
     let additionalImagePaths;
 
+    //IF PRODUCT HAS ADDITIONAL IMAGES AS LINKS
     if (hasAdditionalImagePaths) {
       data.additionalImages = additionalImagesLinks;
     } else {
+      //IF PRODUCT HAS ADDITIONAL IMAGES AS FILES
       const additionalImageNames = [];
       additionalImagePaths = [];
       const additionalImages = [...data.additionalImages];
+
       await additionalImages.map((image, i) => {
         let imageName = `${
           data.name
         }-${Math.random()}-${Date.now()}`.replaceAll("/", "");
         imageName = `${imageName}--${i + 1}`;
+
+        //THE STORAGE LINK IS SET IN DB
         const imagePath = `${supabaseUrl}/storage/v1/object/public/productImages/${imageName}`;
 
         const { error: storageError } = supabase.storage
@@ -238,6 +267,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             {...register("name", { required: "*This field is required" })}
           />
         </FormRow>
+
         <FormRow label="Brand" error={errors?.brand?.message}>
           <Select
             name="brand"
@@ -252,6 +282,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             <SelectBrands />
           </Select>
         </FormRow>
+
         <FormRow label="Model" error={errors?.model?.message}>
           <Select
             name="model"
@@ -266,6 +297,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             <SelectModels />
           </Select>
         </FormRow>
+
         <FormRow label="Category" error={errors?.category?.message}>
           <Select
             name="category"
@@ -280,6 +312,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             <SelectCategories />
           </Select>
         </FormRow>
+
         <FormRow label="SubCategory" error={errors?.subCategory?.message}>
           <Select
             name="subCategory"
@@ -294,6 +327,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             <SelectSubCategories />
           </Select>
         </FormRow>
+
         <FormRow label="Price" error={errors?.price?.message}>
           <Input
             type="number"
@@ -304,6 +338,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
+
         <FormRow label="Discount Price" error={errors?.discountPrice?.message}>
           <Input
             type="number"
@@ -316,6 +351,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
+
         <FormRow label="Size">
           <Input
             type="text"
@@ -324,6 +360,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             {...register("size")}
           />
         </FormRow>
+
         <FormRow label="Combo">
           <Input
             type="text"
@@ -332,6 +369,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             {...register("combo")}
           />
         </FormRow>
+
         <FormRow label="Main Image" error={errors?.mainImage?.message}>
           <FileInput
             accept="image/*"
@@ -348,6 +386,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             })}
           />
         </FormRow>
+
         <FormRow
           label="Additional Images"
           error={errors?.additionalImages?.message}
@@ -402,6 +441,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
               </StyledLi>
             ))}
           </StyledUl>
+
           <Button
             size="medium"
             variation="primary"
@@ -445,6 +485,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
               </StyledLi>
             ))}
           </StyledUl>
+
           <Button
             size="medium"
             variation="primary"
@@ -489,6 +530,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
               </StyledLi>
             ))}
           </StyledUl>
+
           <Button
             size="medium"
             variation="primary"
@@ -509,6 +551,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             {...register("video")}
           />
         </FormRow>
+
         <FormRow>
           <Button
             size="medium"
@@ -518,6 +561,7 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
           >
             Cancel
           </Button>
+
           <Button size="large" variation="primary" disabled={isWorking}>
             {isEditSession ? "Edit Product" : "Create Product"}
           </Button>

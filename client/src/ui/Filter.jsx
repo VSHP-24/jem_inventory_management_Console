@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
-
-import Button from "./Button";
-import { HiChevronDown, HiOutlineXMark } from "react-icons/hi2";
 import { useState } from "react";
 import { useEffect } from "react";
+import { HiChevronDown, HiOutlineXMark } from "react-icons/hi2";
+
+import Button from "./Button";
 import SelectedFilter from "./SelectedFilter";
+
 import { device } from "../utils/devices";
 
 const StyledContainer = styled.div`
@@ -123,12 +124,14 @@ function Filter({ filterList = [] }) {
   const [selectedFilters, setSelectedFilters] = useState();
   let selectedFilterLabels = [];
 
+  // IF SELECTED FILTER EXISTS, THIS LINE GETS ALL THE LABELS / NAMES OF THE SELECTED FILTERS
   if (selectedFilters) {
     for (const [key] of Object.entries(selectedFilters)) {
       selectedFilterLabels.push(...selectedFilters[key].labels);
     }
   }
 
+  // WHENEVER, NEW FILTERS ARE SELECTED, ID IS ADDED TO SEARCHPARAMS, SO SELECTED FILTERS GETS UPDATED
   useEffect(() => {
     const tempFilters = {};
     filterList.map((filter) => {
@@ -140,6 +143,7 @@ function Filter({ filterList = [] }) {
         };
       }
 
+      // THIS CHOOSES THE ID & LABEL/NAME , OF THE OPTIONS
       filter.filterOptions.map((option) => {
         if (tempFilters?.[filter.filterField]?.values.includes(option.id)) {
           if (!tempFilters[filter.filterField].labels)
@@ -162,6 +166,8 @@ function Filter({ filterList = [] }) {
 
   function handleShowFilterOptionsClick(e) {
     setShowOptions((cur) => !cur);
+
+    // THIS SETS THE POSITION , JUST BELOW THE FILTER CONTAINER
     const rect = e.target.closest("#parent-container").getBoundingClientRect();
     setPosition({
       x: rect.x,
@@ -169,11 +175,13 @@ function Filter({ filterList = [] }) {
     });
   }
 
+  // THIS CLEARS ALL THE SELECTED FILTERS
   function handleClearOptionsClick() {
     setSearchParams();
     setSelectedFilters();
   }
 
+  //THIS DESELECTS THE SELECTED FILTERS SHOWN IN THE FILTER CONTAINER
   function handleIndividualOptionsClick(filter) {
     let filterToBeDeleted;
     filterList.map((filterType) => {
@@ -189,6 +197,7 @@ function Filter({ filterList = [] }) {
       });
       return filterType;
     });
+
     let selectedFilters =
       searchParams.get(filterToBeDeleted.filterField)?.split(",") ||
       searchParams.get(filterToBeDeleted.filterField) ||
@@ -206,14 +215,18 @@ function Filter({ filterList = [] }) {
     }
   }
 
+  //THIS SELECTS AND DESELECTS THE FILTERS
   function handleOptionsClick(option, filterType) {
     let selectedFilters =
       searchParams.get(filterType.filterField)?.split(",") ||
       searchParams.get(filterType.filterField) ||
       [];
 
+    // IF SELECTED FILTER IS NOT SELECTED ,IT WILL BE SELECTED HERE
     if (!selectedFilters.includes(option.id)) {
       selectedFilters.push(option.id);
+
+      // IF SELECTED FILTER IS ALREADY SELECTED ,IT WILL BE DESELECTED HERE
     } else if (selectedFilters.includes(option.id)) {
       selectedFilters = selectedFilters.filter((cur) => cur !== option.id);
     }
@@ -234,6 +247,7 @@ function Filter({ filterList = [] }) {
           selectedFilterLabels={selectedFilterLabels}
           onHandleIndividualOptionsClick={handleIndividualOptionsClick}
         />
+
         <StyledFilterButtons>
           {selectedFilterLabels.length >= 1 && (
             <StyledButton
@@ -245,7 +259,9 @@ function Filter({ filterList = [] }) {
               <HiOutlineXMark />
             </StyledButton>
           )}
+
           <StyledDivider>|</StyledDivider>
+
           <StyledButton
             size="small"
             variation="primary"
@@ -268,6 +284,7 @@ function Filter({ filterList = [] }) {
                   <input
                     type="checkbox"
                     id={optionType.id}
+                    // IF PARENT ELEMENT ISN'T SELECTED, CHILD ELEMENT WILL BE DISABLED
                     disabled={
                       filterType.parentElement &&
                       !selectedFilters?.[
@@ -276,6 +293,7 @@ function Filter({ filterList = [] }) {
                         optionType[filterType?.parentElement]?.id
                       )
                     }
+                    // IF FILTER IDs ARE IN SEARCHPARAMS , IT WILL BE CHECKED AUTOMATICALLY
                     checked={searchParams
                       ?.get(filterType.filterField)
                       ?.includes(optionType.id)}

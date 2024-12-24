@@ -1,13 +1,14 @@
+import styled from "styled-components";
+import { Navigate, useSearchParams } from "react-router-dom";
+
 import Spinner from "../../ui/Spinner";
 import ProductRow from "./ProductRow";
 import Table from "../../ui/Table";
-
-import { useGetProducts } from "./useGetProducts";
-import { Navigate, useSearchParams } from "react-router-dom";
 import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty";
+
+import { useGetProducts } from "./useGetProducts";
 import { PAGE_SIZE } from "../../utils/constants";
-import styled from "styled-components";
 import { device } from "../../utils/devices";
 
 const productTableStyles = {
@@ -27,6 +28,9 @@ const InvisibileBox = styled.div`
   color: var(--color-gold-400);
 `;
 
+///////////////////////////////////
+// DELETED PRODUCTS TABLE COMPONENT
+///////////////////////////////////
 function DeletedProducts({ filterDeletedProducts }) {
   if (!filterDeletedProducts || filterDeletedProducts.length === 0)
     return <Empty resourceName={"Deleted Products"} />;
@@ -57,6 +61,10 @@ function DeletedProducts({ filterDeletedProducts }) {
     </Table>
   );
 }
+
+////////////////////////////////////////
+// AVAILABLE PRODUCT TABLE COMPONENT
+////////////////////////////////////////
 
 function ProductTable() {
   const { isPending, products } = useGetProducts();
@@ -104,8 +112,7 @@ function ProductTable() {
       return null;
     });
 
-    // Filter Deleted Products
-
+    // FILTER DELETED PRODUCTS
     filterDeletedProducts = sortedProducts.filter(
       (product) =>
         product.isDeleted ||
@@ -115,8 +122,7 @@ function ProductTable() {
         product.subCategory.isDeleted
     );
 
-    // Filter Available Products
-
+    // FILTER AVAILABLE PRODUCTS
     filterAvailableProducts = sortedProducts.filter(
       (product) =>
         !product.isDeleted &&
@@ -134,6 +140,7 @@ function ProductTable() {
           filteredSubCategories.includes(String(product.subCategory.id)))
     );
 
+    // IF SEARCHPARAMS DOESN'T HAVE PAGE , DEFAULT IS SET TO 1
     currentPage = !searchParams.get("page")
       ? 1
       : Number(searchParams.get("page"));
@@ -143,7 +150,9 @@ function ProductTable() {
 
   if (isPending) return <Spinner />;
 
-  if (currentPage > pageCount) return <Navigate replace to="/Products" />;
+  // IF SEARCHPARAMS PAGE IS GREATER THAN EXISTING PAGE COUNTS, PAGE WILL BE REDIRECTED TO FIRST PAGE OF THE TABLE
+  if (currentPage > pageCount || currentPage < 1)
+    return <Navigate replace to="/Products" />;
 
   return (
     <Table

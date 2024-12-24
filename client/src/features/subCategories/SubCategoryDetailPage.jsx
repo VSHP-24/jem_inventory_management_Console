@@ -1,5 +1,7 @@
 import styled from "styled-components";
+
 import Heading from "../../ui/Heading";
+
 import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`

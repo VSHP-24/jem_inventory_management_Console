@@ -2,13 +2,16 @@ import { useForm } from "react-hook-form";
 
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
+import Button from "../../ui/Button";
 import Input from "../../ui/Input";
 
 import { useCreatePart } from "./useCreatePart";
-import Button from "../../ui/Button";
 import { useEditPart } from "./useEditPart";
 
 function PartForm({ type, partToEdit = {}, onCloseModal }) {
+  ////////////////////////////////////////////////////
+  // AUTOFILL EXISTING PARTS DETAILS IN EDIT SESSION
+  ////////////////////////////////////////////////////
   const { id: editId, ...editValues } = partToEdit;
   const isEditSession = Boolean(editId);
 

@@ -40,6 +40,7 @@ function OrderTableOperations() {
       name: "Net Banking",
     },
   ];
+
   const paymentStatus = [
     {
       id: "paid",

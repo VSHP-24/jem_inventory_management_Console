@@ -15,6 +15,9 @@ import { useEditModel } from "./useEditModel";
 import { useCreateModel } from "./useCreateModel";
 
 function ModelForm({ modelToEdit = {}, onCloseModal }) {
+  /////////////////////////////////////////////////////////
+  // AUTOFILL EXISTING BIKE MODEL DETAILS IN EDIT SESSION
+  /////////////////////////////////////////////////////////
   const { id: editId, brand, ...editValues } = modelToEdit;
   const isEditSession = Boolean(editId);
 
@@ -33,17 +36,21 @@ function ModelForm({ modelToEdit = {}, onCloseModal }) {
   const isWorking = isCreating || isEditing;
 
   async function onSubmit(data) {
+    //CHECK IF BIKE MODEL HAS A LINK OR A NEW FILE
     const hasImagePath = data.bikeImage?.startsWith?.(supabaseUrl);
 
+    //SET IMAGE NAME BEFORE UPLOADING IT TO STORAGE BUCKET
     const imageName = `${data.name}-${Math.random()}-${Date.now()}`.replaceAll(
       "/",
       ""
     );
 
+    //THE STORAGE LINK IS SET IN DB
     const imagePath = hasImagePath
       ? data.bikeImage
       : `${supabaseUrl}/storage/v1/object/public/bikeModelImages/${imageName}`;
 
+    //IF BIKE MODEL IMAGE IS A FILE , HERE IT UPLOADS TO THE STORAGE BUCKET
     if (!hasImagePath) {
       const { error: storageError } = await supabase.storage
         .from("bikeModelImages")
@@ -54,6 +61,7 @@ function ModelForm({ modelToEdit = {}, onCloseModal }) {
           "Bike Image could not be uploaded and the bike model was not created"
         );
     }
+
     if (isEditSession) {
       editModel({ ...data, bikeImage: imagePath }, { onSuccess: onCloseModal });
     } else
@@ -66,6 +74,7 @@ function ModelForm({ modelToEdit = {}, onCloseModal }) {
   function onError(errors) {
     return null;
   }
+
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -149,6 +158,7 @@ function ModelForm({ modelToEdit = {}, onCloseModal }) {
           >
             Cancel
           </Button>
+
           <Button size="large" variation="primary" disabled={isWorking}>
             {isEditSession ? "Edit Model" : "Create Model"}
           </Button>

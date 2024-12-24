@@ -6,11 +6,15 @@ import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import Select from "../../ui/Select";
 import SelectParts from "../parts/SelectParts";
+
 import { useCreatePurchase } from "./useCreatePurchase";
 import { useEditPurchase } from "./useEditPurchase";
 import { useEditPart } from "../parts/useEditPart";
 
 function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
+  ////////////////////////////////////////////////////////
+  // AUTOFILL EXISTING PURCHASE DETAILS IN EDIT SESSION
+  ////////////////////////////////////////////////////////
   const { id: editId, part, ...editValues } = purchaseToEdit;
   const isEditSession = Boolean(editId);
 
@@ -47,6 +51,7 @@ function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
   function onError(errors) {
     return null;
   }
+
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -131,6 +136,7 @@ function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
           >
             Cancel
           </Button>
+
           <Button size="large" variation="primary" disabled={isWorking}>
             {isEditSession ? "Edit Purchase" : "Create Purchase"}
           </Button>

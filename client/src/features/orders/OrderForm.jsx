@@ -1,11 +1,16 @@
 import { useForm } from "react-hook-form";
-import { useEditOrder } from "./useEditOrder";
+
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Select from "../../ui/Select";
 import Button from "../../ui/Button";
 
+import { useEditOrder } from "./useEditOrder";
+
 function OrderForm({ orderToEdit = {}, onCloseModal }) {
+  ////////////////////////////////////////////////////
+  // AUTOFILL EXISTING ORDER DETAILS IN EDIT SESSION
+  ////////////////////////////////////////////////////
   const { orderStatus } = orderToEdit;
 
   const {
@@ -58,6 +63,7 @@ function OrderForm({ orderToEdit = {}, onCloseModal }) {
           >
             Cancel
           </Button>
+
           <Button size="large" variation="primary" disabled={isEditing}>
             Edit Order Status
           </Button>

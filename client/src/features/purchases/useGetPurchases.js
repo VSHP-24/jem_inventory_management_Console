@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { getPurchases } from "../../services/apiPurchases";
 
 export function useGetPurchases() {

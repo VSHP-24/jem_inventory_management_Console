@@ -17,6 +17,10 @@ function BrandRow({ brand, index, id, deletedTable }) {
   }
 
   return (
+    ///////////////////////////////////
+    // AVAILABLE BRANDS
+    ///////////////////////////////////
+
     <Table.Row
       id={id}
       isDeleting={isDeleting}
@@ -30,7 +34,10 @@ function BrandRow({ brand, index, id, deletedTable }) {
           (index === 9 && `${index + 1}`) ||
           index + 1}
       </div>
+
       <div>{name}</div>
+
+      {/* DELETED BRANDS */}
       {deletedTable && (
         <RestoreButton onHandleRestoreButtonClick={handleRestoreButtonClick} />
       )}

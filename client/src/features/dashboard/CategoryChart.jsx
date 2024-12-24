@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Heading from "../../ui/Heading";
 import {
   Cell,
   Legend,
@@ -8,6 +7,9 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
+
+import Heading from "../../ui/Heading";
+
 import { generateRandomColor } from "../../utils/generateRandomColor";
 import { device } from "../../utils/devices";
 
@@ -107,7 +109,9 @@ function CategoryChart({ orders, categories, numDays }) {
               />
             ))}
           </Pie>
+
           <Tooltip />
+
           <Legend
             verticalAlign="middle"
             align="right"

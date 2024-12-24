@@ -4,7 +4,9 @@ import {
   HiOutlineClipboardDocumentCheck,
 } from "react-icons/hi2";
 import { BsHouseGear } from "react-icons/bs";
+
 import Stat from "./Stat";
+
 import { formatCurrency } from "../../utils/helpers";
 
 function Stats({ orders, totalOrders, purchases, parts }) {
@@ -26,18 +28,21 @@ function Stats({ orders, totalOrders, purchases, parts }) {
         icon={<GiWallet />}
         value={`${formatCurrency(expenses)}`}
       />
+
       <Stat
         title="Sales"
         color="green"
         icon={<HiOutlineBanknotes />}
         value={`${formatCurrency(sales)}`}
       />
+
       <Stat
         title="Orders"
         color="blue"
         icon={<HiOutlineClipboardDocumentCheck />}
         value={totalOrders.length}
       />
+
       <Stat
         title="Stockout"
         color="orange"

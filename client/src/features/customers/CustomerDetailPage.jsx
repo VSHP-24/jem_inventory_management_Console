@@ -1,5 +1,7 @@
 import styled from "styled-components";
+
 import Heading from "../../ui/Heading";
+
 import { formatDate } from "../../utils/helpers";
 import { device } from "../../utils/devices";
 

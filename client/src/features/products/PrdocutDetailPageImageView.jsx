@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+
 import { device } from "../../utils/devices";
 
 const StyledContainer = styled.div`

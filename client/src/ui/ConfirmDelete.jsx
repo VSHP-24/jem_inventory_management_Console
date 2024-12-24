@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button from "./Button";
 import Heading from "./Heading";
+
 import { device } from "../utils/devices";
 
 const StyledConfirmDelete = styled.div`
@@ -46,6 +47,7 @@ function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
         >
           Cancel
         </Button>
+
         <Button variation="danger" disabled={disabled} onClick={onConfirm}>
           Delete
         </Button>
