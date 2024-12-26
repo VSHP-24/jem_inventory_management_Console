@@ -10,10 +10,11 @@ const bikeSchema = new mongoose.Schema(
     brand: {
       type: mongoose.Schema.ObjectId,
       ref: "Brand",
+      required: [true, "A bike model must have a brand"],
     },
     name: {
       type: String,
-      required: true,
+      required: [true, "A bike must have a name"],
       unique: true,
       trim: true,
     },
@@ -34,6 +35,10 @@ const bikeSchema = new mongoose.Schema(
       trim: true,
     },
     slug: String,
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -41,6 +46,7 @@ const bikeSchema = new mongoose.Schema(
   }
 );
 
+// THIS GETS ALL THE PRODUCTS UNDER A SPECIFIC BIKE MODEL
 bikeSchema.virtual("products", {
   ref: "Product",
   localField: "_id",
