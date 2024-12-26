@@ -6,10 +6,19 @@ import {
   updateBike,
   deleteBike,
 } from "../controllers/bikeController.js";
+import { protect, restrictTo } from "../controllers/authController.js";
 
 const router = express.Router();
 
-router.route("/").get(getAllBikes).post(createBike);
-router.route("/:id").get(getBike).patch(updateBike).delete(deleteBike);
+// THESE ROUTES ARE AVAILABLE WITHOUT ANY AUTH
+router.route("/").get(getAllBikes);
+router.route("/:id").get(getBike);
+
+// PROTECTS ALL ROUTES AFTER THIS MIDDLEWARE AND RESTRICTS TO ADMIN
+router.use(protect, restrictTo("admin"));
+
+// THESE ROUTES ARE PROTECTED AND RESTRICTS TO ONLY ADMIN
+router.route("/").post(createBike);
+router.route("/:id").patch(updateBike).delete(deleteBike);
 
 export default router;

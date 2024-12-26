@@ -6,14 +6,19 @@ import {
   updateSubCategory,
   deleteSubCategory,
 } from "../controllers/subCategoryController.js";
+import { protect, restrictTo } from "../controllers/authController.js";
 
 const router = express.Router();
 
-router.route("/").get(getAllSubCategories).post(createSubCategory);
-router
-  .route("/:id")
-  .get(getSubCategory)
-  .patch(updateSubCategory)
-  .delete(deleteSubCategory);
+// THESE ROUTES ARE AVAILABLE WITHOUT ANY AUTH
+router.route("/").get(getAllSubCategories);
+router.route("/:id").get(getSubCategory);
+
+// PROTECTS ALL ROUTES AFTER THIS MIDDLEWARE AND RESTRICTS TO ADMIN
+router.use(protect, restrictTo("admin"));
+
+// THESE ROUTES ARE PROTECTED AND RESTRICTS TO ONLY ADMIN
+router.route("/").post(createSubCategory);
+router.route("/:id").patch(updateSubCategory).delete(deleteSubCategory);
 
 export default router;

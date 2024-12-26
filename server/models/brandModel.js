@@ -9,7 +9,7 @@ const brandSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "A brand must have a name"],
       unique: true,
       trim: true,
     },
@@ -18,6 +18,10 @@ const brandSchema = new mongoose.Schema(
       required: [true, "A brand must have a brand image"],
     },
     slug: String,
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },
@@ -25,16 +29,18 @@ const brandSchema = new mongoose.Schema(
   }
 );
 
-brandSchema.virtual("products", {
-  ref: "Product",
-  localField: "_id",
-  foreignField: "brand",
-});
-
+// THIS GETS ALL THE MODELS UNDER THE BRAND
 brandSchema.virtual("models", {
   ref: "Bike",
-  localField: "_id",
   foreignField: "brand",
+  localField: "_id",
+});
+
+// THIS GETS ALL THE PRODUCTS UNDER THE BRAND
+brandSchema.virtual("products", {
+  ref: "Product",
+  foreignField: "brand",
+  localField: "_id",
 });
 
 brandSchema.pre("save", function (next) {

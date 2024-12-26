@@ -9,7 +9,7 @@ const partSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "A part must have a name"],
       unique: true,
       trim: true,
     },
@@ -25,13 +25,28 @@ const partSchema = new mongoose.Schema(
     width: Number,
     thickness: Number,
     material: String,
+    quantity: {
+      type: Number,
+      default: 0,
+    },
     slug: String,
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
 );
+
+// THIS GETS ALL THE PRODUCTS WHICH HAS THAT SPECIFIC PART
+partSchema.virtual("products", {
+  ref: "Product",
+  foreignField: "includedParts.part",
+  localField: "_id",
+});
 
 partSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { replacement: "-", lower: true, trim: true });
