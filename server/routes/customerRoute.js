@@ -17,7 +17,7 @@ const router = express.Router();
 router.use(protect);
 
 // THIS GETS PERSONAL DATA
-router.get("/me", getMe, getCustomer);
+router.route("/me").get(getMe, getCustomer).patch(updateCustomer);
 
 router
   .route("/")
@@ -26,10 +26,7 @@ router
   // THIS ROUTE CREATES CUSTOMER PROFILE AND SETS THE CUSTOMER PROFILE ID SAME AS USER ID
   .post(restrictTo("customer"), setCustomerIdSameAsUserId, createCustomer);
 
-// THIS LINE RESTRICTS TO ADMIN
-router.use(restrictTo("admin"));
-
 // THESE ROUTES ARE PROTECTED AND RESTRICTS TO ONLY ADMIN
-router.route("/:id").get(getCustomer).patch(updateCustomer);
+router.route("/:id").get(restrictTo("admin"), getCustomer);
 
 export default router;
