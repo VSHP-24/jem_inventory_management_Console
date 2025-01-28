@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import validator from "validator";
 
 /////////////////////////////////////////////////
 //             Creating Order Schema
@@ -10,6 +11,23 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "Customer",
       required: [true, "An order must have a customer id"],
+    },
+    name: {
+      type: String,
+      required: [true, "Please tell us your name"],
+    },
+    email: {
+      type: String,
+      required: [true, "Please provide your email"],
+      unique: true,
+      lowercase: true,
+      validate: [validator.isEmail, "Please provide a valid email"],
+    },
+    phoneNumber: {
+      type: Number,
+      required: [true, "Please provide us a phone number"],
+      minlength: 10,
+      maxlength: 10,
     },
     orderItems: [
       {
@@ -121,7 +139,10 @@ const orderSchema = new mongoose.Schema(
     orderStatusUpdateOn: [
       {
         updatedStatus: String,
-        updatedOn: Date,
+        updatedOn: {
+          type: Date,
+          default: Date.now(),
+        },
       },
     ],
     createdAt: {
@@ -145,7 +166,7 @@ orderSchema.pre("save", function (next) {
     this.orderStatusUpdateOn = [
       {
         updatedStatus: this.orderStatus,
-        updatedOn: { type: Date, default: Date.now() },
+        updatedOn: { default: Date.now() },
       },
     ];
   next();
