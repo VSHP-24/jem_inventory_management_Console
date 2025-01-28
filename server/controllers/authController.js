@@ -32,6 +32,7 @@ const createSendToken = (user, statusCode, res) => {
     ),
     httpOnly: true,
     sameSite: "None",
+    partitioned: true,
   };
   cookieOptions.secure = true;
   res.cookie("jwt", token, cookieOptions);
@@ -116,6 +117,7 @@ export const logout = (req, res) => {
     expires: new Date(Date.now() - 10 * 1000),
     httpOnly: true,
     sameSite: "None",
+    partitioned: true,
   };
 
   cookieOptions.secure = true;

@@ -70,10 +70,6 @@ const customerSchema = new mongoose.Schema(
       required: [true, "A customer must provide a phone number"],
       trim: true,
     },
-    active: {
-      type: Boolean,
-      default: false,
-    },
   },
   {
     toJSON: { virtuals: true },

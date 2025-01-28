@@ -46,14 +46,26 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // IMPLEMENT CORS
-app.use(
-  cors({
-    origin: "http://localhost:5173",
+const allowlist = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://jem.vshp.dev/",
+  "https://jeminventory.vshp.dev/",
+];
+const corsOptionsDelegate = function (req, callback) {
+  var corsOptions = {
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     optionsSuccessStatus: 204,
-  })
-);
+  };
+  if (allowlist.indexOf(req.header("Origin")) !== -1) {
+    corsOptions.origin = true; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions.origin = false; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
+};
+app.use(cors(corsOptionsDelegate));
 
 // BODY PARSER , READING DATA FROM BODY INTO req.body
 app.use(express.json({ limit: "10kb" }));
