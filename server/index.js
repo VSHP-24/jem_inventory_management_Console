@@ -46,7 +46,12 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // IMPLEMENT CORS
-const allowlist = process.env.ORIGIN;
+const allowlist = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://jem.vshp.dev/",
+  "https://jeminventory.vshp.dev/",
+];
 const corsOptionsDelegate = function (req, callback) {
   var corsOptions = {
     credentials: true,
