@@ -3,6 +3,15 @@
 import AppError from "../utils/appError.js";
 import catchAsync from "../utils/catchAsync.js";
 
+export const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach((el) => {
+    if (allowedFields.includes(el)) newObj[el] = obj[el];
+  });
+
+  return newObj;
+};
+
 /////////////////////////////////////////////////
 //            CREATE NEW MODEL
 /////////////////////////////////////////////////
@@ -52,7 +61,9 @@ export const updateOne = (Model) =>
 
 export const deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findByIdAndDelete(req.params.id);
+    const filteredBody = filterObj(req.body, "active", "isDeleted");
+
+    const doc = await Model.findByIdAndUpdate(req.body.id, filteredBody);
 
     if (!doc) {
       return next(
@@ -66,5 +77,50 @@ export const deleteOne = (Model) =>
     res.status(204).json({
       status: "success",
       data: null,
+    });
+  });
+
+/////////////////////////////////////////////////
+//            GET ONE MODEL
+/////////////////////////////////////////////////
+
+export const getOne = (Model, populateOptions) =>
+  catchAsync(async (req, res, next) => {
+    let query = Model.findById(req.params.id);
+    if (populateOptions) query = query.populate(populateOptions);
+    const doc = await query;
+    if (!doc) {
+      return next(
+        new AppError(
+          "No document was found with that ID. Please check the ID again",
+          404
+        )
+      );
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        data: doc,
+      },
+    });
+  });
+
+/////////////////////////////////////////////////
+//            GET ALL  MODEL
+/////////////////////////////////////////////////
+
+export const getAll = (Model, populateOptions) =>
+  catchAsync(async (req, res, next) => {
+    let query = Model.find();
+    if (populateOptions) query = query.populate(populateOptions);
+
+    const doc = await query;
+    res.status(200).json({
+      status: "success",
+      results: doc.length,
+      data: {
+        data: doc,
+      },
     });
   });

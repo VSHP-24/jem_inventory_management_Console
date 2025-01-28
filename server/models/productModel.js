@@ -9,51 +9,60 @@ const productSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "A product must have a name"],
       unique: true,
       trim: true,
     },
     brand: {
       type: mongoose.Schema.ObjectId,
       ref: "Brand",
+      required: [true, "A product must have a brand"],
     },
     model: {
       type: mongoose.Schema.ObjectId,
       ref: "Bike",
+      required: [true, "A product must have a bike model"],
     },
     category: {
       type: mongoose.Schema.ObjectId,
       ref: "Category",
+      required: [true, "A product must have a category"],
     },
     subCategory: {
       type: mongoose.Schema.ObjectId,
       ref: "SubCategory",
+      required: [true, "A product must have a subcategory"],
     },
     price: {
       type: Number,
-      required: true,
+      required: [true, "A product must have a price"],
     },
     discountPrice: {
       type: Number,
-      required: true,
     },
     size: String,
-    combo: String,
     mainImage: {
       type: String,
       required: [true, "A product must have an image"],
     },
     additionalImages: [String],
-    description: String,
+    descriptions: [{ type: String, trim: true }],
     includedParts: [
       {
-        type: mongoose.Schema.ObjectId,
-        ref: "Part",
+        quantity: Number,
+        part: {
+          type: mongoose.Schema.ObjectId,
+          ref: "Part",
+        },
       },
     ],
-    additionalInformation: String,
+    additionalInformations: [{ type: String, trim: true }],
     video: String,
     slug: String,
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     toJSON: { virtuals: true },
