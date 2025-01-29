@@ -20,7 +20,7 @@ const StyledModal = styled.div`
   transition: all 0.5s;
   max-height: 100vh;
   overflow-y: auto;
-  width: fit-content;
+  width: ${(props) => props?.width};
   max-width: 80%;
 
   @media ${device.laptopL} {
@@ -92,7 +92,7 @@ function Open({ children, opens: opensWindowName }) {
   });
 }
 
-function Window({ children, name }) {
+function Window({ children, name, width = "100%" }) {
   const { openName, close } = useContext(ModalContext);
 
   const ref = useOutsideClick(close);
@@ -101,7 +101,7 @@ function Window({ children, name }) {
 
   return createPortal(
     <Overlay>
-      <StyledModal ref={ref}>
+      <StyledModal ref={ref} width={width}>
         <StyledButton size="medium" variation="secondary" onClick={close}>
           <HiXMark />
         </StyledButton>

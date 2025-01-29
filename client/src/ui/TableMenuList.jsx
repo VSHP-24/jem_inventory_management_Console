@@ -115,7 +115,7 @@ function TableMenuList({
           </StyledButton>
         </Modal.Open>
 
-        <Modal.Window name="delete">
+        <Modal.Window name="delete" width="fit-content">
           <ConfirmDelete
             disabled={isDeleting}
             onConfirm={deleteContentFrom}
