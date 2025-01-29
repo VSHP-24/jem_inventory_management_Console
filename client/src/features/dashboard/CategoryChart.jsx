@@ -95,8 +95,8 @@ function CategoryChart({ orders, categories, numDays }) {
             data={data}
             nameKey="category"
             dataKey="value"
-            innerRadius={85}
-            outerRadius={110}
+            innerRadius={"60%"}
+            outerRadius={"80%"}
             cx="50%"
             cy="50%"
             paddingAngle={3}

@@ -28,6 +28,7 @@ const LoginLayout = styled.main`
 `;
 
 const StyledHeading = styled(Heading)`
+  text-align: center;
   color: var(--color-gold-100);
 `;
 

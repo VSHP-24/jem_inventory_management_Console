@@ -3,12 +3,9 @@ import styled, { css } from "styled-components";
 import { device } from "../utils/devices";
 
 const Form = styled.form`
-  width: 100%;
   ${(props) =>
     props.type === "regular" &&
     css`
-      padding: 2.4rem 4rem;
-
       /* Box */
       background-color: var(--color-gold-200);
       border: 1px solid var(--color-gold-500);
@@ -20,7 +17,6 @@ const Form = styled.form`
     css`
       width: 60rem;
     `}
-    padding: 2.4rem 4rem;
 
   /* Box */
   background-color: var(--color-gold-200);
@@ -36,6 +32,13 @@ const Form = styled.form`
 
   @media ${device.tablet} {
     padding: 1.2rem;
+    font-size: 1rem;
+  }
+
+  @media ${device.mobileM} {
+    width: fit-content;
+    max-width: 100%;
+    padding: 0.5rem;
     font-size: 1rem;
   }
 `;

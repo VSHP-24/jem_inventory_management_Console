@@ -19,6 +19,10 @@ const StyledDetailPage = styled.div`
   @media ${device.tablet} {
     font-size: 1rem;
   }
+
+  @media ${device.mobileM} {
+    padding: 1rem;
+  }
 `;
 
 const StyledOrderDetails = styled.main``;
@@ -49,6 +53,10 @@ const StyledDetails = styled.div`
   font-weight: 300;
 `;
 
+const StyledOrderId = styled.p`
+  word-break: break-all;
+`;
+
 const StyledHeading = styled(Heading)`
   padding-bottom: 2rem;
 `;
@@ -77,6 +85,7 @@ const StyledTableDetails = styled.div`
 
 function OrderDetailPage({ order }) {
   const {
+    id,
     user,
     orderItems,
     cost,
@@ -103,6 +112,11 @@ function OrderDetailPage({ order }) {
         <StyledHeading as="h2">ORDER DETAILS</StyledHeading>
 
         <StyledRow>
+          <StyledHeader>Order Id</StyledHeader>
+          <StyledOrderId>{id ? id : "--- NA ---"}</StyledOrderId>
+        </StyledRow>
+
+        <StyledRow>
           <StyledHeader>Customer Name</StyledHeader>
           <StyledDetails>
             {user.user.name ? user.user.name : "--- NA ---"}
@@ -121,7 +135,7 @@ function OrderDetailPage({ order }) {
 
           <StyledDetails>
             <Table
-              columns=".5fr 2.5fr 1fr 1fr"
+              columns=".25fr 2.5fr 1fr 1fr"
               menuListRequired={false}
               modalWindowedTable={true}
             >
@@ -252,7 +266,9 @@ function OrderDetailPage({ order }) {
 
         <StyledRow>
           <StyledHeader>Order Created On</StyledHeader>
-          <StyledDetails>{createdAt ? createdAt : "--- NA ---"}</StyledDetails>
+          <StyledDetails>
+            {createdAt ? formatDate(createdAt) : "--- NA ---"}
+          </StyledDetails>
         </StyledRow>
 
         <StyledTable>

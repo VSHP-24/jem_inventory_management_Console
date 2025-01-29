@@ -15,7 +15,7 @@ const userTableStyles = {
   defaultColumns: ".75fr 2fr 2.5fr 1fr .75fr",
   laptopL: { columns: ".25fr 1fr 1fr ", rows: "1fr 1fr 1fr" },
   tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr" },
-  mobileM: { columns: ".15fr 1fr 1fr", rows: "1fr 1fr 1fr" },
+  mobileM: { columns: ".35fr .75fr 2fr", rows: "1fr 1fr 1fr" },
 };
 
 const StyledTableColumnLaptopL = styled.div`

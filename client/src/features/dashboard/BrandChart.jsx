@@ -95,8 +95,8 @@ function BrandChart({ orders, brands, numDays }) {
             data={data}
             nameKey="brand"
             dataKey="value"
-            innerRadius={85}
-            outerRadius={110}
+            innerRadius={"60%"}
+            outerRadius={"80%"}
             cx="50%"
             cy="50%"
             paddingAngle={3}

@@ -36,7 +36,8 @@ const StyledColumnLaptopL = styled.div`
 `;
 
 function ProductRow({ product, index, id, deletedTable }) {
-  const { name, brand, model, category, subCategory, price } = product;
+  const { name, brand, model, category, subCategory, price, discountPrice } =
+    product;
   const { isDeleting, deleteProduct } = useDeleteProduct();
   const { editProduct } = useEditProduct();
 
@@ -128,7 +129,7 @@ function ProductRow({ product, index, id, deletedTable }) {
             Price
           </StyledColumnLaptopL>
           <StyledColumnLaptopL type="productDetails">
-            ₹ {price}
+            ₹ {discountPrice ? discountPrice : price}
           </StyledColumnLaptopL>
         </>
       )}

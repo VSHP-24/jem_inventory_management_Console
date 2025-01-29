@@ -4,7 +4,8 @@ import { device } from "../utils/devices";
 
 const StyledFormRow = styled.div`
   gap: 0.5rem;
-  padding: 1rem 0;
+  padding: 0.5rem 0.2rem;
+
   ${(props) =>
     props.displayDirection === "horizontal" &&
     css`
@@ -18,7 +19,6 @@ const StyledFormRow = styled.div`
     css`
       display: flex;
       flex-direction: column;
-      padding: 0.8rem 0;
     `}
 
   &:first-child {
@@ -31,11 +31,20 @@ const StyledFormRow = styled.div`
 
   &:has(button) {
     display: flex;
-    justify-content: flex-end;
+    max-width: 100dvw;
     gap: 1.2rem;
+    align-items: center;
+
+    @media ${device.laptopL} {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
 
     @media ${device.mobileM} {
-      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      justify-self: center;
     }
   }
 
@@ -43,24 +52,18 @@ const StyledFormRow = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
-
-    &:has(button) {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-
-  @media ${device.tablet} {
-    padding: 1rem 0;
   }
 `;
 
 const Label = styled.label`
-  font-weight: 500;
+  font-weight: 700;
 
   @media ${device.tablet} {
     font-size: 1.2rem;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 1rem;
   }
 `;
 
@@ -69,6 +72,10 @@ const Error = styled.span`
   font-size: 1rem;
   color: var(--color-red-800);
   font-weight: 800;
+
+  @media ${device.mobileM} {
+    font-size: 0.8rem;
+  }
 `;
 
 function FormRow({ label, error, displayDirection = "horizontal", children }) {

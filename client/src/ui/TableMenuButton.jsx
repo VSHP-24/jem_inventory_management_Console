@@ -6,11 +6,11 @@ import { device } from "../utils/devices";
 const StyledMenuButton = styled.button`
   background: none;
   border: none;
-  padding: 0;
+  padding-right: 2.5rem;
   border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
   transition: all 0.2s;
-  width: 2.5rem;
+  width: 0.5rem;
   justify-self: center;
 
   &:hover {
@@ -33,11 +33,21 @@ const StyledMenuButton = styled.button`
     width: 1.5rem;
   }
 
-  grid-column: -1;
-  grid-row: 1;
+  position: ${(props) => props?.tablePosition};
+  top: ${(props) => props.top};
+  right: ${(props) => props?.right};
 `;
 
-function TableMenuButton({ id, openId, close, open, setPosition }) {
+function TableMenuButton({
+  id,
+  openId,
+  close,
+  open,
+  setPosition,
+  tablePosition = "absolute",
+  top = "0.5rem",
+  right = "0.5rem",
+}) {
   function handleClickMenuButton(e) {
     e.stopPropagation();
 
@@ -53,7 +63,12 @@ function TableMenuButton({ id, openId, close, open, setPosition }) {
   }
 
   return (
-    <StyledMenuButton onClick={handleClickMenuButton}>
+    <StyledMenuButton
+      tablePosition={tablePosition}
+      top={top}
+      right={right}
+      onClick={handleClickMenuButton}
+    >
       <HiEllipsisVertical />
     </StyledMenuButton>
   );

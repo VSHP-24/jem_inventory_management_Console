@@ -96,10 +96,11 @@ function BrandTable() {
 
   return (
     <Table
-      columns=".5fr 1fr .5fr"
+      columns=".35fr 2fr 1fr"
       deletedTableContent={
         <DeletedBrands filterDeletedBrands={filterDeletedBrands} />
       }
+      tablePosition="static"
     >
       <Table.Header>
         <div>Sl No.</div>

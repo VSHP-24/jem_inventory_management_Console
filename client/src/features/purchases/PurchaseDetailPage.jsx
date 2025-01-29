@@ -19,6 +19,10 @@ const StyledDetailPage = styled.div`
   @media ${device.tablet} {
     font-size: 1rem;
   }
+
+  @media ${device.mobileM} {
+    padding: 1rem;
+  }
 `;
 
 const StyledPurchaseDetails = styled.main``;

@@ -88,7 +88,7 @@ function ModelRow({ model, index, id, deletedTable }) {
             Version
           </StyledColumnLaptopL>
           <StyledColumnLaptopL type="modelDetails">
-            {version}
+            {version ? version : "-- NA --"}
           </StyledColumnLaptopL>
 
           <StyledColumnLaptopL as="header" type="heading">

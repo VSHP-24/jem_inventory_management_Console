@@ -15,7 +15,7 @@ const productTableStyles = {
   defaultColumns: ".75fr 1.25fr 1.5fr 1.25fr 2fr 1fr .1fr",
   laptopL: { columns: ".25fr 1fr 1fr ", rows: "1fr 1fr 1fr 1fr 1fr" },
   tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr 1fr 1fr" },
-  mobileM: { columns: ".15fr 1fr 1fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+  mobileM: { columns: ".35fr 1fr 2fr", rows: "1fr 1fr 1fr 1fr 1fr" },
 };
 
 const StyledTableColumnLaptopL = styled.div`
@@ -37,7 +37,7 @@ function DeletedProducts({ filterDeletedProducts }) {
 
   return (
     <Table
-      columns="2fr 7.5fr .75fr"
+      columns=".35fr 1fr .25fr"
       modalWindowedTable={true}
       menuListRequired={false}
     >

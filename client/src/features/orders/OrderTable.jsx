@@ -15,7 +15,7 @@ const orderTableStyles = {
   defaultColumns: ".75fr 4fr 2fr 1.25fr 1fr 1.25fr 2.5fr .001fr",
   laptopL: { columns: ".1fr .35fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr 1fr " },
   tablet: { columns: ".1fr .35fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr" },
-  mobileM: { columns: ".25fr 1.25fr .001fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+  mobileM: { columns: ".35fr 1fr 1.75fr", rows: "1fr 1fr 1fr 1fr 1fr" },
 };
 
 const StyledTableColumnLaptopL = styled.div`

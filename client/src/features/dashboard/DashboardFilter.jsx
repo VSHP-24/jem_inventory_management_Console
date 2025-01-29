@@ -3,7 +3,7 @@ import NavTabs from "../../ui/NavTabs";
 function DashboardFilter() {
   return (
     <NavTabs
-      width="40rem"
+      width="fit-content"
       stylingType="dashboardFilter"
       fieldComponent="dataDuration"
       options={[

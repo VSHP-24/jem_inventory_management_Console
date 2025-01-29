@@ -53,7 +53,9 @@ const CommonRow = styled.div`
 
   @media ${device.mobileM} {
     grid-template-columns: ${(props) => props.columns.mobileM?.columns};
-    padding: 0.5rem 1rem;
+    padding: 0.2rem 0.25rem;
+    gap: 0.25rem;
+    word-break: break-all;
   }
 `;
 
@@ -78,6 +80,7 @@ const StyledHeader = styled(CommonRow)`
 `;
 
 const StyledRow = styled(CommonRow)`
+  position: relative;
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-600);
   }
@@ -131,6 +134,9 @@ function Table({
   deletedTableContent,
   modalWindowedTable = false,
   menuListRequired = true,
+  tablePosition,
+  top,
+  right,
 }) {
   const [openId, setOpenId] = useState("");
   const [position, setPosition] = useState(null);
@@ -156,6 +162,9 @@ function Table({
         menuListRequired,
         currentPage,
         modalWindowedTable,
+        tablePosition,
+        top,
+        right,
       }}
     >
       <StyledTable role="table">{children}</StyledTable>
@@ -197,6 +206,9 @@ function Row({
     setPosition,
     position,
     menuListRequired,
+    tablePosition,
+    top,
+    right,
   } = useContext(TableContext);
 
   return (
@@ -210,6 +222,9 @@ function Row({
           close={close}
           open={open}
           setPosition={setPosition}
+          tablePosition={tablePosition}
+          top={top}
+          right={right}
         />
       )}
 

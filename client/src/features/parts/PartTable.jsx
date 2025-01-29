@@ -15,7 +15,7 @@ const partTableStyles = {
   defaultColumns: ".5fr 1fr 1fr .5fr",
   laptopL: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr" },
   tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr" },
-  mobileM: { columns: ".15fr 1fr 1fr", rows: "1fr 1fr 1fr" },
+  mobileM: { columns: ".35fr 1fr 1fr", rows: "1fr 1fr 1fr" },
 };
 
 const StyledTableColumnLaptopL = styled.div`

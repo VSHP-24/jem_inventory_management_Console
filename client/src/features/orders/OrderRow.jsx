@@ -152,7 +152,9 @@ function OrderRow({ order, index, id, deletedTable }) {
           <StyledColumnLaptopL as="header" type="heading">
             Order ID
           </StyledColumnLaptopL>
-          <StyledColumnLaptopL type="orderDetails">{id}</StyledColumnLaptopL>
+          <StyledColumnLaptopL type="orderDetails">
+            {id.slice(id.length - 7)}
+          </StyledColumnLaptopL>
 
           <StyledColumnLaptopL as="header" type="heading">
             Name

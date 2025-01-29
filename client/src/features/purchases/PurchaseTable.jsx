@@ -18,7 +18,7 @@ const purchaseTableStyles = {
     rows: "1fr 1fr 1fr 1fr 1fr 1fr",
   },
   tablet: { columns: ".1fr .5fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr" },
-  mobileM: { columns: ".25fr 1.25fr .001fr", rows: "1fr 1fr 1fr 1fr 1fr" },
+  mobileM: { columns: ".35fr .75fr 2fr  ", rows: "1fr 1fr 1fr 1fr 1fr" },
 };
 
 const StyledTableColumnLaptopL = styled.div`

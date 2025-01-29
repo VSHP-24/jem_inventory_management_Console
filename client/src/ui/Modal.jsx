@@ -20,6 +20,7 @@ const StyledModal = styled.div`
   transition: all 0.5s;
   max-height: 100vh;
   overflow-y: auto;
+  width: fit-content;
   max-width: 80%;
 
   @media ${device.laptopL} {
@@ -30,6 +31,10 @@ const StyledModal = styled.div`
   @media ${device.tablet} {
     padding: 1rem;
     font-size: 1rem;
+  }
+
+  @media ${device.mobileM} {
+    padding: 1rem;
   }
 `;
 

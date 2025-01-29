@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../utils/devices";
 
 const FileInput = styled.input.attrs({ type: "file" })`
   font-size: 1.2rem;
@@ -19,6 +20,12 @@ const FileInput = styled.input.attrs({ type: "file" })`
     &:hover {
       color: var(--color-gold-700);
       background-color: var(--color-grey-900);
+    }
+
+    @media ${device.mobileM} {
+      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
     }
   }
 `;

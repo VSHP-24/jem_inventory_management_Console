@@ -35,12 +35,16 @@ const StyledNav = styled.nav`
 
       @media ${device.mobileM} {
         font-size: 1rem;
+        width: 100%;
       }
     `};
 
   ${(props) =>
     props.stylingType === "createFormTabs" &&
     css`
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+
       @media ${device.laptopL} {
         gap: 0.1rem;
         padding: 0 0.1rem;
@@ -54,8 +58,6 @@ const StyledNav = styled.nav`
 
       @media ${device.mobileM} {
         font-size: 1rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
       }
     `}
 

@@ -7,9 +7,9 @@ import LoginForm from "../features/authentication/LoginForm";
 import { device } from "../utils/devices";
 
 const LoginLayout = styled.main`
-  min-height: 100vh;
+  height: 100dvh;
   display: grid;
-  grid-template-columns: 36rem;
+  grid-template-columns: 1fr;
   align-content: center;
   justify-content: center;
   justify-items: center;

@@ -19,6 +19,11 @@ const StyledStat = styled.div`
     padding: 0.8rem;
     column-gap: 1.2rem;
   }
+
+  @media ${device.mobileM} {
+    column-gap: 0.5rem;
+    grid-template-columns: 3rem 1fr;
+  }
 `;
 
 const Icon = styled.div`
@@ -36,12 +41,17 @@ const Icon = styled.div`
     width: 2.4rem;
     height: 2.4rem;
     color: var(--color-grey-0);
-  }
 
-  @media ${device.laptopL} {
-    & svg {
-      width: 1.6rem;
-      height: 1.6rem;
+    @media ${device.laptopL} {
+      & svg {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+
+      @media ${device.mobileM} {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
     }
   }
 `;
@@ -57,6 +67,10 @@ const Title = styled.h5`
   @media ${device.laptopL} {
     font-size: 1rem;
   }
+
+  @media ${device.mobileM} {
+    font-size: 0.8rem;
+  }
 `;
 
 const Value = styled.p`
@@ -67,6 +81,10 @@ const Value = styled.p`
 
   @media ${device.laptopL} {
     font-size: 1.4rem;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 1.2rem;
   }
 `;
 

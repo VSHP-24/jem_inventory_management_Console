@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { device } from "../utils/devices";
 
 const StyledNavLink = styled(NavLink)`
   ${(props) =>
@@ -22,6 +23,10 @@ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   display: flex;
   padding: 0.8rem;
+
+  @media ${device.mobileM} {
+    font-size: 1rem;
+  }
 `;
 
 StyledNavLink.defaultProps = {

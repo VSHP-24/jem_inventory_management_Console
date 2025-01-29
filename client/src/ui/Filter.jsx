@@ -93,7 +93,8 @@ const StyledOptionsContainer = styled.div`
 
   @media ${device.mobileM} {
     grid-template-columns: 1fr;
-    width: 70%;
+    width: fit-content;
+    padding-right: 0.5rem;
   }
 `;
 
@@ -110,6 +111,10 @@ const StyledIndividualOption = styled.label`
   padding-left: 0.5rem;
   font-weight: 400;
   font-size: 1.5rem;
+
+  @media ${device.mobileM} {
+    font-size: 1rem;
+  }
 `;
 
 const StyledFilterTitle = styled.p`

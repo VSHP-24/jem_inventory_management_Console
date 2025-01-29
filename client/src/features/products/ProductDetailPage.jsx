@@ -23,6 +23,10 @@ const StyledDetailPage = styled.div`
   @media ${device.tablet} {
     font-size: 1rem;
   }
+
+  @media ${device.mobileM} {
+    padding: 0.5rem;
+  }
 `;
 
 const StyledProductDetails = styled.main``;
@@ -126,7 +130,7 @@ function ProductDetailPage({ product }) {
         <StyledRow>
           <StyledHeader>Discount Price</StyledHeader>
           <StyledDetails>
-            {discountPrice ? discountPrice : "--- NA ---"}
+            {discountPrice ? `₹ ${discountPrice}` : "--- NA ---"}
           </StyledDetails>
         </StyledRow>
 
@@ -156,7 +160,7 @@ function ProductDetailPage({ product }) {
           <StyledHeader>Included Parts</StyledHeader>
           <StyledDetails>
             <Table
-              columns="1fr 1fr"
+              columns="1.2fr 1fr"
               menuListRequired={false}
               modalWindowedTable={true}
             >

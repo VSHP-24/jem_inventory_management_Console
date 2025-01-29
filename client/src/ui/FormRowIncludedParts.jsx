@@ -8,7 +8,7 @@ const StyledFormRow = styled.div`
   align-items: center;
   gap: 0.5rem;
 
-  padding: 1.2rem 0;
+  padding: 0.5rem 0.2rem;
 
   &:first-child {
     padding-top: 0;
@@ -30,10 +30,21 @@ const StyledFormRow = styled.div`
   @media ${device.tablet} {
     grid-template-columns: 1fr 1fr;
   }
+
+  @media ${device.mobileM} {
+    display: grid;
+  }
 `;
 
 const Label = styled.label`
-  font-weight: 500;
+  font-weight: 700;
+
+  @media ${device.mobileM} {
+    font-size: 1rem;
+  }
+  @media ${device.mobileM} {
+    grid-column-start: span 2;
+  }
 `;
 
 const Error = styled.span`

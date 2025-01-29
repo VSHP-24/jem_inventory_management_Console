@@ -4,7 +4,7 @@ import Modal from "./Modal";
 import Button from "./Button";
 
 const StyledButton = styled(Button)`
-  width: 15rem;
+  width: 100%;
 `;
 
 function DeletedTableItems({ deletedTableContent }) {
