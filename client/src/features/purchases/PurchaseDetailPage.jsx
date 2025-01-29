@@ -38,16 +38,16 @@ const StyledRow = styled.div`
     align-items: flex-start;
   }
 
-  @media ${device.tablet} {
-    gap: 0.8rem;
+  @media ${device.laptopS} {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
   }
-`;
 
-const StyledStatusModified = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.8rem;
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `;
 
 const StyledHeader = styled.div`
@@ -62,6 +62,28 @@ const StyledDetails = styled.div`
 
 const StyledHeading = styled(Heading)`
   padding-bottom: 2rem;
+`;
+
+const StyledTable = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 2rem;
+`;
+
+const StyledTableHeader = styled.div`
+  font-size: 1rem;
+
+  @media ${device.laptopS} {
+    font-size: 0.75rem;
+  }
+`;
+const StyledTableDetails = styled.div`
+  font-size: 1rem;
+
+  @media ${device.laptopS} {
+    font-size: 0.75rem;
+  }
 `;
 
 function PurchaseDetailPage({ purchase }) {
@@ -116,7 +138,7 @@ function PurchaseDetailPage({ purchase }) {
           </StyledDetails>
         </StyledRow>
 
-        <StyledStatusModified>
+        <StyledTable>
           <StyledHeader>Status Modified On</StyledHeader>
           <StyledDetails>
             <Table
@@ -125,22 +147,26 @@ function PurchaseDetailPage({ purchase }) {
               modalWindowedTable={true}
             >
               <Table.Header>
-                <div>Status</div>
-                <div>Modified On</div>
+                <StyledTableHeader>Status</StyledTableHeader>
+                <StyledTableHeader>Modified On</StyledTableHeader>
               </Table.Header>
 
               <Table.Body
                 data={orderStatusUpdateOn}
                 render={(status) => (
                   <Table.Row columns="10rem 10rem" key={status.id}>
-                    <div>{formatStatus(status.updatedStatus)}</div>
-                    <div>{formatDate(status.updatedOn)}</div>
+                    <StyledTableDetails>
+                      {formatStatus(status.updatedStatus)}
+                    </StyledTableDetails>
+                    <StyledTableDetails>
+                      {formatDate(status.updatedOn)}
+                    </StyledTableDetails>
                   </Table.Row>
                 )}
               />
             </Table>
           </StyledDetails>
-        </StyledStatusModified>
+        </StyledTable>
       </StyledPurchaseDetails>
     </StyledDetailPage>
   );

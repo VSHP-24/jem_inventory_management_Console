@@ -47,6 +47,7 @@ const Main = styled.main`
 
   @media ${device.laptopS} {
     grid-row: 2 / span 1;
+    padding: 1.5rem 1.5rem;
   }
 
   @media ${device.tablet} {

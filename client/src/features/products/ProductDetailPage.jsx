@@ -43,6 +43,17 @@ const StyledRow = styled.div`
     flex-direction: column;
     gap: 0.5rem;
   }
+
+  @media ${device.laptopS} {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+  }
+
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 `;
 
 const StyledHeader = styled.div`

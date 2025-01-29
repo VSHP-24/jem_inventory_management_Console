@@ -27,8 +27,9 @@ const Form = styled.form`
   font-size: 1.4rem;
 
   @media ${device.laptopS} {
-    padding: 1.4rem;
-    font-size: 1.2rem;
+    width: 100%;
+    padding: 1rem 2rem 1rem 1rem;
+    font-size: 1rem;
   }
 
   @media ${device.tablet} {

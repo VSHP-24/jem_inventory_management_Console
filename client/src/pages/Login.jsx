@@ -17,6 +17,11 @@ const LoginLayout = styled.main`
   background-color: var(--color-grey-900);
   padding: 1rem;
 
+  @media ${device.laptopS} {
+    gap: 0.75rem;
+    grid-template-columns: 24rem;
+  }
+
   @media ${device.tablet} {
     gap: 0.75rem;
     grid-template-columns: 24rem;

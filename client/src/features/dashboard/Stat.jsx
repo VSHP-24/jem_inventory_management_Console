@@ -65,7 +65,7 @@ const Title = styled.h5`
   color: var(--color-grey-700);
 
   @media ${device.laptopL} {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   @media ${device.mobileM} {
@@ -80,7 +80,7 @@ const Value = styled.p`
   color: var(--color-grey-900);
 
   @media ${device.laptopL} {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 
   @media ${device.mobileM} {

@@ -15,6 +15,10 @@ const StyledDetailPage = styled.div`
     font-size: 1rem;
   }
 
+  @media ${device.laptopS} {
+    font-size: 1.4rem;
+  }
+
   @media ${device.tablet} {
     font-size: 1.2rem;
   }

@@ -29,6 +29,11 @@ const StyledModal = styled.div`
     font-size: 1rem;
   }
 
+  @media ${device.laptopS} {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+
   @media ${device.tablet} {
     padding: 1rem;
     font-size: 1rem;
@@ -61,6 +66,17 @@ const StyledButton = styled(Button)`
   position: absolute;
   top: 1.2rem;
   right: 1.9rem;
+  & svg {
+    @media ${device.laptopS} {
+      font-size: 1.6rem;
+    }
+    @media ${device.tablet} {
+      font-size: 1.4rem;
+    }
+    @media ${device.mobileM} {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 const ModalContext = createContext();

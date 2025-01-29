@@ -13,6 +13,9 @@ const StyledDetailPage = styled.div`
   justify-content: space-between;
   font-size: 1.2rem;
 
+  @media ${device.laptopS} {
+    font-size: 1.4rem;
+  }
   @media ${device.tablet} {
     font-size: 1.2rem;
   }
@@ -26,6 +29,11 @@ const StyledDetailPage = styled.div`
 const StyledModelDetails = styled.main``;
 
 const StyledModelImages = styled.aside`
+  @media ${device.laptopS} {
+    height: 20rem;
+    width: 20rem;
+    align-self: center;
+  }
   @media ${device.tablet} {
     height: 15rem;
     width: 15rem;
@@ -42,6 +50,18 @@ const StyledRow = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  @media ${device.laptopS} {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+  }
+
+  @media ${device.tablet} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
   }
 `;
 

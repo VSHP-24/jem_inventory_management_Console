@@ -16,6 +16,10 @@ const StyledDetailPage = styled.div`
     font-size: 1rem;
   }
 
+  @media ${device.laptopS} {
+    font-size: 1.4rem;
+  }
+
   @media ${device.tablet} {
     font-size: 1.2rem;
   }
@@ -29,6 +33,11 @@ const StyledDetailPage = styled.div`
 const StyledBrandDetails = styled.main``;
 
 const StyledBrandImages = styled.aside`
+  @media ${device.laptopS} {
+    height: 10rem;
+    width: 10rem;
+    align-self: center;
+  }
   @media ${device.tablet} {
     height: 10rem;
     width: 10rem;
@@ -43,6 +52,11 @@ const StyledRow = styled.div`
 
   @media ${device.laptopL} {
     gap: 2rem;
+  }
+
+  @media ${device.laptopS} {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
   }
 
   @media ${device.tablet} {

@@ -11,6 +11,10 @@ const Textarea = styled.textarea`
   width: 30rem;
   height: 8rem;
 
+  @media ${device.laptopS} {
+    width: 100%;
+  }
+
   @media ${device.tablet} {
     width: 100%;
   }

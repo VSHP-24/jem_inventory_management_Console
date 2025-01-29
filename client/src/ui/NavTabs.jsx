@@ -28,6 +28,11 @@ const StyledNav = styled.nav`
         font-size: 1.2rem;
       }
 
+      @media ${device.laptopS} {
+        width: 100%;
+        font-size: 1.4rem;
+      }
+
       @media ${device.tablet} {
         width: 100%;
         font-size: 1.4rem;

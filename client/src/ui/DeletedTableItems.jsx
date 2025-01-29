@@ -7,6 +7,11 @@ import { device } from "../utils/devices";
 const StyledButton = styled(Button)`
   width: 100%;
 
+  @media ${device.laptopS} {
+    width: fit-content;
+    padding: 0.75rem;
+  }
+
   @media ${device.tablet} {
     width: fit-content;
     padding: 0.75rem;

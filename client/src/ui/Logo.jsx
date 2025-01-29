@@ -8,6 +8,10 @@ const Img = styled.img`
   height: ${(props) => props.height};
   width: auto;
 
+  @media ${device.laptopS} {
+    height: 2.2rem;
+  }
+
   @media ${device.tablet} {
     height: 2rem;
   }

@@ -87,7 +87,7 @@ const StyledIcon = styled.div`
     font-size: 1rem;
   }
   @media ${device.laptopS} {
-    font-size: 1rem;
+    font-size: 2rem;
   }
 
   @media ${device.tablet} {
@@ -106,7 +106,7 @@ const StyledIconLabel = styled.span`
     font-size: 1rem;
   }
   @media ${device.laptopS} {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   @media ${device.tablet} {

@@ -10,6 +10,10 @@ const StyledDetailPage = styled.div`
   padding: 2rem;
   width: 100%;
 
+  @media ${device.laptopS} {
+    font-size: 1.4rem;
+  }
+
   @media ${device.tablet} {
     font-size: 1.2rem;
   }
@@ -21,12 +25,6 @@ const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-
-  @media ${device.laptopL} {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
 `;
 
 const StyledHeader = styled.div`

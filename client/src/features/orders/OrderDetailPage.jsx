@@ -38,8 +38,15 @@ const StyledRow = styled.div`
     align-items: flex-start;
   }
 
+  @media ${device.laptopS} {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+  }
+
   @media ${device.tablet} {
-    gap: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 `;
 

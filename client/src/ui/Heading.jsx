@@ -20,6 +20,14 @@ const Heading = styled.h1`
         font-size: 1.6rem;
       }
 
+      @media ${device.laptopS} {
+        font-size: 2rem;
+      }
+
+      @media ${device.tablet} {
+        font-size: 1.6rem;
+      }
+
       @media ${device.mobileM} {
         font-size: 1.2rem;
       }

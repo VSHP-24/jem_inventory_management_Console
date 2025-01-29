@@ -22,6 +22,10 @@ const FileInput = styled.input.attrs({ type: "file" })`
       background-color: var(--color-grey-900);
     }
 
+    @media ${device.laptopS} {
+      font-size: 1rem;
+    }
+
     @media ${device.mobileM} {
       font-size: 1rem;
       display: flex;
