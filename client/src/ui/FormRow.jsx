@@ -41,6 +41,12 @@ const StyledFormRow = styled.div`
       align-items: center;
     }
 
+    @media ${device.tablet} {
+      gap: 0.5rem;
+      font-size: 1rem;
+      justify-self: center;
+    }
+
     @media ${device.mobileM} {
       gap: 0.5rem;
       font-size: 0.85rem;
@@ -59,7 +65,7 @@ const Label = styled.label`
   font-weight: 700;
 
   @media ${device.tablet} {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   @media ${device.mobileM} {
@@ -72,6 +78,10 @@ const Error = styled.span`
   font-size: 1rem;
   color: var(--color-red-800);
   font-weight: 800;
+
+  @media ${device.tablet} {
+    font-size: 0.9rem;
+  }
 
   @media ${device.mobileM} {
     font-size: 0.8rem;

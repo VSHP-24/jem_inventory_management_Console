@@ -8,6 +8,10 @@ const StyledNav = styled.nav`
   display: flex;
   gap: 2.4rem;
 
+  @media ${device.tablet} {
+    gap: 1.2rem;
+  }
+
   @media ${device.mobileM} {
     gap: 1rem;
   }

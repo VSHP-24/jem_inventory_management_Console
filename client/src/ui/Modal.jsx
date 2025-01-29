@@ -22,6 +22,7 @@ const StyledModal = styled.div`
   overflow-y: auto;
   width: ${(props) => props?.width};
   max-width: 80%;
+  justify-items: center;
 
   @media ${device.laptopL} {
     padding: 1.2rem;

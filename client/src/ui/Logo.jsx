@@ -9,7 +9,7 @@ const Img = styled.img`
   width: auto;
 
   @media ${device.tablet} {
-    height: 1.8rem;
+    height: 2rem;
   }
 
   @media ${device.mobileM} {

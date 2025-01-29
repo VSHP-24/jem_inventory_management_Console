@@ -49,6 +49,10 @@ const Main = styled.main`
     grid-row: 2 / span 1;
   }
 
+  @media ${device.tablet} {
+    padding: 1rem 2rem 1rem 1.4rem;
+  }
+
   @media ${device.mobileM} {
     grid-column: 2 / span 1;
     padding: 1rem 1.4rem;

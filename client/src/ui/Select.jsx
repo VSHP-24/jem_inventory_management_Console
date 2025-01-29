@@ -14,6 +14,10 @@ const Select = styled.select`
     padding: 0.8rem;
     width: 100%;
   }
+
+  @media ${device.mobileM} {
+    width: 100%;
+  }
 `;
 
 export default Select;

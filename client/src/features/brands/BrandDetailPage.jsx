@@ -7,7 +7,7 @@ import { device } from "../../utils/devices";
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   font-size: 1.4rem;
   padding: 2rem;
   width: 100%;
@@ -17,13 +17,24 @@ const StyledDetailPage = styled.div`
   }
 
   @media ${device.tablet} {
+    font-size: 1.2rem;
+  }
+
+  @media ${device.mobileM} {
     font-size: 1rem;
+    flex-direction: column;
   }
 `;
 
 const StyledBrandDetails = styled.main``;
 
-const StyledBrandImages = styled.aside``;
+const StyledBrandImages = styled.aside`
+  @media ${device.tablet} {
+    height: 10rem;
+    width: 10rem;
+    align-self: center;
+  }
+`;
 
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;

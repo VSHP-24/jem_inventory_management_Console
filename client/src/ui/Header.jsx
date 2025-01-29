@@ -19,6 +19,11 @@ const StyledHeader = styled.header`
     gap: 2rem;
   }
 
+  @media ${device.tablet} {
+    gap: 1rem;
+    padding: 2rem 2rem 2rem 0.8rem;
+  }
+
   @media ${device.mobileM} {
     flex-direction: column;
     align-items: center;
@@ -31,6 +36,9 @@ const StyledContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 2.4rem;
+  @media ${device.tablet} {
+    gap: 1.2rem;
+  }
   @media ${device.mobileM} {
     gap: 1rem;
   }

@@ -27,12 +27,9 @@ const StyledFormRow = styled.div`
     align-items: start;
   }
 
-  @media ${device.tablet} {
-    grid-template-columns: 1fr 1fr;
-  }
-
   @media ${device.mobileM} {
     display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 `;
 
@@ -41,8 +38,6 @@ const Label = styled.label`
 
   @media ${device.mobileM} {
     font-size: 1rem;
-  }
-  @media ${device.mobileM} {
     grid-column-start: span 2;
   }
 `;

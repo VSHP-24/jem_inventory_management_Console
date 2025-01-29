@@ -30,7 +30,7 @@ const StyledNav = styled.nav`
 
       @media ${device.tablet} {
         width: 100%;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
       }
 
       @media ${device.mobileM} {
@@ -93,7 +93,7 @@ const StyledNav = styled.nav`
 
       @media ${device.tablet} {
         width: 100%;
-        font-size: 1rem;
+        font-size: 1.4rem;
       }
 
       @media ${device.mobileM} {

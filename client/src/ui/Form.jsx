@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { device } from "../utils/devices";
 
 const Form = styled.form`
+  align-self: center;
   ${(props) =>
     props.type === "regular" &&
     css`
@@ -31,12 +32,14 @@ const Form = styled.form`
   }
 
   @media ${device.tablet} {
-    padding: 1.2rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem;
     font-size: 1rem;
   }
 
   @media ${device.mobileM} {
-    width: fit-content;
+    width: 100%;
     max-width: 100%;
     padding: 0.5rem;
     font-size: 1rem;

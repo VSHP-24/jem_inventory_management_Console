@@ -10,17 +10,28 @@ const StyledDetailPage = styled.div`
   padding: 1rem;
   width: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   font-size: 1.2rem;
 
   @media ${device.tablet} {
+    font-size: 1.2rem;
+  }
+
+  @media ${device.mobileM} {
     font-size: 1rem;
+    flex-direction: column;
   }
 `;
 
 const StyledModelDetails = styled.main``;
 
-const StyledModelImages = styled.aside``;
+const StyledModelImages = styled.aside`
+  @media ${device.tablet} {
+    height: 15rem;
+    width: 15rem;
+    align-self: center;
+  }
+`;
 
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;

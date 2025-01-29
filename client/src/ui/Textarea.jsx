@@ -14,6 +14,10 @@ const Textarea = styled.textarea`
   @media ${device.tablet} {
     width: 100%;
   }
+
+  @media ${device.mobileM} {
+    width: 100%;
+  }
 `;
 
 export default Textarea;

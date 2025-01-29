@@ -23,7 +23,7 @@ import { device } from "../../utils/devices";
 
 const StyledUl = styled.ul`
   padding: 0;
-
+  width: 100%;
   @media ${device.tablet} {
     grid-row: 2;
     grid-column: 1 / span 2;

@@ -21,7 +21,7 @@ const StyledDetailPage = styled.div`
   }
 
   @media ${device.tablet} {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   @media ${device.mobileM} {

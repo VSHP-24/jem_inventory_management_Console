@@ -11,7 +11,7 @@ const StyledDetailPage = styled.div`
   width: 100%;
 
   @media ${device.tablet} {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 `;
 

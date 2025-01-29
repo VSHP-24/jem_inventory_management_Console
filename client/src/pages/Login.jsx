@@ -18,10 +18,9 @@ const LoginLayout = styled.main`
   padding: 1rem;
 
   @media ${device.tablet} {
-    gap: 1rem;
+    gap: 0.75rem;
     grid-template-columns: 24rem;
   }
-
   @media ${device.mobileM} {
     gap: 0.8rem;
     grid-template-columns: 18rem;
