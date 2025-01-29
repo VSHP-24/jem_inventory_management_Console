@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 import { device } from "../utils/devices";
 
@@ -14,6 +15,13 @@ const StyledFooter = styled.footer`
   @media ${device.mobileM} {
     font-size: 1rem;
   }
+`;
+
+const StyledNavLink = styled(NavLink)`
+  color: var(--color-gold-100);
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 700;
 `;
 
 const Content = styled.div`
@@ -34,7 +42,12 @@ function Footer() {
     <StyledFooter>
       <Content>
         <p>{`© ${currentYear}, All Rights Reserved `}</p>
-        <p>{`Built with 💖 by VSHP.`}</p>
+        <p>
+          {`Developed by `}
+          <StyledNavLink target="_blank" to="https://vshp.dev/">
+            VSHP
+          </StyledNavLink>
+        </p>
       </Content>
     </StyledFooter>
   );
