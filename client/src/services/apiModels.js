@@ -36,6 +36,8 @@ export async function createEditModel(newModel) {
   //    EDIT MODEL
   ///////////////////////////
   else {
+    const { products, ...model } = newModel;
+
     res = await fetch(`${MODELS_URL}/${newModel._id}`, {
       mode: "cors",
       credentials: "include",
@@ -43,7 +45,7 @@ export async function createEditModel(newModel) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newModel),
+      body: JSON.stringify({ ...model }),
     });
   }
   const data = await res.json();

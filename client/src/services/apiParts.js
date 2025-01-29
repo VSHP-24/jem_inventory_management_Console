@@ -35,6 +35,8 @@ export async function createEditPart(newPart) {
   //      EDIT PART
   ///////////////////////////
   else {
+    const { products, ...part } = newPart;
+
     res = await fetch(`${PARTS_URL}/${newPart._id}`, {
       mode: "cors",
       credentials: "include",
@@ -42,7 +44,7 @@ export async function createEditPart(newPart) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newPart),
+      body: JSON.stringify({ ...part }),
     });
   }
 

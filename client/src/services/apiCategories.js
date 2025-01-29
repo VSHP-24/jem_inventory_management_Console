@@ -36,6 +36,7 @@ export async function createEditCategory(newCategory) {
   //      EDIT CATEGORY
   ///////////////////////////
   else {
+    const { products, subCategories, ...category } = newCategory;
     res = await fetch(`${CATEGORIES_URL}/${newCategory._id}`, {
       mode: "cors",
       credentials: "include",
@@ -43,7 +44,7 @@ export async function createEditCategory(newCategory) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newCategory),
+      body: JSON.stringify({ ...category }),
     });
   }
 

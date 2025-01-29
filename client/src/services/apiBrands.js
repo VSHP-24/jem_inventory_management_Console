@@ -37,6 +37,8 @@ export async function createEditBrand(newBrand) {
   //      EDIT BRAND
   ///////////////////////////
   else {
+    const { products, models, ...brand } = newBrand;
+
     res = await fetch(`${BRANDS_URL}/${newBrand._id}`, {
       mode: "cors",
       credentials: "include",
@@ -44,7 +46,7 @@ export async function createEditBrand(newBrand) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newBrand),
+      body: JSON.stringify({ ...brand }),
     });
   }
 
