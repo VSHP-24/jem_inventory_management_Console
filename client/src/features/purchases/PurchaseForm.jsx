@@ -79,6 +79,10 @@ function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
             disabled={isWorking}
             {...register("quantity", {
               required: "*This field is required",
+              min: {
+                value: 1,
+                message: "*Minimum Purchase Quantity should be atleast 1 No. ",
+              },
             })}
           />
         </FormRow>
@@ -91,6 +95,10 @@ function PurchaseForm({ purchaseToEdit = {}, onCloseModal }) {
             disabled={isWorking}
             {...register("purchaseCost", {
               required: "*This field is required",
+              min: {
+                value: 1,
+                message: "*Minimum Cost should be atleast ₹ 1",
+              },
             })}
           />
         </FormRow>

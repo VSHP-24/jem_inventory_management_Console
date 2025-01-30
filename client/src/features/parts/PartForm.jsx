@@ -57,7 +57,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             id="length"
             placeholder="Enter the dimension in mm"
             disabled={isWorking}
-            {...register("length")}
+            {...register("length", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 
@@ -70,7 +75,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             id="insideDiameter"
             placeholder="Enter the dimension in mm"
             disabled={isWorking}
-            {...register("insideDiameter")}
+            {...register("insideDiameter", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 
@@ -83,7 +93,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             id="outsideDiameter"
             placeholder="Enter the dimension in mm"
             disabled={isWorking}
-            {...register("outsideDiameter")}
+            {...register("outsideDiameter", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 
@@ -96,7 +111,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             id="threadDiameter"
             placeholder="Enter the dimension in mm"
             disabled={isWorking}
-            {...register("threadDiameter")}
+            {...register("threadDiameter", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 
@@ -106,7 +126,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             id="threadPitch"
             placeholder="Enter the dimension in mm"
             disabled={isWorking}
-            {...register("threadPitch")}
+            {...register("threadPitch", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 
@@ -116,7 +141,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             id="shankLength"
             placeholder="Enter the dimension in mm"
             disabled={isWorking}
-            {...register("shankLength")}
+            {...register("shankLength", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 
@@ -126,7 +156,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             id="headHeight"
             placeholder="Enter the dimension in mm"
             disabled={isWorking}
-            {...register("headHeight")}
+            {...register("headHeight", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 
@@ -136,7 +171,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             id="headDiameter"
             placeholder="Enter the dimension in mm"
             disabled={isWorking}
-            {...register("headDiameter")}
+            {...register("headDiameter", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 
@@ -146,7 +186,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             placeholder="Enter the dimension in mm"
             id="allenKeySize"
             disabled={isWorking}
-            {...register("allenKeySize")}
+            {...register("allenKeySize", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 
@@ -156,7 +201,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             id="width"
             placeholder="Enter the dimension in mm"
             disabled={isWorking}
-            {...register("width")}
+            {...register("width", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 
@@ -166,7 +216,12 @@ function PartForm({ type, partToEdit = {}, onCloseModal }) {
             id="thickness"
             placeholder="Enter the dimension in mm"
             disabled={isWorking}
-            {...register("thickness")}
+            {...register("thickness", {
+              min: {
+                value: 1,
+                message: "*Minimum Value should be atleast 1mm",
+              },
+            })}
           />
         </FormRow>
 

@@ -335,6 +335,10 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
             placeholder="Enter Price of the Product"
             {...register("price", {
               required: "*This field is required",
+              min: {
+                value: 1,
+                message: "*Minimum Price should be atleast ₹ 1",
+              },
             })}
           />
         </FormRow>
@@ -348,6 +352,10 @@ function ProductForm({ productToEdit = {}, onCloseModal }) {
               validate: (value) =>
                 Number(value) < Number(getValues().price) ||
                 "*Discount Price is greater than or equal to regular price",
+              min: {
+                value: 1,
+                message: "*Minimum Price should be atleast ₹ 1",
+              },
             })}
           />
         </FormRow>
