@@ -15,7 +15,7 @@ const size = {
   mobileM: "34em",
   tablet: "41em",
   laptopS: "54em",
-  laptopL: "75em",
+  laptopL: "64em",
   desktop: "90em",
 };
 

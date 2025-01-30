@@ -14,6 +14,11 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   padding: 2rem 6rem 2rem 0.8rem;
 
+  @media ${device.laptopL} {
+    padding: 2rem;
+    gap: 2rem;
+  }
+
   @media ${device.laptopS} {
     padding: 2rem;
     gap: 2rem;

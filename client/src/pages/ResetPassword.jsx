@@ -16,16 +16,20 @@ const LoginLayout = styled.main`
   gap: 1rem;
   background-color: var(--color-grey-900);
 
-  @media ${device.laptopS} {
-    gap: 1rem;
-    grid-template-columns: 28rem;
+  @media ${device.laptopL} {
+    gap: 0.75rem;
+    grid-template-columns: 20rem;
   }
 
-  @media ${device.tablet} {
-    gap: 1rem;
+  @media ${device.laptopS} {
+    gap: 0.75rem;
     grid-template-columns: 24rem;
   }
 
+  @media ${device.tablet} {
+    gap: 0.75rem;
+    grid-template-columns: 24rem;
+  }
   @media ${device.mobileM} {
     gap: 0.8rem;
     grid-template-columns: 18rem;
@@ -40,7 +44,7 @@ const StyledHeading = styled(Heading)`
 function ResetPassword() {
   return (
     <LoginLayout>
-      <Logo allowRedirect={false} height="3.2rem" />
+      <Logo allowRedirect={false} height="2.4rem" />
 
       <StyledHeading as="h3">
         {`Set a password that you won't forget next time 😜`}

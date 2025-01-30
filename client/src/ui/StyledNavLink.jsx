@@ -24,6 +24,11 @@ const StyledNavLink = styled(NavLink)`
   display: flex;
   padding: 0.8rem;
 
+  @media ${device.laptopL} {
+    font-size: 1rem;
+    justify-self: start;
+  }
+
   @media ${device.laptopS} {
     font-size: 1rem;
   }

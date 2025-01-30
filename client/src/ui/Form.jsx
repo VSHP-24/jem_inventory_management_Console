@@ -26,6 +26,12 @@ const Form = styled.form`
   overflow: hidden;
   font-size: 1.4rem;
 
+  @media ${device.laptopL} {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
   @media ${device.laptopS} {
     width: 100%;
     padding: 1rem 2rem 1rem 1rem;

@@ -22,9 +22,9 @@ const StyledFormRow = styled.div`
   }
 
   @media ${device.laptopL} {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
+    display: grid;
+    grid-template-columns: 10rem 2fr 0.75fr;
+    align-items: center;
   }
 
   @media ${device.mobileM} {

@@ -9,6 +9,10 @@ const Input = styled.input`
   padding: 0.8rem 1.2rem;
   box-shadow: var(--shadow-sm);
 
+  @media ${device.laptopL} {
+    width: 100%;
+  }
+
   @media ${device.laptopS} {
     width: 100%;
   }

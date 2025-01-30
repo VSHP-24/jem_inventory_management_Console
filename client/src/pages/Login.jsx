@@ -17,6 +17,11 @@ const LoginLayout = styled.main`
   background-color: var(--color-grey-900);
   padding: 1rem;
 
+  @media ${device.laptopL} {
+    gap: 0.75rem;
+    grid-template-columns: 20rem;
+  }
+
   @media ${device.laptopS} {
     gap: 0.75rem;
     grid-template-columns: 24rem;
@@ -39,7 +44,7 @@ const StyledHeading = styled(Heading)`
 function Login() {
   return (
     <LoginLayout>
-      <Logo allowRedirect={false} height="3.2rem" />
+      <Logo allowRedirect={false} height="2.4rem" />
       <StyledHeading as="h3">Log in to your account</StyledHeading>
       <LoginForm />
     </LoginLayout>

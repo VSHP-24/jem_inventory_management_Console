@@ -39,8 +39,8 @@ const StyledRow = styled.div`
   grid-template-columns: 10rem 1fr;
 
   @media ${device.laptopL} {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 10rem 1fr;
     gap: 0.5rem;
   }
 

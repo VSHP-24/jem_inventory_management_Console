@@ -6,37 +6,43 @@ import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
+  display: grid;
+  grid-template-columns: 30rem 1fr;
   font-size: 1.4rem;
-  padding: 1rem;
+  padding: 2rem;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.2rem;
 
-  @media ${device.laptopS} {
-    font-size: 1.4rem;
+  @media ${device.laptopL} {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
   }
+
   @media ${device.tablet} {
     font-size: 1.2rem;
   }
 
   @media ${device.mobileM} {
-    font-size: 1rem;
-    flex-direction: column;
+    padding: 0.5rem;
   }
 `;
 
 const StyledModelDetails = styled.main``;
 
 const StyledModelImages = styled.aside`
-  @media ${device.laptopS} {
-    height: 20rem;
+  @media ${device.laptopL} {
+    height: 12rem;
     width: 20rem;
     align-self: center;
   }
-  @media ${device.tablet} {
-    height: 15rem;
+  @media ${device.laptopS} {
+    height: 10rem;
     width: 15rem;
+    align-self: center;
+  }
+  @media ${device.mobileM} {
+    height: 10rem;
+    width: 10rem;
     align-self: center;
   }
 `;
@@ -44,24 +50,23 @@ const StyledModelImages = styled.aside`
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 10rem 1fr;
 
   @media ${device.laptopL} {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 10rem 1fr;
     gap: 0.5rem;
   }
 
   @media ${device.laptopS} {
     display: grid;
-    grid-template-columns: 5rem 1fr;
+    grid-template-columns: 10rem 1fr;
   }
 
-  @media ${device.tablet} {
+  @media ${device.mobileM} {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.8rem;
+    gap: 0.5rem;
   }
 `;
 

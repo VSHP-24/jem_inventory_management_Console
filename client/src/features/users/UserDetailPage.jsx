@@ -29,19 +29,22 @@ const StyledUserDetails = styled.main``;
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 10rem 1fr;
-  gap: 5rem;
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
 
   @media ${device.laptopL} {
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+  }
+
+  @media ${device.laptopS} {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
   }
 
   @media ${device.tablet} {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.8rem;
+    gap: 0.5rem;
   }
 `;
 

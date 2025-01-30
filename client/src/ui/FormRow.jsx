@@ -39,6 +39,7 @@ const StyledFormRow = styled.div`
       display: flex;
       flex-direction: row;
       align-items: center;
+      justify-self: end;
     }
 
     @media ${device.laptopS} {
@@ -61,7 +62,8 @@ const StyledFormRow = styled.div`
   }
 
   @media ${device.laptopL} {
-    align-items: start;
+    align-items: center;
+    grid-template-columns: 10rem 1fr;
   }
 
   @media ${device.laptopS} {

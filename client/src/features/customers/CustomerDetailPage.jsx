@@ -7,8 +7,6 @@ import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   font-size: 1.4rem;
   padding: 2rem;
   width: 100%;
@@ -20,6 +18,7 @@ const StyledDetailPage = styled.div`
   @media ${device.tablet} {
     font-size: 1.2rem;
   }
+
   @media ${device.mobileM} {
     padding: 1rem;
   }
@@ -30,18 +29,22 @@ const StyledCustomerDetails = styled.main``;
 const StyledRow = styled.div`
   padding-bottom: 1.5rem;
   display: grid;
-  grid-template-columns: 12.5rem 1fr;
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
 
   @media ${device.laptopL} {
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+  }
+
+  @media ${device.laptopS} {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
   }
 
   @media ${device.tablet} {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.8rem;
+    gap: 0.5rem;
   }
 `;
 

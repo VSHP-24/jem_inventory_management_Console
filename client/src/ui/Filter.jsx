@@ -112,6 +112,10 @@ const StyledIndividualOption = styled.label`
   font-weight: 400;
   font-size: 1.5rem;
 
+  @media ${device.laptopL} {
+    font-size: 1.2rem;
+  }
+
   @media ${device.mobileM} {
     font-size: 1rem;
   }

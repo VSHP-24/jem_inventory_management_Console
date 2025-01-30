@@ -21,6 +21,11 @@ const StyledSelect = styled(Select)`
 
   @media ${device.tablet} {
     max-width: 100%;
+    font-size: 1rem;
+  }
+
+  @media ${device.mobileM} {
+    font-size: 1rem;
   }
 `;
 

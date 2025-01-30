@@ -33,9 +33,8 @@ const StyledRow = styled.div`
   grid-template-columns: 1fr 1fr;
 
   @media ${device.laptopL} {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: 10rem 1fr;
   }
 
   @media ${device.laptopS} {
