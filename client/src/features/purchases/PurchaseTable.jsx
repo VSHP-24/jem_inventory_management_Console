@@ -132,7 +132,7 @@ function PurchaseTable() {
       ? 1
       : Number(searchParams.get("page"));
 
-    pageCount = Math.ceil(purchases.length / PAGE_SIZE);
+    pageCount = Math.ceil(purchases.length / PAGE_SIZE) || 1;
   }
 
   if (isPending) return <Spinner />;

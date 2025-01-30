@@ -109,7 +109,7 @@ function CustomersTable() {
       ? 1
       : Number(searchParams.get("page"));
 
-    pageCount = Math.ceil(customers.length / PAGE_SIZE);
+    pageCount = Math.ceil(customers.length / PAGE_SIZE) || 1;
   }
 
   if (isPending) return <Spinner />;

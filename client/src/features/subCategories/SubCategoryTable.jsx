@@ -123,7 +123,7 @@ function SubCategoryTable() {
       ? 1
       : Number(searchParams.get("page"));
 
-    pageCount = Math.ceil(subCategories.length / PAGE_SIZE);
+    pageCount = Math.ceil(subCategories.length / PAGE_SIZE) || 1;
   }
 
   if (isPending) return <Spinner />;

@@ -109,7 +109,7 @@ function UserTable() {
       ? 1
       : Number(searchParams.get("page"));
 
-    pageCount = Math.ceil(staffMembers.length / PAGE_SIZE);
+    pageCount = Math.ceil(staffMembers.length / PAGE_SIZE) || 1;
   }
 
   if (isPending) return <Spinner />;

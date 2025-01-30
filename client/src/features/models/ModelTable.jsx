@@ -121,7 +121,7 @@ function ModelTable() {
       ? 1
       : Number(searchParams.get("page"));
 
-    pageCount = Math.ceil(models.length / PAGE_SIZE);
+    pageCount = Math.ceil(models.length / PAGE_SIZE) || 1;
   }
 
   if (isPending) return <Spinner />;

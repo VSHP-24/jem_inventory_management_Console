@@ -137,7 +137,7 @@ function OrderTable() {
       ? 1
       : Number(searchParams.get("page"));
 
-    pageCount = Math.ceil(orders.length / PAGE_SIZE);
+    pageCount = Math.ceil(orders.length / PAGE_SIZE) || 1;
   }
 
   if (isPending) return <Spinner />;
