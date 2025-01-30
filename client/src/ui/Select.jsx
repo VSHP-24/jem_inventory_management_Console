@@ -9,6 +9,8 @@ const Select = styled.select`
   padding: 0.8rem 1.2rem;
   width: 30rem;
   box-shadow: var(--shadow-sm);
+  width: 100%;
+  max-width: 35rem;
 
   @media ${device.laptopL} {
     width: 100%;

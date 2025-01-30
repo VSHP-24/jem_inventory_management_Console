@@ -24,7 +24,9 @@ const Form = styled.form`
   border: 1px solid var(--color-gold-500);
   border-radius: var(--border-radius-md);
   overflow: hidden;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
+  width: 100%;
+  padding: 1rem;
 
   @media ${device.laptopL} {
     width: 100%;

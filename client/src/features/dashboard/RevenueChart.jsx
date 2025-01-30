@@ -55,7 +55,7 @@ function RevenueChart({ purchases, orders, numDays }) {
 
   return (
     <StyledRevenueChart>
-      <Heading as="h2">
+      <Heading as="h5">
         Revenue from {format(allDates.at(0), "MMM dd yyyy")} &mdash;{" "}
         {format(allDates.at(-1), "MMM dd yyyy")}{" "}
       </Heading>

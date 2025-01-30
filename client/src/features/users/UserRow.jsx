@@ -77,7 +77,9 @@ function UserRow({ user, index, id, deletedTable }) {
           <StyledColumnLaptopL as="header" type="heading">
             Role
           </StyledColumnLaptopL>
-          <StyledColumnLaptopL type="userDetails">{role}</StyledColumnLaptopL>
+          <StyledColumnLaptopL type="userDetails">
+            {role.toUpperCase()}
+          </StyledColumnLaptopL>
         </>
       )}
 

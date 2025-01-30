@@ -12,7 +12,7 @@ import { device } from "../utils/devices";
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-700);
 
-  font-size: 1.4rem;
+  font-size: 1rem;
   background-color: var(--color-gold-200);
   border-radius: 7px;
   overflow: hidden;
@@ -91,7 +91,7 @@ const Footer = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.2rem;
+  padding: 0.5rem;
   border: none;
 
   /* This will hide the footer when it contains no child elements. */

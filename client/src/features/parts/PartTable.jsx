@@ -12,7 +12,7 @@ import { PAGE_SIZE } from "../../utils/constants";
 import { device } from "../../utils/devices";
 
 const partTableStyles = {
-  defaultColumns: ".5fr 1fr 1fr .5fr",
+  defaultColumns: ".35fr 1fr 1fr ",
   laptopL: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr" },
   tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr" },
   mobileM: { columns: ".35fr 1fr 1fr", rows: "1fr 1fr 1fr" },
@@ -22,10 +22,6 @@ const StyledTableColumnLaptopL = styled.div`
   @media ${device.laptopL} {
     grid-column: 2;
   }
-`;
-
-const InvisibileBox = styled.div`
-  color: var(--color-gold-400);
 `;
 
 ///////////////////////////////////
@@ -128,8 +124,6 @@ function PartTable() {
 
         <StyledTableColumnLaptopL>Name</StyledTableColumnLaptopL>
         <StyledTableColumnLaptopL>Quantity</StyledTableColumnLaptopL>
-
-        <InvisibileBox>Hello</InvisibileBox>
       </Table.Header>
 
       <Table.Body

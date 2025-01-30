@@ -22,6 +22,7 @@ const StyledNav = styled.nav`
   ${(props) =>
     props.stylingType === "dashboardFilter" &&
     css`
+      font-size: 1.2rem;
       @media ${device.laptopL} {
         gap: 0.1rem;
         padding: 0 0.1rem;
@@ -47,6 +48,7 @@ const StyledNav = styled.nav`
   ${(props) =>
     props.stylingType === "createFormTabs" &&
     css`
+      font-size: 1.2rem;
       flex-wrap: wrap;
       justify-content: space-evenly;
 
@@ -69,6 +71,8 @@ const StyledNav = styled.nav`
   ${(props) =>
     props.stylingType === "usersNavTabs" &&
     css`
+      font-size: 1.2rem;
+
       @media ${device.laptopL} {
         gap: 0.1rem;
         padding: 0 0.1rem;
@@ -90,6 +94,7 @@ const StyledNav = styled.nav`
     ${(props) =>
     props.stylingType === "manageTableNavFilter" &&
     css`
+      font-size: 1.2rem;
       @media ${device.laptopL} {
         gap: 0.1rem;
         padding: 0 0.1rem;

@@ -8,7 +8,8 @@ const Input = styled.input`
   border-radius: var(--border-radius-sm);
   padding: 0.8rem 1.2rem;
   box-shadow: var(--shadow-sm);
-
+  width: 100%;
+  max-width: 35rem;
   @media ${device.laptopL} {
     width: 100%;
   }

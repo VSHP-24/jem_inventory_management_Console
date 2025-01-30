@@ -10,8 +10,8 @@ const StyledAside = styled.aside`
   display: flex;
   flex-direction: column;
   background-color: var(--color-gold-300);
-  justify-content: space-around;
-  padding: 0.4rem 0.2rem 2.4rem;
+  justify-content: space-evenly;
+  padding: 0.4rem 0.2rem;
 
   @media ${device.laptopS} {
     grid-row: 3 / span 1;
@@ -37,8 +37,8 @@ const StyledNavLinks = styled(StyledNavLink)`
   }
 
   & svg {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 1.4rem;
+    height: 1.4rem;
     color: var(--color-grey-900);
     transition: all 0.3s;
   }
@@ -81,7 +81,7 @@ const StyledNavLinks = styled(StyledNavLink)`
 `;
 
 const StyledIcon = styled.div`
-  font-size: 2rem;
+  font-size: 1rem;
 
   @media ${device.laptopL} {
     font-size: 1rem;

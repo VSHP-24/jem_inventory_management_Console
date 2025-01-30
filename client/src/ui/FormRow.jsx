@@ -34,6 +34,7 @@ const StyledFormRow = styled.div`
     max-width: 100dvw;
     gap: 1.2rem;
     align-items: center;
+    justify-self: end;
 
     @media ${device.laptopL} {
       display: flex;

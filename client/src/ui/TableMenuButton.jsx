@@ -18,8 +18,8 @@ const StyledMenuButton = styled.button`
   }
 
   & svg {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 1.8rem;
+    height: 1.8rem;
     color: var(--color-grey-700);
 
     @media ${device.mobileM} {

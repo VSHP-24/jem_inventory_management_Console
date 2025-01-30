@@ -103,7 +103,7 @@ function CategoryTable() {
       deletedTableContent={
         <DeletedCategories filterDeletedCategories={filterDeletedCategories} />
       }
-      columns=".35fr 2fr 1fr"
+      columns=".35fr 2fr .1fr"
       tablePosition="static"
     >
       <Table.Header>

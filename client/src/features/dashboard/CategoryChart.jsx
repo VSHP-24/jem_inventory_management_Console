@@ -83,7 +83,7 @@ function CategoryChart({ orders, categories, numDays }) {
 
   return (
     <ChartBox>
-      <Heading as="h2">Category Sales Summary</Heading>
+      <Heading as="h5">Category Sales Summary</Heading>
 
       {data.length === 0 && (
         <NoActivity>No sales in the last {numDays} days 😶</NoActivity>
@@ -117,7 +117,8 @@ function CategoryChart({ orders, categories, numDays }) {
             align="right"
             width="40%"
             layout="vertical"
-            iconSize={15}
+            iconSize={7.5}
+            wrapperStyle={{ fontSize: "1rem" }}
             iconType="circle"
           />
         </PieChart>

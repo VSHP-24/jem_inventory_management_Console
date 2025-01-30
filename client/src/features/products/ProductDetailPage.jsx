@@ -8,9 +8,9 @@ import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
-  display: grid;
-  grid-template-columns: 30rem 1fr;
-  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
   padding: 2rem;
   width: 100%;
 

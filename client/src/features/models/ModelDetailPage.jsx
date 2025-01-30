@@ -6,9 +6,9 @@ import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
-  display: grid;
-  grid-template-columns: 30rem 1fr;
-  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
   padding: 2rem;
   width: 100%;
 
@@ -30,6 +30,10 @@ const StyledDetailPage = styled.div`
 const StyledModelDetails = styled.main``;
 
 const StyledModelImages = styled.aside`
+  height: 12rem;
+  width: 20rem;
+  align-self: center;
+
   @media ${device.laptopL} {
     height: 12rem;
     width: 20rem;

@@ -83,7 +83,7 @@ function BrandChart({ orders, brands, numDays }) {
 
   return (
     <ChartBox>
-      <Heading as="h2">Brand Sales Summary</Heading>
+      <Heading as="h5">Brand Sales Summary</Heading>
 
       {data.length === 0 && (
         <NoActivity>No sales in the last {numDays} days 😶</NoActivity>
@@ -113,7 +113,8 @@ function BrandChart({ orders, brands, numDays }) {
             align="right"
             width="40%"
             layout="vertical"
-            iconSize={15}
+            iconSize={7.5}
+            wrapperStyle={{ fontSize: "1.2rem" }}
             iconType="circle"
           />
         </PieChart>

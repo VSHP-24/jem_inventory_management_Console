@@ -7,6 +7,10 @@ const StyledFooter = styled.footer`
   background-color: var(--color-grey-900);
   grid-column: 1/-1;
   color: var(--color-gold-100);
+  font-size: 1.2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem;
 
   @media ${device.laptopS} {
     font-size: 1.2rem;

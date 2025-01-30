@@ -8,8 +8,9 @@ const Textarea = styled.textarea`
   background-color: var(--color-gold-100);
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
-  width: 30rem;
   height: 8rem;
+  width: 100%;
+  max-width: 35rem;
 
   @media ${device.laptopL} {
     width: 100%;

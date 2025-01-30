@@ -12,7 +12,7 @@ import { PAGE_SIZE } from "../../utils/constants";
 import { device } from "../../utils/devices";
 
 const purchaseTableStyles = {
-  defaultColumns: ".75fr 1.5fr 1.5fr 1fr 1.5fr 1.5fr 1.5fr .1fr",
+  defaultColumns: ".5fr 1fr 1.75fr .5fr 1.2fr 1.25fr 1fr ",
   laptopL: {
     columns: ".1fr .35fr .5fr",
     rows: "1fr 1fr 1fr 1fr 1fr 1fr",
@@ -23,15 +23,10 @@ const purchaseTableStyles = {
 
 const StyledTableColumnLaptopL = styled.div`
   font-size: 1.2rem;
-  justify-self: center;
 
   @media ${device.laptopL} {
     grid-column: 2;
   }
-`;
-
-const InvisibileBox = styled.div`
-  color: var(--color-gold-400);
 `;
 
 //////////////////////////////////////
@@ -157,12 +152,10 @@ function PurchaseTable() {
         <StyledTableColumnLaptopL>Sl No.</StyledTableColumnLaptopL>
         <StyledTableColumnLaptopL>Part</StyledTableColumnLaptopL>
         <StyledTableColumnLaptopL>Vendor</StyledTableColumnLaptopL>
-        <StyledTableColumnLaptopL>Quantity</StyledTableColumnLaptopL>
+        <StyledTableColumnLaptopL>QTY</StyledTableColumnLaptopL>
         <StyledTableColumnLaptopL>Created On</StyledTableColumnLaptopL>
         <StyledTableColumnLaptopL>Status</StyledTableColumnLaptopL>
         <StyledTableColumnLaptopL>Modified On</StyledTableColumnLaptopL>
-
-        <InvisibileBox>Hello</InvisibileBox>
       </Table.Header>
 
       <Table.Body

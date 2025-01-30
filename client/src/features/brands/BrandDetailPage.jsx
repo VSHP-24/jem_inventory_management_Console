@@ -33,6 +33,10 @@ const StyledDetailPage = styled.div`
 const StyledBrandDetails = styled.main``;
 
 const StyledBrandImages = styled.aside`
+  height: 15rem;
+  width: 15rem;
+  align-self: center;
+
   @media ${device.laptopL} {
     height: 10rem;
     width: 10rem;

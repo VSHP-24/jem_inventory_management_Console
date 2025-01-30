@@ -50,6 +50,7 @@ function OrderForm({ orderToEdit = {}, onCloseModal }) {
             <option value={"order_placed"}>Order Placed</option>
             <option value={"order_confirmed"}>Order Confirmed</option>
             <option value={"order_shipped"}>Order Shipped</option>
+            <option value={"order_delivered"}>Order Delivered</option>
             <option value={"cancelled"}>Order Cancelled</option>
           </Select>
         </FormRow>

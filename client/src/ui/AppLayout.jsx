@@ -9,15 +9,11 @@ import { device } from "../utils/devices";
 
 const StyledAppLayout = styled.div`
   display: grid;
-  grid-template-columns: 11rem 1fr;
-  grid-template-rows: 5.2rem 1fr 2.25rem;
-  height: 100vh;
+  grid-template-columns: 10rem 1fr;
+  grid-template-rows: 4rem 1fr 2rem;
+  height: 100dvh;
   overflow: clip;
-  max-width: 160rem;
-
-  @media ${device.desktop} {
-    max-width: 100rem;
-  }
+  max-width: 100rem;
 
   @media ${device.laptopL} {
     max-width: 90rem;
@@ -43,7 +39,7 @@ const StyledAppLayout = styled.div`
 const Main = styled.main`
   background-color: var(--color-gold-100);
   overflow-y: scroll;
-  padding: 1.6rem 2.4rem 6.4rem;
+  padding: 1.6rem 1.8rem;
 
   @media ${device.laptopS} {
     grid-row: 2 / span 1;

@@ -13,7 +13,7 @@ const StyledPagination = styled.div`
 `;
 
 const P = styled.p`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   margin-left: 0.8rem;
   padding: 0.5rem;
 
@@ -44,7 +44,7 @@ const PaginationButton = styled.button`
   border: none;
   border-radius: var(--border-radius-sm);
   font-weight: 500;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 
   display: flex;
   align-items: center;
@@ -62,8 +62,8 @@ const PaginationButton = styled.button`
   }
 
   & svg {
-    height: 1.8rem;
-    width: 1.8rem;
+    height: 1.4rem;
+    width: 1.4rem;
   }
 
   &:hover:not(:disabled) {

@@ -1,6 +1,10 @@
 function CustomerForm({ customerToEdit = {} }) {
   return (
-    <p> {` 😐 Data can only be edited by ${customerToEdit.user.name} `} </p>
+    <p>
+      {" "}
+      {` 😐 Data can only be edited by `}{" "}
+      <strong>{`${customerToEdit.user.name}`}</strong>{" "}
+    </p>
   );
 }
 

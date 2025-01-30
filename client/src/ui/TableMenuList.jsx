@@ -16,7 +16,8 @@ const StyledMenuOptions = styled.ul`
   right: ${(props) => props.position.x}px;
   bottom: ${(props) => props.position.y}px;
   z-index: 100;
-  width: 14rem;
+  width: 12rem;
+  font-size: 1rem;
 
   @media ${device.laptopL} {
     font-size: 1.2rem;
@@ -35,11 +36,11 @@ const StyledButton = styled.button`
   padding: 1rem;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
 
   & svg {
-    width: 1.6rem;
+    width: 1.4rem;
     height: 1.6rem;
     transition: all 0.3s;
   }

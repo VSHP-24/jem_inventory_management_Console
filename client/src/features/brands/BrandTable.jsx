@@ -96,7 +96,7 @@ function BrandTable() {
 
   return (
     <Table
-      columns=".35fr 2fr 1fr"
+      columns=".35fr 2fr .1fr"
       deletedTableContent={
         <DeletedBrands filterDeletedBrands={filterDeletedBrands} />
       }

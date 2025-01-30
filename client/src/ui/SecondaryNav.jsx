@@ -29,8 +29,8 @@ const StyledNavLinks = styled(StyledNavLink)`
   }
 
   & svg {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2rem;
+    height: 2rem;
     color: var(--color-gold-100);
     transition: all 0.3s;
   }
@@ -51,7 +51,7 @@ const StyledNavLinks = styled(StyledNavLink)`
 `;
 
 const StyledIcon = styled.div`
-  font-size: 3rem;
+  font-size: 2rem;
 
   @media ${device.laptopS} {
     font-size: 1rem;

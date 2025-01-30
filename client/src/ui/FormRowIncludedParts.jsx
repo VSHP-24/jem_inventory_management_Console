@@ -4,7 +4,7 @@ import { device } from "../utils/devices";
 
 const StyledFormRow = styled.div`
   display: grid;
-  grid-template-columns: 15rem 30rem 7rem;
+  grid-template-columns: 15rem 2fr 0.75fr;
   align-items: center;
   gap: 0.5rem;
 
@@ -27,6 +27,16 @@ const StyledFormRow = styled.div`
     align-items: center;
   }
 
+  @media ${device.laptopS} {
+    display: grid;
+    grid-template-columns: 7.5rem 2fr 0.5fr;
+  }
+
+  @media ${device.tablet} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
   @media ${device.mobileM} {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -35,6 +45,11 @@ const StyledFormRow = styled.div`
 
 const Label = styled.label`
   font-weight: 700;
+
+  @media ${device.tablet} {
+    font-size: 1rem;
+    grid-column-start: span 2;
+  }
 
   @media ${device.mobileM} {
     font-size: 1rem;

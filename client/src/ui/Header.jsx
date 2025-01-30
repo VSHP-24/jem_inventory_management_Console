@@ -12,7 +12,7 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 6rem 2rem 0.8rem;
+  padding: 2rem 2rem 2rem 0.5rem;
 
   @media ${device.laptopL} {
     padding: 2rem;
@@ -40,7 +40,7 @@ const StyledHeader = styled.header`
 const StyledContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 2.4rem;
+  gap: 1.8rem;
   @media ${device.tablet} {
     gap: 1.2rem;
   }

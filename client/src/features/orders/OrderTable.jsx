@@ -12,7 +12,7 @@ import { device } from "../../utils/devices";
 import { useGetOrders } from "./useGetOrder";
 
 const orderTableStyles = {
-  defaultColumns: ".75fr 4fr 2fr 1.25fr 1fr 1.25fr 2.5fr .001fr",
+  defaultColumns: ".35fr 1fr 1.5fr 1fr 1fr 1.2fr 1.5fr ",
   laptopL: { columns: ".1fr .35fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr 1fr " },
   tablet: { columns: ".1fr .35fr .5fr", rows: "1fr 1fr 1fr 1fr 1fr" },
   mobileM: { columns: ".35fr 1fr 1.75fr", rows: "1fr 1fr 1fr 1fr 1fr" },
@@ -20,15 +20,10 @@ const orderTableStyles = {
 
 const StyledTableColumnLaptopL = styled.div`
   font-size: 1rem;
-  justify-self: center;
 
   @media ${device.laptopL} {
     grid-column: 2;
   }
-`;
-
-const InvisibileBox = styled.div`
-  color: var(--color-gold-400);
 `;
 
 ///////////////////////////////////
@@ -172,8 +167,6 @@ function OrderTable() {
         <StyledTableColumnLaptopL>Settlement</StyledTableColumnLaptopL>
 
         <StyledTableColumnLaptopL>Order Status</StyledTableColumnLaptopL>
-
-        <InvisibileBox>Hello</InvisibileBox>
       </Table.Header>
 
       <Table.Body

@@ -13,7 +13,8 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 30rem;
+  max-width: 20rem;
+  font-size: 1.2rem;
 
   @media ${device.laptopL} {
     font-size: 1.2rem;
@@ -37,6 +38,7 @@ const StyledFilteredItemsContainer = styled.div`
   justify-content: space-between;
   padding: 0.5rem;
   gap: 0.5rem;
+  height: 4rem;
 `;
 
 const StyledFilterButtons = styled.div`
@@ -110,7 +112,7 @@ const StyledIndividualOptionContainer = styled.div`
 const StyledIndividualOption = styled.label`
   padding-left: 0.5rem;
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1rem;
 
   @media ${device.laptopL} {
     font-size: 1.2rem;

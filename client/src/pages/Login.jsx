@@ -9,7 +9,7 @@ import { device } from "../utils/devices";
 const LoginLayout = styled.main`
   height: 100dvh;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 25rem;
   align-content: center;
   justify-content: center;
   justify-items: center;

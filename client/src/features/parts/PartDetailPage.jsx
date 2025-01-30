@@ -6,7 +6,7 @@ import { device } from "../../utils/devices";
 
 const StyledDetailPage = styled.div`
   border: 1px solid var(--color-grey-700);
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   padding: 2rem;
   width: 100%;
 

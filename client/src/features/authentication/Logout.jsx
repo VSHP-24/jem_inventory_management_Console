@@ -14,7 +14,12 @@ const StyledContainer = styled.div`
 `;
 
 const StyledIcon = styled.div`
-  font-size: 3rem;
+  font-size: 2rem;
+
+  & svg {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
 
   @media ${device.laptopS} {
     font-size: 1rem;

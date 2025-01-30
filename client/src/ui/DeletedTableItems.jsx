@@ -5,7 +5,8 @@ import Button from "./Button";
 import { device } from "../utils/devices";
 
 const StyledButton = styled(Button)`
-  width: 100%;
+  width: fit-content;
+  padding: 0.01rem 0.5rem;
 
   @media ${device.laptopL} {
     width: fit-content;

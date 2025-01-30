@@ -12,7 +12,7 @@ import { useGetCustomers } from "./useGetCustomers";
 import { PAGE_SIZE } from "../../utils/constants";
 
 const customerTableStyles = {
-  defaultColumns: ".5fr 1fr 2fr 1.5fr .75fr",
+  defaultColumns: ".5fr 1fr 1fr 1fr ",
   laptopL: { columns: ".25fr 1fr 1fr ", rows: "1fr 1fr 1fr" },
   tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr 1fr" },
   mobileM: { columns: ".35fr 1fr 2fr", rows: "1fr 1fr 1fr" },
@@ -22,10 +22,6 @@ const StyledTableColumnLaptopL = styled.div`
   @media ${device.laptopL} {
     grid-column: 2;
   }
-`;
-
-const InvisibileBox = styled.div`
-  color: var(--color-gold-400);
 `;
 
 //////////////////////////////////////
@@ -137,8 +133,6 @@ function CustomersTable() {
         <StyledTableColumnLaptopL>Email</StyledTableColumnLaptopL>
 
         <StyledTableColumnLaptopL>Phone Number</StyledTableColumnLaptopL>
-
-        <InvisibileBox>Hello</InvisibileBox>
       </Table.Header>
 
       <Table.Body

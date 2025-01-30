@@ -16,8 +16,9 @@ import { device } from "../../utils/devices";
 const StyledContainer = styled.div`
   display: flex;
   gap: 0.5rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   align-items: center;
+  justify-content: start;
 
   @media ${device.tablet} {
     font-size: 1rem;
@@ -30,7 +31,7 @@ const StyledOrderId = styled.div`
 
 const columnType = {
   orderDetails: css`
-    font-size: 1.2rem;
+    font-size: 1rem;
     word-break: break-word;
     @media ${device.laptopL} {
       grid-column: 3;

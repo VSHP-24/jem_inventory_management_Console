@@ -12,7 +12,7 @@ import { device } from "../../utils/devices";
 import { useGetSubCategories } from "./useGetSubCategories";
 
 const subCategoryTableStyles = {
-  defaultColumns: ".5fr 1fr 1fr .5fr",
+  defaultColumns: ".5fr 1fr 1fr ",
   laptopL: { columns: ".25fr 1fr 1fr ", rows: "1fr 1fr " },
   tablet: { columns: ".25fr 1fr 1fr", rows: "1fr 1fr" },
   mobileM: { columns: ".35fr 1fr 1.5fr", rows: "1fr 1fr" },

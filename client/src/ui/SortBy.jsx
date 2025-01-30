@@ -8,10 +8,10 @@ import { device } from "../utils/devices";
 const StyledSelect = styled(Select)`
   border: 2px solid var(--color-grey-900);
   border-radius: 7px;
-  height: 5rem;
-  font-size: 2.5rem;
+  height: 4rem;
   width: 100%;
-  max-width: 30rem;
+  max-width: 20rem;
+  font-size: 1rem;
 
   @media ${device.laptopL} {
     font-size: 1.2rem;
@@ -30,6 +30,8 @@ const StyledSelect = styled(Select)`
 `;
 
 const StyledOption = styled.option`
+  font-size: 1rem;
+
   @media ${device.laptopL} {
     font-size: 1.2rem;
   }
