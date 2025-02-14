@@ -2,8 +2,6 @@
 
 This repository contains the development of  a custom internal application to streamline inventory, order, and customer management while providing insightful business analytics.
 
-[![Quick Walkthrough of the application](https://img.youtube.com/vi/8yYqYLcsvio/0.jpg)](https://www.youtube.com/watch?v=8yYqYLcsvio)
-
 ## Key Features
 
 - **User Authentication**: Secure login for the founder, with the ability to manage staff accounts.
